@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "使用Octopress写博客"
-date: 2013-09-03 21:06:19 +0800
+date: 2013-05-03 21:06:19 +0800
 comments: true
 categories: 工具
 ---
@@ -143,12 +143,12 @@ Octopress中文章存储在`source/_posts`目录下，并且需要按照Jekyll�
 ```
 rake new_post["title"]   
 ```   
-其中title为博文的文件名，创建出来的文件默认是markdown格式。上面的命令会创建出这样一个文件：`source/_posts/2013-09-03-title.markdown`。打开这个文件，可以看到里面有如下一些内容了(告诉Jekyll博客引擎如何处理博文和页面)：  
+其中title为博文的文件名，创建出来的文件默认是markdown格式。上面的命令会创建出这样一个文件：`source/_posts/2013-05-03-title.markdown`。打开这个文件，可以看到里面有如下一些内容了(告诉Jekyll博客引擎如何处理博文和页面)：  
 ```
 ---  
 layout: post  
 title: "title"
-date: 2013-09-03 16:36  
+date: 2013-05-03 16:36  
 comments: true  
 categories:   
 ---  
