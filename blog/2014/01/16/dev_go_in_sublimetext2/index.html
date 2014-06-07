@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>在Sublime Text2中开发Golang - zJun's Tech Blog</title>
+  <meta name="author" content="zJun">
+
+  
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zjun.github.io/blog/2014/01/16/dev_go_in_sublimetext2">
+  <link href="/favicon.png" type="image/png" rel="icon">
+  <link href="/atom.xml" rel="alternate" title="zJun's Tech Blog" type="application/atom+xml">
+
+  <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+
+  <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
+  
+
+</head>
+
+  <body   >
+    <div id="wrap">
+      <header role="banner">
+        <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">zJun's Tech Blog</a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/">Blog</a>
+                </li>
+                <li >
+                    <a href="/blog/archives">Archives</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="subscribe-rss" href="/atom.xml" title="subscribe via RSS">
+                        <span class="visible-xs">RSS</span>
+                        <img class="hidden-xs" src="/images/rss.png" alt="RSS">
+                    </a>
+                </li>
+                
+            </ul>
+            
+                <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
+                    <input type="hidden" name="q" value="site:zjun.github.io">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="q" placeholder="Search">
+                    </div>
+                </form>
+            
+        </div>
+    </div>
+</nav>
+
+
+      </header>
+      <div id="main" class="container">
+        <div id="content">
+          <div class="row">
+  <div class="page-content col-md-9">
+    <article class="hentry" role="article">
+      
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-16T21:06:19+08:00" pubdate data-updated="true">Jan 16<span>th</span>, 2014</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io">Comments</a>
+        
+      </p>
+    
+    
+    <h1 class="entry-title">
+        在Sublime Text2中开发Golang
+        
+    </h1>
+    
+  </header>
+
+
+<div class="entry-content clearfix"><p>Sublime Text 2 是一个可定制程度相当高的轻量级编辑器,具有丰富的第三方插件，关键是可以无限期的免费使用。下面就介绍通过安装几种插件，将Sublime Text 2定制成为一款相当好用的Golang IDE。</p>
+
+<!--more-->
+
+
+<h2>下载</h2>
+
+<ol>
+<li>下载<a href="http://www.sublimetext.com/">Sublime Text 2</a></li>
+<li>安装</li>
+</ol>
+
+
+<h2>安装Package Control</h2>
+
+<ol>
+<li>按Ctrl + ` 打开console</li>
+<li><p>粘贴下列代码到console并回车</p>
+
+<p> import urllib2,os;pf=&lsquo;Package Control.sublime-package&rsquo;;ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),&lsquo;wb&rsquo;).write(urllib2.urlopen(&lsquo;<a href="http://sublime.wbond.net/">http://sublime.wbond.net/</a>&rsquo;+pf.replace(&lsquo; &rsquo;,&lsquo;%20&rsquo;)).read())</p></li>
+</ol>
+
+
+<p>重启Sublime Text 2, 重启后，如果在 Preferences菜单下，多出一个菜单项 Package Control，说明安装成功。</p>
+
+<h2>安装 <a href="https://github.com/nsf/gocode">gocode</a></h2>
+
+<p>打开终端，输入以下内容（需要安装git工具):</p>
+
+<pre><code>go get github.com/nsf/gocode  
+go install github.com/nsf/gocode  
+</code></pre>
+
+<p>安装完成后，我们可以在 go/bin 目录下，发现多出了个 gocode 文件。</p>
+
+<h2>安装 Gosublime 插件</h2>
+
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip（即“Package Control: Install Package”的缩写）</li>
+<li>输入GoSublime，回车开始安装</li>
+</ol>
+
+
+<h2>安装 SidebarEnhancements 插件</h2>
+
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入SidebarEnhancements，回车开始安装</li>
+</ol>
+
+
+<h2>安装 Go Build 插件</h2>
+
+<h3>安装</h3>
+
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入 <a href="https://github.com/cthackers/SublimeGoBuild">Go Build</a>，回车开始安装</li>
+</ol>
+
+
+<p>如果通过Package Controll 不能安装 Go Build, 那么可以通过git手动安装：</p>
+
+<ul>
+<li>For Windows:
+Open a cmd, go to <code>%APPDATA%\Sublime Text 2\Packages</code> and type&hellip;</li>
+<li><p>For Linux:
+Open a shell, go to <code>~/.config/Sublime Text 2/Packages</code> and type&hellip;</p>
+
+<p>  <code>git clone git://github.com/cthackers/SublimeGoBuild.git</code></p></li>
+</ul>
+
+
+<h3>使用</h3>
+
+<ul>
+<li><code>F5</code> to run your project</li>
+<li><code>F7</code> to build</li>
+<li><code>CTRL + F5</code> to run tests</li>
+</ul>
+
+
+<h2>安装 Git Gutter 插件</h2>
+
+<p><a href="https://github.com/jisaacks/GitGutter">Git Gutter</a> is a sublime text 2/3 plugin to show an icon in the gutter area indicating whether a line has been inserted, modified or deleted.</p>
+
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入 Git Gutter，回车开始安装</li>
+</ol>
+
+
+<h2>安装 SideBarGit 插件</h2>
+
+<p><a href="https://github.com/SublimeText/SideBarGit">SideBarGit</a> provides git commands on Side Bar of Files and Folders for Sublime Text 2.</p>
+
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入 SideBarGit，回车开始安装</li>
+</ol>
+
+</div>
+
+
+      <footer>
+        <p class="meta text-muted">
+          
+  
+
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">zJun</span></span>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-16T21:06:19+08:00" pubdate data-updated="true">Jan 16<span>th</span>, 2014</time>
+          
+
+<span class="glyphicon glyphicon-tags"></span>&nbsp;
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/golang/'>golang</a>
+  
+</span>
+
+
+        </p>
+        
+          <div class="sharing">
+  
+  
+  
+</div>
+
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/blog/2014/01/03/go_note_5_accessmysql/" title="Previous Post: Go笔记5：访问MySQL数据库">&laquo; Go笔记5：访问MySQL数据库</a></li>
+            
+            
+            <li class="next"><a href="/blog/2014/01/22/go_note_6_data_structure/" title="Next Post: Go笔记6：Go数据结构">Go笔记6：Go数据结构 &raquo;</a></li>
+            
+          </ul>
+        
+      </footer>
+    </article>
+    
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
+    
+  </div>
+
+  
+  <aside class="sidebar col-md-3">
+    
+      <section class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Recent Posts</h3>
+  </div>
+  
+  <div id="recent_posts" class="list-group">
+    
+    <a class="list-group-item " href="/blog/2014/02/08/go_note_7_goroutine/">Go笔记7:并发</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/22/go_note_6_data_structure/">Go笔记6：Go数据结构</a>
+    
+    <a class="list-group-item active" href="/blog/2014/01/16/dev_go_in_sublimetext2/">在Sublime Text2中开发Golang</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/03/go_note_5_accessmysql/">Go笔记5：访问MySQL数据库</a>
+    
+    <a class="list-group-item " href="/blog/2013/12/30/go_note_4_interface/">Go笔记4：接口</a>
+    
+  </div>
+</section>
+
+
+
+
+
+
+    
+  </aside>
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+    <footer role="contentinfo"><div class="container">
+    <p class="text-muted credits">
+  Copyright &copy; 2014 - zJun<br>
+  <small>
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
+      <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
+  </small>
+</p>
+
+</div>
+</footer>
+    <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2014/01/16/dev_go_in_sublimetext2/';
+        var disqus_url = 'http://zjun.github.io/blog/2014/01/16/dev_go_in_sublimetext2/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

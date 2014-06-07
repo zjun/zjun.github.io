@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Sublime Text 2快捷键及常用插件 - zJun's Tech Blog</title>
+  <meta name="author" content="zJun">
+
+  
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zjun.github.io/blog/2013/05/08/using-sublime">
+  <link href="/favicon.png" type="image/png" rel="icon">
+  <link href="/atom.xml" rel="alternate" title="zJun's Tech Blog" type="application/atom+xml">
+
+  <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+
+  <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
+  
+
+</head>
+
+  <body   >
+    <div id="wrap">
+      <header role="banner">
+        <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">zJun's Tech Blog</a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/">Blog</a>
+                </li>
+                <li >
+                    <a href="/blog/archives">Archives</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="subscribe-rss" href="/atom.xml" title="subscribe via RSS">
+                        <span class="visible-xs">RSS</span>
+                        <img class="hidden-xs" src="/images/rss.png" alt="RSS">
+                    </a>
+                </li>
+                
+            </ul>
+            
+                <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
+                    <input type="hidden" name="q" value="site:zjun.github.io">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="q" placeholder="Search">
+                    </div>
+                </form>
+            
+        </div>
+    </div>
+</nav>
+
+
+      </header>
+      <div id="main" class="container">
+        <div id="content">
+          <div class="row">
+  <div class="page-content col-md-9">
+    <article class="hentry" role="article">
+      
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-05-08T14:36:00+08:00" pubdate data-updated="true">May 8<span>th</span>, 2013</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io">Comments</a>
+        
+      </p>
+    
+    
+    <h1 class="entry-title">
+        Sublime Text 2快捷键及常用插件
+        
+    </h1>
+    
+  </header>
+
+
+<div class="entry-content clearfix"><p>SublimeText2 是我目前为止用过的最为强大的编辑器，支持但不限于 C, C++, C#, CSS, D, Erlang, HTML, Groovy, Haskell, HTML, Java, JavaScript, LaTeX, Lisp, Lua, Markdown, Matlab, OCaml, Perl, PHP, Python, R, Ruby, SQL, TCL, Textile and XML 等主流编程语言的语法高亮。拥有优秀的代码自动完成功能 (自动补齐括号，大括号等配对符号；自动补全已经出现的单词；自动补全函数名)，非常智能。 最重要的是这么一个原来高不可攀的“神器”，现在居然开源免费了，所以还不赶快试试：</p>
+
+<!-- more -->
+
+
+<h1>常用快捷键：</h1>
+
+<h2>默认方式：</h2>
+
+<ul>
+<li>鼠标选中多行，按下 Ctrl+Shift+L    —->     同时编辑这些行</li>
+<li>鼠标选中文本，反复按 CTRL+D       —->     继续向下同时选中下一个相同的文本进行同时编辑</li>
+<li>鼠标选中文本，按下 Alt+F3             —->     一次性选择全部的相同文本进行同时编辑</li>
+<li>Shift+鼠标右键/按住鼠标中键          —->     进行竖向多行选择</li>
+<li>Ctrl+鼠标左键                                  —->     选择同时要编辑的多处文本</li>
+<li>ctrl+L                                               —->     选择整行</li>
+<li>ctrl+kk                                             —->     从光标处删除至行尾</li>
+<li>ctrl+j                                                —->     合并行</li>
+<li>ctrl+/                                               —->     注释整行</li>
+<li>ctrl+y                                               —->    恢复撤销</li>
+<li>ctrl+shift+enter                              —->     插入行前</li>
+<li>shift+ctrl+上下键                            —->    光标与上/下行对调，非常实用</li>
+<li>cmd+shift+d —-> Duplicate Line</li>
+<li>ctrl+shift+w —-> Wrap Selection with Tag</li>
+<li>cmd+r —-> Goto Symbol&hellip;</li>
+<li>cmd+shift+t —-> Reopen Closed File</li>
+<li>cmd+shift+p —-> Command Pallete</li>
+</ul>
+
+
+<h2>常用的Emment快捷键</h2>
+
+<ul>
+<li>ctrl+,                                                              ======> 选中标签的内容</li>
+<li>shift+ctrl+;                                                   ======> 删除标签</li>
+<li>shift+ctrl+r                                                   =====> 更新所有相同css属性的值(在css3中不需要在每个不同前缀都去修改了，非常好用)</li>
+<li><p>选中某个css属性的数值，按ctrl+上下键     =====> 值增减1(类似chrome浏览器，非常棒)</p>
+
+<h2>CodeIntel实用快捷键</h2></li>
+<li><p>ctrl+鼠标点击某一变量                                 =====> 跳转至定义该变量的行</p></li>
+</ul>
+
+
+<h1>常用插件</h1>
+
+<h3><a href="https://github.com/sergeche/emmet-sublime">Emmet</a>(原名为Zen Coding)</h3>
+
+<p>一个用于HTML和CSS高效的编程的插件，只能在HTML或CSS文件中才能打开，原先zen coding需要按快捷键 ctrl+alt+enter才能运行，现在更新了另一种方式——直接在文本中输入zen coding的语句，然后按tag键就可以实现同样功能。</p>
+
+<h3><a href="https://github.com/aaronpowell/sublime-jquery-snippets">jQuery-snippets</a></h3>
+
+<p>这个插件提供jQuery的提示功能，不过每次提示都需要快捷键ctrl+shift+p上查找，不过如果和CodeIntel插件（下面说到）配合使用能互补不足，因为两个插件都有些jQuery代码缺少。</p>
+
+<h3><a href="https://github.com/wbond/sublime_alignment">Alignment</a></h3>
+
+<p>选定要对齐的行，按ctrl+alt+a</p>
+
+<h3><a href="https://github.com/facelessuser/BracketHighlighter">BracketHighlighter</a></h3>
+
+<p>高亮显示光标所在的括号和引号，类似于代码匹配，可以匹配括号，引号等符号内的范围</p>
+
+<h3><a href="https://github.com/kemayo/sublime-text-2-clipboard-history">Clipboard History</a></h3>
+
+<p>粘贴板历史记录，方便使用复制/剪切的内容，快捷键ctrl+shift+v可调出该历史记录面板</p>
+
+<h3><a href="https://github.com/kemayo/sublime-text-2-git">Git</a></h3>
+
+<p>用法：在菜单上 Tools –> Git，可使用git的功能
+git——大名鼎鼎的git，该插件可以实现大部分的git功能</p>
+
+<h3><a href="https://github.com/Kronuz/SublimeCodeIntel">CodeIntel</a></h3>
+
+<p>代码自动提示，支持大多数语言，能很好的提示大部分jquery函数</p>
+
+<h1>如何安装插件</h1>
+
+<p>最简单的方式就是到上面的插件网站上下载压缩包，然后手工拷贝到sublime得packages 目录下</p>
+
+<blockquote><p>Preferences &ndash;> Browse Packages&hellip;</p></blockquote>
+
+<p>但是sublime提供了更加简单和自动化的安装方式： <a href="http://wbond.net/sublime_packages/package_control">Package Control</a></p>
+
+<blockquote><p>A full-featured package manager that helps discovering, installing, updating and removing packages for Sublime Text 2. It features an automatic upgrader and supports GitHub, BitBucket and a full channel/repository system.</p></blockquote>
+
+<h2>安装 Package Control</h2>
+
+<ul>
+<li>Open Sublime Text 2 console:  <strong>ctrl+`</strong></li>
+<li>将以下的命令粘贴到console中，并回车运行：  <br/>
+  import urllib2,os; pf=&lsquo;Package Control.sublime-package&rsquo;; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),&lsquo;wb&rsquo;).write(urllib2.urlopen(&lsquo;<a href="http://sublime.wbond.net/">http://sublime.wbond.net/</a>&rsquo;+pf.replace(&lsquo; &rsquo;,&lsquo;%20&rsquo;)).read()); print(&lsquo;Please restart Sublime Text to finish installation&rsquo;)</li>
+</ul>
+
+
+<h2>通过 Package Control 安装插件</h2>
+
+<ul>
+<li>Open <strong>Command Pallete</strong> in sublime：    press <strong>ctrl+shift+p</strong> (Windows, Linux) or <strong>cmd+shift+p</strong> (OS X)</li>
+<li>Enter <strong>Package Control: Install Package</strong> in the Command Pallete</li>
+<li>Input/select the plugin name in the list of all available packages that are available for install.</li>
+</ul>
+
+
+<h1>参考资料：</h1>
+
+<ul>
+<li><a href="http://drewbarontini.com/setup/sublime-text/">Setup Sublime Text 2</a></li>
+<li><a href="http://vtmerhome.com/2013/05/sublime-shortcuts-and-common-plug/">sublime快捷键及常用插件——工欲善其事，必先利其器</a></li>
+<li><a href="http://www.iplaysoft.com/sublimetext.html/comment-page-1">Sublime Text 2 &ndash; 性感无比的代码编辑器！程序员必备神器！跨平台支持Win/Mac/Linux</a></li>
+<li><a href="http://wbond.net/sublime_packages/package_control">Sublime Package Control</a></li>
+</ul>
+
+</div>
+
+
+      <footer>
+        <p class="meta text-muted">
+          
+  
+
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">zJun</span></span>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-05-08T14:36:00+08:00" pubdate data-updated="true">May 8<span>th</span>, 2013</time>
+          
+
+<span class="glyphicon glyphicon-tags"></span>&nbsp;
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/gong-ju/'>工具</a>
+  
+</span>
+
+
+        </p>
+        
+          <div class="sharing">
+  
+  
+  
+</div>
+
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/blog/2013/04/01/highcharts-2-piechart/" title="Previous Post: HighCharts 笔记2：通过表格生成Pie Chart">&laquo; HighCharts 笔记2：通过表格生成Pie Chart</a></li>
+            
+            
+            <li class="next"><a href="/blog/2013/05/14/dojo-traps-in-ie/" title="Next Post: Dojo在IE中的那些坑">Dojo在IE中的那些坑 &raquo;</a></li>
+            
+          </ul>
+        
+      </footer>
+    </article>
+    
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
+    
+  </div>
+
+  
+  <aside class="sidebar col-md-3">
+    
+      <section class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Recent Posts</h3>
+  </div>
+  
+  <div id="recent_posts" class="list-group">
+    
+    <a class="list-group-item " href="/blog/2014/02/08/go_note_7_goroutine/">Go笔记7:并发</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/22/go_note_6_data_structure/">Go笔记6：Go数据结构</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/16/dev_go_in_sublimetext2/">在Sublime Text2中开发Golang</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/03/go_note_5_accessmysql/">Go笔记5：访问MySQL数据库</a>
+    
+    <a class="list-group-item " href="/blog/2013/12/30/go_note_4_interface/">Go笔记4：接口</a>
+    
+  </div>
+</section>
+
+
+
+
+
+
+    
+  </aside>
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+    <footer role="contentinfo"><div class="container">
+    <p class="text-muted credits">
+  Copyright &copy; 2014 - zJun<br>
+  <small>
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
+      <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
+  </small>
+</p>
+
+</div>
+</footer>
+    <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2013/05/08/using-sublime/';
+        var disqus_url = 'http://zjun.github.io/blog/2013/05/08/using-sublime/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>HighCharts笔记之: Bar Chart - zJun's Tech Blog</title>
+  <meta name="author" content="zJun">
+
+  
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zjun.github.io/blog/2013/03/28/highcharts-json-dataformat">
+  <link href="/favicon.png" type="image/png" rel="icon">
+  <link href="/atom.xml" rel="alternate" title="zJun's Tech Blog" type="application/atom+xml">
+
+  <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+
+  <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
+  
+
+</head>
+
+  <body   >
+    <div id="wrap">
+      <header role="banner">
+        <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">zJun's Tech Blog</a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/">Blog</a>
+                </li>
+                <li >
+                    <a href="/blog/archives">Archives</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="subscribe-rss" href="/atom.xml" title="subscribe via RSS">
+                        <span class="visible-xs">RSS</span>
+                        <img class="hidden-xs" src="/images/rss.png" alt="RSS">
+                    </a>
+                </li>
+                
+            </ul>
+            
+                <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
+                    <input type="hidden" name="q" value="site:zjun.github.io">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="q" placeholder="Search">
+                    </div>
+                </form>
+            
+        </div>
+    </div>
+</nav>
+
+
+      </header>
+      <div id="main" class="container">
+        <div id="content">
+          <div class="row">
+  <div class="page-content col-md-9">
+    <article class="hentry" role="article">
+      
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-03-28T16:52:00+08:00" pubdate data-updated="true">Mar 28<span>th</span>, 2013</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io">Comments</a>
+        
+      </p>
+    
+    
+    <h1 class="entry-title">
+        HighCharts笔记之: Bar Chart
+        
+    </h1>
+    
+  </header>
+
+
+<div class="entry-content clearfix"><p>最近需要做一些Web图标，研究了几个开源的第三方工具后，最后决定使用<strong>HighCharts</strong>开发：</p>
+
+<p><strong>Highcharts</strong> 是一个用纯JavaScript编写的一个图表库, 能够很简单便捷的在web网站或是web应用程序添加有交互性的图表，并且免费提供给个人学习、个人网站和非商业用途使用。目前HighCharts支持的图表类型有曲线图、区域图、柱状图、饼状图、散状点图和综合图表。
+HighCharts界面美观，由于使用JavaScript编写，所以不需要像Flash和Java那样需要插件才可以运行，而且运行速度快。另外HighCharts还有很好的兼容性，能够完美支持当前大多数浏览器。</p>
+
+<p>HighCharts 可以通过JSON 数据格式与后台交互，从而生成动态的图表。但是在官方的文档中关于 JSON 数据格式的资料很少，经过一下午的调试终于找到了关于柱状图和饼图的数据格式，在这里记录一下，以备后续的查询：</p>
+
+<!-- more -->
+
+
+<h2>柱状图：</h2>
+
+<p><img src="http://farm9.staticflickr.com/8382/8596618053_22114c25cc_b.jpg" alt="" />
+JSON Data</p>
+
+<pre><code>[
+    {
+        "data":[0,0,0,0,0,0,0,0,9,0,0,1],
+        "name":"Actual"
+    },
+    {
+        "data":[1,1,1,4,1,1,1,1,12,1,3,6],
+        "name":"Target"
+    }
+]
+</code></pre>
+
+<p>Javascript code</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;
+    $(function () {
+        var options = {
+            chart: {
+
+                renderTo: 'container',
+                defaultSeriesType: 'bar'
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: ['Activity Entry', 'Activity Update', 'Blog Entry', 'Blog Comments', 'Feed','Bookmark','File','Forum Topic','Forum Reply','Wiki','Ram','Liquid'],
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Units',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y;
+                }
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -100,
+                y: 100,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: '#FFFFFF',
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: []
+        };
+
+        $.getJSON('&lt;c:url value="/action.do?method=barChart"/&gt;', function(json) {
+                options.series = json;//options.series.push(json);  
+                //console.log("JSON: " + JSON.stringify(options));
+                //console.log("Render to element with ID : " + options.chart.renderTo);
+                //console.log("Number of matching dom elements : " + $("#" + options.chart.renderTo).length);
+                new Highcharts.Chart(options);
+            }).error(function() {console.log('error');});
+
+        $("a[data-toggle=modal]").click(function(){
+            var target = $(this).attr('data-target');
+            var url = $(this).attr('href');
+            $(target).innerHTML='';
+            $(target).load(url);
+        });    
+    });
+&lt;/script&gt;  
+</code></pre>
+
+<p>HTML</p>
+
+<pre><code>&lt;div id="container" style="width: 100%; height: 400px"&gt;&lt;/div&gt;
+</code></pre>
+
+<p>Java Code &ndash; Action</p>
+
+<pre><code>public ActionForward barChart(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json;charset=utf-8");
+
+        List&lt;Bar&gt; resultList = getBarData();
+        JSONArray json = new JSONArray(resultList);
+        String result = json.toString();// 转成json数据
+
+        PrintWriter out = response.getWriter();
+        out.write(result);
+        out.flush();
+        out.close();
+
+        return null;
+    }
+
+    private List&lt;Bar&gt; getBarData() {
+        BlueCommunity target = dao.getLatestTarget();
+        BlueCommunity actual = dao.sumLatestActual();
+
+        List&lt;Bar&gt; resultList = new ArrayList&lt;Bar&gt;();
+        if (actual != null) {
+            resultList.add(new Bar("Actual", actual.getValueArray()));
+        } else {
+            resultList.add(new Bar("Actual", new int[] { 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0 }));
+        }
+        resultList.add(new Bar("Target", target.getValueArray()));
+
+        return resultList;
+}
+</code></pre>
+
+<p>Java Code &ndash; Bar class</p>
+
+<pre><code>public class Bar {
+
+    private static final long serialVersionUID = 6461863786317563773L;
+
+    private String name;
+    private int[] data;
+
+    public Bar() {
+    };
+
+    public Bar(String name, int[] data) {
+        this.name = name;
+        this.data = data;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int[] getData() {
+        return data;
+    }
+
+    public void setData(int[] data) {
+        this.data = data;
+    }
+
+}
+</code></pre>
+
+<p>Java Code &ndash; Community class</p>
+
+<pre><code>public class Community implements Serializable {
+
+    private static final long serialVersionUID = -7516165631503337884L;
+
+    private int id;
+    private int version;
+    private String remark;
+    private int activity_entry;
+    private int activity_update;
+    private int blog_entry;
+    private int blog_comments;
+    private int feed;
+    private int bookmark;
+    private int file;
+    private int forum_topic;
+    private int forum_reply;
+    private int wiki;
+    private int iRam;
+    private int liquid;
+    private int user;
+
+    ...
+    getters;
+    setters;
+    ...
+
+    public int[] getValueArray() {
+        int[] array = { activity_entry, activity_update, blog_entry,
+                blog_comments, feed, bookmark, file, forum_topic, forum_reply,
+                wiki, iRam, liquid };
+        return array;
+    }
+
+}
+</code></pre>
+</div>
+
+
+      <footer>
+        <p class="meta text-muted">
+          
+  
+
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">zJun</span></span>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-03-28T16:52:00+08:00" pubdate data-updated="true">Mar 28<span>th</span>, 2013</time>
+          
+
+<span class="glyphicon glyphicon-tags"></span>&nbsp;
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/webkai-fa/'>Web开发</a>
+  
+</span>
+
+
+        </p>
+        
+          <div class="sharing">
+  
+  
+  
+</div>
+
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/blog/2012/05/02/java_concurrency_note_basic_manage_threads/" title="Previous Post: Java并发编程笔记：线程管理">&laquo; Java并发编程笔记：线程管理</a></li>
+            
+            
+            <li class="next"><a href="/blog/2013/04/01/highcharts-2-piechart/" title="Next Post: HighCharts 笔记2：通过表格生成Pie Chart">HighCharts 笔记2：通过表格生成Pie Chart &raquo;</a></li>
+            
+          </ul>
+        
+      </footer>
+    </article>
+    
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
+    
+  </div>
+
+  
+  <aside class="sidebar col-md-3">
+    
+      <section class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Recent Posts</h3>
+  </div>
+  
+  <div id="recent_posts" class="list-group">
+    
+    <a class="list-group-item " href="/blog/2014/02/08/go_note_7_goroutine/">Go笔记7:并发</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/22/go_note_6_data_structure/">Go笔记6：Go数据结构</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/16/dev_go_in_sublimetext2/">在Sublime Text2中开发Golang</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/03/go_note_5_accessmysql/">Go笔记5：访问MySQL数据库</a>
+    
+    <a class="list-group-item " href="/blog/2013/12/30/go_note_4_interface/">Go笔记4：接口</a>
+    
+  </div>
+</section>
+
+
+
+
+
+
+    
+  </aside>
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+    <footer role="contentinfo"><div class="container">
+    <p class="text-muted credits">
+  Copyright &copy; 2014 - zJun<br>
+  <small>
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
+      <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
+  </small>
+</p>
+
+</div>
+</footer>
+    <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2013/03/28/highcharts-json-dataformat/';
+        var disqus_url = 'http://zjun.github.io/blog/2013/03/28/highcharts-json-dataformat/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 工具 | zJun's Tech Blog]]></title>
+  <link href="http://zjun.github.io/blog/categories/gong-ju/atom.xml" rel="self"/>
+  <link href="http://zjun.github.io/"/>
+  <updated>2014-06-08T00:19:59+08:00</updated>
+  <id>http://zjun.github.io/</id>
+  <author>
+    <name><![CDATA[zJun]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[使用Octopress写博客]]></title>
+    <link href="http://zjun.github.io/blog/2013/09/03/use-octopress-to-write-blog/"/>
+    <updated>2013-09-03T21:06:19+08:00</updated>
+    <id>http://zjun.github.io/blog/2013/09/03/use-octopress-to-write-blog</id>
+    <content type="html"><![CDATA[<p><code>Octopress</code>是利用<code>Jekyll</code>博客引擎开发的一个博客系统，生成的静态页面能够很好的在github page上展现。号称是hacker专属的一个博客系统(<code>A blogging framework for hackers.</code>)
+本文就来介绍一下如何利用Octopress搭建一个Github博客。本文需要读者熟悉一些shell命令，并掌握基本的git操作。</p>
+
+<!--more-->
+
+
+<h2>1. 安装 Ruby</h2>
+
+<p>Octopress需要Ruby环境，RVM(Ruby Version Manager)负责安装和管理Ruby的环境。所以我们先在终端输入如下命令，来安装RVM：<br/>
+<code>console  
+curl -L https://get.rvm.io | bash -s stable --ruby  
+</code><br/>
+接着安装Ruby 1.9.3，在终端依次运行如下命令：<br/>
+<code>console   
+rvm install 1.9.3  
+rvm use 1.9.3  
+rvm rubygems latest  
+</code><br/>
+完成上面的操作之后，运行<code>ruby --version</code>确认ruby 1.9.3环境已经安装好了。</p>
+
+<p>参考: <a href="http://octopress.org/docs/setup/rvm/">Installing Ruby With RVM</a></p>
+
+<h2>2. 安装Octopress</h2>
+
+<p>在安装Octopress之前，需要安装有<code>git</code>了，在终端输入<code>git --version</code>，可以看到电脑中的git版本，如果没有显示相关内容，请先安装<a href="http://git-scm.com/">git</a>。</p>
+
+<p>git安装之后，利用git命令将octopress从github上clone到本机，如下命令：
+<code>console
+git clone git://github.com/imathis/octopress.git octopress  
+cd octopress    # If you use RVM, You'll be asked if you trust the .rvmrc file (say yes).  
+ruby --version  # Should report Ruby 1.9.3  
+</code></p>
+
+<p>在安装相关依赖项之前，最好把<code>gem sources</code>改成淘宝的resource：</p>
+
+<blockquote><p>由于国内网络原因（你懂的），导致 rubygems.org 存放在 Amazon S3 上面的资源文件间歇性连接失败。所以你会与遇到 <code>gem install rack</code> 或 <code>bundle install</code> 的时候半天没有响应，具体可以用 <code>gem install rails -V</code> 来查看执行过程。</p></blockquote>
+
+<p>通过一下命令修改gem sources:<br/>
+```  <br/>
+$ gem sources &mdash;remove <a href="https://rubygems.org/  ">https://rubygems.org/  </a>
+$ gem sources -a <a href="https://ruby.taobao.org/  ">https://ruby.taobao.org/  </a>
+$ gem sources -l<br/>
+<strong><em> CURRENT SOURCES </em></strong></p>
+
+<p><a href="https://ruby.taobao.org">https://ruby.taobao.org</a></p>
+
+<h1>请确保只有 ruby.taobao.org</h1>
+
+<p>$ gem install rails<br/>
+```</p>
+
+<p>参考： <a href="http://ruby.taobao.org/">RubyGems 镜像 &ndash; 淘宝网</a></p>
+
+<p>接着安装相关依赖项：<br/>
+<code>console
+gem install bundler  
+rbenv rehash    # If you use rbenv, rehash to be able to run the bundle command  
+bundle install  
+</code></p>
+
+<p>最后安装默认的Octopress 主题。<br/>
+<code>
+rake install
+</code>
+也可以安装定制的主题，我安装的是这个主题: <a href="https://github.com/kAworu/octostrap3">octostrap3</a> <br/>
+<code>  
+  % cd octopress   
+  % git clone https://github.com/kAworu/octostrap3 .themes/octostrap3  
+  % rake 'install[octostrap3]'  
+  % rake generate  
+</code></p>
+
+<p>参考：<a href="http://octopress.org/docs/setup/">Octopress Setup</a></p>
+
+<h2>3. 配置Octopress</h2>
+
+<p>Octopress的作者已经尽量让配置简化了。大多数情况下只需要配置<code>_config.yml</code>和<code>Rakefile</code>文件即可。其中Rakefile是跟博客部署相关，一般情况下并不需要修改这个文件，除非使用了rsync。</p>
+
+<p>config.yml是博客重要的一个配置文件，在config.yml文件中有三大配置项：<code>Main Configs</code>、<code>Jekyll &amp; Plugins</code>和<code>3rd Party Settings</code>。</p>
+
+<p>一般，该文件中其中url是必须要填写的，这里的url是在github上创建的一个仓库地址，具体请看第四步中创建的地址。另外再修改一下<code>title</code>、<code>subtitle</code>和<code>author</code>，根据需求，在开启一些第三方组件服务。</p>
+
+<p>关于_config.yml文件中的更多内容，请看这里的内容：<a href="http://octopress.org/docs/configuring/">Configuring Octopress</a></p>
+
+<p>建议：最好把里面的google+ 和 twitter相关的信息全部删掉，否则由于GFW的原因，将会造成页面load很慢。</p>
+
+<h2>4. 部署到GitHub上</h2>
+
+<p>Github的<code>[Page service](http://pages.github.com/)</code>可以免费托管博客，并且还可以自定义域名。</p>
+
+<p>首先需要在GitHub上<code>[创建一个仓库](https://github.com/new)</code>，并将仓库名称按照这样的方式进行命名：<code>username.github.com</code>。等后面配置完毕之后，我们就可以在浏览器中使用页面地址<code>http://username.github.com</code>来访问我们的博客。一般来说，博客的源码放到source分支下，生成的内容提交到master分支。</p>
+
+<p>创建好仓库之后，我们需要利用octopress的一个<code>配置rake任务</code>来自动配置上面创建的仓库：可以让我们方便的部署GitHub page。在终端输入如下命令：
+<code>
+$ rake setup_github_pages   
+</code> <br/>
+上面的命令会做一些事情(详细介绍看下面给出的参考链接)。其中最主要的就是创建一个<code>_deploy</code>目录，目录用来存放部署到master分支的内容。期间会要求你输入仓库的url，根据提示，进行输入即可。</p>
+
+<p>完成上面的命令之后，我们就可以生成博客并真正的部署到仓库中了。执行如下命令：
+<code>
+rake generate  
+rake deploy  
+</code>
+上面的命令首先生成博客文件，并将生成的博客文件拷贝到<code>_deploy/</code>目录下，然后将这些内容添加到git中，并commit和push到仓库的master分支。</p>
+
+<p>现在可以访问<code>http://username.github.com</code>了。注意：有时候可能会有延时，要等几分钟才能打开。</p>
+
+<p>至此，我们的博客已经完成基本的部署，不过博客的source需要单独提交，执行如下命令就可以将source提交到仓库的source分支下。
+<code>
+$ git add .  
+$ git commit -m 'Initial source commit'  
+$ git push origin source  
+</code>
+如果在部署到仓库之前，需要先预览一下博客，可以在终端输入<code>rake preview</code>命令，然后就能在浏览器中进行本地预览访问了：<code>http://127.0.0.1:4000/</code>或<code>http://localhost:4000/</code>，效果跟仓库中的一样。
+参考：<a href="http://octopress.org/docs/deploying/">Deploying to Github Pages</a></p>
+
+<h2>5. 写博客</h2>
+
+<p>Octopress中文章存储在<code>source/_posts</code>目录下，并且需要按照Jekyll的命名规范对文章进行命名：<code>YYYY-MM-DD-post-title.markdown</code>。文章的名字会被当做url的一部分，而其中的日期用于对博文的区分和排序。</p>
+
+<p>通过一下命令，可以正确的按照命名规范创建一个博文，并且在博文中会附带常用的一些yaml元数据。<br/>
+<code>
+rake new_post["title"]   
+</code> <br/>
+其中title为博文的文件名，创建出来的文件默认是markdown格式。上面的命令会创建出这样一个文件：<code>source/_posts/2013-09-03-title.markdown</code>。打开这个文件，可以看到里面有如下一些内容了(告诉Jekyll博客引擎如何处理博文和页面)：</p>
+
+<h2>```</h2>
+
+<p>layout: post<br/>
+title: &ldquo;title&rdquo;
+date: 2013-09-03 16:36<br/>
+comments: true</p>
+
+<h2>categories:   </h2>
+
+<p>```
+接着就可以在这个文件中写博文了。</p>
+
+<p>完成之后，我们可以预览和部署博文。下面是创建并部署博文的一个完整过程：
+<code>
+$ rake new_post["New Post"]  
+$ rake generate  
+$ git add .  
+$ git commit -am "Some comment here."   
+$ git push origin source  
+$ rake deploy  
+</code></p>
+
+<p>参考：<a href="http://octopress.org/docs/blogging/">Blogging Basics</a></p>
+
+<h2>6. 参考资料</h2>
+
+<ul>
+<li><a href="http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress/">利用Octopress搭建一个Github博客</a></li>
+<li><a href="http://www.yangzhiping.com/tech/octopress.html">Ruby开源项目介绍(1)：octopress——像黑客一样写博客</a></li>
+<li><a href="http://www.lijinma.com/blog/2013/01/23/move-from-wordpress-to-octopress/">博客搬家：从Wordpress迁移到octopress</a></li>
+<li><a href="http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/">象写程序一样写博客：搭建基于github的博客</a></li>
+<li><a href="http://kaworu.github.io/octopress/setup/install/">Octopress3</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[用Jekyll+Github+Markdown来写Blog]]></title>
+    <link href="http://zjun.github.io/blog/2013/08/05/use-jekyll-github-blog/"/>
+    <updated>2013-08-05T21:06:19+08:00</updated>
+    <id>http://zjun.github.io/blog/2013/08/05/use-jekyll-github-blog</id>
+    <content type="html"><![CDATA[<p>继续折腾，之前使用 Octpress 来写Blog,但用了一段时间以后还是觉得笨重，发布一篇新文章需要把所有页面重新发布一遍，最终还是决定使用定制更灵活的Jekyll.下面就记录一下这次迁移的步骤和遇到的问题。</p>
+
+<p>以下过程在Windows7下进行：</p>
+
+<!--more-->
+
+
+<h2>安装 Ruby</h2>
+
+<p>在Windows环境下推荐安装<a href="http://railsinstaller.org/">RailsInstaller</a>.</p>
+
+<h2>安装 Git</h2>
+
+<ol>
+<li>在windows下安装<a href="http://code.google.com/p/msysgit/downloads/list">msysgit</a>.</li>
+<li>设置<code>SSH keys</code><br/>
+首先备份已有的keys<br/>
+<div>
+  <pre><code class='console'>$ ls&lt;br/&gt;
+config  id_rsa  id_rsa.pub  known_hosts&lt;br/&gt;
+$ mkdir key_backup
+$ cp id_rsa&lt;em&gt; key_backup&lt;br/&gt;
+$ rm id_rsa&lt;/em&gt;&lt;br/&gt;</code></pre>
+</div>
+</li>
+</ol>
+
+
+<p>  生成新的 SSH keys</p>
+
+<p><div>
+  <pre><code class='console'>$ ssh-keygen -t rsa -C &amp;ldquo;邮件地址@youremail.com&amp;rdquo;  &lt;br/&gt;
+Generating public/private rsa key pair.&lt;br/&gt;
+Enter file in which to save the key (/Users、your_user_directory/.ssh/id_rsa):&amp;lt;回车就好&gt;&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<p>输入GitHub的密码</p>
+
+<p><div>
+  <pre><code class='console'>Enter passphrase (empty for no passphrase):&amp;lt;输入加密串&gt;&lt;br/&gt;
+Enter same passphrase again:&amp;lt;再次输入加密串&gt;&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<ol>
+<li>添加SSH Key到GitHub：登录GitHub，在主页上点击设置按钮，选择<code>SSH Keys</code>项，把复制的内容粘贴进去，然后点击Add Key按钮即可。<br/>
+可以输入下面的命令，看看设置是否成功，<code>git@github.com</code>的部分不要修改：
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+$ ssh -T git@github.com&lt;br/&gt;</code></pre>
+</div>
+</li>
+<li>设置GitHub账号信息：<br/>
+<div>
+  <pre><code class='console'>$ git config &amp;mdash;global user.name &amp;ldquo;你的名字&quot;&lt;br/&gt;
+$ git config &amp;mdash;global user.email &quot;&lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#58;&amp;#121;&amp;#x6f;&amp;#117;&amp;#x72;&amp;#x5f;&amp;#x65;&amp;#109;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#64;&amp;#121;&amp;#111;&amp;#x75;&amp;#114;&amp;#101;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d;&quot;&gt;&amp;#x79;&amp;#111;&amp;#117;&amp;#x72;&amp;#95;&amp;#x65;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#108;&amp;#64;&amp;#121;&amp;#x6f;&amp;#x75;&amp;#114;&amp;#101;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#x2e;&amp;#99;&amp;#x6f;&amp;#109;&lt;/a&gt;&quot;&lt;br/&gt;</code></pre>
+</div>
+
+
+<h2>安装jekyll</h2></li>
+<li>把淘宝的镜像加到gem的镜像列表里
+<div>
+  <pre><code class='console'>gem sources &amp;mdash;remove &lt;a href=&quot;http://rubygems.org/  &quot;&gt;http://rubygems.org/  &lt;/a&gt;
+gem sources -a &lt;a href=&quot;http://ruby.taobao.org/  &quot;&gt;http://ruby.taobao.org/  &lt;/a&gt;</code></pre>
+</div>
+
+用<code>gem sources -l</code>看看现在源列表<br/>
+<div>
+  <pre><code class='console'>&lt;strong&gt;&lt;em&gt; CURRENT SOURCES &lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;&lt;a href=&quot;http://ruby.taobao.org&quot;&gt;http://ruby.taobao.org&lt;/a&gt; &lt;br/&gt;</code></pre>
+</div>
+
+2. 如果是上面这样就可以安装jekyll了
+<div>
+  <pre><code class='console'>gem install jekyll&lt;br/&gt;</code></pre>
+</div>
+
+  安装<code>rdiscount</code>来解析Markdown文档<br/>
+<div>
+  <pre><code class='console'>gem install rdiscount kramdown&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<h2>建立github pages</h2>
+
+<ol>
+<li>登录GitHub,建立一个名为 <code>USERNAME.github.com</code> 的 repositories，（注意：这里的USERNAME要与你的GitHub用户名一致）。</li>
+<li>建立本地Blog目录：
+<div>
+  <pre><code class='console'>$ mkdir USERNAME.github.com&lt;br/&gt;
+$ cd USERNAME.github.com&lt;br/&gt;
+$ git init&lt;br/&gt;
+$ git add .&lt;br/&gt;
+$ git commit -m &amp;lsquo;init commit'&lt;br/&gt;
+$ git remote add origin git@github.com:USERNAME/USERNAME.github.com.git&lt;br/&gt;
+$ git push  -u origin master</code></pre>
+</div>
+</li>
+<li>等待大约10分钟，就可以通过　<code>USERNAME.github.io</code> 访问新的blog了</li>
+<li>使用脚本来新建文章<br/>
+在本地的Blog目录下新建一个 <code>Rakefile</code> 文件，然后将<a href="https://github.com/plusjade/jekyll-bootstrap/blob/master/Rakefile">Rakefile content</a>拷贝到文件中.<br/>
+现在就可以在命令行中新建一篇文章了：
+<div>
+  <pre><code class='console'>rake post title=&amp;ldquo;titlename&quot;&lt;br/&gt;</code></pre>
+</div>
+
+执行该命令后，将会在<code>_post</code>的文件夹下生成形式为<code>YYYY-MM-dd-titlename.md</code>的文件，并且会提供好一些附加信息。其中，titlename就是命令中的title后引号中的值。</li>
+</ol>
+
+
+<h2>代码高亮 Pygments</h2>
+
+<p>Jekyll通过Pygments支持对代码/语法的高亮显示。<br/>
+<a href="https://github.com/mojombo/jekyll/wiki/Liquid-Extensions">Pygments on github</a><br/>
+<a href="http://pygments.org/">Pygments homepage</a><br/>
+<a href="http://pygments.org/languages/">Supported languages list</a><br/>
+1. 安装 Python:
+<div>
+  <pre><code class='console'>$ python &amp;mdash;version&lt;br/&gt;
+Python 2.7.2</code></pre>
+</div>
+
+2. 安装setuptools： 下载并运行 <a href="https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py">ez_setup.py</a><br/>
+<div>
+  <pre><code class='console'>python ez_setup.py</code></pre>
+</div>
+
+3. 安装 pygments：
+<div>
+  <pre><code class='console'>$ sudo easy_install Pygments</code></pre>
+</div>
+
+4. 生成CSS文件
+<div>
+  <pre><code class='console'>$ pygmentize -S default -f html &gt; highlight.css</code></pre>
+</div>
+
+5. 在<code>config.yaml</code>中enable <code>pygmentize</code>:
+<div>
+  <pre><code class='console'>pygments: true</code></pre>
+</div>
+
+6. Include pygments.css
+在 <code>/_layouts/default.html</code> 中include highlight.css:
+<div>
+  <pre><code class='html'>&lt;link rel=&quot;stylesheet&quot; href=&quot;http://zjun.github.io/highlight.css&quot;&gt;</code></pre>
+</div>
+</p>
+
+<h3><strong>Note: 遇到的问题</strong></h3>
+
+<p>在文章中使用<code>highlight</code>后每次<code>jekyll build</code>时都会遇到异常：
+<div>
+  <pre><code class='console'>C:/Ruby193/lib/ruby/gems/1.9.1/gems/posix-spawn-0.3.6/lib/posix/spawn.rb:162: warning: cannot close fd before spawn
+←[31m  Liquid Exception: No such file or directory &amp;ndash; /bin/sh in 2013-08-05-test-post.md←[0m</code></pre>
+</div>
+</p>
+
+<p>在这里找到了原因和解决方法：<a href="http://stackoverflow.com/questions/17364028/jekyll-on-windows-pygments-not-working">Jekyll on Windows: Pygments not working</a></p>
+
+<p>原来是因为 jekyll 和 Pygments 只能和 Pygments.rb 0.5.0 配合使用，但是我本机装的是 Pygments.rb 0.5.2，卸载后重新安装Pygments.rb 0.5.0，再重新build,异常消失。
+<div>
+  <pre><code class='console'>gem uninstall pygments.rb &amp;mdash;version &amp;ldquo;=0.5.2&amp;rdquo;
+gem install pygments.rb &amp;mdash;version &amp;ldquo;=0.5.0&amp;rdquo;</code></pre>
+</div>
+</p>
+
+<p><strong><em>2013-12-20 更新：</em></strong><br/>
+Jekyll现在已经支持用<a href="https://github.com/vmg/redcarpet">Redcarpet</a>来处理markdown，并且在1.1以后的版本中， <code>Jekyll new</code> 新建的站点也将默认采用Redcarpet。目前只要在<code>_config.yml</code>中进行类似如下相关设置：</p>
+
+<pre><code>markdown: redcarpet
+redcarpet:
+    extensions: ["fenced_code_blocks", "autolink", "tables", "strikethrough"]
+</code></pre>
+
+<p>代码高亮均可以采用如下格式：<br/>
+``` ruby  <br/>
+require &lsquo;rubygems&rsquo;</p>
+
+<p>def foo  <br/>
+  puts &lsquo;foo&rsquo;  <br/>
+end<br/>
+```</p>
+
+<p>显示效果如下：</p>
+
+<blockquote><p>``` ruby<br/>
+require &lsquo;rubygems&rsquo;</p>
+
+<p>def foo<br/>
+  puts &lsquo;foo'<br/>
+end</p>
+
+<h1>comment</h1>
+
+<p>```</p></blockquote>
+
+<h2>常用命令</h2>
+
+<p><div>
+  <pre><code class='console'>$ git clone git@github.com:username/username.github.com.git //本地如果无远程代码，先做这步，不然就忽略&lt;/p&gt;
+
+&lt;p&gt;$ cd .ssh/username.github.com //定位到你blog的目录下&lt;/p&gt;
+
+&lt;p&gt;$ git pull origin master //先同步远程文件，后面的参数会自动连接你远程的文件&lt;/p&gt;
+
+&lt;p&gt;$ git status //查看本地自己修改了多少文件&lt;/p&gt;
+
+&lt;p&gt;$ git add . //添加远程不存在的git文件&lt;/p&gt;
+
+&lt;p&gt;$ git commit * -m &amp;ldquo;what I want told to someone&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;$ git push origin master //更新到远程服务器上</code></pre>
+</div>
+</p>
+
+<h2>参考资料</h2>
+
+<p><a href="http://beiyuu.com/github-pages/#github">使用Github Pages建独立博客</a></p>
+
+<p><a href="http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html">搭建一个免费的，无限流量的Blog&mdash;&mdash;github Pages和Jekyll入门</a></p>
+
+<p><a href="http://site.douban.com/196781/widget/notes/12161495/note/264946576/">写作环境搭建(git+github+markdown+jekyll)</a></p>
+
+<p><a href="http://yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/">Github Pages极简教程</a></p>
+
+<p><a href="http://web-design-weekly.com/2013/03/04/going-static-with-jekyll-deploying-via-github-for-free/">Going Static with Jekyll &amp; Deploying via GitHub for Free</a></p>
+
+<p><a href="http://www.cnblogs.com/purediy/archive/2013/03/07/2948892.html">通过GitHub Pages建立个人站点（详细步骤）</a></p>
+
+<p><a href="http://ztpala.com/2011/10/27/code-highlighting-jekyll/">Jekyll的代码高亮</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Sublime Text 2快捷键及常用插件]]></title>
+    <link href="http://zjun.github.io/blog/2013/05/08/using-sublime/"/>
+    <updated>2013-05-08T14:36:00+08:00</updated>
+    <id>http://zjun.github.io/blog/2013/05/08/using-sublime</id>
+    <content type="html"><![CDATA[<p>SublimeText2 是我目前为止用过的最为强大的编辑器，支持但不限于 C, C++, C#, CSS, D, Erlang, HTML, Groovy, Haskell, HTML, Java, JavaScript, LaTeX, Lisp, Lua, Markdown, Matlab, OCaml, Perl, PHP, Python, R, Ruby, SQL, TCL, Textile and XML 等主流编程语言的语法高亮。拥有优秀的代码自动完成功能 (自动补齐括号，大括号等配对符号；自动补全已经出现的单词；自动补全函数名)，非常智能。 最重要的是这么一个原来高不可攀的“神器”，现在居然开源免费了，所以还不赶快试试：</p>
+
+<!-- more -->
+
+
+<h1>常用快捷键：</h1>
+
+<h2>默认方式：</h2>
+
+<ul>
+<li>鼠标选中多行，按下 Ctrl+Shift+L    —->     同时编辑这些行</li>
+<li>鼠标选中文本，反复按 CTRL+D       —->     继续向下同时选中下一个相同的文本进行同时编辑</li>
+<li>鼠标选中文本，按下 Alt+F3             —->     一次性选择全部的相同文本进行同时编辑</li>
+<li>Shift+鼠标右键/按住鼠标中键          —->     进行竖向多行选择</li>
+<li>Ctrl+鼠标左键                                  —->     选择同时要编辑的多处文本</li>
+<li>ctrl+L                                               —->     选择整行</li>
+<li>ctrl+kk                                             —->     从光标处删除至行尾</li>
+<li>ctrl+j                                                —->     合并行</li>
+<li>ctrl+/                                               —->     注释整行</li>
+<li>ctrl+y                                               —->    恢复撤销</li>
+<li>ctrl+shift+enter                              —->     插入行前</li>
+<li>shift+ctrl+上下键                            —->    光标与上/下行对调，非常实用</li>
+<li>cmd+shift+d —-> Duplicate Line</li>
+<li>ctrl+shift+w —-> Wrap Selection with Tag</li>
+<li>cmd+r —-> Goto Symbol&hellip;</li>
+<li>cmd+shift+t —-> Reopen Closed File</li>
+<li>cmd+shift+p —-> Command Pallete</li>
+</ul>
+
+
+<h2>常用的Emment快捷键</h2>
+
+<ul>
+<li>ctrl+,                                                              ======> 选中标签的内容</li>
+<li>shift+ctrl+;                                                   ======> 删除标签</li>
+<li>shift+ctrl+r                                                   =====> 更新所有相同css属性的值(在css3中不需要在每个不同前缀都去修改了，非常好用)</li>
+<li><p>选中某个css属性的数值，按ctrl+上下键     =====> 值增减1(类似chrome浏览器，非常棒)</p>
+
+<h2>CodeIntel实用快捷键</h2></li>
+<li><p>ctrl+鼠标点击某一变量                                 =====> 跳转至定义该变量的行</p></li>
+</ul>
+
+
+<h1>常用插件</h1>
+
+<h3><a href="https://github.com/sergeche/emmet-sublime">Emmet</a>(原名为Zen Coding)</h3>
+
+<p>一个用于HTML和CSS高效的编程的插件，只能在HTML或CSS文件中才能打开，原先zen coding需要按快捷键 ctrl+alt+enter才能运行，现在更新了另一种方式——直接在文本中输入zen coding的语句，然后按tag键就可以实现同样功能。</p>
+
+<h3><a href="https://github.com/aaronpowell/sublime-jquery-snippets">jQuery-snippets</a></h3>
+
+<p>这个插件提供jQuery的提示功能，不过每次提示都需要快捷键ctrl+shift+p上查找，不过如果和CodeIntel插件（下面说到）配合使用能互补不足，因为两个插件都有些jQuery代码缺少。</p>
+
+<h3><a href="https://github.com/wbond/sublime_alignment">Alignment</a></h3>
+
+<p>选定要对齐的行，按ctrl+alt+a</p>
+
+<h3><a href="https://github.com/facelessuser/BracketHighlighter">BracketHighlighter</a></h3>
+
+<p>高亮显示光标所在的括号和引号，类似于代码匹配，可以匹配括号，引号等符号内的范围</p>
+
+<h3><a href="https://github.com/kemayo/sublime-text-2-clipboard-history">Clipboard History</a></h3>
+
+<p>粘贴板历史记录，方便使用复制/剪切的内容，快捷键ctrl+shift+v可调出该历史记录面板</p>
+
+<h3><a href="https://github.com/kemayo/sublime-text-2-git">Git</a></h3>
+
+<p>用法：在菜单上 Tools –> Git，可使用git的功能
+git——大名鼎鼎的git，该插件可以实现大部分的git功能</p>
+
+<h3><a href="https://github.com/Kronuz/SublimeCodeIntel">CodeIntel</a></h3>
+
+<p>代码自动提示，支持大多数语言，能很好的提示大部分jquery函数</p>
+
+<h1>如何安装插件</h1>
+
+<p>最简单的方式就是到上面的插件网站上下载压缩包，然后手工拷贝到sublime得packages 目录下</p>
+
+<blockquote><p>Preferences &ndash;> Browse Packages&hellip;</p></blockquote>
+
+<p>但是sublime提供了更加简单和自动化的安装方式： <a href="http://wbond.net/sublime_packages/package_control">Package Control</a></p>
+
+<blockquote><p>A full-featured package manager that helps discovering, installing, updating and removing packages for Sublime Text 2. It features an automatic upgrader and supports GitHub, BitBucket and a full channel/repository system.</p></blockquote>
+
+<h2>安装 Package Control</h2>
+
+<ul>
+<li>Open Sublime Text 2 console:  <strong>ctrl+`</strong></li>
+<li>将以下的命令粘贴到console中，并回车运行：  <br/>
+  import urllib2,os; pf=&lsquo;Package Control.sublime-package&rsquo;; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),&lsquo;wb&rsquo;).write(urllib2.urlopen(&lsquo;<a href="http://sublime.wbond.net/">http://sublime.wbond.net/</a>&rsquo;+pf.replace(&lsquo; &rsquo;,&lsquo;%20&rsquo;)).read()); print(&lsquo;Please restart Sublime Text to finish installation&rsquo;)</li>
+</ul>
+
+
+<h2>通过 Package Control 安装插件</h2>
+
+<ul>
+<li>Open <strong>Command Pallete</strong> in sublime：    press <strong>ctrl+shift+p</strong> (Windows, Linux) or <strong>cmd+shift+p</strong> (OS X)</li>
+<li>Enter <strong>Package Control: Install Package</strong> in the Command Pallete</li>
+<li>Input/select the plugin name in the list of all available packages that are available for install.</li>
+</ul>
+
+
+<h1>参考资料：</h1>
+
+<ul>
+<li><a href="http://drewbarontini.com/setup/sublime-text/">Setup Sublime Text 2</a></li>
+<li><a href="http://vtmerhome.com/2013/05/sublime-shortcuts-and-common-plug/">sublime快捷键及常用插件——工欲善其事，必先利其器</a></li>
+<li><a href="http://www.iplaysoft.com/sublimetext.html/comment-page-1">Sublime Text 2 &ndash; 性感无比的代码编辑器！程序员必备神器！跨平台支持Win/Mac/Linux</a></li>
+<li><a href="http://wbond.net/sublime_packages/package_control">Sublime Package Control</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[配置Log4j]]></title>
+    <link href="http://zjun.github.io/blog/2006/06/28/config-log4j/"/>
+    <updated>2006-06-28T16:42:00+08:00</updated>
+    <id>http://zjun.github.io/blog/2006/06/28/config-log4j</id>
+    <content type="html"><![CDATA[<p>Log4J的配置文件(Configuration File)就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。</p>
+
+<!-- more -->
+
+
+<h2>1. 配置文件</h2>
+
+<p>Log4J配置文件的基本格式如下：</p>
+
+<pre><code>#配置根Logger
+log4j.rootLogger  =   [ level ]   ,  appenderName1 ,  appenderName2 ,  …
+
+#配置日志信息输出目的地Appender
+log4j.appender.appenderName  =  fully.qualified.name.of.appender.class 
+　　log4j.appender.appenderName.option1  =  value1 
+　　… 
+　　log4j.appender.appenderName.optionN  =  valueN 
+
+#配置日志信息的格式（布局）
+log4j.appender.appenderName.layout  =  fully.qualified.name.of.layout.class 
+　　log4j.appender.appenderName.layout.option1  =  value1 
+　　… 
+　　log4j.appender.appenderName.layout.optionN  =  valueN 
+</code></pre>
+
+<p>其中 [<strong>level</strong>] 是日志输出级别，共有5级：</p>
+
+<blockquote><p>FATAL      0<br/>
+ERROR      3<br/>
+WARN       4<br/>
+INFO       6<br/>
+DEBUG      7</p></blockquote>
+
+<p><strong>Appender</strong> 为日志输出目的地，Log4j提供的appender有以下几种：</p>
+
+<pre><code>org.apache.log4j.ConsoleAppender（控制台），
+org.apache.log4j.FileAppender（文件），
+org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件），
+org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件），
+org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方）
+</code></pre>
+
+<p><strong>Layout</strong>：日志输出格式，Log4j提供的layout有以下几种：</p>
+
+<pre><code>org.apache.log4j.HTMLLayout（以HTML表格形式布局），
+org.apache.log4j.PatternLayout（可以灵活地指定布局模式），
+org.apache.log4j.SimpleLayout（包含日志信息的级别和信息字符串），
+org.apache.log4j.TTCCLayout（包含日志产生的时间、线程、类别等等信息）
+</code></pre>
+
+<p><strong>打印参数</strong>: Log4J采用类似C语言中的printf函数的打印格式格式化日志信息，如下:</p>
+
+<pre><code>　　%m   输出代码中指定的消息  
+　　%p   输出优先级，即DEBUG，INFO，WARN，ERROR，FATAL   
+　　%r   输出自应用启动到输出该log信息耗费的毫秒数   
+　　%c   输出所属的类目，通常就是所在类的全名   
+　　%t   输出产生该日志事件的线程名   
+　　%n   输出一个回车换行符，Windows平台为“\r\n”，Unix平台为“\n”   
+　　%d   输出日志时间点的日期或时间，默认格式为ISO8601，也可以在其后指定格式，比如：%d{yyy MMM dd HH:mm:ss , SSS}，输出类似：2002年10月18日  22 ： 10 ： 28 ， 921    
+　　%l   输出日志事件的发生位置，包括类目名、发生的线程，以及在代码中的行数。举例：Testlog4.main(TestLog4.java: 10 )   
+</code></pre>
+
+<h2>2. 在代码中初始化Logger:</h2>
+
+<p>1）在程序中调用<strong>BasicConfigurator.configure()</strong>方法：给根记录器增加一个ConsoleAppender，输出格式通过PatternLayout设为"%-4r [%t] %-5p %c %x &ndash; %m%n"，还有根记录器的默认级别是<strong>Level.DEBUG</strong>.<br/>
+2）配置放在文件里，通过命令行参数传递文件名字，通过PropertyConfigurator.configure(args[x])解析并配置；<br/>
+3）配置放在文件里，通过环境变量传递文件名等信息，利用log4j默认的初始化过程解析并配置；<br/>
+4）配置放在文件里，通过应用服务器配置传递文件名等信息，利用一个特殊的servlet来完成配置。</p>
+
+<h2>3. 为不同的 Appender 设置日志输出级别：</h2>
+
+<p>当调试系统时，我们往往注意的只是异常级别的日志输出，但是通常所有级别的输出都是放在一个文件里的，如果日志输出的级别是BUG！？那就慢慢去找吧。
+这时我们也许会想要是能把异常信息单独输出到一个文件里该多好啊。当然可以，Log4j已经提供了这样的功能，我们只需要在配置中修改<strong>Appender的Threshold</strong> 就能实现,比如下面的例子：</p>
+
+<p><strong>[配置文件]</strong></p>
+
+<pre><code>### set log levels ###
+log4j.rootLogger = debug ,  stdout ,  D ,  E
+
+### 输出到控制台 ###
+log4j.appender.stdout = org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.Target = System.out
+log4j.appender.stdout.layout = org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern =  %d{ABSOLUTE} %5p %c{ 1 }:%L - %m%n
+
+### 输出到日志文件 ###
+log4j.appender.D = org.apache.log4j.DailyRollingFileAppender
+log4j.appender.D.File = logs/log.log
+log4j.appender.D.Append = true
+log4j.appender.D.Threshold = DEBUG ## 输出DEBUG级别以上的日志
+log4j.appender.D.layout = org.apache.log4j.PatternLayout
+log4j.appender.D.layout.ConversionPattern = %-d{yyyy-MM-dd HH:mm:ss}  [ %t:%r ] - [ %p ]  %m%n
+
+### 保存异常信息到单独文件 ###
+log4j.appender.D = org.apache.log4j.DailyRollingFileAppender
+log4j.appender.D.File = logs/error.log ## 异常日志文件名
+log4j.appender.D.Append = true
+log4j.appender.D.Threshold = ERROR ## 只输出ERROR级别以上的日志!!!
+log4j.appender.D.layout = org.apache.log4j.PatternLayout
+log4j.appender.D.layout.ConversionPattern = %-d{yyyy-MM-dd HH:mm:ss}  [ %t:%r ] - [ %p ]  %m%n
+</code></pre>
+
+<p><strong>[代码中使用]</strong></p>
+
+<pre><code>public   class  TestLog4j  {  
+     public   static   void  main(String[] args)  {  
+        PropertyConfigurator.configure( " D:/Code/conf/  log4j.properties " );  
+        Logger logger  =  Logger.getLogger(TestLog4j. class );  
+        logger.debug( " debug " );  
+        logger.error( " error " );  
+    }
+}
+</code></pre>
+
+<p>运行一下，看看异常信息是不是保存在了一个单独的文件error.log中。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用Eclipse远程调试tomcat上的web应用]]></title>
+    <link href="http://zjun.github.io/blog/2006/04/21/eclipse-debug-webapp-on-tomcat/"/>
+    <updated>2006-04-21T17:55:00+08:00</updated>
+    <id>http://zjun.github.io/blog/2006/04/21/eclipse-debug-webapp-on-tomcat</id>
+    <content type="html"><![CDATA[<p>其实解决这个问题最有效的方法就安装插件：简单，直接。但是如果你不想安装太多的插件到eclipse中或者你调试使用的tomcat和eclipse不在同一机器上的话，就要使用eclipse的remote debug直接进行调试,具体配置步骤如下:</p>
+
+<!-- more -->
+
+
+<h2>1. 设置tomcat的运行环境：</h2>
+
+<p>打开startup.bat文件,找到行</p>
+
+<pre><code>call  " %EXECUTABLE% "  start %CMD_LINE_ARGS% 
+</code></pre>
+
+<p>在之前加入下面的设置:</p>
+
+<pre><code>SET CATALINA_OPTS = -server -Xdebug -Xnoagent -Djava.compiler = NONE -Xrunjdwp:transport = dt_socket , server = y , suspend = n , address = XXXX 
+</code></pre>
+
+<p>或者直接修改catalina.bat文件如下:</p>
+
+<pre><code>set JPDA = jpda  
+set JPDA_TRANSPORT = dt_socket  
+set JPDA_ADDRESS = XXXX  
+</code></pre>
+
+<p>其中XXXX为自设定的不冲突端口号.</p>
+
+<h2>2. 设置eclipse的remote debug:</h2>
+
+<p> 打开eclipse中的debug设置窗口，选择Remote Java Application ，新建一个debug项，输入服务器IP和刚才设置端口号，点ok就可以进入debug状态了。</p>
+
+<p><img src="http://www.blogjava.net/images/blogjava_net/zjun/8140/r_Eclipse%20Remote%20Debug.gif" alt="" /></p>
+]]></content>
+  </entry>
+  
+</feed>
