@@ -4,7 +4,7 @@
   <title><![CDATA[zJun's Tech Blog]]></title>
   <link href="http://zjun.github.io/atom.xml" rel="self"/>
   <link href="http://zjun.github.io/"/>
-  <updated>2014-06-08T00:53:23+08:00</updated>
+  <updated>2014-06-08T00:56:06+08:00</updated>
   <id>http://zjun.github.io/</id>
   <author>
     <name><![CDATA[zJun]]></name>
@@ -3173,12 +3173,12 @@ git——大名鼎鼎的git，该插件可以实现大部分的git功能</p>
 
 <p>推送是出现下面错误：</p>
 
-<blockquote><p>## Pushing generated _deploy website
-To git@github.com:GinSmile/ginsmile.github.io.git
-! [rejected]        master &ndash;> master (non-fast-forward)
-error: 无法推送一些引用到 &lsquo;git@github.com:GinSmile/ginsmile.github.io.git&rsquo;
-提示：更新被拒绝，因为您当前分支的最新提交落后于其对应的远程分支。
-提示：再次推送前，先与远程变更合并（如 &lsquo;git pull &hellip;&#8217;）。详见
+<blockquote><p>## Pushing generated _deploy website<br/>
+To git@github.com:GinSmile/ginsmile.github.io.git<br/>
+! [rejected]        master &ndash;> master (non-fast-forward)<br/>
+error: 无法推送一些引用到 &lsquo;git@github.com:GinSmile/ginsmile.github.io.git&#8217;<br/>
+提示：更新被拒绝，因为您当前分支的最新提交落后于其对应的远程分支。<br/>
+提示：再次推送前，先与远程变更合并（如 &#8216;git pull &hellip;&#8217;）。详见<br/>
 提示：&#8217;git push &mdash;help&rsquo; 中的 &lsquo;Note about fast-forwards&rsquo; 小节。</p></blockquote>
 
 <p>在这里找到解决办法： <a href="http://ginsmile.github.io/blog/2013/08/29/octopressbo-ke-ji-qiao/#.U5M_X3WSxhE">Octopress博客技巧</a></p>
