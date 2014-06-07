@@ -102,6 +102,262 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-12-04T21:06:19+08:00" pubdate data-updated="true">Dec 4<span>th</span>, 2013</time>
+        
+           | <a href="/blog/2013/12/04/spring_mvc_rest/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2013/12/04/spring_mvc_rest/">Comments</a>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/04/spring_mvc_rest/">Spring MVC 实现 REST Service</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><h2>web.xml</h2>
+
+<pre><code>&lt;!-- 配置字符过滤器--&gt;    
+&lt;filter&gt;  
+    &lt;filter-name&gt;CharacterFilter&lt;/filter-name&gt;  
+    &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;  
+    &lt;init-param&gt;  
+        &lt;param-name&gt;encoding&lt;/param-name&gt;  
+        &lt;param-value&gt;UTF-8&lt;/param-value&gt;  
+    &lt;/init-param&gt;  
+&lt;/filter&gt;  
+
+&lt;filter-mapping&gt;  
+    &lt;filter-name&gt;CharacterFilter&lt;/filter-name&gt;  
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;  
+&lt;/filter-mapping&gt;  
+
+&lt;!-- 指定spring配置文件位置 --&gt;  
+&lt;context-param&gt;  
+    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;  
+    &lt;param-value&gt;  
+        &lt;!--加载多个spring配置文件 --&gt;  
+        classpath:spring-homebills-cfg.xml
+    &lt;/param-value&gt;  
+&lt;/context-param&gt;  
+
+&lt;!-- 定义SPRING监听器，加载spring --&gt;  
+&lt;listener&gt;  
+    &lt;listener-class&gt;  
+        org.springframework.web.context.ContextLoaderListener
+    &lt;/listener-class&gt;  
+&lt;/listener&gt;  
+
+&lt;listener&gt;  
+    &lt;listener-class&gt;  
+org.springframework.web.context.request.RequestContextListener
+    &lt;/listener-class&gt;  
+&lt;/listener&gt;   
+
+&lt;servlet&gt;  
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;  
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;  
+    &lt;init-param&gt;  
+        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;  
+        &lt;param-value&gt;classpath:homebills-servlet.xml&lt;/param-value&gt;  
+    &lt;/init-param&gt;  
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;  
+&lt;/servlet&gt;  
+
+&lt;servlet-mapping&gt;  
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;  
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;  
+&lt;/servlet-mapping&gt;  
+</code></pre>
+
+</div>
+  
+  
+    <footer>
+      <a class="btn btn-default" rel="full-article" href="/blog/2013/12/04/spring_mvc_rest/">Read on &rarr;</a>
+    </footer>
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-12-03T21:06:19+08:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2013</time>
+        
+           | <a href="/blog/2013/12/03/use_spring_data_jpa/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2013/12/03/use_spring_data_jpa/">Comments</a>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/03/use_spring_data_jpa/">使用Spring Data JPA 简化持久层的开发</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>最近看到<a href="http://www.springside.org.cn/">SpringSide</a>最新版的<a href="https://github.com/springside/springside4/wiki/Design">技术选型</a>中提到了<a href="http://www.springsource.org/spring-data/jpa">Spring Data JPA</a>,号称只需要实现接口就可以实现大部分操作。真有怎么神奇？于是Google一番，果然好使，在这里记录一下：</p>
+
+</div>
+  
+  
+    <footer>
+      <a class="btn btn-default" rel="full-article" href="/blog/2013/12/03/use_spring_data_jpa/">Read on &rarr;</a>
+    </footer>
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-10-27T21:06:19+08:00" pubdate data-updated="true">Oct 27<span>th</span>, 2013</time>
+        
+           | <a href="/blog/2013/10/27/go_note_2_basic_grammar/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2013/10/27/go_note_2_basic_grammar/">Comments</a>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/27/go_note_2_basic_grammar/">Go笔记2：基础语法</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><h2>变量</h2>
+
+<p><strong>说明：</strong><br/>
+1. 使用var关键字是Go最基本的定义变量方式，Go把变量类型放在变量名后面；<br/>
+2. _（下划线）是个特殊的变量名，任何赋予它的值都会被丢弃；</p>
+
+<div>
+  <pre><code class='go'>_, b := 34, 35 //将值35赋予b，并同时丢弃34</code></pre>
+</div>
+
+
+<ol>
+<li>Go对于已声明但未使用的变量会在编译阶段报错；</li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a class="btn btn-default" rel="full-article" href="/blog/2013/10/27/go_note_2_basic_grammar/">Read on &rarr;</a>
+    </footer>
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-10-24T21:06:19+08:00" pubdate data-updated="true">Oct 24<span>th</span>, 2013</time>
+        
+           | <a href="/blog/2013/10/24/go_note_1_install/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2013/10/24/go_note_1_install/">Comments</a>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/24/go_note_1_install/">Go笔记1：环境配置</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><h2>Go 安装</h2>
+
+<p>我的环境是Win7，所以这里主要记录在Win7下安装Go的过程：</p>
+
+<ul>
+<li>首先到<a href="http://code.google.com/p/go/downloads/list">这里</a>去下载安装程序，32位系统下载go1.0.3.windows-386.msi，64位系统下载go1.0.3.windows-amd64.msi；</li>
+<li>双击打开下载的文件，一路按照默认点击下一步，这个时候go已经安装到你的系统中，默认安装之后已经在你的系统环境变量中加入了c:/go/bin；</li>
+<li>打开cmd，输入go，如果出现Go的Usage信息，那么说明Go已经安装成功了；如果出现该命令不存在，那么可以检查一下PATH环境变中是否包含了Go的安装目录。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a class="btn btn-default" rel="full-article" href="/blog/2013/10/24/go_note_1_install/">Read on &rarr;</a>
+    </footer>
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-09-18T21:06:19+08:00" pubdate data-updated="true">Sep 18<span>th</span>, 2013</time>
         
            | <a href="/blog/2013/09/18/change_mysql_root_password/#disqus_thread"
@@ -191,377 +447,6 @@ mysql&gt; SET PASSWORD FOR 'root'@'localhost' = PASSWORD('newpass');</code></pre
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-09-03T21:06:19+08:00" pubdate data-updated="true">Sep 3<span>rd</span>, 2013</time>
-        
-           | <a href="/blog/2013/09/03/use-octopress-to-write-blog/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2013/09/03/use-octopress-to-write-blog/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/03/use-octopress-to-write-blog/">使用Octopress写博客</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p><code>Octopress</code>是利用<code>Jekyll</code>博客引擎开发的一个博客系统，生成的静态页面能够很好的在github page上展现。号称是hacker专属的一个博客系统(<code>A blogging framework for hackers.</code>)
-本文就来介绍一下如何利用Octopress搭建一个Github博客。本文需要读者熟悉一些shell命令，并掌握基本的git操作。</p>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2013/09/03/use-octopress-to-write-blog/">Read on &rarr;</a>
-    </footer>
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-08-15T21:06:19+08:00" pubdate data-updated="true">Aug 15<span>th</span>, 2013</time>
-        
-           | <a href="/blog/2013/08/15/git_commands_notes/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2013/08/15/git_commands_notes/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/15/git_commands_notes/">Git常用命令笔记</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>在 <a href="http://robbinfan.com/">Robin Fan</a> 那里看到一份 <a href="http://robbinfan.com/blog/34/git-common-command" title="Git常用命令备忘">http://robbinfan.com/blog/34/git-common-command</a>， 非常的干货，转帖在这里，以备日后查询。</p>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2013/08/15/git_commands_notes/">Read on &rarr;</a>
-    </footer>
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-08-05T21:06:19+08:00" pubdate data-updated="true">Aug 5<span>th</span>, 2013</time>
-        
-           | <a href="/blog/2013/08/05/use-jekyll-github-blog/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2013/08/05/use-jekyll-github-blog/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/05/use-jekyll-github-blog/">用Jekyll+Github+Markdown来写Blog</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>继续折腾，之前使用 Octpress 来写Blog,但用了一段时间以后还是觉得笨重，发布一篇新文章需要把所有页面重新发布一遍，最终还是决定使用定制更灵活的Jekyll.下面就记录一下这次迁移的步骤和遇到的问题。</p>
-
-<p>以下过程在Windows7下进行：</p>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2013/08/05/use-jekyll-github-blog/">Read on &rarr;</a>
-    </footer>
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-05-30T21:06:19+08:00" pubdate data-updated="true">May 30<span>th</span>, 2013</time>
-        
-           | <a href="/blog/2013/05/30/java-string-ram-management/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2013/05/30/java-string-ram-management/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/30/java-string-ram-management/">关于 Java String 内存管理的几个有趣的例子</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>今天在 <a href="http://www.oschina.net">OSChina</a> 上看到一篇有趣的文章：<a href="http://my.oschina.net/u/551903/blog/134000">关于String内存分配的深入探讨</a>,文章通过几个简单的例子，把Java中String的内存管理的方式解释的很清楚，涨了不少姿势，现根据自己的理解做些笔记在这里：</p>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2013/05/30/java-string-ram-management/">Read on &rarr;</a>
-    </footer>
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-05-14T17:37:00+08:00" pubdate data-updated="true">May 14<span>th</span>, 2013</time>
-        
-           | <a href="/blog/2013/05/14/dojo-traps-in-ie/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2013/05/14/dojo-traps-in-ie/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/14/dojo-traps-in-ie/">Dojo在IE中的那些坑</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>最近的一个小项目中使用的<a href="http://dojotoolkit.org/">dojo</a>作为前台页面框架。本来很简单的功能，但是发布给用户做  UAT时却发现一堆简单低级的错误，但在开发环境却始终不能重现，百思不得其解&hellip;原来用户的测试环境是 IE8，果然问题在这，之前测试是在FireFox，没想到相同的功能在IE中却报错。</p>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2013/05/14/dojo-traps-in-ie/">Read on &rarr;</a>
-    </footer>
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-05-08T14:36:00+08:00" pubdate data-updated="true">May 8<span>th</span>, 2013</time>
-        
-           | <a href="/blog/2013/05/08/using-sublime/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2013/05/08/using-sublime/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/08/using-sublime/">Sublime Text 2快捷键及常用插件</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>SublimeText2 是我目前为止用过的最为强大的编辑器，支持但不限于 C, C++, C#, CSS, D, Erlang, HTML, Groovy, Haskell, HTML, Java, JavaScript, LaTeX, Lisp, Lua, Markdown, Matlab, OCaml, Perl, PHP, Python, R, Ruby, SQL, TCL, Textile and XML 等主流编程语言的语法高亮。拥有优秀的代码自动完成功能 (自动补齐括号，大括号等配对符号；自动补全已经出现的单词；自动补全函数名)，非常智能。 最重要的是这么一个原来高不可攀的“神器”，现在居然开源免费了，所以还不赶快试试：</p>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2013/05/08/using-sublime/">Read on &rarr;</a>
-    </footer>
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-04-01T15:49:00+08:00" pubdate data-updated="true">Apr 1<span>st</span>, 2013</time>
-        
-           | <a href="/blog/2013/04/01/highcharts-2-piechart/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2013/04/01/highcharts-2-piechart/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/01/highcharts-2-piechart/">HighCharts 笔记2：通过表格生成Pie Chart</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>接上一篇 <a href="http://zjun.github.com/2013/03/28/highcharts-json-dataformat/">HighCharts笔记之: Bar Chart</a>，这一篇继续记录在项目中使用 Pie Chart 的情况,只是自己的一点总结和记录，以备日后翻阅。这一次是通过页面上的表格(Table)数据，生成对应的饼图（Pie Chart），具体实现如下：</p>
-
-<blockquote><p><strong>Highcharts</strong> 是一个用纯JavaScript编写的一个图表库, 能够很简单便捷的在web网站或是web应用程序添加有交互性的图表，并且免费提供给个人学习、个人网站和非商业用途使用。目前HighCharts支持的图表类型有曲线图、区域图、柱状图、饼状图、散状点图和综合图表。
-HighCharts界面美观，由于使用JavaScript编写，所以不需要像Flash和Java那样需要插件才可以运行，而且运行速度快。另外HighCharts还有很好的兼容性，能够完美支持当前大多数浏览器。</p></blockquote>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2013/04/01/highcharts-2-piechart/">Read on &rarr;</a>
-    </footer>
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-03-28T16:52:00+08:00" pubdate data-updated="true">Mar 28<span>th</span>, 2013</time>
-        
-           | <a href="/blog/2013/03/28/highcharts-json-dataformat/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2013/03/28/highcharts-json-dataformat/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2013/03/28/highcharts-json-dataformat/">HighCharts笔记之: Bar Chart</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>最近需要做一些Web图标，研究了几个开源的第三方工具后，最后决定使用<strong>HighCharts</strong>开发：</p>
-
-<p><strong>Highcharts</strong> 是一个用纯JavaScript编写的一个图表库, 能够很简单便捷的在web网站或是web应用程序添加有交互性的图表，并且免费提供给个人学习、个人网站和非商业用途使用。目前HighCharts支持的图表类型有曲线图、区域图、柱状图、饼状图、散状点图和综合图表。
-HighCharts界面美观，由于使用JavaScript编写，所以不需要像Flash和Java那样需要插件才可以运行，而且运行速度快。另外HighCharts还有很好的兼容性，能够完美支持当前大多数浏览器。</p>
-
-<p>HighCharts 可以通过JSON 数据格式与后台交互，从而生成动态的图表。但是在官方的文档中关于 JSON 数据格式的资料很少，经过一下午的调试终于找到了关于柱状图和饼图的数据格式，在这里记录一下，以备后续的查询：</p>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2013/03/28/highcharts-json-dataformat/">Read on &rarr;</a>
-    </footer>
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -594,6 +479,10 @@ HighCharts界面美观，由于使用JavaScript编写，所以不需要像Flash�
     <a class="list-group-item " href="/blog/2014/01/03/go_note_5_accessmysql/">Go笔记5：访问MySQL数据库</a>
     
     <a class="list-group-item " href="/blog/2013/12/30/go_note_4_interface/">Go笔记4：接口</a>
+    
+    <a class="list-group-item " href="/blog/2013/12/19/go_note_3_object/">Go笔记3：面向对象</a>
+    
+    <a class="list-group-item " href="/blog/2013/12/04/spring_mvc_rest/">Spring MVC 实现 REST Service</a>
     
   </div>
 </section>

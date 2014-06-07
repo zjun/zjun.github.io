@@ -4,7 +4,7 @@
   <title><![CDATA[zJun's Tech Blog]]></title>
   <link href="http://zjun.github.io/atom.xml" rel="self"/>
   <link href="http://zjun.github.io/"/>
-  <updated>2014-06-08T00:33:34+08:00</updated>
+  <updated>2014-06-08T00:46:27+08:00</updated>
   <id>http://zjun.github.io/</id>
   <author>
     <name><![CDATA[zJun]]></name>
@@ -2433,6 +2433,38 @@ default-character-set=gbk</code></pre>
 <p>如果在部署到仓库之前，需要先预览一下博客，可以在终端输入<code>rake preview</code>命令，然后就能在浏览器中进行本地预览访问了：<code>http://127.0.0.1:4000/</code>或<code>http://localhost:4000/</code>，效果跟仓库中的一样。
 参考：<a href="http://octopress.org/docs/deploying/">Deploying to Github Pages</a></p>
 
+<h3>Update:</h3>
+
+<p>推送是出现下面错误：</p>
+
+<blockquote><h2>Pushing generated _deploy website</h2>
+
+<p>To git@github.com:GinSmile/ginsmile.github.io.git
+! [rejected]        master &ndash;> master (non-fast-forward)
+error: 无法推送一些引用到 &lsquo;git@github.com:GinSmile/ginsmile.github.io.git&rsquo;
+提示：更新被拒绝，因为您当前分支的最新提交落后于其对应的远程分支。
+提示：再次推送前，先与远程变更合并（如 &lsquo;git pull &hellip;&#8217;）。详见
+提示：&#8217;git push &mdash;help&rsquo; 中的 &lsquo;Note about fast-forwards&rsquo; 小节。</p></blockquote>
+
+<p>在这里找到解决办法： <a href="http://ginsmile.github.io/blog/2013/08/29/octopressbo-ke-ji-qiao/#.U5M_X3WSxhE">Octopress博客技巧</a></p>
+
+<p>修改RakeFile文件（Octopress目录下）来强制推送，这里参考了stackoverflow的解决办法</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">system &quot;git push origin #{deploy_branch}&quot;   </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> <br/>
+修改为：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">system &quot;git push origin +#{deploy_branch}&quot;   </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意：此方法使强制推送，会删除GitHub上的所有的本地分支没有的提交。记住推送完毕后再把RakeFile文件改回来。</p>
+
 <h2>5. 写博客</h2>
 
 <p>Octopress中文章存储在<code>source/_posts</code>目录下，并且需要按照Jekyll的命名规范对文章进行命名：<code>YYYY-MM-DD-post-title.markdown</code>。文章的名字会被当做url的一部分，而其中的日期用于对博文的区分和排序。</p>
@@ -2493,6 +2525,7 @@ default-character-set=gbk</code></pre>
 <li><a href="http://www.lijinma.com/blog/2013/01/23/move-from-wordpress-to-octopress/">博客搬家：从Wordpress迁移到octopress</a></li>
 <li><a href="http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/">象写程序一样写博客：搭建基于github的博客</a></li>
 <li><a href="http://kaworu.github.io/octopress/setup/install/">Octopress3</a></li>
+<li><a href="http://ginsmile.github.io/blog/2013/08/29/octopressbo-ke-ji-qiao/#.U5M_X3WSxhE">Octopress博客技巧</a></li>
 </ul>
 
 ]]></content>
