@@ -115,12 +115,12 @@ $ git push origin source
 
 ### Update:
 推送是出现下面错误：
->\## Pushing generated _deploy website
->To git@github.com:GinSmile/ginsmile.github.io.git
-> ! [rejected]        master -> master (non-fast-forward)
->error: 无法推送一些引用到 'git@github.com:GinSmile/ginsmile.github.io.git'
->提示：更新被拒绝，因为您当前分支的最新提交落后于其对应的远程分支。
->提示：再次推送前，先与远程变更合并（如 'git pull ...'）。详见
+>\## Pushing generated _deploy website  
+>To git@github.com:GinSmile/ginsmile.github.io.git  
+> ! [rejected]        master -> master (non-fast-forward)  
+>error: 无法推送一些引用到 'git@github.com:GinSmile/ginsmile.github.io.git'  
+>提示：更新被拒绝，因为您当前分支的最新提交落后于其对应的远程分支。  
+>提示：再次推送前，先与远程变更合并（如 'git pull ...'）。详见  
 >提示：'git push --help' 中的 'Note about fast-forwards' 小节。    
 
 在这里找到解决办法： [Octopress博客技巧](http://ginsmile.github.io/blog/2013/08/29/octopressbo-ke-ji-qiao/#.U5M_X3WSxhE)  
