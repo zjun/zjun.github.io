@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>在javascript中实现继承关系 - zJun's Tech Blog</title>
+  <meta name="author" content="zJun">
+
+  
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zjun.github.io/blog/2006/03/06/inherit_in_javascript">
+  <link href="/favicon.png" type="image/png" rel="icon">
+  <link href="/atom.xml" rel="alternate" title="zJun's Tech Blog" type="application/atom+xml">
+
+  <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+
+  <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
+  
+
+</head>
+
+  <body   >
+    <div id="wrap">
+      <header role="banner">
+        <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">zJun's Tech Blog</a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/">Blog</a>
+                </li>
+                <li >
+                    <a href="/blog/archives">Archives</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="subscribe-rss" href="/atom.xml" title="subscribe via RSS">
+                        <span class="visible-xs">RSS</span>
+                        <img class="hidden-xs" src="/images/rss.png" alt="RSS">
+                    </a>
+                </li>
+                
+            </ul>
+            
+                <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
+                    <input type="hidden" name="q" value="site:zjun.github.io">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="q" placeholder="Search">
+                    </div>
+                </form>
+            
+        </div>
+    </div>
+</nav>
+
+
+      </header>
+      <div id="main" class="container">
+        <div id="content">
+          <div class="row">
+  <div class="page-content col-md-9">
+    <article class="hentry" role="article">
+      
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-03-06T16:52:00+08:00" pubdate data-updated="true">Mar 6<span>th</span>, 2006</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io">Comments</a>
+        
+      </p>
+    
+    
+    <h1 class="entry-title">
+        在javascript中实现继承关系
+        
+    </h1>
+    
+  </header>
+
+
+<div class="entry-content clearfix"><p>意译自KevLinDev上一篇文章，才疏学浅，望指正，英文原文可到<a href="http://www.kevlindev.com/tutorials/javascript/inheritance/">这里</a>查看。</p>
+
+<hr />
+
+<p>javascript脚本语言是支持面向对象编程(<strong>O</strong>bject <strong>O</strong>riented <strong>P</strong>rogramming )的,只是javascript实现的方式比较特别，与C++和java中的实现方式不同。在javascript中我们需要借助<strong>prototype</strong>对象来访问父类的方法，下面将讨论在javascript中实现OOP中最基本的特征关系 &mdash;&ndash; <strong>继承</strong>。</p>
+
+<!--more-->
+
+
+<h2>首先</h2>
+
+<p>我们从最基本的开始：<strong>在javascript中创建对象</strong>。创建一个对象包括2步：</p>
+
+<ol>
+<li>创建一个和你想要创建的对象同名的函数(这里可以把这个函数理解为java中的构造函数)；</li>
+<li>通过调用 <strong>new 上面创建的函数名</strong> 的方式创建一个对象实例；</li>
+</ol>
+
+
+<div>
+  <pre><code class='javascript'>// 创建同名函数   
+function Person(first, last) {  
+    this.first = first;  
+    this.last  = last;  
+}  
+// 创建实例  
+var person = new Person(&quot;John&quot;, &quot;Dough&quot;);</code></pre>
+</div>
+
+
+<p>注意：构造函数中的<strong>this</strong>指针指向当前的创建的对象，这与java中的表示是一致的。通过this指针我们可以操作对象的属性。</p>
+
+<h2>然后</h2>
+
+<p>设置对象的方法：</p>
+
+<div>
+  <pre><code class='javascript'>Person.prototype.toString() {  
+    return this.first + &quot; &quot; + this.last;  
+}  
+
+alert( person.toString() ); // displays &quot;John Dough&quot;  
+alert( person ); // alert函数将默认调用toString()函数</code></pre>
+</div>
+
+
+<p>在这里我们用到了javascript中的<strong>prototype</strong>属性。所有的javascript对象都拥有一个prototype属性，javascript就是通过这个属性来实现继承关系的。具体的实现机制是这样的：</p>
+
+<ol>
+<li><strong>当你访问一个对象的属性时，编译器将先查找对象的属性看有没有匹配的。</strong></li>
+<li><strong>如果没有找到，将继续查找这个对象的prototype属性所指的对象，看是否存在匹配的属性。</strong></li>
+<li><strong>如果还是没有找到，编译器将检查当前对象的prototype是否拥有prototype属性，如果有将继续查找下去。</strong></li>
+<li><strong>以此类推，直到查找完所有的prototype属性。</strong></li>
+</ol>
+
+
+<p>从这个过程不难看出，存在着一个类似于继承的访问链，可以把prototype对象指向我们要继承的父类，以此来访问父类的方法。</p>
+
+<h2>接下来</h2>
+
+<p>我们新建一个类Employee来继承上面的Person类，并且新增一个属性id,在Employee的构造函数中只是初始化属性id，而父类中的属性将由Person的构造函数类设置：</p>
+
+<div>
+  <pre><code class='javascript'>function Person(first, last) {  
+if ( arguments.length &gt; 0 )  
+    this.init(first, last);  
+}  
+  
+Person.prototype.init = function(first, last) {  
+    this.first = first;  
+    this.last  = last;  
+}  
+  
+Employee.prototype = new Person();  
+Employee.prototype.constructor = Employee;  
+Employee.superclass = Person.prototype;  
+  
+function Employee(first, last, id) {  
+    if ( arguments.length &gt; 0 )  
+        this.init(first, last, id);  
+}  
+  
+Employee.prototype.init = function(first, last, id) {      
+    // Call superclass method  
+    Employee.superclass.init.call(this, first, last);  
+  
+    // init properties  
+    this.id = id;  
+}</code></pre>
+</div>
+
+
+<p>可以看到，我们把初始化属性的操作提取出来放到了一个init函数中，这样做是为了方便在子类中调用。注意其中的&#8221;<strong>Employee.superclass = Person.prototype;</strong>&ldquo;，这里是一个技巧，方便下面在子类中调用父类的方法。
+另一个需要注意的地方是&rdquo;<strong>Employee.superclass.init.call(this, first, last);</strong>&ldquo;:对于所有对象中的方法来说，都可以通过两个方法来调用－－&rdquo;<strong>call</strong>&ldquo; 和 &rdquo;<strong>apply</strong>&ldquo;.<br/>
+这里使用了<strong>call</strong>方法，其中第一个参数是将在调用的方法中访问的对象，后面的参数与调用方法的参数一致。
+ <strong>apply</strong>方法的使用与call大致一致，不同在于除了第一个参数外，后面是一个参数数组。</p>
+
+<p>下面附上完整的例子和类图：</p>
+
+<p>继承关系图如下：</p>
+
+<p><img src="http://www.blogjava.net/images/blogjava_net/zjun/8140/o_javascriptOOP.gif" alt="" /></p>
+
+<p>代码：</p>
+
+<div>
+  <pre><code class='javascript'>/*****  
+*  
+*    Person constructor  
+*  
+*****/   
+function Person(first, last) {  
+    if ( arguments.length &gt; 0 )  
+        this.init(first, last);  
+}  
+  
+/*****  
+*  
+*    Person init  
+*  
+*****/  
+Person.prototype.init = function(first, last) {  
+    this.first = first;  
+    this.last  = last;  
+};  
+  
+/*****  
+*  
+*    Person toString  
+*  
+*****/  
+Person.prototype.toString = function() {  
+    return this.first + &quot;,&quot; + this.last;  
+};  
+  
+  
+/*****  
+*  
+*    Setup Employee inheritance  
+*  
+*****/  
+Employee.prototype = new Person();  
+Employee.prototype.constructor = Employee;  
+Employee.superclass = Person.prototype;  
+  
+/*****  
+*  
+*    Employee constructor  
+*  
+*****/  
+function Employee(first, last, id) {  
+    if ( arguments.length &gt; 0 )  
+        this.init(first, last, id);  
+}  
+  
+/*****  
+*  
+*    Employee init  
+*  
+*****/  
+Employee.prototype.init = function(first, last, id) {      
+    // Call superclass method  
+    Employee.superclass.init.call(this, first, last);  
+  
+    // init properties  
+    this.id = id;  
+}  
+  
+/*****  
+*  
+*    Employee toString  
+*  
+*****/  
+Employee.prototype.toString = function() {  
+    var name = Employee.superclass.toString.call(this);  
+  
+    return this.id + &quot;:&quot; + name;  
+};  
+  
+  
+/*****  
+*  
+*    Setup Manager inheritance  
+*  
+*****/  
+Manager.prototype = new Employee;  
+Manager.prototype.constructor = Manager;  
+Manager.superclass = Employee.prototype;  
+  
+/*****  
+*  
+*    Manager constructor  
+*  
+*****/  
+function Manager(first, last, id, department) {  
+    if ( arguments.length &gt; 0 )  
+        this.init(first, last, id, department);  
+}  
+  
+/*****  
+*  
+*    Manager init  
+*  
+*****/  
+Manager.prototype.init = function(first, last, id, department){  
+    // Call superclass method  
+    Manager.superclass.init.call(this, first, last, id);  
+  
+    // init properties  
+    this.department = department;  
+}  
+  
+/*****  
+*  
+*    Manager toString  
+*  
+*****/  
+Manager.prototype.toString = function() {  
+    var employee = Manager.superclass.toString.call(this);  
+  
+    return employee + &quot; manages &quot; + this.department;  
+}</code></pre>
+</div>
+
+
+
+</div>
+
+
+      <footer>
+        <p class="meta text-muted">
+          
+  
+
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">zJun</span></span>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-03-06T16:52:00+08:00" pubdate data-updated="true">Mar 6<span>th</span>, 2006</time>
+          
+
+<span class="glyphicon glyphicon-tags"></span>&nbsp;
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/webkai-fa/'>Web开发</a>
+  
+</span>
+
+
+        </p>
+        
+          <div class="sharing">
+  
+  
+  
+</div>
+
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/blog/2006/02/28/regist-javaapp-as-backendservice/" title="Previous Post: 将Java应用注册为后台服务">&laquo; 将Java应用注册为后台服务</a></li>
+            
+            
+            <li class="next"><a href="/blog/2006/03/06/inherit-in-javascriot/" title="Next Post: 在javascript中实现继承关系">在javascript中实现继承关系 &raquo;</a></li>
+            
+          </ul>
+        
+      </footer>
+    </article>
+    
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
+    
+  </div>
+
+  
+  <aside class="sidebar col-md-3">
+    
+      <section class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Recent Posts</h3>
+  </div>
+  
+  <div id="recent_posts" class="list-group">
+    
+    <a class="list-group-item " href="/blog/2014/02/08/go_note_7_goroutine/">Go笔记7:并发</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/22/go_note_6_data_structure/">Go笔记6：Go数据结构</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/16/dev_go_in_sublimetext2/">在Sublime Text2中开发Golang</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/03/go_note_5_accessmysql/">Go笔记5：访问MySQL数据库</a>
+    
+    <a class="list-group-item " href="/blog/2013/12/30/go_note_4_interface/">Go笔记4：接口</a>
+    
+    <a class="list-group-item " href="/blog/2013/12/19/go_note_3_object/">Go笔记3：面向对象</a>
+    
+    <a class="list-group-item " href="/blog/2013/12/04/spring_mvc_rest/">Spring MVC 实现 REST Service</a>
+    
+  </div>
+</section>
+
+<section class="panel panel-default clearfix">
+  <div class="panel-heading">
+      <h3 class="panel-title">GitHub Repos</h3>
+  </div>
+  <div class="list-group" id="gh_repos">
+    <p class="loading">Status updating...</p>
+  </div>
+  
+    <div class="gh-profile-link pull-right text-muted">
+      <a href="https://github.com/zjun">@zjun</a> on GitHub
+    </div>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'zjun',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+    
+  </aside>
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+    <footer role="contentinfo"><div class="container">
+    <p class="text-muted credits">
+  Copyright &copy; 2014 - zJun<br>
+  <small>
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
+      <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
+  </small>
+</p>
+
+</div>
+</footer>
+    <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2006/03/06/inherit_in_javascript/';
+        var disqus_url = 'http://zjun.github.io/blog/2006/03/06/inherit_in_javascript/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

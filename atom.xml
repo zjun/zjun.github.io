@@ -4,11 +4,7 @@
   <title><![CDATA[zJun's Tech Blog]]></title>
   <link href="http://zjun.github.io/atom.xml" rel="self"/>
   <link href="http://zjun.github.io/"/>
-<<<<<<< HEAD
-  <updated>2014-06-08T12:11:00+08:00</updated>
-=======
-  <updated>2014-06-08T00:56:06+08:00</updated>
->>>>>>> d0250ae17e26b35f4d4232608447ac2ba34f9d33
+  <updated>2014-06-08T12:24:41+08:00</updated>
   <id>http://zjun.github.io/</id>
   <author>
     <name><![CDATA[zJun]]></name>
@@ -3211,13 +3207,9 @@ error: 无法推送一些引用到 &lsquo;git@github.com:GinSmile/ginsmile.githu
 <p>通过一下命令，可以正确的按照命名规范创建一个博文，并且在博文中会附带常用的一些yaml元数据。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<<<<<<< HEAD
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">rake generate  </span>
 </span><span class='line'><span class="go">rake deploy    </span>
-=======
-</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">rake new_post[&quot;title&quot;]   </span>
->>>>>>> d0250ae17e26b35f4d4232608447ac2ba34f9d33
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -3262,7 +3254,6 @@ error: 无法推送一些引用到 &lsquo;git@github.com:GinSmile/ginsmile.githu
 
 <p>参考：<a href="http://octopress.org/docs/blogging/">Blogging Basics</a></p>
 
-<<<<<<< HEAD
 <h2>6. 在另一台电脑上重建Octopress</h2>
 
 <p>Octopress的repositories中有两个分支：<code>source</code> and <code>master</code>.</p>
@@ -3370,9 +3361,6 @@ error: 无法推送一些引用到 &lsquo;git@github.com:GinSmile/ginsmile.githu
 <p></p>
 
 <h2>8. 参考资料</h2>
-=======
-<h2>6. 参考资料</h2>
->>>>>>> d0250ae17e26b35f4d4232608447ac2ba34f9d33
 
 <ul>
 <li><a href="http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress/">利用Octopress搭建一个Github博客</a></li>
@@ -3381,10 +3369,7 @@ error: 无法推送一些引用到 &lsquo;git@github.com:GinSmile/ginsmile.githu
 <li><a href="http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/">象写程序一样写博客：搭建基于github的博客</a></li>
 <li><a href="http://kaworu.github.io/octopress/setup/install/">Octopress3</a></li>
 <li><a href="http://ginsmile.github.io/blog/2013/08/29/octopressbo-ke-ji-qiao/#.U5M_X3WSxhE">Octopress博客技巧</a></li>
-<<<<<<< HEAD
 <li><a href="http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/">Clone Your Octopress to Blog From Two Places</a></li>
-=======
->>>>>>> d0250ae17e26b35f4d4232608447ac2ba34f9d33
 </ul>
 
 ]]></content>

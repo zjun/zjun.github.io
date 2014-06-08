@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: golang | zJun's Tech Blog]]></title>
+  <link href="http://zjun.github.io/blog/categories/golang/atom.xml" rel="self"/>
+  <link href="http://zjun.github.io/"/>
+  <updated>2014-06-08T12:24:41+08:00</updated>
+  <id>http://zjun.github.io/</id>
+  <author>
+    <name><![CDATA[zJun]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Go笔记7:并发]]></title>
+    <link href="http://zjun.github.io/blog/2014/02/08/go_note_7_goroutine/"/>
+    <updated>2014-02-08T21:06:19+08:00</updated>
+    <id>http://zjun.github.io/blog/2014/02/08/go_note_7_goroutine</id>
+    <content type="html"><![CDATA[<p>Golang 给人印象最深刻的一个特性就是：从语言层面支持并行，而且实现起来相当简单。</p>
+
+<h2>goroutine</h2>
+
+<p>goroutine是Go并行设计的核心。goroutine其实就是协程，它比线程更小，十几个goroutine可能体现在底层就是五六个线程，Go语言内部实现了这些goroutine之间的内存共享。oroutine比thread更易用、更高效、更轻便。</p>
+
+<p>goroutine通过<code>go</code>关键字实现：</p>
+
+<p><code>go  
+go hello(a, b, c)  
+</code></p>
+
+<!--more-->
+
+
+<h2>channels</h2>
+
+<p>说到并发，不得不说一下多线程之间的通讯（数据共享），说到这不由的会想起Java中的线程间通讯：通过同步和加锁在线程间传递数据，synchronized, locker, wait, notifyAll&hellip;光是想起来都让人头疼。但是Golang中，线程间的通讯实现来就要简单和直观的多，因为它提供了一个很好的通信机制channel。channel与Unix shell 中的双向管道很相似：可以通过它发送或者接收值。</p>
+
+<p>使用make 创建channel(定义一个channel时，也需要定义发送到channel的值的类型)：</p>
+
+<p><code>go
+ci := make(chan int)  
+cs := make(chan string)  
+cf := make(chan interface{})  
+</code></p>
+
+<p>channel通过操作符&lt;-来接收和发送数据:</p>
+
+<p><code>go
+ch &lt;- v    // 发送v到channel ch.  
+v := &lt;-ch  // 从ch中接收数据，并赋值给v  
+</code></p>
+
+<p>默认情况下，channel接收和发送数据都是阻塞的，除非另一端已经准备好，这样就使得Goroutines同步变的更加的简单，而不需要显式的lock。所谓阻塞，也就是如果读取（value := &lt;-ch）它将会被阻塞，直到有数据接收。其次，任何发送（ch&lt;-5）将会被阻塞，直到数据被读出。无缓冲channel是在多个goroutine之间同步很棒的工具。</p>
+
+<p>正式由于通过channel我们可以很简单地实现和控制Goroutines之间地同步，所以我们通常遵循一条设计原则：<strong>不要通过共享来通信，而要通过通信来共享。</strong></p>
+
+<h2>Buffered Channels</h2>
+
+<p>在Golang中实现带缓存地Channel非常简单，就是在申明Channel时指定缓存地大小即可，比如：</p>
+
+<p><code>go
+ch:= make(chan bool, 4)   
+</code></p>
+
+<p>创建了可以存储4个元素的bool 型channel。在这个channel 中，前4个元素可以无阻塞的写入。当写入第5个元素时，代码将会阻塞，直到其他goroutine从channel 中读取一些元素.</p>
+
+<h2>Range和Close</h2>
+
+<p>Golang中非常贴心地提供可一个Range函数，方便我们通过轮询地方式读取Channel中地值，知道Channel被现实地关闭，避免了低效而且看上去比较愚蠢地一条一条地去读取，例如：</p>
+
+<p>```go<br/>
+package main</p>
+
+<p>import (</p>
+
+<pre><code>"fmt"
+</code></pre>
+
+<p>)</p>
+
+<p>func fibonacci(n int, c chan int) {</p>
+
+<pre><code>x, y := 1, 1
+for i := 0; i &lt; n; i++ {
+    c &lt;- x
+    x, y = y, x + y
+}
+close(c)
+</code></pre>
+
+<p>}</p>
+
+<p>func main() {</p>
+
+<pre><code>c := make(chan int, 10)
+go fibonacci(cap(c), c)
+for i := range c {
+    fmt.Println(i)
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p><code>for i := range c</code>能够不断的读取channel里面的数据，直到该channel被显式的关闭。上面代码我们看到通过内置函数<code>close</code>显式关闭channel。关闭channel之后就无法再发送任何数据了，可以通过语法<code>v, ok := &lt;-ch</code>测试channel是否被关闭。如果ok返回false，那么说明channel已经没有任何数据并且已经被关闭。</p>
+
+<h2>Select</h2>
+
+<p>如果存在多个channel的时候，我们可以通过<code>select</code>监听channel上的数据流动。</p>
+
+<p><code>select</code>默认是阻塞的，只有当监听的channel中有发送或接收可以进行时才会运行，当多个channel都准备好的时候，select是随机的选择一个执行的。例如：</p>
+
+<p>```go <br/>
+package main</p>
+
+<p>import &ldquo;fmt&rdquo;</p>
+
+<p>func fibonacci(c, quit chan int) {</p>
+
+<pre><code>x, y := 1, 1
+for {
+    select {
+    case c &lt;- x:
+        x, y = y, x + y
+    case &lt;-quit:
+        fmt.Println("quit")
+        return
+    }
+}
+</code></pre>
+
+<p>}</p>
+
+<p>func main() {</p>
+
+<pre><code>c := make(chan int)
+quit := make(chan int)
+go func() {
+    for i := 0; i &lt; 10; i++ {
+        fmt.Println(&lt;-c)
+    }
+    quit &lt;- 0
+}()
+fibonacci(c, quit)
+</code></pre>
+
+<p>}
+```</p>
+
+<p><code>select</code>里面还有default语法，<code>select</code>其实就是类似switch的功能，default就是当监听的channel都没有准备好的时候，默认执行的.</p>
+
+<h3>超时</h3>
+
+<p>我们可以利用select来设置超时，来避免整个程序进入阻塞的情况。例如：</p>
+
+<p>```go<br/>
+func main() {</p>
+
+<pre><code>c := make(chan int)
+o := make(chan bool)
+go func() {
+    for {
+        select {
+            case v := &lt;- c:
+                println(v)
+            case &lt;- time.After(5 * time.Second):
+                println("timeout")
+                o &lt;- true
+                break
+        }
+    }
+}()
+&lt;- o
+</code></pre>
+
+<p>}
+```</p>
+
+<h2>参考资料</h2>
+
+<p><a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/ebook/02.7.md">Go Web 编程：并发</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Go笔记6：Go数据结构]]></title>
+    <link href="http://zjun.github.io/blog/2014/01/22/go_note_6_data_structure/"/>
+    <updated>2014-01-22T21:06:19+08:00</updated>
+    <id>http://zjun.github.io/blog/2014/01/22/go_note_6_data_structure</id>
+    <content type="html"><![CDATA[<h2>结构与指针</h2>
+
+<p>定义一个叫Point的简单的结构类型，意味着内存里是两个相邻的int。</p>
+
+<p><code>go
+type Point struct { X , Y int }   
+</code></p>
+
+<!--more-->
+
+
+<p><img src="http://research.swtch.com/godata1a.png" alt="" /></p>
+
+<p>Point{ 10, 20 }表示一个被初始化的Point对象。<br/>
+&amp;Point{ 10, 20 }则表示一个指向被初始化的Point对象的指针。<br/>
+前者在内存中有两个数据块，而后者则存放着一个指向两个数据块的指针。</p>
+
+<p>结构中的字段被依次地排列在内存里面。</p>
+
+<p><code>go
+type Rect1 struct { Min, Max Point }
+type Rect2 struct { Min, Max *Point }
+</code></p>
+
+<p><img src="http://research.swtch.com/godata1b.png" alt="" /></p>
+
+<p>Rect1是一个拥有两个Point类型字段的结构，它的一条记录包含了两条Point记录——共4个int。Rect2是一个拥有两个Point类型指针的结构，在内存里它占两个Point指针的空间。</p>
+
+<h2>字符串</h2>
+
+<p>接下来我们看一个字符串的例子：</p>
+
+<p><img src="http://research.swtch.com/godata2.png" alt="" /></p>
+
+<p>一个字符串在内存中的表示被分成两段，一个指向字符串数据的指针和一个长度值。对s字符串进行一个切片选择，将得到一个可能不一样的指针和长度，但它们也指向同一段字节序列。这意味着，切片并不需要分配空间或者是复制数据，创建切片很容易，只需要传递明确的下标值就行了。</p>
+
+<h2>切片</h2>
+
+<p><img src="http://research.swtch.com/godata3.png" alt="" /><br/>
+切片是对数组中一段数据的引用。在内存中它有三段数据组成：一个指向数据头的指针、切片的长度、切片的容量。长度是索引操作的上界，如：x[i] ,容量是切片操作的上界，如：x[i:j]</p>
+
+<p>关于切片的长度(len)和容量(cap),可以通过 <code>len()</code>和<code>cap()</code>函数得到：</p>
+
+<p>``` go
+arry := [5]int{1, 2, 3, 4, 5}<br/>
+fmt.Println(arry)      // [1 2 3 4 5]<br/>
+fmt.Println(len(arry)) // 5<br/>
+fmt.Println(cap(arry)) // 5</p>
+
+<p>slce := arry[1:2]      <br/>
+fmt.Println(slce)       // [2]<br/>
+fmt.Println(len(slce))  // 1<br/>
+fmt.Println(cap(slce))  // 4</p>
+
+<p>slce = arry[1:3]            <br/>
+fmt.Println(slce)       // [2 3]<br/>
+fmt.Println(len(slce))  // 2<br/>
+fmt.Println(cap(slce))  // 4</p>
+
+<p>slce = arry[1:4]      <br/>
+fmt.Println(slce)       // [2 3 4]<br/>
+fmt.Println(len(slce))  // 3<br/>
+fmt.Println(cap(slce))  // 4</p>
+
+<p>slce = arry[1:5]
+fmt.Println(slce)       // [2 3 4 5]<br/>
+fmt.Println(len(slce))  // 4<br/>
+fmt.Println(cap(slce))  // 4<br/>
+```</p>
+
+<p>从上面的例子可以看出，slice的 len 表示切片中实际存在item的的个数，cap 表示分配的内存空间的大小。<strong>如果是通过对已有数组切片生成的slice ,默认分配的内存空间 cap 是从切片的起始位置到原有数组的结尾</strong>。比如上面的例子： <code>slce := arry[1:2]</code>的 cap() 就是 4。</p>
+
+<h2>new和make</h2>
+
+<p>Go有两种创建数据结构的方法：new和make。<br/>
+它们的区别于:<br/>
+&ndash; new(T)返回一个*T类型，一个可以被隐性反向引用的指针（如图中的黑色指针） <br/>
+&ndash; make(T,args)返回一个原始的T，它并不是一个指针。T中常有写隐性的指针（如图中的灰色指针）</p>
+
+<p><strong>new返回一个指向初始化为全0值的指针，而make返回一个复杂的结构</strong>。</p>
+
+<p><img src="http://research.swtch.com/godata4.png" alt="" /></p>
+
+<h2>参考资料</h2>
+
+<p><a href="http://research.swtch.com/godata">Go Data Structures</a><br/>
+<a href="http://www.oschina.net/question/1441707_141799">【原创翻译】深度剖析Go数据结构</a><br/>
+<a href="http://golang.org/doc/effective_go.html#slices">Effective Go: slices</a><br/>
+<a href="http://www.zingscript.com/category/snack">慎用GO中的SLICE——关于SLICE的隐含陷阱</a><br/>
+<a href="http://blog.golang.org/slices">The Go Blog: Arrays, slices (and strings): The mechanics of &lsquo;append&rsquo;</a><br/>
+<a href="http://www.golang-book.com/6">Arrays, Slices and Maps</a><br/>
+<a href="http://blog.golang.org/go-slices-usage-and-internals">The Go Blog: Go Slices: usage and internals</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[在Sublime Text2中开发Golang]]></title>
+    <link href="http://zjun.github.io/blog/2014/01/16/dev_go_in_sublimetext2/"/>
+    <updated>2014-01-16T21:06:19+08:00</updated>
+    <id>http://zjun.github.io/blog/2014/01/16/dev_go_in_sublimetext2</id>
+    <content type="html"><![CDATA[<p>Sublime Text 2 是一个可定制程度相当高的轻量级编辑器,具有丰富的第三方插件，关键是可以无限期的免费使用。下面就介绍通过安装几种插件，将Sublime Text 2定制成为一款相当好用的Golang IDE。</p>
+
+<!--more-->
+
+
+<h2>下载</h2>
+
+<ol>
+<li>下载<a href="http://www.sublimetext.com/">Sublime Text 2</a></li>
+<li>安装</li>
+</ol>
+
+
+<h2>安装Package Control</h2>
+
+<ol>
+<li>按Ctrl + ` 打开console</li>
+<li><p>粘贴下列代码到console并回车</p>
+
+<p> import urllib2,os;pf=&lsquo;Package Control.sublime-package&rsquo;;ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),&lsquo;wb&rsquo;).write(urllib2.urlopen(&lsquo;<a href="http://sublime.wbond.net/">http://sublime.wbond.net/</a>&rsquo;+pf.replace(&lsquo; &rsquo;,&lsquo;%20&rsquo;)).read())</p></li>
+</ol>
+
+
+<p>重启Sublime Text 2, 重启后，如果在 Preferences菜单下，多出一个菜单项 Package Control，说明安装成功。</p>
+
+<h2>安装 <a href="https://github.com/nsf/gocode">gocode</a></h2>
+
+<p>打开终端，输入以下内容（需要安装git工具):</p>
+
+<pre><code>go get github.com/nsf/gocode  
+go install github.com/nsf/gocode  
+</code></pre>
+
+<p>安装完成后，我们可以在 go/bin 目录下，发现多出了个 gocode 文件。</p>
+
+<h2>安装 Gosublime 插件</h2>
+
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip（即“Package Control: Install Package”的缩写）</li>
+<li>输入GoSublime，回车开始安装</li>
+</ol>
+
+
+<h2>安装 SidebarEnhancements 插件</h2>
+
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入SidebarEnhancements，回车开始安装</li>
+</ol>
+
+
+<h2>安装 Go Build 插件</h2>
+
+<h3>安装</h3>
+
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入 <a href="https://github.com/cthackers/SublimeGoBuild">Go Build</a>，回车开始安装</li>
+</ol>
+
+
+<p>如果通过Package Controll 不能安装 Go Build, 那么可以通过git手动安装：</p>
+
+<ul>
+<li>For Windows:
+Open a cmd, go to <code>%APPDATA%\Sublime Text 2\Packages</code> and type&hellip;</li>
+<li><p>For Linux:
+Open a shell, go to <code>~/.config/Sublime Text 2/Packages</code> and type&hellip;</p>
+
+<p>  <code>git clone git://github.com/cthackers/SublimeGoBuild.git</code></p></li>
+</ul>
+
+
+<h3>使用</h3>
+
+<ul>
+<li><code>F5</code> to run your project</li>
+<li><code>F7</code> to build</li>
+<li><code>CTRL + F5</code> to run tests</li>
+</ul>
+
+
+<h2>安装 Git Gutter 插件</h2>
+
+<p><a href="https://github.com/jisaacks/GitGutter">Git Gutter</a> is a sublime text 2/3 plugin to show an icon in the gutter area indicating whether a line has been inserted, modified or deleted.</p>
+
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入 Git Gutter，回车开始安装</li>
+</ol>
+
+
+<h2>安装 SideBarGit 插件</h2>
+
+<p><a href="https://github.com/SublimeText/SideBarGit">SideBarGit</a> provides git commands on Side Bar of Files and Folders for Sublime Text 2.</p>
+
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入 SideBarGit，回车开始安装</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Go笔记5：访问MySQL数据库]]></title>
+    <link href="http://zjun.github.io/blog/2014/01/03/go_note_5_accessmysql/"/>
+    <updated>2014-01-03T21:06:19+08:00</updated>
+    <id>http://zjun.github.io/blog/2014/01/03/go_note_5_accessmysql</id>
+    <content type="html"><![CDATA[<h2>安装驱动</h2>
+
+<p>MySQL驱动： <a href="https://github.com/go-sql-driver/mysql">https://github.com/go-sql-driver/mysql</a> 。<br/>
+<code>   
+$ go get github.com/go-sql-driver/mysql
+</code></p>
+
+<!--more-->
+
+
+<h2>连接数据库</h2>
+
+<p>``` go<br/>
+import (</p>
+
+<pre><code>"database/sql"
+"fmt"
+_ "github.com/Go-SQL-Driver/MySQL"
+</code></pre>
+
+<p>)</p>
+
+<p>db, err := sql.Open(&ldquo;mysql&rdquo;, &ldquo;user:password@/dbname&rdquo;)<br/>
+```</p>
+
+<h2>关闭数据库连接</h2>
+
+<p><code>go  
+db.Close()
+</code></p>
+
+<h2>增删改查</h2>
+
+<h3>查询</h3>
+
+<p>``` go<br/>
+db, err := sql.Open(&ldquo;mysql&rdquo;, &ldquo;user:password@/dbname?charset=utf8&rdquo;)<br/>
+checkErr(err)</p>
+
+<p>//查询数据<br/>
+rows, err := db.Query(&ldquo;SELECT * FROM account&rdquo;)<br/>
+checkErr(err)</p>
+
+<p>for rows.Next() {</p>
+
+<pre><code>var id int  
+var name string  
+err = rows.Scan(&amp;id, &amp;name)  
+checkErr(err)  
+fmt.Print(id)  
+fmt.Println(name)  
+</code></pre>
+
+<p>}<br/>
+```</p>
+
+<h3>新增</h3>
+
+<p>``` go<br/>
+db, err := sql.Open(&ldquo;mysql&rdquo;, &ldquo;zjun:zjun@/test?charset=utf8&rdquo;)<br/>
+checkErr(err)<br/>
+//插入数据<br/>
+stmt, err := db.Prepare(&ldquo;INSERT INTO userinfo(username, departname, created) VALUES(?,?,?)&rdquo;)<br/>
+checkErr(err)</p>
+
+<p>res, err := stmt.Exec(&ldquo;zjun&rdquo;, &ldquo;研发部门&rdquo;, &ldquo;2014-01-03&rdquo;)<br/>
+checkErr(err)</p>
+
+<p>id, err := res.LastInsertId() <br/>
+checkErr(err)</p>
+
+<p>fmt.Println(id)<br/>
+```</p>
+
+<h3>修改</h3>
+
+<p>``` go<br/>
+//更新数据
+stmt, err = db.Prepare(&ldquo;update userinfo set username=? where uid=?&rdquo;)
+checkErr(err)</p>
+
+<p>res, err = stmt.Exec(&ldquo;zjunupdate&rdquo;, id)
+checkErr(err)</p>
+
+<p>affect, err := res.RowsAffected()
+checkErr(err)</p>
+
+<p>fmt.Println(affect)
+```</p>
+
+<h3>删除</h3>
+
+<p>``` go<br/>
+//删除数据
+stmt, err = db.Prepare(&ldquo;delete from userinfo where uid=?&rdquo;)
+checkErr(err)</p>
+
+<p>res, err = stmt.Exec(id)
+checkErr(err)</p>
+
+<p>affect, err = res.RowsAffected()
+checkErr(err)</p>
+
+<p>fmt.Println(affect)
+```</p>
+
+<h2>参考资料</h2>
+
+<p><a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/ebook/05.2.md">Go Web编程：使用MySQL数据库</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Go笔记4：接口]]></title>
+    <link href="http://zjun.github.io/blog/2013/12/30/go_note_4_interface/"/>
+    <updated>2013-12-30T21:06:19+08:00</updated>
+    <id>http://zjun.github.io/blog/2013/12/30/go_note_4_interface</id>
+    <content type="html"><![CDATA[<h2>什么是接口(interface)</h2>
+
+<p>Golang中的interface是一组method的组合，我们通过interface来定义对象的一组行为。<strong>如果某个对象实现了某个接口的所有方法，则此对象就实现了此接口。</strong></p>
+
+<!--more-->
+
+
+<p>比如：</p>
+
+<p>``` go
+// 定义interface
+type Men interface {</p>
+
+<pre><code>SayHi()
+Sing(lyrics string)
+</code></pre>
+
+<p>}
+// 定义struct
+type Human struct {</p>
+
+<pre><code>name string
+age int
+phone string
+</code></pre>
+
+<p>}</p>
+
+<p>// Human对象实现Sayhi方法
+func (h *Human) SayHi() {</p>
+
+<pre><code>fmt.Printf("Hi, I am %s you can call me on %s\n", h.name, h.phone)
+</code></pre>
+
+<p>}</p>
+
+<p>// Human对象实现Sing方法
+func (h *Human) Sing(lyrics string) {</p>
+
+<pre><code>fmt.Println("La la, la la la, la la la la la...", lyrics)
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<p>在上面的例子中对象Human实现了接口Men中的所有方法，所以Human可以被看作一个Men类型的对象，照此类推：<strong>一个接口可以被多个不同的对象思想，同理，一个对象也可以实现多个接口</strong>。</p>
+
+<h2>interface变量的值</h2>
+
+<p>一个interface的变量，可以存实现这个interface的任意类型的对象。</p>
+
+<h2>空interface</h2>
+
+<p>空interface(<code>interface{}</code>)不包含任何的method，所以所有的类型都默认实现了空interface。空interface在我们需要存储任意类型的数值的时候相当有用，因为它可以存储任意类型的数值。它有点类似于java语言的Object对象。</p>
+
+<p><code>go
+var a interface{} // 定义a为空接口  
+var i int = 5
+s := "Hello world"
+// a可以存储任意类型的数值
+a = i
+a = s
+</code>
+<strong>一个函数把interface{}作为参数，那么他可以接受任意类型的值作为参数，如果一个函数返回interface{},那么也就可以返回任意类型的值。</strong></p>
+
+<h2>嵌入interface</h2>
+
+<p>和struct中的匿名字段类似：如果一个interface1作为interface2的一个嵌入字段，那么interface2隐式的包含了 interface1 里面的method。</p>
+
+<p>比如：io包下面的 io.ReadWriter ，他包含了io包下面的Reader和Writer两个interface。</p>
+
+<p>``` go
+type ReadWriter interface {</p>
+
+<pre><code>Reader
+Writer
+</code></pre>
+
+<p>}
+```</p>
+
+<h2>参考资料</h2>
+
+<p><a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/ebook/02.6.md">Go Web编程：interface</a></p>
+]]></content>
+  </entry>
+  
+</feed>

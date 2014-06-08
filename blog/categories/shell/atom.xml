@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Shell | zJun's Tech Blog]]></title>
+  <link href="http://zjun.github.io/blog/categories/shell/atom.xml" rel="self"/>
+  <link href="http://zjun.github.io/"/>
+  <updated>2014-06-08T12:24:41+08:00</updated>
+  <id>http://zjun.github.io/</id>
+  <author>
+    <name><![CDATA[zJun]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Find duplicate records in text file]]></title>
+    <link href="http://zjun.github.io/blog/2012/04/11/find-duplicate-records-in-text-file/"/>
+    <updated>2012-04-11T16:52:00+08:00</updated>
+    <id>http://zjun.github.io/blog/2012/04/11/find-duplicate-records-in-text-file</id>
+    <content type="html"><![CDATA[<h2>Example:</h2>
+
+<pre><code>abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  
+abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  
+tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452  
+aer 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  
+tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452  
+</code></pre>
+
+<h2>UNIX:</h2>
+
+<p>display the no of occurance and the record</p>
+
+<p><div>
+  <pre><code class='console'>&lt;br/&gt;
+&lt;strong&gt;sort f1.txt|uniq -c&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;2 abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452&lt;br/&gt;
+1 aer 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452&lt;br/&gt;
+2 tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<p>display only the duplicate records</p>
+
+<p><div>
+  <pre><code class='console'>&lt;br/&gt;
+&lt;strong&gt;sort f1.txt|uniq -d&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452&lt;br/&gt;
+tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<p>display distinct records</p>
+
+<p><div>
+  <pre><code class='console'>&lt;br/&gt;
+&lt;strong&gt;sort f1.txt|uniq&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452&lt;br/&gt;
+aer 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452&lt;br/&gt;
+tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<h2>Windows:</h2>
+
+<p>Notepad++ can sort by line, and remove the duplicate lines at the same time.</p>
+
+<blockquote><ol>
+<li>Open the menu under: <strong>TextFX&mdash;>TextFX</strong> Tools</li>
+<li>Make sure &ldquo;<strong>sort outputs only unique&hellip;</strong>&rdquo; is checked</li>
+<li>select a block of text (ctrl-a to select the entire document).</li>
+<li>click &ldquo;<strong>sort lines case sensitive</strong>&rdquo; or &ldquo;<strong>sort lines case insensitive</strong>&rdquo;</li>
+</ol>
+</blockquote>
+
+<h2>参考阅读：</h2>
+
+<p><a href="http://www.unix.com/shell-programming-scripting/85711-how-find-duplicate-records-text-file.html">How to find Duplicate Records in a text file</a><br/>
+<a href="http://www.cyberciti.biz/faq/unix-linux-shell-removing-duplicate-lines/">Shell: How To Remove Duplicate Text Lines</a><br/>
+<a href="http://www.ehow.com/how_5084389_remove-duplicate-lines-unix.html">How to Remove Duplicate Lines in Unix</a><br/>
+<a href="http://answers.yahoo.com/question/index?qid=20080522091139AAoVO8m">remove duplicates from a text file in free editor</a></p>
+]]></content>
+  </entry>
+  
+</feed>

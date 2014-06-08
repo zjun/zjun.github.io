@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>使用Octopress写博客 - zJun's Tech Blog</title>
+  <meta name="author" content="zJun">
+
+  
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zjun.github.io/blog/2013/05/03/use-octopress-to-write-blog">
+  <link href="/favicon.png" type="image/png" rel="icon">
+  <link href="/atom.xml" rel="alternate" title="zJun's Tech Blog" type="application/atom+xml">
+
+  <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+
+  <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
+  
+
+</head>
+
+  <body   >
+    <div id="wrap">
+      <header role="banner">
+        <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">zJun's Tech Blog</a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/">Blog</a>
+                </li>
+                <li >
+                    <a href="/blog/archives">Archives</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="subscribe-rss" href="/atom.xml" title="subscribe via RSS">
+                        <span class="visible-xs">RSS</span>
+                        <img class="hidden-xs" src="/images/rss.png" alt="RSS">
+                    </a>
+                </li>
+                
+            </ul>
+            
+                <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
+                    <input type="hidden" name="q" value="site:zjun.github.io">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="q" placeholder="Search">
+                    </div>
+                </form>
+            
+        </div>
+    </div>
+</nav>
+
+
+      </header>
+      <div id="main" class="container">
+        <div id="content">
+          <div class="row">
+  <div class="page-content col-md-9">
+    <article class="hentry" role="article">
+      
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-05-03T21:06:19+08:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io">Comments</a>
+        
+      </p>
+    
+    
+    <h1 class="entry-title">
+        使用Octopress写博客
+        
+    </h1>
+    
+  </header>
+
+
+<div class="entry-content clearfix"><p><code>Octopress</code>是利用<code>Jekyll</code>博客引擎开发的一个博客系统，生成的静态页面能够很好的在github page上展现。号称是hacker专属的一个博客系统(<code>A blogging framework for hackers.</code>)
+本文就来介绍一下如何利用Octopress搭建一个Github博客。本文需要读者熟悉一些shell命令，并掌握基本的git操作。</p>
+
+<!--more-->
+
+
+<h2>1. 安装 Ruby</h2>
+
+<p>Octopress需要Ruby环境，RVM(Ruby Version Manager)负责安装和管理Ruby的环境。所以我们先在终端输入如下命令，来安装RVM：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">curl -L https://get.rvm.io | bash -s stable --ruby  </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+接着安装Ruby 1.9.3，在终端依次运行如下命令：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">rvm install 1.9.3  </span>
+</span><span class='line'><span class="go">rvm use 1.9.3  </span>
+</span><span class='line'><span class="go">rvm rubygems latest  </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+完成上面的操作之后，运行<code>ruby --version</code>确认ruby 1.9.3环境已经安装好了。</p>
+
+<p>参考: <a href="http://octopress.org/docs/setup/rvm/">Installing Ruby With RVM</a></p>
+
+<h2>2. 安装Octopress</h2>
+
+<p>在安装Octopress之前，需要安装有<code>git</code>了，在终端输入<code>git --version</code>，可以看到电脑中的git版本，如果没有显示相关内容，请先安装<a href="http://git-scm.com/">git</a>。</p>
+
+<p>git安装之后，利用git命令将octopress从github上clone到本机，如下命令：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">git clone git://github.com/imathis/octopress.git octopress  </span>
+</span><span class='line'><span class="go">cd octopress    # If you use RVM, You&#39;ll be asked if you trust the .rvmrc file (say yes).  </span>
+</span><span class='line'><span class="go">ruby --version  # Should report Ruby 1.9.3  </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>在安装相关依赖项之前，最好把<code>gem sources</code>改成淘宝的resource：</p>
+
+<blockquote><p>由于国内网络原因（你懂的），导致 rubygems.org 存放在 Amazon S3 上面的资源文件间歇性连接失败。所以你会与遇到 <code>gem install rack</code> 或 <code>bundle install</code> 的时候半天没有响应，具体可以用 <code>gem install rails -V</code> 来查看执行过程。</p></blockquote>
+
+<p>通过一下命令修改gem sources:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="gp">$</span> gem sources --remove https://rubygems.org/
+</span><span class='line'><span class="gp">$</span> gem sources -a https://ruby.taobao.org/
+</span><span class='line'><span class="gp">$</span> gem sources -l
+</span><span class='line'><span class="go">*** CURRENT SOURCES *** </span>
+</span><span class='line'>
+</span><span class='line'><span class="go">https://ruby.taobao.org  </span>
+</span><span class='line'><span class="gp">#</span> 请确保只有 ruby.taobao.org
+</span><span class='line'><span class="gp">$</span> gem install rails
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>参考： <a href="http://ruby.taobao.org/">RubyGems 镜像 &ndash; 淘宝网</a></p>
+
+<p>接着安装相关依赖项：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">gem install bundler  </span>
+</span><span class='line'><span class="go">rbenv rehash    # If you use rbenv, rehash to be able to run the bundle command  </span>
+</span><span class='line'><span class="go">bundle install  </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后安装默认的Octopress 主题。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">rake install</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>也可以安装定制的主题，我安装的是这个主题: <a href="https://github.com/kAworu/octostrap3">octostrap3</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">  % cd octopress   </span>
+</span><span class='line'><span class="go">  % git clone https://github.com/kAworu/octostrap3 .themes/octostrap3  </span>
+</span><span class='line'><span class="go">  % rake &#39;install[octostrap3]&#39;  </span>
+</span><span class='line'><span class="go">  % rake generate  </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>参考：<a href="http://octopress.org/docs/setup/">Octopress Setup</a></p>
+
+<h2>3. 配置Octopress</h2>
+
+<p>Octopress的作者已经尽量让配置简化了。大多数情况下只需要配置<code>_config.yml</code>和<code>Rakefile</code>文件即可。其中Rakefile是跟博客部署相关，一般情况下并不需要修改这个文件，除非使用了rsync。</p>
+
+<p>config.yml是博客重要的一个配置文件，在config.yml文件中有三大配置项：<code>Main Configs</code>、<code>Jekyll &amp; Plugins</code>和<code>3rd Party Settings</code>。</p>
+
+<p>一般，该文件中其中url是必须要填写的，这里的url是在github上创建的一个仓库地址，具体请看第四步中创建的地址。另外再修改一下<code>title</code>、<code>subtitle</code>和<code>author</code>，根据需求，在开启一些第三方组件服务。</p>
+
+<p>关于_config.yml文件中的更多内容，请看这里的内容：<a href="http://octopress.org/docs/configuring/">Configuring Octopress</a></p>
+
+<p>建议：最好把里面的google+ 和 twitter相关的信息全部删掉，否则由于GFW的原因，将会造成页面load很慢。</p>
+
+<h2>4. 部署到GitHub上</h2>
+
+<p>Github的<code>[Page service](http://pages.github.com/)</code>可以免费托管博客，并且还可以自定义域名。</p>
+
+<p>首先需要在GitHub上<code>[创建一个仓库](https://github.com/new)</code>，并将仓库名称按照这样的方式进行命名：<code>username.github.com</code>。等后面配置完毕之后，我们就可以在浏览器中使用页面地址<code>http://username.github.com</code>来访问我们的博客。一般来说，博客的源码放到source分支下，生成的内容提交到master分支。</p>
+
+<p>创建好仓库之后，我们需要利用octopress的一个<code>配置rake任务</code>来自动配置上面创建的仓库：可以让我们方便的部署GitHub page。在终端输入如下命令：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="gp">$</span> rake setup_github_pages
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> <br/>
+上面的命令会做一些事情(详细介绍看下面给出的参考链接)。其中最主要的就是创建一个<code>_deploy</code>目录，目录用来存放部署到master分支的内容。期间会要求你输入仓库的url，根据提示，进行输入即可。</p>
+
+<p>完成上面的命令之后，我们就可以生成博客并真正的部署到仓库中了。执行如下命令：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">rake generate  </span>
+</span><span class='line'><span class="go">rake deploy  </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的命令首先生成博客文件，并将生成的博客文件拷贝到<code>_deploy/</code>目录下，然后将这些内容添加到git中，并commit和push到仓库的master分支。</p>
+
+<p>现在可以访问<code>http://username.github.com</code>了。注意：有时候可能会有延时，要等几分钟才能打开。</p>
+
+<p>至此，我们的博客已经完成基本的部署，不过博客的source需要单独提交，执行如下命令就可以将source提交到仓库的source分支下。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="gp">$</span> git add .
+</span><span class='line'><span class="gp">$</span> git commit -m <span class="s1">&#39;Initial source commit&#39;</span>
+</span><span class='line'><span class="gp">$</span> git push origin <span class="nb">source</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果在部署到仓库之前，需要先预览一下博客，可以在终端输入<code>rake preview</code>命令，然后就能在浏览器中进行本地预览访问了：<code>http://127.0.0.1:4000/</code>或<code>http://localhost:4000/</code>，效果跟仓库中的一样。
+参考：<a href="http://octopress.org/docs/deploying/">Deploying to Github Pages</a></p>
+
+<h3>Update:</h3>
+
+<p>推送是出现下面错误：</p>
+
+<blockquote><p>## Pushing generated _deploy website<br/>
+To git@github.com:GinSmile/ginsmile.github.io.git<br/>
+! [rejected]        master &ndash;> master (non-fast-forward)<br/>
+error: 无法推送一些引用到 &lsquo;git@github.com:GinSmile/ginsmile.github.io.git&#8217;<br/>
+提示：更新被拒绝，因为您当前分支的最新提交落后于其对应的远程分支。<br/>
+提示：再次推送前，先与远程变更合并（如 &#8216;git pull &hellip;&#8217;）。详见<br/>
+提示：&#8217;git push &mdash;help&rsquo; 中的 &lsquo;Note about fast-forwards&rsquo; 小节。</p></blockquote>
+
+<p>在这里找到解决办法： <a href="http://ginsmile.github.io/blog/2013/08/29/octopressbo-ke-ji-qiao/#.U5M_X3WSxhE">Octopress博客技巧</a></p>
+
+<p>修改RakeFile文件（Octopress目录下）来强制推送，这里参考了stackoverflow的解决办法</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">system &quot;git push origin #{deploy_branch}&quot;   </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> <br/>
+修改为：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">system &quot;git push origin +#{deploy_branch}&quot;   </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意：此方法使强制推送，会删除GitHub上的所有的本地分支没有的提交。记住推送完毕后再把RakeFile文件改回来。</p>
+
+<h2>5. 写博客</h2>
+
+<p>Octopress中文章存储在<code>source/_posts</code>目录下，并且需要按照Jekyll的命名规范对文章进行命名：<code>YYYY-MM-DD-post-title.markdown</code>。文章的名字会被当做url的一部分，而其中的日期用于对博文的区分和排序。</p>
+
+<p>通过一下命令，可以正确的按照命名规范创建一个博文，并且在博文中会附带常用的一些yaml元数据。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">rake generate  </span>
+</span><span class='line'><span class="go">rake deploy    </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> <br/>
+其中title为博文的文件名，创建出来的文件默认是markdown格式。上面的命令会创建出这样一个文件：<code>source/_posts/2013-05-03-title.markdown</code>。打开这个文件，可以看到里面有如下一些内容了(告诉Jekyll博客引擎如何处理博文和页面)：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">---  </span>
+</span><span class='line'><span class="go">layout: post  </span>
+</span><span class='line'><span class="go">title: &quot;title&quot;</span>
+</span><span class='line'><span class="go">date: 2013-05-03 16:36  </span>
+</span><span class='line'><span class="go">comments: true  </span>
+</span><span class='line'><span class="go">categories:   </span>
+</span><span class='line'><span class="go">---  </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接着就可以在这个文件中写博文了。</p>
+
+<p>完成之后，我们可以预览和部署博文。下面是创建并部署博文的一个完整过程：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="gp">$</span> rake new_post<span class="o">[</span><span class="s2">&quot;New Post&quot;</span><span class="o">]</span>
+</span><span class='line'><span class="gp">$</span> rake generate
+</span><span class='line'><span class="gp">$</span> git add .
+</span><span class='line'><span class="gp">$</span> git commit -am <span class="s2">&quot;Some comment here.&quot;</span>
+</span><span class='line'><span class="gp">$</span> git push origin <span class="nb">source  </span>
+</span><span class='line'><span class="gp">$</span><span class="nb"> </span>rake deploy
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>参考：<a href="http://octopress.org/docs/blogging/">Blogging Basics</a></p>
+
+<h2>6. 在另一台电脑上重建Octopress</h2>
+
+<p>Octopress的repositories中有两个分支：<code>source</code> and <code>master</code>.</p>
+
+<p>其中<code>source</code>分支存储的是生成静态文件的原始文件，<code>master</code>存储的是生成的静态文件本身.</p>
+
+<p>所以在另一台电脑上恢复Octopress的时候也要分两步进行恢复：</p>
+
+<h3>clone <code>source</code>分支</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">git clone -b source git@github.com:username/username.github.com.git octopress  </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>clone <code>master</code>分支</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">cd octopress  </span>
+</span><span class='line'><span class="go">git clone git@github.com:username/username.github.com.git _deploy   </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h3>Setup github pages</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">gem install bundler  </span>
+</span><span class='line'><span class="gp">$</span> bundle install
+</span><span class='line'><span class="gp">$</span> rake setup_github_pages
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>在两台电脑之间同步</h3>
+
+<h4>1. push on 1 machine</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="gp">$</span> rake generate
+</span><span class='line'><span class="gp">$</span> git add .
+</span><span class='line'><span class="gp">$</span> git commit -am <span class="s2">&quot;Some comment here.&quot;</span>
+</span><span class='line'><span class="gp">$</span> git push origin <span class="nb">source</span>  <span class="c"># update the remote source branch   </span>
+</span><span class='line'><span class="gp">$</span> rake deploy             <span class="c"># update the remote master branch  </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h4>2. pull on the other machine</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="gp">$</span> <span class="nb">cd </span>octopress
+</span><span class='line'><span class="gp">$</span> git pull origin <span class="nb">source</span>  <span class="c"># update the local source branch  </span>
+</span><span class='line'><span class="gp">$</span> <span class="nb">cd</span> ./_deploy
+</span><span class='line'><span class="gp">$</span> git pull origin master  <span class="c"># update the local master branch  </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>参考： <a href="http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/">Clone Your Octopress to Blog From Two Places</a></p>
+
+<h2>7. 小结：常用命令</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">rake generate  # 生成静态页面   </span>
+</span><span class='line'><span class="go">rake preview   # 本地预览: http://localhost:4000   </span>
+</span><span class='line'><span class="go">rake deploy    # 发布到github  </span>
+</span><span class='line'><span class="go">rake new_post[&quot;title&quot;]   # 新建文章</span>
+</span><span class='line'><span class="go">  </span>
+</span><span class='line'><span class="go"> # 以下命令将source  push 到github  </span>
+</span><span class='line'><span class="go">git add .   </span>
+</span><span class='line'><span class="go">git commit -m &#39;Initial source commit&#39;    </span>
+</span><span class='line'><span class="go">git push origin source    </span>
+</span><span class='line'>
+</span><span class='line'><span class="go"> # 以下命令将source pull 到本地</span>
+</span><span class='line'><span class="go">git pull origin source  # update the local source branch  </span>
+</span><span class='line'><span class="go">cd ./_deploy  </span>
+</span><span class='line'><span class="go">git pull origin master  # update the local master branch  </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h2>8. 参考资料</h2>
+
+<ul>
+<li><a href="http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress/">利用Octopress搭建一个Github博客</a></li>
+<li><a href="http://www.yangzhiping.com/tech/octopress.html">Ruby开源项目介绍(1)：octopress——像黑客一样写博客</a></li>
+<li><a href="http://www.lijinma.com/blog/2013/01/23/move-from-wordpress-to-octopress/">博客搬家：从Wordpress迁移到octopress</a></li>
+<li><a href="http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/">象写程序一样写博客：搭建基于github的博客</a></li>
+<li><a href="http://kaworu.github.io/octopress/setup/install/">Octopress3</a></li>
+<li><a href="http://ginsmile.github.io/blog/2013/08/29/octopressbo-ke-ji-qiao/#.U5M_X3WSxhE">Octopress博客技巧</a></li>
+<li><a href="http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/">Clone Your Octopress to Blog From Two Places</a></li>
+</ul>
+
+</div>
+
+
+      <footer>
+        <p class="meta text-muted">
+          
+  
+
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">zJun</span></span>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-05-03T21:06:19+08:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time>
+          
+
+<span class="glyphicon glyphicon-tags"></span>&nbsp;
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/gong-ju/'>工具</a>
+  
+</span>
+
+
+        </p>
+        
+          <div class="sharing">
+  
+  
+  
+</div>
+
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/blog/2013/04/01/highcharts-2-piechart/" title="Previous Post: HighCharts 笔记2：通过表格生成Pie Chart">&laquo; HighCharts 笔记2：通过表格生成Pie Chart</a></li>
+            
+            
+            <li class="next"><a href="/blog/2013/05/08/using-sublime/" title="Next Post: Sublime Text 2快捷键及常用插件">Sublime Text 2快捷键及常用插件 &raquo;</a></li>
+            
+          </ul>
+        
+      </footer>
+    </article>
+    
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
+    
+  </div>
+
+  
+  <aside class="sidebar col-md-3">
+    
+      <section class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Recent Posts</h3>
+  </div>
+  
+  <div id="recent_posts" class="list-group">
+    
+    <a class="list-group-item " href="/blog/2014/02/08/go_note_7_goroutine/">Go笔记7:并发</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/22/go_note_6_data_structure/">Go笔记6：Go数据结构</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/16/dev_go_in_sublimetext2/">在Sublime Text2中开发Golang</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/03/go_note_5_accessmysql/">Go笔记5：访问MySQL数据库</a>
+    
+    <a class="list-group-item " href="/blog/2013/12/30/go_note_4_interface/">Go笔记4：接口</a>
+    
+    <a class="list-group-item " href="/blog/2013/12/19/go_note_3_object/">Go笔记3：面向对象</a>
+    
+    <a class="list-group-item " href="/blog/2013/12/04/spring_mvc_rest/">Spring MVC 实现 REST Service</a>
+    
+  </div>
+</section>
+
+<section class="panel panel-default clearfix">
+  <div class="panel-heading">
+      <h3 class="panel-title">GitHub Repos</h3>
+  </div>
+  <div class="list-group" id="gh_repos">
+    <p class="loading">Status updating...</p>
+  </div>
+  
+    <div class="gh-profile-link pull-right text-muted">
+      <a href="https://github.com/zjun">@zjun</a> on GitHub
+    </div>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'zjun',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+    
+  </aside>
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+    <footer role="contentinfo"><div class="container">
+    <p class="text-muted credits">
+  Copyright &copy; 2014 - zJun<br>
+  <small>
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
+      <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
+  </small>
+</p>
+
+</div>
+</footer>
+    <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2013/05/03/use-octopress-to-write-blog/';
+        var disqus_url = 'http://zjun.github.io/blog/2013/05/03/use-octopress-to-write-blog/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

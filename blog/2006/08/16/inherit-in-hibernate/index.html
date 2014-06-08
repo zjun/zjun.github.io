@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>zJun's Tech Blog</title>
+  <title>Hibernate中的继承关系 - zJun's Tech Blog</title>
   <meta name="author" content="zJun">
 
   
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zjun.github.io">
+  <link rel="canonical" href="http://zjun.github.io/blog/2006/08/16/inherit-in-hibernate">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="zJun's Tech Blog" type="application/atom+xml">
 
@@ -80,12 +80,8 @@
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
-    <div class="blog-index">
+    <article class="hentry" role="article">
       
-      
-      
-        <article class="post">
-          
   <header class="page-header">
     
       <p class="meta text-muted text-uppercase">
@@ -102,161 +98,151 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-02-08T21:06:19+08:00" pubdate data-updated="true">Feb 8<span>th</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-08-16T15:15:00+08:00" pubdate data-updated="true">Aug 16<span>th</span>, 2006</time>
         
-           | <a href="/blog/2014/02/08/go_note_7_goroutine/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/02/08/go_note_7_goroutine/">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2014/02/08/go_note_7_goroutine/">Go笔记7:并发</a></h1>
+    <h1 class="entry-title">
+        Hibernate中的继承关系
+        
+    </h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><p>Golang 给人印象最深刻的一个特性就是：从语言层面支持并行，而且实现起来相当简单。</p>
+<div class="entry-content clearfix"><p>Hibernate中支持3种形式实现继承关系：<br/>
+1. <strong>Table per concrete class</strong> 表与子类之间独立一对一关系<br/>
+2. <strong>Table per subclass</strong> 每个子类对应一张子表，并与主类共享主表<br/>
+3. <strong>Table per class hierarchy</strong> 表与类一对多关系</p>
 
-<h2>goroutine</h2>
-
-<p>goroutine是Go并行设计的核心。goroutine其实就是协程，它比线程更小，十几个goroutine可能体现在底层就是五六个线程，Go语言内部实现了这些goroutine之间的内存共享。oroutine比thread更易用、更高效、更轻便。</p>
-
-<p>goroutine通过<code>go</code>关键字实现：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">go</span> <span class="nx">hello</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
+<!-- more -->
 
 
-<p></p>
+<h3>1. Table per concrete class</h3>
 
+<p><strong>数据库</strong>：父类没有对应的表，每个子类独立对应一张表，父类中的公共属性将在每一张表中以相同冗余字段的形式出现。<br/>
+<strong>映射文件</strong>：子类对应的Hibernate的配映射文件与普通映射文件没有特别区别，只是通过<class>节点的 polymorphism=&ldquo;implicit&rdquo; 属性实现隐式多态模式来实现与父类之间的继承关系。</p>
+
+<h3>2. Table per subclass</h3>
+
+<p><strong>数据库</strong>：父类单独映射一张主表，而每个子类分别映射一张子表。子表和主表通过外键相关联。<br/>
+<strong>映射文件</strong>：在映射文件中通过 &lt;joined-subclass> 节点来表示主类和子类之间的继承关系，如下：</p>
+
+<pre><code>&lt;hibernate-mapping&gt;
+  &lt;class name="BaseClass" table="T_BASE"&gt;
+    &lt;id name="id" column="id"&gt;
+      &lt;generator class="native"/&gt;
+    &lt;/id&gt;
+    &lt;property name="name" column="name"/&gt;
+    &lt;!--申明子类1--&gt;
+    &lt;joined-subclass name="SubClass1" table="T_SUB1"&gt;
+      &lt;key column="id"/&gt;
+      &lt;property name="subName1" column="subName1"/&gt;
+    &lt;/joined-subclass&gt;
+    &lt;!--申明子类2--&gt;
+    &lt;joined-subclass name="SubClass2" table="T_SUB1"&gt;
+      &lt;key column="id"/&gt;
+      &lt;property name="subName2" column="subName2"/&gt;
+    &lt;/joined-subclass&gt;
+  &lt;/class&gt;
+&lt;/hibernate-mapping&gt;
+</code></pre>
+
+<h3>3. Table per class hierarchy</h3>
+
+<p><strong>数据库</strong>：用一张表对应所有子类，包含所有子类字段，通过一个标示类别的字段来区分不同子类对应的数据。<br/>
+<strong>映射文件</strong>：通过<subclass> 和<disriminator>节点来对不同子类加以区别，如下：</p>
+
+<pre><code>&lt;hibernate-mapping&gt;
+  &lt;class name="BaseClass" table="T_BASE"&gt;
+    &lt;id name="id" column="id"&gt;
+      &lt;generator class="native"/&gt;
+    &lt;/id&gt;
+    &lt;discriminator column="category" type="string"/&gt;                &lt;------------- 声明discriminator字段
+    &lt;property name="name" column="name"/&gt;
+    &lt;!--子类1--&gt;     
+    &lt;subclass name="SubClass1" discriminator-value="1"&gt;       &lt;------------- discriminator为1，则是子类1
+       &lt;property name="subName1" column="subName1"/&gt;
+    &lt;/subclass&gt;  
+    &lt;!--子类2--&gt;     
+    &lt;subclass name="SubClass2" discriminator-value="2"&gt;       &lt;------------- discriminator为2，则是子类2
+       &lt;property name="subName2" column="subName2"/&gt;
+    &lt;/subclass&gt;
+  &lt;/class&gt;
+&lt;hibernate-mapping&gt;
+</code></pre>
 </div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/02/08/go_note_7_goroutine/">Read on &rarr;</a>
-    </footer>
-  
 
 
-        </article>
-      
-      
-        <article class="post">
+      <footer>
+        <p class="meta text-muted">
           
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-22T21:06:19+08:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2014</time>
-        
-           | <a href="/blog/2014/01/22/go_note_6_data_structure/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/01/22/go_note_6_data_structure/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/22/go_note_6_data_structure/">Go笔记6：Go数据结构</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><h2>结构与指针</h2>
-
-<p>定义一个叫Point的简单的结构类型，意味着内存里是两个相邻的int。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kd">type</span> <span class="nx">Point</span> <span class="kd">struct</span> <span class="p">{</span> <span class="nx">X</span> <span class="p">,</span> <span class="nx">Y</span> <span class="kt">int</span> <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/01/22/go_note_6_data_structure/">Read on &rarr;</a>
-    </footer>
   
 
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">zJun</span></span>
 
-        </article>
-      
-      
-        <article class="post">
           
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-08-16T15:15:00+08:00" pubdate data-updated="true">Aug 16<span>th</span>, 2006</time>
+          
+
+<span class="glyphicon glyphicon-tags"></span>&nbsp;
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/kai-yuan-kuang-jia/'>开源框架</a>
+  
+</span>
+
+
+        </p>
         
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-16T21:06:19+08:00" pubdate data-updated="true">Jan 16<span>th</span>, 2014</time>
-        
-           | <a href="/blog/2014/01/16/dev_go_in_sublimetext2/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/01/16/dev_go_in_sublimetext2/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/16/dev_go_in_sublimetext2/">在Sublime Text2中开发Golang</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>Sublime Text 2 是一个可定制程度相当高的轻量级编辑器,具有丰富的第三方插件，关键是可以无限期的免费使用。下面就介绍通过安装几种插件，将Sublime Text 2定制成为一款相当好用的Golang IDE。</p>
-
+          <div class="sharing">
+  
+  
+  
 </div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/01/16/dev_go_in_sublimetext2/">Read on &rarr;</a>
-    </footer>
-  
 
-
-        </article>
-      
-    </div>
-
-    <ul class="pager">
-      
-        <li class="previous"><a href="/blog/page/2/">&larr;&nbsp;Older</a></li>
-      
-      <li><a href="/blog/archives">Blog Archives</a></li>
-      
-        <li class="next disabled"><a href="#">Newer&nbsp;&rarr;</a></li>
-      
-    </ul>
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/blog/2006/07/31/use-lrumap/" title="Previous Post: 使用 LRUMap">&laquo; 使用 LRUMap</a></li>
+            
+            
+            <li class="next"><a href="/blog/2006/09/19/forward-and-redirect/" title="Next Post: Forward & Redirect">Forward & Redirect &raquo;</a></li>
+            
+          </ul>
+        
+      </footer>
+    </article>
+    
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
+    
   </div>
 
   
-    <aside class="sidebar col-md-3">
-      
-        <section class="panel panel-default">
+  <aside class="sidebar col-md-3">
+    
+      <section class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Recent Posts</h3>
   </div>
@@ -285,7 +271,7 @@
       <h3 class="panel-title">GitHub Repos</h3>
   </div>
   <div class="list-group" id="gh_repos">
-    <p class="loading">Status updating&#8230;</p>
+    <p class="loading">Status updating...</p>
   </div>
   
     <div class="gh-profile-link pull-right text-muted">
@@ -318,8 +304,8 @@
 
 
 
-      
-    </aside>
+    
+  </aside>
   
 </div>
 
@@ -345,7 +331,10 @@
       var disqus_shortname = 'zJun';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2006/08/16/inherit-in-hibernate/';
+        var disqus_url = 'http://zjun.github.io/blog/2006/08/16/inherit-in-hibernate/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

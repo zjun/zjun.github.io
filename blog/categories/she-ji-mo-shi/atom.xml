@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 设计模式 | zJun's Tech Blog]]></title>
+  <link href="http://zjun.github.io/blog/categories/she-ji-mo-shi/atom.xml" rel="self"/>
+  <link href="http://zjun.github.io/"/>
+  <updated>2014-06-08T12:24:41+08:00</updated>
+  <id>http://zjun.github.io/</id>
+  <author>
+    <name><![CDATA[zJun]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[GoF]java中的观察者模式(Observer)]]></title>
+    <link href="http://zjun.github.io/blog/2006/05/18/java-observer-pattern/"/>
+    <updated>2006-05-18T10:54:00+08:00</updated>
+    <id>http://zjun.github.io/blog/2006/05/18/java-observer-pattern</id>
+    <content type="html"><![CDATA[<p>Java作为一种面向对象的开发语言，对实现设计模式提供了良好的支持，并且提供了许多默认的实现，比如：通过Java中的<strong>Observable类</strong>和<strong>Observer接口</strong>可以方便的实现观察者模式。</p>
+
+<p>下面我们就用一个实际的例子来说明：日常生活中说起观察者，最常见的例子可能就是天气预报，在这里我们的观察对象是地球，而我们是通过发射气象卫星这个观察者来检测地球气象变化的。</p>
+
+<!-- more -->
+
+
+<p>所以这个例子中涉及三个对象：<br/>
+<strong>地球 (Earth)：         被观察对象</strong><br/>
+<strong>气象卫星(Satellite)：    观察者</strong><br/>
+<strong>气象局(WeatherService)： 客户端调用</strong></p>
+
+<p><strong>被观察对象：地球 (Earth) </strong></p>
+
+<pre><code>import  java.util.Observable;
+
+/**
+ * 被观察对象：地球
+ * 
+ *  @author  zjun
+ *  @version  1.0 create on 2006-5-18 9:42:45
+  */
+public   class  Earth  extends  Observable  {
+     private  String weather  =   " 晴朗 " ;
+
+     /**
+     *  @return  Returns the weather.
+      */
+     public  String getWeather()  {
+         return  weather;
+    }
+
+     /**
+     *  @param  weather
+     *            The weather to set.
+      */
+     public   void  setWeather(String weather)  {
+         this .weather  =  weather;
+         //  设置变化点
+        setChanged();
+        notifyObservers(weather);
+    }
+}
+</code></pre>
+
+<p><strong>[注意]</strong> 在需检测的对象前需要<strong>设置变化点setChanged()和通知观察者notifyObservers()</strong>，这两个函数是由Observable类实现的，封装了观察者模式实现的细节。</p>
+
+<p><strong>观察者：气象卫星(Satellite)</strong></p>
+
+<pre><code>import  java.util.Observable;
+import  java.util.Observer;
+
+/**
+ * 观察对象：气象卫星
+ * 
+ *  @author  zjun
+ *  @version  1.0 create on 2006-5-18 9:46:30
+  */
+public   class  Satellite  implements  Observer  {
+     private  String weather;
+
+     public   void  update(Observable obj, Object arg)  {
+        weather  =  (String) arg;
+         //  捕获天气变化情况，反馈给检测者
+        System.out.println( " 近期天气变化： "   +  weather);
+    }
+}
+</code></pre>
+
+<p><strong>客户端调用：气象局(WeatherService)</strong></p>
+
+<pre><code>/**
+ * 客户端调用：天气预报
+ * 
+ *  @author  zjun
+ *  @version  1.0 create on 2006-5-18 9:57:19
+  */
+public   class  WeatherService  {
+
+     /**
+     *  @param  args
+      */
+     public   static   void  main(String[] args)  {
+        Earth earth  =   new  Earth();
+
+        Satellite satellite  =   new  Satellite();
+         //  发射气象卫星
+        earth.addObserver(satellite);
+
+        System.out.println( " 天气预报： " );
+        System.out.println( " ------------ " );
+        earth.setWeather( " 台风‘珍珠’逼近 " );
+        earth.setWeather( " 大到暴雨 " );
+        earth.setWeather( " 天气炎热 " );
+    }
+}
+</code></pre>
+
+<p><strong>[运行结果]</strong></p>
+
+<pre><code>天气预报：  
+------------   
+近期天气变化：台风‘珍珠’逼近  
+近期天气变化：大到暴雨  
+近期天气变化：天气炎热  
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[GoF23]java中的Proxy模式(续)]]></title>
+    <link href="http://zjun.github.io/blog/2006/04/12/proxy-pattern-in-java-2/"/>
+    <updated>2006-04-12T11:06:00+08:00</updated>
+    <id>http://zjun.github.io/blog/2006/04/12/proxy-pattern-in-java-2</id>
+    <content type="html"><![CDATA[<p>在 <a href="http://zjun.github.io/2006/03/21/proxy-pattern-in-java/">上一篇随笔</a> 中,由于时间和篇幅的关系只是简单介绍了Proxy模式的概念,并没有写到Java中对Proxy模式特有的支持,所以严格说起来是有点"名不符实",现在就接着介绍JDK中Proxy模式的实现:</p>
+
+<h2>Java API中提供了对Proxy模式的支持,主要是通过反射(Reflect)包中的<strong>Proxy</strong>类和<strong>InvocationHandler</strong>接口实现,具体过程如下:  </h2>
+
+<!-- more -->
+
+
+<p>(1) 实现<strong>InvocationHandler</strong>接口,在<strong>invoke()</strong>方法中实现代理类要完成的操作;<br/>
+(2) 通过<strong>Proxy.newProxyInstance(ClassLoader loader,Class[]
+interfaces,InvocationHandler h)</strong>方法生成一个代理类,从参数可以看出代理类将实现被代理对象的接口,而具体的实现过程是在上面实现的<strong>InvocationHandler.invoke()</strong>中定义的.</p>
+
+<hr />
+
+<p>我们还是用演艺圈的例子来说明：<br/>
+首先，<strong>类的关系图</strong>需要修改一下：<br/>
+<img src="http://www.blogjava.net/images/blogjava_net/zjun/8140/r_proxy2.gif" alt="" /></p>
+
+<p>可以看出，这里并没有经纪人(Broke)类，而是新增了一个经纪人操作类(BrokeHandler),这是因为通过Proxy.newProxyInstance()方法,Java API将自动为我们生成一个对于Artist接口的代理类(即：Broke),我们只需定义代理的操作即可．</p>
+
+<h2>经纪人工作</h2>
+
+<pre><code>/**
+ * 经纪人工作
+ * 
+ *  @author  zjun
+ *  @version  1.0 create on 2006-4-11 18:06:36
+  */
+public   class  BrokerHandler  implements  InvocationHandler  {
+
+     private  String SIGN  =   "  [经纪人工作]  " ;
+
+     //  旗下明星
+     private  Star star;
+
+     public  BrokerHandler(Star star)  {
+         this .star  =  star;
+    }
+
+     /**
+     * 签订和约
+      */
+     private   void  subcontract()  {
+        System.out.println(SIGN  +   "  签订和约  " );
+    }
+
+     /**
+     * 演出后交税
+      */
+     private   void  payTax()  {
+        System.out.println(SIGN  +   "  演出后交税  " );
+    }
+
+     /**
+     *  @see  java.lang.reflect.InvocationHandler#invoke(java.lang.Object,
+     *      java.lang.reflect.Method, java.lang.Object)
+      */
+     public  Object invoke(Object proxy, Method method, Object[] args)
+             throws  Throwable  {
+        Object obj  =   null ;
+         //  签约
+        subcontract();
+         //  安排艺人演出
+        obj  =  method.invoke(star, args);
+         //  交税
+        payTax();
+         return  obj;
+    }
+}
+</code></pre>
+
+<h2>艺人</h2>
+
+<pre><code>/**
+ * 艺人
+ * 
+ *  @author  zjun
+ *  @version  1.0 create on 2006-4-11 18:05:48
+  */
+public   interface  Artist  {
+     public   void  show(String showType);
+}
+</code></pre>
+
+<h2>明星</h2>
+
+<pre><code>/** 
+ * 明星
+ * 
+ *  @author zjun
+ *  @version 1.0 create on 2006-4-11 18:08:17
+  */
+public   class  Star  implements  Artist  {
+     private  String SIGN  =   "  [明星]  ";
+
+     public   void  show(String showType)  {
+        System.out.println(SIGN  + showType);
+    }
+
+}
+</code></pre>
+
+<h2>演出赞助商</h2>
+
+<pre><code>/**
+ * 演出赞助商
+ * 
+ *  @author zjun
+ *  @version 1.0 create on 2006-4-11 18:30:25
+  */
+public   class  Patron  {
+
+     /** 
+      *  @param args
+      */
+    public   static   void  main(String[] args)  {
+        Star star  =   new Star();
+        BrokerHandler broker  =   new BrokerHandler(star);
+        Artist b  = (Artist) Proxy.newProxyInstance(star.getClass()
+                .getClassLoader(), star.getClass().getInterfaces(), broker);
+        b.show( "  演电影  ");
+        b.show( "  拍电视  ");
+        b.show( "  出唱片  ");
+        b.show( "  演唱会  ");
+
+    }
+}
+</code></pre>
+
+<p><strong>[运行结果]</strong>：</p>
+
+<pre><code>  [ 经纪人工作 ]  签订和约   
+  [ 明星 ]  演电影   
+  [ 经纪人工作 ]  演出后交税   
+  [ 经纪人工作 ]  签订和约   
+  [ 明星 ]  拍电视   
+  [ 经纪人工作 ]  演出后交税   
+  [ 经纪人工作 ]  签订和约   
+  [ 明星 ]  出唱片   
+  [ 经纪人工作 ]  演出后交税   
+  [ 经纪人工作 ]  签订和约   
+  [ 明星 ]  演唱会   
+  [ 经纪人工作 ]   演出后交税   
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[GoF23] java中的Proxy模式]]></title>
+    <link href="http://zjun.github.io/blog/2006/03/21/proxy-pattern-in-java/"/>
+    <updated>2006-03-21T23:34:00+08:00</updated>
+    <id>http://zjun.github.io/blog/2006/03/21/proxy-pattern-in-java</id>
+    <content type="html"><![CDATA[<p><strong>代理（Proxy）模式</strong>，顾名思义就是对象之间不直接发生联系，而是通过中间的代理人进行沟通。这种关系在现在的娱乐圈中普遍存在：明星通常都有经纪人来代理自己的演出事宜，而不是直接去联系演出商。下面就通过这个实际中的例子来说明代理模式。<br/>
+首先画出<strong>关系类图</strong>：<br/>
+<img src="http://www.blogjava.net/images/blogjava_net/zjun/8140/r_Proxy.jpg" alt="" /></p>
+
+<!-- more -->
+
+
+<p><strong>演艺人士</strong>：包括经纪人和明星，都属于娱乐圈中人。</p>
+
+<pre><code>/**
+ * 演艺人士
+ * 
+ *  @author  zJun
+  */
+public   interface  Artist  {
+     /**
+     * 演出活动
+      */
+     public   void  show(String showType);
+}
+</code></pre>
+
+<p><strong>经纪人</strong>：</p>
+
+<pre><code>/**
+ * 经纪人（参考《Java与模式》－ "代理(Proxy)模式"一章部分代码）
+ * 
+ *  @author  zJun
+ * 
+  */
+public   class  Broker  implements  Artist, InvocationHandler  {
+
+     private  String SIGN  =   " [经纪人] " ;
+
+     //  旗下明星
+     private  Star star;
+
+     /**
+     * 签订和约
+      */
+     public   void  subcontract()  {
+        System.out.println(SIGN  +   " 签订和约 " );
+    }
+
+     /**
+     * 经纪人代明星打理一切演出事宜
+      */
+     public   void  show(String showType)  {
+         //  签约
+        subcontract();
+
+         //  通知明星演出
+         if  (star  ==   null )  {
+            star  =   new  Star();
+        }
+        star.show(showType);
+
+         //  交税
+        payTax();
+    }
+
+     /**
+     * 演出后交税
+      */
+     public   void  payTax()  {
+        System.out.println(SIGN  +   " 演出后交税 " );
+    }
+}
+</code></pre>
+
+<p><strong>明星</strong>：</p>
+
+<pre><code>/**
+ * 明星
+ * 
+ *  @author  zJun
+ * 
+  */
+public   class  Star  implements  Artist  {
+
+     private  String SIGN  =   " [明星] " ;
+
+     public   void  show(String showType)  {
+        System.out.println(SIGN  +  showType);
+    }
+
+}
+</code></pre>
+
+<p><strong>赞助商</strong>：通过联系经纪人安排明星演出</p>
+
+<pre><code>/**
+ * 赞助商: 与经纪人联系安排演出事宜
+ * 
+ *  @author  zJun
+  */
+public   class  Patron  {
+
+     /**
+     *  @param  args
+      */
+     public   static   void  main(String[] args)  {
+        Broker broker  =   new  Broker();
+        broker.show( " 演电影 " );
+        broker.show( " 拍电视 " );
+        broker.show( " 出唱片 " );
+        broker.show( " 演唱会 " );
+    }
+
+}
+</code></pre>
+
+<p><strong>[运行结果]：</strong></p>
+
+<pre><code>[ 经纪人 ] 签订和约  
+[ 明星 ] 演电影  
+[ 经纪人 ] 演出后交税  
+[ 经纪人 ] 签订和约  
+[ 明星 ] 拍电视  
+[ 经纪人 ] 演出后交税  
+[ 经纪人 ] 签订和约  
+[ 明星 ] 出唱片  
+[ 经纪人 ] 演出后交税  
+[ 经纪人 ] 签订和约   
+[ 明星 ] 演唱会  
+[ 经纪人 ] 演出后交税  
+</code></pre>
+
+<p><strong>参考资料</strong>：<br/>
+《Java与模式》 阎宏 电子工业出版社</p>
+]]></content>
+  </entry>
+  
+</feed>
