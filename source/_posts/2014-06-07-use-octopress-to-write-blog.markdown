@@ -141,7 +141,8 @@ Octopress中文章存储在`source/_posts`目录下，并且需要按照Jekyll�
 
 通过一下命令，可以正确的按照命名规范创建一个博文，并且在博文中会附带常用的一些yaml元数据。  
 ```
-rake new_post["title"]   
+rake generate  
+rake deploy    
 ```   
 其中title为博文的文件名，创建出来的文件默认是markdown格式。上面的命令会创建出这样一个文件：`source/_posts/2013-05-03-title.markdown`。打开这个文件，可以看到里面有如下一些内容了(告诉Jekyll博客引擎如何处理博文和页面)：  
 ```
@@ -167,12 +168,72 @@ $ rake deploy
 
 参考：[Blogging Basics](http://octopress.org/docs/blogging/)  
 
-## 6. 参考资料
+## 6. 在另一台电脑上重建Octopress
+Octopress的repositories中有两个分支：`source` and `master`.
+
+其中`source`分支存储的是生成静态文件的原始文件，`master`存储的是生成的静态文件本身.
+
+所以在另一台电脑上恢复Octopress的时候也要分两步进行恢复：
+
+### clone `source`分支  
+```
+git clone -b source git@github.com:username/username.github.com.git octopress  
+```
+### clone `master`分支
+```
+cd octopress  
+git clone git@github.com:username/username.github.com.git _deploy   
+```   
+### Setup github pages
+```
+gem install bundler  
+$ bundle install  
+$ rake setup_github_pages  
+```
+### 在两台电脑之间同步
+#### 1. push on 1 machine
+```
+$ rake generate  
+$ git add .  
+$ git commit -am "Some comment here."   
+$ git push origin source  # update the remote source branch   
+$ rake deploy             # update the remote master branch  
+```  
+#### 2. pull on the other machine
+```
+$ cd octopress  
+$ git pull origin source  # update the local source branch  
+$ cd ./_deploy  
+$ git pull origin master  # update the local master branch  
+```
+参考： [Clone Your Octopress to Blog From Two Places](http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/)
+
+## 7. 小结：常用命令
+```  
+rake generate  # 生成静态页面   
+rake preview   # 本地预览: http://localhost:4000   
+rake deploy    # 发布到github  
+rake new_post["title"]   # 新建文章
+  
+ # 以下命令将source  push 到github  
+git add .   
+git commit -m 'Initial source commit'    
+git push origin source    
+
+ # 以下命令将source pull 到本地
+git pull origin source  # update the local source branch  
+cd ./_deploy  
+git pull origin master  # update the local master branch  
+
+```  
+## 8. 参考资料
 - [利用Octopress搭建一个Github博客](http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress/)   
 - [Ruby开源项目介绍(1)：octopress——像黑客一样写博客](http://www.yangzhiping.com/tech/octopress.html)   
 - [博客搬家：从Wordpress迁移到octopress](http://www.lijinma.com/blog/2013/01/23/move-from-wordpress-to-octopress/)  
 - [象写程序一样写博客：搭建基于github的博客](http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/)  
 - [Octopress3](http://kaworu.github.io/octopress/setup/install/)   
-- [Octopress博客技巧](http://ginsmile.github.io/blog/2013/08/29/octopressbo-ke-ji-qiao/#.U5M_X3WSxhE)
+- [Octopress博客技巧](http://ginsmile.github.io/blog/2013/08/29/octopressbo-ke-ji-qiao/#.U5M_X3WSxhE)  
+- [Clone Your Octopress to Blog From Two Places](http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/)
+
  
 
