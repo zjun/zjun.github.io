@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>zJun's Tech Blog</title>
+  <title>[转] 常见数据库分页SQL语句 - zJun's Tech Blog</title>
   <meta name="author" content="zJun">
 
   
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zjun.github.io">
+  <link rel="canonical" href="http://zjun.github.io/blog/2006/03/08/common-pagenation-sql">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="zJun's Tech Blog" type="application/atom+xml">
 
@@ -80,12 +80,8 @@
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
-    <div class="blog-index">
+    <article class="hentry" role="article">
       
-      
-      
-        <article class="post">
-          
   <header class="page-header">
     
       <p class="meta text-muted text-uppercase">
@@ -102,161 +98,156 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-02-08T21:06:19+08:00" pubdate data-updated="true">Feb 8<span>th</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-03-08T18:59:00+08:00" pubdate data-updated="true">Mar 8<span>th</span>, 2006</time>
         
-           | <a href="/blog/2014/02/08/go_note_7_goroutine/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/02/08/go_note_7_goroutine/">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2014/02/08/go_note_7_goroutine/">Go笔记7:并发</a></h1>
+    <h1 class="entry-title">
+        [转] 常见数据库分页SQL语句
+        
+    </h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><p>Golang 给人印象最深刻的一个特性就是：从语言层面支持并行，而且实现起来相当简单。</p>
+<div class="entry-content clearfix"><p>常见数据库分页SQL语句:原文在<a href="http://http//www.360doc.com/showWeb/0/0/51724.aspx">这里</a>。</p>
 
-<h2>goroutine</h2>
+<hr />
 
-<p>goroutine是Go并行设计的核心。goroutine其实就是协程，它比线程更小，十几个goroutine可能体现在底层就是五六个线程，Go语言内部实现了这些goroutine之间的内存共享。oroutine比thread更易用、更高效、更轻便。</p>
-
-<p>goroutine通过<code>go</code>关键字实现：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">go</span> <span class="nx">hello</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
+<!-- more -->
 
 
-<p></p>
+<p>我们在编写MIS系统和Web应用程序等系统时，都涉及到与数据库的交互，如果数据库中数据量很大的话，一次检索所有的记录，会占用系统很大的资源，因此我们常常采用，需要多少数据就只从数据库中取多少条记录，即采用分页语句。根据自己使用过的内容，把常见数据库Sql Server,Oracle和My sql的分页语句，从数据库表中的第M条数据开始取N条记录的语句总结如下：</p>
+
+<h2>SQL Server</h2>
+
+<p>从数据库表中的第M条记录开始取N条记录，利用Top关键字：注意如果Select语句中既有top，又有order by，则是从排序好的结果集中选择：</p>
+
+<div>
+  <pre><code class='sql'>SELECT *
+        FROM  ( SELECT Top N *  
+                         FROM  (SELECT Top (M + N - 1) * FROM 表名称 Order by 主键 desc) t1 ) t2
+        Order by 主键 asc</code></pre>
+</div>
+
+
+<p>例如从表Sys_option（主键为sys_id)中从10条记录还是检索20条记录，语句如下：</p>
+
+<div>
+  <pre><code class='sql'>SELECT * 
+        FROM ( SELECT TOP 20 *
+                        FROM (SELECT TOP 29 * FROM Sys_option order by sys_id desc) t1) t2
+        Order by sys_id asc</code></pre>
+</div>
+
+
+<h2>Oralce数据库</h2>
+
+<p>从数据库表中第M条记录开始检索N条记录</p>
+
+<div>
+  <pre><code class='sql'>SELECT * 
+        FROM (SELECT ROWNUM r,t1.* From 表名称 t1 where rownum &lt; M + N) t2
+        where t2.r &gt;= M</code></pre>
+</div>
+
+
+<p> 例如从表Sys_option（主键为sys_id)中从10条记录还是检索20条记录，语句如下：</p>
+
+<div>
+  <pre><code class='sql'>SELECT * 
+        FROM (SELECT ROWNUM R,t1.* From Sys_option where rownum &lt; 30 ) t2
+         Where t2.R &gt;= 10</code></pre>
+</div>
+
+
+<h2>My sql数据库</h2>
+
+<p>My sql数据库最简单，是利用mysql的LIMIT函数,LIMIT [offset,] rows从数据库表中M条记录开始检索N条记录的语句为：</p>
+
+<div>
+  <pre><code class='sql'>SELECT * FROM 表名称 LIMIT M,N</code></pre>
+</div>
+
+
+<p>例如从表Sys_option（主键为sys_id)中从10条记录还是检索20条记录，语句如下：</p>
+
+<div>
+  <pre><code class='sql'>select * from sys_option limit 10,20</code></pre>
+</div>
 
 </div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/02/08/go_note_7_goroutine/">Read on &rarr;</a>
-    </footer>
-  
 
 
-        </article>
-      
-      
-        <article class="post">
+      <footer>
+        <p class="meta text-muted">
           
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-22T21:06:19+08:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2014</time>
-        
-           | <a href="/blog/2014/01/22/go_note_6_data_structure/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/01/22/go_note_6_data_structure/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/22/go_note_6_data_structure/">Go笔记6：Go数据结构</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><h2>结构与指针</h2>
-
-<p>定义一个叫Point的简单的结构类型，意味着内存里是两个相邻的int。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kd">type</span> <span class="nx">Point</span> <span class="kd">struct</span> <span class="p">{</span> <span class="nx">X</span> <span class="p">,</span> <span class="nx">Y</span> <span class="kt">int</span> <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/01/22/go_note_6_data_structure/">Read on &rarr;</a>
-    </footer>
   
 
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">zJun</span></span>
 
-        </article>
-      
-      
-        <article class="post">
           
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-03-08T18:59:00+08:00" pubdate data-updated="true">Mar 8<span>th</span>, 2006</time>
+          
+
+<span class="glyphicon glyphicon-tags"></span>&nbsp;
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/shu-ju-ku/'>数据库</a>
+  
+</span>
+
+
+        </p>
         
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-16T21:06:19+08:00" pubdate data-updated="true">Jan 16<span>th</span>, 2014</time>
-        
-           | <a href="/blog/2014/01/16/dev_go_in_sublimetext2/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/01/16/dev_go_in_sublimetext2/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/16/dev_go_in_sublimetext2/">在Sublime Text2中开发Golang</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>Sublime Text 2 是一个可定制程度相当高的轻量级编辑器,具有丰富的第三方插件，关键是可以无限期的免费使用。下面就介绍通过安装几种插件，将Sublime Text 2定制成为一款相当好用的Golang IDE。</p>
-
+          <div class="sharing">
+  
+  
+  
 </div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/01/16/dev_go_in_sublimetext2/">Read on &rarr;</a>
-    </footer>
-  
 
-
-        </article>
-      
-    </div>
-
-    <ul class="pager">
-      
-        <li class="previous"><a href="/blog/page/2/">&larr;&nbsp;Older</a></li>
-      
-      <li><a href="/blog/archives">Blog Archives</a></li>
-      
-        <li class="next disabled"><a href="#">Newer&nbsp;&rarr;</a></li>
-      
-    </ul>
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/blog/2006/03/06/inherit-in-javascriot/" title="Previous Post: 在javascript中实现继承关系">&laquo; 在javascript中实现继承关系</a></li>
+            
+            
+            <li class="next"><a href="/blog/2006/03/12/shutdownhook-in-javaapp/" title="Next Post: 为程序加上关闭钩子(ShutdownHook)">为程序加上关闭钩子(ShutdownHook) &raquo;</a></li>
+            
+          </ul>
+        
+      </footer>
+    </article>
+    
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
+    
   </div>
 
   
-    <aside class="sidebar col-md-3">
-      
-        <section class="panel panel-default">
+  <aside class="sidebar col-md-3">
+    
+      <section class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Recent Posts</h3>
   </div>
@@ -285,7 +276,7 @@
       <h3 class="panel-title">GitHub Repos</h3>
   </div>
   <div class="list-group" id="gh_repos">
-    <p class="loading">Status updating&#8230;</p>
+    <p class="loading">Status updating...</p>
   </div>
   
     <div class="gh-profile-link pull-right text-muted">
@@ -318,8 +309,8 @@
 
 
 
-      
-    </aside>
+    
+  </aside>
   
 </div>
 
@@ -345,7 +336,10 @@
       var disqus_shortname = 'zJun';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2006/03/08/common-pagenation-sql/';
+        var disqus_url = 'http://zjun.github.io/blog/2006/03/08/common-pagenation-sql/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

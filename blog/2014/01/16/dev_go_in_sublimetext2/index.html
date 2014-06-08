@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>zJun's Tech Blog</title>
+  <title>在Sublime Text2中开发Golang - zJun's Tech Blog</title>
   <meta name="author" content="zJun">
 
   
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zjun.github.io">
+  <link rel="canonical" href="http://zjun.github.io/blog/2014/01/16/dev_go_in_sublimetext2">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="zJun's Tech Blog" type="application/atom+xml">
 
@@ -80,124 +80,8 @@
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
-    <div class="blog-index">
+    <article class="hentry" role="article">
       
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-02-08T21:06:19+08:00" pubdate data-updated="true">Feb 8<span>th</span>, 2014</time>
-        
-           | <a href="/blog/2014/02/08/go_note_7_goroutine/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/02/08/go_note_7_goroutine/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/08/go_note_7_goroutine/">Go笔记7:并发</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>Golang 给人印象最深刻的一个特性就是：从语言层面支持并行，而且实现起来相当简单。</p>
-
-<h2>goroutine</h2>
-
-<p>goroutine是Go并行设计的核心。goroutine其实就是协程，它比线程更小，十几个goroutine可能体现在底层就是五六个线程，Go语言内部实现了这些goroutine之间的内存共享。oroutine比thread更易用、更高效、更轻便。</p>
-
-<p>goroutine通过<code>go</code>关键字实现：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">go</span> <span class="nx">hello</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/02/08/go_note_7_goroutine/">Read on &rarr;</a>
-    </footer>
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-22T21:06:19+08:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2014</time>
-        
-           | <a href="/blog/2014/01/22/go_note_6_data_structure/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/01/22/go_note_6_data_structure/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/22/go_note_6_data_structure/">Go笔记6：Go数据结构</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><h2>结构与指针</h2>
-
-<p>定义一个叫Point的简单的结构类型，意味着内存里是两个相邻的int。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kd">type</span> <span class="nx">Point</span> <span class="kd">struct</span> <span class="p">{</span> <span class="nx">X</span> <span class="p">,</span> <span class="nx">Y</span> <span class="kt">int</span> <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/01/22/go_note_6_data_structure/">Read on &rarr;</a>
-    </footer>
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
   <header class="page-header">
     
       <p class="meta text-muted text-uppercase">
@@ -216,47 +100,189 @@
 
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-16T21:06:19+08:00" pubdate data-updated="true">Jan 16<span>th</span>, 2014</time>
         
-           | <a href="/blog/2014/01/16/dev_go_in_sublimetext2/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/01/16/dev_go_in_sublimetext2/">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2014/01/16/dev_go_in_sublimetext2/">在Sublime Text2中开发Golang</a></h1>
+    <h1 class="entry-title">
+        在Sublime Text2中开发Golang
+        
+    </h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><p>Sublime Text 2 是一个可定制程度相当高的轻量级编辑器,具有丰富的第三方插件，关键是可以无限期的免费使用。下面就介绍通过安装几种插件，将Sublime Text 2定制成为一款相当好用的Golang IDE。</p>
+<div class="entry-content clearfix"><p>Sublime Text 2 是一个可定制程度相当高的轻量级编辑器,具有丰富的第三方插件，关键是可以无限期的免费使用。下面就介绍通过安装几种插件，将Sublime Text 2定制成为一款相当好用的Golang IDE。</p>
+
+<!--more-->
+
+
+<h2>下载</h2>
+
+<ol>
+<li>下载<a href="http://www.sublimetext.com/">Sublime Text 2</a></li>
+<li>安装</li>
+</ol>
+
+
+<h2>安装Package Control</h2>
+
+<ol>
+<li>按Ctrl + ` 打开console</li>
+<li><p>粘贴下列代码到console并回车</p>
+
+<p> import urllib2,os;pf=&lsquo;Package Control.sublime-package&rsquo;;ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),&lsquo;wb&rsquo;).write(urllib2.urlopen(&lsquo;<a href="http://sublime.wbond.net/">http://sublime.wbond.net/</a>&rsquo;+pf.replace(&lsquo; &rsquo;,&lsquo;%20&rsquo;)).read())</p></li>
+</ol>
+
+
+<p>重启Sublime Text 2, 重启后，如果在 Preferences菜单下，多出一个菜单项 Package Control，说明安装成功。</p>
+
+<h2>安装 <a href="https://github.com/nsf/gocode">gocode</a></h2>
+
+<p>打开终端，输入以下内容（需要安装git工具):</p>
+
+<pre><code>go get github.com/nsf/gocode  
+go install github.com/nsf/gocode  
+</code></pre>
+
+<p>安装完成后，我们可以在 go/bin 目录下，发现多出了个 gocode 文件。</p>
+
+<h2>安装 Gosublime 插件</h2>
+
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip（即“Package Control: Install Package”的缩写）</li>
+<li>输入GoSublime，回车开始安装</li>
+</ol>
+
+
+<h2>安装 SidebarEnhancements 插件</h2>
+
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入SidebarEnhancements，回车开始安装</li>
+</ol>
+
+
+<h2>安装 Go Build 插件</h2>
+
+<h3>安装</h3>
+
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入 <a href="https://github.com/cthackers/SublimeGoBuild">Go Build</a>，回车开始安装</li>
+</ol>
+
+
+<p>如果通过Package Controll 不能安装 Go Build, 那么可以通过git手动安装：</p>
+
+<ul>
+<li>For Windows:
+Open a cmd, go to <code>%APPDATA%\Sublime Text 2\Packages</code> and type&hellip;</li>
+<li><p>For Linux:
+Open a shell, go to <code>~/.config/Sublime Text 2/Packages</code> and type&hellip;</p>
+
+<p>  <code>git clone git://github.com/cthackers/SublimeGoBuild.git</code></p></li>
+</ul>
+
+
+<h3>使用</h3>
+
+<ul>
+<li><code>F5</code> to run your project</li>
+<li><code>F7</code> to build</li>
+<li><code>CTRL + F5</code> to run tests</li>
+</ul>
+
+
+<h2>安装 Git Gutter 插件</h2>
+
+<p><a href="https://github.com/jisaacks/GitGutter">Git Gutter</a> is a sublime text 2/3 plugin to show an icon in the gutter area indicating whether a line has been inserted, modified or deleted.</p>
+
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入 Git Gutter，回车开始安装</li>
+</ol>
+
+
+<h2>安装 SideBarGit 插件</h2>
+
+<p><a href="https://github.com/SublimeText/SideBarGit">SideBarGit</a> provides git commands on Side Bar of Files and Folders for Sublime Text 2.</p>
+
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入 SideBarGit，回车开始安装</li>
+</ol>
 
 </div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/01/16/dev_go_in_sublimetext2/">Read on &rarr;</a>
-    </footer>
-  
 
 
-        </article>
-      
-    </div>
+      <footer>
+        <p class="meta text-muted">
+          
+  
 
-    <ul class="pager">
-      
-        <li class="previous"><a href="/blog/page/2/">&larr;&nbsp;Older</a></li>
-      
-      <li><a href="/blog/archives">Blog Archives</a></li>
-      
-        <li class="next disabled"><a href="#">Newer&nbsp;&rarr;</a></li>
-      
-    </ul>
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">zJun</span></span>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-16T21:06:19+08:00" pubdate data-updated="true">Jan 16<span>th</span>, 2014</time>
+          
+
+<span class="glyphicon glyphicon-tags"></span>&nbsp;
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/golang/'>golang</a>
+  
+</span>
+
+
+        </p>
+        
+          <div class="sharing">
+  
+  
+  
+</div>
+
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/blog/2014/01/03/go_note_5_accessmysql/" title="Previous Post: Go笔记5：访问MySQL数据库">&laquo; Go笔记5：访问MySQL数据库</a></li>
+            
+            
+            <li class="next"><a href="/blog/2014/01/22/go_note_6_data_structure/" title="Next Post: Go笔记6：Go数据结构">Go笔记6：Go数据结构 &raquo;</a></li>
+            
+          </ul>
+        
+      </footer>
+    </article>
+    
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
+    
   </div>
 
   
-    <aside class="sidebar col-md-3">
-      
-        <section class="panel panel-default">
+  <aside class="sidebar col-md-3">
+    
+      <section class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Recent Posts</h3>
   </div>
@@ -267,7 +293,7 @@
     
     <a class="list-group-item " href="/blog/2014/01/22/go_note_6_data_structure/">Go笔记6：Go数据结构</a>
     
-    <a class="list-group-item " href="/blog/2014/01/16/dev_go_in_sublimetext2/">在Sublime Text2中开发Golang</a>
+    <a class="list-group-item active" href="/blog/2014/01/16/dev_go_in_sublimetext2/">在Sublime Text2中开发Golang</a>
     
     <a class="list-group-item " href="/blog/2014/01/03/go_note_5_accessmysql/">Go笔记5：访问MySQL数据库</a>
     
@@ -285,7 +311,7 @@
       <h3 class="panel-title">GitHub Repos</h3>
   </div>
   <div class="list-group" id="gh_repos">
-    <p class="loading">Status updating&#8230;</p>
+    <p class="loading">Status updating...</p>
   </div>
   
     <div class="gh-profile-link pull-right text-muted">
@@ -318,8 +344,8 @@
 
 
 
-      
-    </aside>
+    
+  </aside>
   
 </div>
 
@@ -345,7 +371,10 @@
       var disqus_shortname = 'zJun';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2014/01/16/dev_go_in_sublimetext2/';
+        var disqus_url = 'http://zjun.github.io/blog/2014/01/16/dev_go_in_sublimetext2/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

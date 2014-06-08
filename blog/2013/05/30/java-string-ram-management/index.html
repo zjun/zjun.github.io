@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>zJun's Tech Blog</title>
+  <title>关于 Java String 内存管理的几个有趣的例子 - zJun's Tech Blog</title>
   <meta name="author" content="zJun">
 
   
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zjun.github.io">
+  <link rel="canonical" href="http://zjun.github.io/blog/2013/05/30/java-string-ram-management">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="zJun's Tech Blog" type="application/atom+xml">
 
@@ -80,12 +80,8 @@
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
-    <div class="blog-index">
+    <article class="hentry" role="article">
       
-      
-      
-        <article class="post">
-          
   <header class="page-header">
     
       <p class="meta text-muted text-uppercase">
@@ -102,161 +98,147 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-02-08T21:06:19+08:00" pubdate data-updated="true">Feb 8<span>th</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-05-30T21:06:19+08:00" pubdate data-updated="true">May 30<span>th</span>, 2013</time>
         
-           | <a href="/blog/2014/02/08/go_note_7_goroutine/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/02/08/go_note_7_goroutine/">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2014/02/08/go_note_7_goroutine/">Go笔记7:并发</a></h1>
+    <h1 class="entry-title">
+        关于 Java String 内存管理的几个有趣的例子
+        
+    </h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><p>Golang 给人印象最深刻的一个特性就是：从语言层面支持并行，而且实现起来相当简单。</p>
+<div class="entry-content clearfix"><p>今天在 <a href="http://www.oschina.net">OSChina</a> 上看到一篇有趣的文章：<a href="http://my.oschina.net/u/551903/blog/134000">关于String内存分配的深入探讨</a>,文章通过几个简单的例子，把Java中String的内存管理的方式解释的很清楚，涨了不少姿势，现根据自己的理解做些笔记在这里：</p>
 
-<h2>goroutine</h2>
-
-<p>goroutine是Go并行设计的核心。goroutine其实就是协程，它比线程更小，十几个goroutine可能体现在底层就是五六个线程，Go语言内部实现了这些goroutine之间的内存共享。oroutine比thread更易用、更高效、更轻便。</p>
-
-<p>goroutine通过<code>go</code>关键字实现：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">go</span> <span class="nx">hello</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
+<!-- more -->
 
 
-<p></p>
+<p>废话不多说，先上代码：</p>
+
+<pre><code>public class StringDemo {
+
+    public static final String MESSAGE = "taobao";
+
+    public static void main(String[] args) {
+
+        // ---------------------------------------------
+        String a = "tao" + "bao";
+        String b = "tao";
+        String c = "bao";
+
+        System.out.println(a == MESSAGE);// true
+        System.out.println((b + c) == MESSAGE);// false
+
+        // ---------------------------------------------
+        final String d = "tao";
+        final String e = "bao";
+
+        System.out.println((d + e) == MESSAGE);// true
+
+        // ---------------------------------------------
+        String f = "tao" + "bao";
+        String g = new String("taobao");
+
+        System.out.println(f == MESSAGE); // true
+        System.out.println(g == MESSAGE); // false
+
+        g = g.intern();
+
+        System.out.println(g == MESSAGE); // true
+        System.out.println(f == g.intern()); // true
+        // ---------------------------------------------
+    }
+}
+</code></pre>
+
+<h2>笔记：</h2>
+
+<ul>
+<li>Java中对于编译和运行时能够知道大小的变量（如：引用变量和基本类型的值）存放于<strong>栈内存</strong></li>
+<li>Java中通过 new 产生的变量和大小会在运行时变化的变量(如：数组和链表)存放于<strong>堆内存，但指向对象的引用还是存放在栈内存</strong></li>
+<li><strong>栈内存中的数据会相互共享</strong>，如果新增变量的值在栈中已经存在，那么新变量将指向同一个地址和值，而不会新增一个空间来存放自己的值;如果没有就在该栈内存增加一个该常量，并将变量指向该常量。</li>
+<li>对于<strong>直接赋值的字符串常量</strong>（如String s=“Hello World”；中的Hello World）也是<strong>存放在栈内存中</strong></li>
+<li>堆内存没有数据共享的特点,每次都会新增划分一个空间给新的变量，哪怕是相同的值</li>
+<li>Java <strong>编译器的优化</strong>，会对于<strong>字符串常量的相加</strong>，在编译时<strong>直接</strong>将字符串<strong>合并</strong>，而不是等到运行时再合并，比如：<strong>String a = &ldquo;tao&rdquo;+&ldquo;bao&rdquo;;和String a = &ldquo;taobao&rdquo;;编译出的字节码是一样的</strong></li>
+<li><strong>Java对String的相加是通过StringBuffer实现的</strong>，先构造一个StringBuffer,然后调用append()方法追加，然后将StringBuffer转化成String对象。StringBuffer对象<strong>在堆内存中</strong>，那转换成的String对象理所应当的也是在堆内存中</li>
+<li><strong>intern()</strong>方法会<strong>先检查</strong>String池(或者说成<strong>栈内存</strong>)中是否存在相同的字符串常量，如果有就返回</li>
+<li><strong>final变量</strong>不可能再次赋值了，所以存放在<strong>栈内存里</strong></li>
+</ul>
 
 </div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/02/08/go_note_7_goroutine/">Read on &rarr;</a>
-    </footer>
-  
 
 
-        </article>
-      
-      
-        <article class="post">
+      <footer>
+        <p class="meta text-muted">
           
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-22T21:06:19+08:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2014</time>
-        
-           | <a href="/blog/2014/01/22/go_note_6_data_structure/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/01/22/go_note_6_data_structure/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/22/go_note_6_data_structure/">Go笔记6：Go数据结构</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><h2>结构与指针</h2>
-
-<p>定义一个叫Point的简单的结构类型，意味着内存里是两个相邻的int。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kd">type</span> <span class="nx">Point</span> <span class="kd">struct</span> <span class="p">{</span> <span class="nx">X</span> <span class="p">,</span> <span class="nx">Y</span> <span class="kt">int</span> <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/01/22/go_note_6_data_structure/">Read on &rarr;</a>
-    </footer>
   
 
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">zJun</span></span>
 
-        </article>
-      
-      
-        <article class="post">
           
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-05-30T21:06:19+08:00" pubdate data-updated="true">May 30<span>th</span>, 2013</time>
+          
+
+<span class="glyphicon glyphicon-tags"></span>&nbsp;
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/java/'>Java</a>
+  
+</span>
+
+
+        </p>
         
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-16T21:06:19+08:00" pubdate data-updated="true">Jan 16<span>th</span>, 2014</time>
-        
-           | <a href="/blog/2014/01/16/dev_go_in_sublimetext2/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/01/16/dev_go_in_sublimetext2/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/16/dev_go_in_sublimetext2/">在Sublime Text2中开发Golang</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>Sublime Text 2 是一个可定制程度相当高的轻量级编辑器,具有丰富的第三方插件，关键是可以无限期的免费使用。下面就介绍通过安装几种插件，将Sublime Text 2定制成为一款相当好用的Golang IDE。</p>
-
+          <div class="sharing">
+  
+  
+  
 </div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/01/16/dev_go_in_sublimetext2/">Read on &rarr;</a>
-    </footer>
-  
 
-
-        </article>
-      
-    </div>
-
-    <ul class="pager">
-      
-        <li class="previous"><a href="/blog/page/2/">&larr;&nbsp;Older</a></li>
-      
-      <li><a href="/blog/archives">Blog Archives</a></li>
-      
-        <li class="next disabled"><a href="#">Newer&nbsp;&rarr;</a></li>
-      
-    </ul>
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/blog/2013/05/14/dojo-traps-in-ie/" title="Previous Post: Dojo在IE中的那些坑">&laquo; Dojo在IE中的那些坑</a></li>
+            
+            
+            <li class="next"><a href="/blog/2013/08/05/use-jekyll-github-blog/" title="Next Post: 用Jekyll+Github+Markdown来写Blog">用Jekyll+Github+Markdown来写Blog &raquo;</a></li>
+            
+          </ul>
+        
+      </footer>
+    </article>
+    
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
+    
   </div>
 
   
-    <aside class="sidebar col-md-3">
-      
-        <section class="panel panel-default">
+  <aside class="sidebar col-md-3">
+    
+      <section class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Recent Posts</h3>
   </div>
@@ -285,7 +267,7 @@
       <h3 class="panel-title">GitHub Repos</h3>
   </div>
   <div class="list-group" id="gh_repos">
-    <p class="loading">Status updating&#8230;</p>
+    <p class="loading">Status updating...</p>
   </div>
   
     <div class="gh-profile-link pull-right text-muted">
@@ -318,8 +300,8 @@
 
 
 
-      
-    </aside>
+    
+  </aside>
   
 </div>
 
@@ -345,7 +327,10 @@
       var disqus_shortname = 'zJun';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2013/05/30/java-string-ram-management/';
+        var disqus_url = 'http://zjun.github.io/blog/2013/05/30/java-string-ram-management/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

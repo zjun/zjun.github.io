@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>zJun's Tech Blog</title>
+  <title>使用 StringUtils 工具类 - zJun's Tech Blog</title>
   <meta name="author" content="zJun">
 
   
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zjun.github.io">
+  <link rel="canonical" href="http://zjun.github.io/blog/2006/07/27/using-stringutils">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="zJun's Tech Blog" type="application/atom+xml">
 
@@ -80,12 +80,8 @@
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
-    <div class="blog-index">
+    <article class="hentry" role="article">
       
-      
-      
-        <article class="post">
-          
   <header class="page-header">
     
       <p class="meta text-muted text-uppercase">
@@ -102,161 +98,171 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-02-08T21:06:19+08:00" pubdate data-updated="true">Feb 8<span>th</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-07-27T16:01:00+08:00" pubdate data-updated="true">Jul 27<span>th</span>, 2006</time>
         
-           | <a href="/blog/2014/02/08/go_note_7_goroutine/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/02/08/go_note_7_goroutine/">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2014/02/08/go_note_7_goroutine/">Go笔记7:并发</a></h1>
+    <h1 class="entry-title">
+        使用 StringUtils 工具类
+        
+    </h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><p>Golang 给人印象最深刻的一个特性就是：从语言层面支持并行，而且实现起来相当简单。</p>
+<div class="entry-content clearfix"><p>org.apache.commons.lang.StringUtils中提供许多有用的字符串操作方法，了解这些方法，我们可以避免许多不必要的重复工作。下面介绍其中比较有用的几个方法：</p>
 
-<h2>goroutine</h2>
-
-<p>goroutine是Go并行设计的核心。goroutine其实就是协程，它比线程更小，十几个goroutine可能体现在底层就是五六个线程，Go语言内部实现了这些goroutine之间的内存共享。oroutine比thread更易用、更高效、更轻便。</p>
-
-<p>goroutine通过<code>go</code>关键字实现：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">go</span> <span class="nx">hello</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
+<!-- more -->
 
 
-<p></p>
+<p><strong>检查空字符串：</strong></p>
 
+<pre><code>StringUtils.isBlank(String str);  
+StringUtils.isNotBlank(String str);
+</code></pre>
+
+<p><strong>缩写字符串：</strong></p>
+
+<pre><code>String test  =   " This is a test of the abbreviation. ";  
+System.out.println( StringUtils.abbreviate( test,  10  ) );
+</code></pre>
+
+<p>[<strong>Console输出</strong>]</p>
+
+<blockquote><p>This is&hellip;</p></blockquote>
+
+<p><strong>查找嵌套字符串：</strong></p>
+
+<pre><code>String htmlContent  =   " &lt;html&gt;\n "   +  
+                      "   &lt;head&gt;\n "   +  
+                      "     &lt;title&gt;Test Page&lt;/title&gt;\n "   +  
+                      "   &lt;/head&gt;\n "   +  
+                      "   &lt;body&gt;\n "   +  
+                      "     &lt;p&gt;This is a TEST!&lt;/p&gt;\n "   +  
+                      "   &lt;/body&gt;\n "   +  
+                      " &lt;/html&gt; " ;  
+
+//  Extract the title from this XHTML content   
+String title  =  StringUtils.substringBetween(htmlContent,  " &lt;title&gt; " ,  " &lt;/title&gt; " );
+System.out.println(  " Title:  "   +  title );
+</code></pre>
+
+<p>[<strong>Console输出</strong>]</p>
+
+<blockquote><p>Title: Test Page</p></blockquote>
+
+<p><strong>验证字符串：</strong></p>
+
+<pre><code>String test1  =   " ORANGE " ;  
+String test2  =   " ICE9 " ;  
+String test3  =   " ICE CREAM " ;  
+String test4  =   " 820B Judson Avenue " ;  
+boolean  t1val  =  StringUtils.isAlpha( test1 );  //  returns true  
+boolean  t2val  =  StringUtils.isAlphanumeric( test2 );  //  returns true   
+boolean  t3val  =  StringUtils.isAlphaSpace( test3 );  //  returns true  
+boolean  t4val  =  StringUtils.isAlphanumericSpace( test4 );  //  returns true  
+</code></pre>
+
+<p><strong>计算字符串出现频率：</strong></p>
+
+<pre><code>File manuscriptFile  =   new  File( " manuscript.txt " );  
+Reader reader  =   new  FileReader( manuscriptFile );  
+StringWriter stringWriter  =   new  StringWriter( );  
+while ( reader.ready( ) )  { writer.write( reader.read( ) ); }  
+String manuscript  =  stringWriter.toString( );  
+//  Convert string to lowercase  
+manuscript  =  StringUtils.lowerCase(manuscript);  
+//  count the occurrences of "futility"  
+int  numFutility  =  StringUtils.countMatches( manuscript,  " futility "  );   
+</code></pre>
+
+<p><strong>比较不同字符串：</strong></p>
+
+<pre><code>int  dist  =  StringUtils.getLevenshteinDistance(  " Word " ,  " World "  );  
+String diff  =  StringUtils.difference(  " Word " ,  " World "  );  
+int  index  =  StringUtils.indexOfDifference(  " Word " ,  " World "  );  
+System.out.println(  " Edit Distance:  "   +  dist );  
+System.out.println(  " Difference:  "   +  diff );  
+System.out.println(  " Diff Index:  "   +  index );  
+</code></pre>
+
+<p>[<strong>Console输出</strong>]</p>
+
+<blockquote><p>Edit Distance:  2<br/>
+Difference: ld<br/>
+Diff Index:  3</p></blockquote>
 </div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/02/08/go_note_7_goroutine/">Read on &rarr;</a>
-    </footer>
-  
 
 
-        </article>
-      
-      
-        <article class="post">
+      <footer>
+        <p class="meta text-muted">
           
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-22T21:06:19+08:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2014</time>
-        
-           | <a href="/blog/2014/01/22/go_note_6_data_structure/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/01/22/go_note_6_data_structure/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/22/go_note_6_data_structure/">Go笔记6：Go数据结构</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><h2>结构与指针</h2>
-
-<p>定义一个叫Point的简单的结构类型，意味着内存里是两个相邻的int。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kd">type</span> <span class="nx">Point</span> <span class="kd">struct</span> <span class="p">{</span> <span class="nx">X</span> <span class="p">,</span> <span class="nx">Y</span> <span class="kt">int</span> <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/01/22/go_note_6_data_structure/">Read on &rarr;</a>
-    </footer>
   
 
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">zJun</span></span>
 
-        </article>
-      
-      
-        <article class="post">
           
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-07-27T16:01:00+08:00" pubdate data-updated="true">Jul 27<span>th</span>, 2006</time>
+          
+
+<span class="glyphicon glyphicon-tags"></span>&nbsp;
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/java/'>Java</a>
+  
+</span>
+
+
+        </p>
         
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-16T21:06:19+08:00" pubdate data-updated="true">Jan 16<span>th</span>, 2014</time>
-        
-           | <a href="/blog/2014/01/16/dev_go_in_sublimetext2/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/01/16/dev_go_in_sublimetext2/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/16/dev_go_in_sublimetext2/">在Sublime Text2中开发Golang</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>Sublime Text 2 是一个可定制程度相当高的轻量级编辑器,具有丰富的第三方插件，关键是可以无限期的免费使用。下面就介绍通过安装几种插件，将Sublime Text 2定制成为一款相当好用的Golang IDE。</p>
-
+          <div class="sharing">
+  
+  
+  
 </div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/01/16/dev_go_in_sublimetext2/">Read on &rarr;</a>
-    </footer>
-  
 
-
-        </article>
-      
-    </div>
-
-    <ul class="pager">
-      
-        <li class="previous"><a href="/blog/page/2/">&larr;&nbsp;Older</a></li>
-      
-      <li><a href="/blog/archives">Blog Archives</a></li>
-      
-        <li class="next disabled"><a href="#">Newer&nbsp;&rarr;</a></li>
-      
-    </ul>
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/blog/2006/07/27/jdbc-connection/" title="Previous Post: 常用JDBC连接字符串">&laquo; 常用JDBC连接字符串</a></li>
+            
+            
+            <li class="next"><a href="/blog/2006/07/31/use-lrumap/" title="Next Post: 使用 LRUMap">使用 LRUMap &raquo;</a></li>
+            
+          </ul>
+        
+      </footer>
+    </article>
+    
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
+    
   </div>
 
   
-    <aside class="sidebar col-md-3">
-      
-        <section class="panel panel-default">
+  <aside class="sidebar col-md-3">
+    
+      <section class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Recent Posts</h3>
   </div>
@@ -285,7 +291,7 @@
       <h3 class="panel-title">GitHub Repos</h3>
   </div>
   <div class="list-group" id="gh_repos">
-    <p class="loading">Status updating&#8230;</p>
+    <p class="loading">Status updating...</p>
   </div>
   
     <div class="gh-profile-link pull-right text-muted">
@@ -318,8 +324,8 @@
 
 
 
-      
-    </aside>
+    
+  </aside>
   
 </div>
 
@@ -345,7 +351,10 @@
       var disqus_shortname = 'zJun';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2006/07/27/using-stringutils/';
+        var disqus_url = 'http://zjun.github.io/blog/2006/07/27/using-stringutils/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

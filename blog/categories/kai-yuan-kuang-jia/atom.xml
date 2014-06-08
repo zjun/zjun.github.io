@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 开源框架 | zJun's Tech Blog]]></title>
+  <link href="http://zjun.github.io/blog/categories/kai-yuan-kuang-jia/atom.xml" rel="self"/>
+  <link href="http://zjun.github.io/"/>
+  <updated>2014-06-08T12:11:00+08:00</updated>
+  <id>http://zjun.github.io/</id>
+  <author>
+    <name><![CDATA[zJun]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Spring MVC 实现 REST service]]></title>
+    <link href="http://zjun.github.io/blog/2013/12/04/spring_mvc_rest/"/>
+    <updated>2013-12-04T21:06:19+08:00</updated>
+    <id>http://zjun.github.io/blog/2013/12/04/spring_mvc_rest</id>
+    <content type="html"><![CDATA[<h2>web.xml</h2>
+
+<pre><code>&lt;!-- 配置字符过滤器--&gt;    
+&lt;filter&gt;  
+    &lt;filter-name&gt;CharacterFilter&lt;/filter-name&gt;  
+    &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;  
+    &lt;init-param&gt;  
+        &lt;param-name&gt;encoding&lt;/param-name&gt;  
+        &lt;param-value&gt;UTF-8&lt;/param-value&gt;  
+    &lt;/init-param&gt;  
+&lt;/filter&gt;  
+
+&lt;filter-mapping&gt;  
+    &lt;filter-name&gt;CharacterFilter&lt;/filter-name&gt;  
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;  
+&lt;/filter-mapping&gt;  
+
+&lt;!-- 指定spring配置文件位置 --&gt;  
+&lt;context-param&gt;  
+    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;  
+    &lt;param-value&gt;  
+        &lt;!--加载多个spring配置文件 --&gt;  
+        classpath:spring-homebills-cfg.xml
+    &lt;/param-value&gt;  
+&lt;/context-param&gt;  
+
+&lt;!-- 定义SPRING监听器，加载spring --&gt;  
+&lt;listener&gt;  
+    &lt;listener-class&gt;  
+        org.springframework.web.context.ContextLoaderListener
+    &lt;/listener-class&gt;  
+&lt;/listener&gt;  
+
+&lt;listener&gt;  
+    &lt;listener-class&gt;  
+org.springframework.web.context.request.RequestContextListener
+    &lt;/listener-class&gt;  
+&lt;/listener&gt;   
+
+&lt;servlet&gt;  
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;  
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;  
+    &lt;init-param&gt;  
+        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;  
+        &lt;param-value&gt;classpath:homebills-servlet.xml&lt;/param-value&gt;  
+    &lt;/init-param&gt;  
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;  
+&lt;/servlet&gt;  
+
+&lt;servlet-mapping&gt;  
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;  
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;  
+&lt;/servlet-mapping&gt;  
+</code></pre>
+
+<!--more-->
+
+
+<h2>application-servlet.xml</h2>
+
+<p><div>
+  <pre><code class='xml'>&lt;br/&gt;
+&amp;lt;?xml version=&amp;ldquo;1.0&amp;rdquo; encoding=&amp;ldquo;UTF-8&amp;rdquo;?&gt;&lt;br/&gt;
+&amp;lt;beans  xmlns=&amp;ldquo;&lt;a href=&quot;http://www.springframework.org/schema/beans&quot;&gt;http://www.springframework.org/schema/beans&lt;/a&gt;&amp;rdquo;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;   xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+   xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+   xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;
+   xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
+   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+   xsi:schemaLocation=&quot;http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    &quot;&amp;gt;
+
+&amp;lt;!--
+    指定使用注解方式配置,配置自动扫描的包名,
+    base-package指定自己应用中控制器所在的包目录
+    &amp;lt;context:component-scan/&amp;gt; 扫描指定的包中的类上的注解，常用的注解有： 
+    @Controller 声明Action组件
+    @Service 声明Service组件
+    @Service(&quot;myMovieLister&quot;) 
+    @Repository 声明Dao组件
+    @Component 泛指组件, 当不好归类时. 
+    @RequestMapping(&quot;/menu&quot;) 请求映射 
+    @Resource用于注入，( j2ee提供的 ) 默认按名称装配，
+    @Resource(name=&quot;beanName&quot;) 
+    @Autowired用于注入，(srping提供的) 默认按类型装配 
+    @Transactional(rollbackFor={Exception.class}) 事务管理 
+    @ResponseBody @Scope(&quot;prototype&quot;)设定bean的作用域
+--&amp;gt;
+&amp;lt;context:component-scan base-package=&quot;com.zjun.homebills.controller&quot; /&amp;gt;
+
+&amp;lt;!-- 默认的注解映射的支持 --&amp;gt;
+&amp;lt;!-- JSR-303 support will be detected on classpath and enabled automatically --&amp;gt;
+&amp;lt;mvc:annotation-driven/&amp;gt;
+
+&amp;lt;!-- http://static.springsource.org/spring/docs/3.0.0.RC3/reference/html/ch05s07.html --&amp;gt;&amp;lt;!-- 配置视图解析器 --&amp;gt;
+&amp;lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&amp;gt;
+    &amp;lt;!-- 配置视图层 使用jstl标签 --&amp;gt;
+    &amp;lt;property name=&quot;viewClass&quot; value=&quot;org.springframework.web.servlet.view.JstlView&quot; /&amp;gt;
+    &amp;lt;!-- 定义视图前缀格式 --&amp;gt;
+    &amp;lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot; /&amp;gt;
+    &amp;lt;!-- 定义视图后缀格式 --&amp;gt;
+    &amp;lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot; /&amp;gt;
+&amp;lt;/bean&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/beans&gt;&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<h2>Controler</h2>
+
+<p><div>
+  <pre><code class='java'>package com.zjun.homebills.controller;&lt;/p&gt;
+
+&lt;p&gt;import java.util.List;&lt;/p&gt;
+
+&lt;p&gt;import org.springframework.beans.factory.annotation.Autowired;&lt;br/&gt;
+import org.springframework.stereotype.Controller;&lt;br/&gt;
+import org.springframework.ui.Model;&lt;br/&gt;
+import org.springframework.validation.BindingResult;&lt;br/&gt;
+import org.springframework.validation.annotation.Validated;&lt;br/&gt;
+import org.springframework.web.bind.annotation.PathVariable;&lt;br/&gt;
+import org.springframework.web.bind.annotation.RequestMapping;&lt;br/&gt;
+import org.springframework.web.bind.annotation.RequestMethod;&lt;/p&gt;
+
+&lt;p&gt;import com.zjun.homebills.domain.Account;&lt;br/&gt;
+import com.zjun.homebills.service.AccountService;&lt;/p&gt;
+
+&lt;p&gt;@Controller&lt;br/&gt;
+@RequestMapping(value = &amp;ldquo;/account&amp;rdquo;)&lt;br/&gt;
+public class AccountController {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Autowired
+AccountService accountService;
+
+/**
+ * 
+ * 
+ * Description: 构建REST风格 /account/list的GET请求时才执行该方法的操作RequestMethod.GET表示
+ * 只处理GET请求
+ * 
+ * @param model
+ *            用于上下文参数传递
+ * @return 视图页面 account/list 结合user-servlet.xml中配置的视图模型匹配视图页面
+ *         实例中方法返回表示/WEB-INF/jsp/account/list.jsp页面
+ * 
+ */
+@RequestMapping(value = &quot;/list&quot;, method = RequestMethod.GET)
+public String list(Model model) {
+    List&amp;lt;Account&amp;gt; accounts = accountService.getAll();
+    model.addAttribute(&quot;accounts&quot;, accounts);
+    return &quot;account/list&quot;;
+}
+
+@RequestMapping(value = &quot;/add&quot;, method = RequestMethod.GET)
+public String add(Model model) {
+    model.addAttribute(&quot;account&quot;, new Account()); // 开启ModelDriven
+                                                    // 跳转到增加页面时使用该Model
+    return &quot;account/add&quot;;
+}
+
+/**
+ * 
+ * Description: 添加操作 请求/account/add form表单提交时使用的post请求调用该方法
+ * 
+ * @param user
+ *            添加的User对象
+ * @param br
+ *            验证绑定
+ * @return 视图页面 添加成功 请求重定向redirect:/account/list 表示执行操作结束后请求定向为/user/users
+ *         添加失败 页面转到/WEB-INF/jsp/add.jsp 这里有验证绑定,将在视图页面展示验证错误信息
+ * @throws Exception
+ * 
+ */
+@RequestMapping(value = &quot;/add&quot;, method = RequestMethod.POST)
+public String add(@Validated Account account, BindingResult br)
+        throws Exception {
+    // 需要说明的是BindingResult形参一定要跟@Validated修饰的形参后面写验证
+    if (br.hasErrors()) { // 如果有错误,直接跳转到添加视图
+        return &quot;account/add&quot;; // 服务端跳转 该跳转会自动在前面增加 forward
+    }
+    accountService.save(account);
+    return &quot;redirect:/account/list&quot;; // 客户端跳转 使用 redirect
+}
+
+/**
+ * 
+ * 
+ * Description: 预更新操作根据用户名查询用户信息 然后数据交给携带体 展示到视图 REST风格: /更新的用户的用户名/update
+ * 
+ * @param username
+ * @PathVariable修饰 表示形参同URL中的请求参数
+ * @param model
+ *            携带数据的Model
+ * @return 视图页面/WEB-INF/jsp/account/update页面
+ * 
+ */
+@RequestMapping(value = &quot;/{id}/update&quot;, method = RequestMethod.GET)
+public String update(@PathVariable Integer id, Model model) {
+    System.out.println(&quot;获取到传入的参数值为:&quot; + id);
+    Account account = accountService.findById(id);
+    model.addAttribute(account);
+    return &quot;account/update&quot;;
+}
+
+/**
+ * 
+ * 
+ * Description: 真正更新的操作 REST风格： /更新的id/update
+ * 
+ * @param username
+ *            带更新的用户的用户名
+ * @param user
+ *            带更新的用户的信息对象 @Validated修饰表示信息需要被验证
+ * @param br
+ *            验证信息绑定对象 必须紧跟在待验证的信息形参后面
+ * @return 视图页面 更新成功 请求重定向 /account/list 更新失败 转到/WEB-INF/jsp/account/update.jsp页面
+ * 
+ */
+@RequestMapping(value = &quot;/{id}/update&quot;, method = RequestMethod.POST)
+public String update(@PathVariable Integer id, @Validated Account account,
+        BindingResult br) {
+    if (br.hasErrors()) { // 如果有错误,直接跳转到修改视图
+        return &quot;account/update&quot;;
+    }
+    accountService.update(account);
+    return &quot;redirect:/account/list&quot;;
+}
+
+/**
+ * 
+ * 
+ * Description: 删除操作 REST风格:/删除的id/delete
+ * 
+ * @param username
+ *            删除的用户名 类似表主键,可以标记到整个记录信息
+ * @return 视图页面 请求重定向到 /account/list
+ * 
+ */
+@RequestMapping(value = &quot;/{id}/delete&quot;, method = RequestMethod.GET)
+public String delete(@PathVariable Integer id) {
+    System.out.println(&quot;获取到传入的参数值为:&quot; + id);
+    accountService.deleteById(id);
+    return &quot;redirect:/account/list&quot;;
+}  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}&lt;/p&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+
+<h2>JSP</h2>
+
+<p><div>
+  <pre><code class='java'>&lt;br/&gt;
+&amp;lt;%@ page language=&amp;ldquo;java&amp;rdquo; import=&amp;ldquo;java.util.*&amp;rdquo; pageEncoding=&amp;ldquo;UTF-8&amp;rdquo;%&gt;
+&amp;lt;%@ taglib prefix=&amp;ldquo;c&amp;rdquo; uri=&amp;ldquo;&lt;a href=&quot;http://java.sun.com/jsp/jstl/core&quot;&gt;http://java.sun.com/jsp/jstl/core&lt;/a&gt;&amp;rdquo; %&gt;
+&amp;lt;%&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;String path = request.getContextPath();
+String basePath = request.getScheme()+&quot;://&quot;+request.getServerName()+&quot;:&quot;+request.getServerPort()+path;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;%&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+  &lt;head&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;base href=&quot;&amp;lt;%=basePath%&amp;gt;&quot;&amp;gt;
+&amp;lt;title&amp;gt;&amp;lt;%=basePath%&amp;gt;&amp;lt;/title&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  &lt;/head&gt;&lt;/p&gt;
+
+&lt;p&gt;  &lt;body&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;h2&amp;gt;账户&amp;lt;/h2&amp;gt;   
+&amp;lt;p&amp;gt;&amp;lt;a href=&quot;&amp;lt;%=basePath %&amp;gt;/account/add&quot;&amp;gt;添加账户&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;table&amp;gt;
+    &amp;lt;thead&amp;gt;
+        &amp;lt;tr&amp;gt;&amp;lt;th&amp;gt;ID&amp;lt;/th&amp;gt;&amp;lt;th&amp;gt;名称&amp;lt;/th&amp;gt;&amp;lt;th&amp;gt;操作&amp;lt;/th&amp;gt;&amp;lt;/tr&amp;gt;
+    &amp;lt;/thead&amp;gt;
+    &amp;lt;tbody&amp;gt;
+        &amp;lt;c:forEach items=&quot;${accounts}&quot; var=&quot;account&quot;&amp;gt;
+        &amp;lt;tr&amp;gt;
+            &amp;lt;td&amp;gt;${account.id }&amp;lt;/td&amp;gt;
+            &amp;lt;td&amp;gt;${account.name }&amp;lt;/td&amp;gt;
+            &amp;lt;td&amp;gt;
+                &amp;lt;a href=&quot;&amp;lt;%=basePath %&amp;gt;/account/${account.id }/update&quot;&amp;gt;修改&amp;lt;/a&amp;gt;
+                &amp;lt;a href=&quot;&amp;lt;%=basePath %&amp;gt;/account/${account.id }/delete&quot;&amp;gt;删除&amp;lt;/a&amp;gt;
+            &amp;lt;/td&amp;gt;
+        &amp;lt;/tr&amp;gt;
+        &amp;lt;/c:forEach&amp;gt;
+    &amp;lt;/tbody&amp;gt;
+&amp;lt;/table&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  &lt;/body&gt;&lt;br/&gt;
+&lt;/html&gt;&lt;br/&gt;</code></pre>
+</div>
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用Spring Data JPA 简化持久层的开发]]></title>
+    <link href="http://zjun.github.io/blog/2013/12/03/use_spring_data_jpa/"/>
+    <updated>2013-12-03T21:06:19+08:00</updated>
+    <id>http://zjun.github.io/blog/2013/12/03/use_spring_data_jpa</id>
+    <content type="html"><![CDATA[<p>最近看到<a href="http://www.springside.org.cn/">SpringSide</a>最新版的<a href="https://github.com/springside/springside4/wiki/Design">技术选型</a>中提到了<a href="http://www.springsource.org/spring-data/jpa">Spring Data JPA</a>,号称只需要实现接口就可以实现大部分操作。真有怎么神奇？于是Google一番，果然好使，在这里记录一下：</p>
+
+<!--more-->
+
+
+<h2>需要的包</h2>
+
+<ul>
+<li>spring 3.x(4.0)</li>
+<li>spring data jpa 1.4.2</li>
+<li>spring data commons 1.5 or later</li>
+<li>hibernate 4</li>
+<li>JUnit 4.11</li>
+<li>log4j 1.2.14</li>
+</ul>
+
+
+<p>所需的包可以在这里下载。</p>
+
+<h2>配置文件</h2>
+
+<h3>persistence.xml</h3>
+
+<p>根据JPA的规范，要在类路径下的META-INF文件夹中创建<strong>persistence.xml</strong>文件，spring提供了<strong>org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean</strong>来进行配置，persistence.xml中的属性都可以在这个bean中进行注入。<br/>
+<div>
+  <pre><code class='xml'>&lt;br/&gt;
+&amp;lt;?xml version=&amp;ldquo;1.0&amp;rdquo; encoding=&amp;ldquo;UTF-8&amp;rdquo;?&gt;&lt;br/&gt;
+&lt;persistence xmlns=&quot;http://java.sun.com/xml/ns/persistence&quot; version=&quot;2.0&quot;&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;persistence-unit name=&quot;appName&quot; transaction-type=&quot;RESOURCE_LOCAL&quot;&amp;gt;  
+    &amp;lt;provider&amp;gt;org.hibernate.ejb.HibernatePersistence&amp;lt;/provider&amp;gt;  
+    &amp;lt;properties&amp;gt;  
+        &amp;lt;property name=&quot;hibernate.connection.driver_class&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&amp;gt;  
+        &amp;lt;property name=&quot;hibernate.connection.url&quot; value=&quot;jdbc:mysql://localhost:3306/appname&quot;/&amp;gt;  
+        &amp;lt;property name=&quot;hibernate.connection.username&quot; value=&quot;root&quot;/&amp;gt;  
+        &amp;lt;property name=&quot;hibernate.connection.password&quot; value=&quot;root&quot;/&amp;gt;  
+        &amp;lt;property name=&quot;hibernate.dialect&quot; value=&quot;org.hibernate.dialect.MySQL5Dialect&quot;/&amp;gt;  
+        &amp;lt;property name=&quot;hibernate.show_sql&quot; value=&quot;true&quot;/&amp;gt;  
+        &amp;lt;property name=&quot;hibernate.format_sql&quot; value=&quot;true&quot;/&amp;gt;  
+        &amp;lt;property name=&quot;hibernate.use_sql_comments&quot; value=&quot;false&quot;/&amp;gt;  
+        &amp;lt;property name=&quot;hibernate.hbm2ddl.auto&quot; value=&quot;update&quot;/&amp;gt;  
+    &amp;lt;/properties&amp;gt;  
+&amp;lt;/persistence-unit&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/persistence&gt;&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<p><strong>说明:</strong> <br/>
+1. <strong>persistence-unit</strong>是定义一个单元名称,可以定义多个，在实际使用的时候选择其中一个就可以了。将在后面的<strong>applicationContext.xml</strong>中使用。  <br/>
+2. 这里的META-INF是classpath下的目录，不是WEB目录下与WEB-INF同级那个目录，要注意区分，我刚开始的时候就是混淆了这两个目录，搞了很久。</p>
+
+<h3>applicationContext.xml</h3>
+
+<p><div>
+  <pre><code class='xml'>&lt;br/&gt;
+&amp;lt;?xml version=&amp;ldquo;1.0&amp;rdquo; encoding=&amp;ldquo;UTF-8&amp;rdquo;?&gt;&lt;br/&gt;
+&amp;lt;beans xmlns=&amp;ldquo;&lt;a href=&quot;http://www.springframework.org/schema/beans&quot;&gt;http://www.springframework.org/schema/beans&lt;/a&gt;&amp;rdquo;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:context=&quot;http://www.springframework.org/schema/context&quot; xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot; xmlns:jpa=&quot;http://www.springframework.org/schema/data/jpa&quot;
+   xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd&quot;&amp;gt;  
+
+&amp;lt;context:annotation-config /&amp;gt;      
+
+&amp;lt;context:component-scan base-package=&quot;com.zjun.appname&quot;/&amp;gt;
+
+&amp;lt;!-- 启用 annotation事务--&amp;gt;  
+&amp;lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot;/&amp;gt;  
+
+&amp;lt;!-- 配置事务管理器 --&amp;gt;  
+&amp;lt;bean id=&quot;transactionManager&quot; class=&quot;org.springframework.orm.jpa.JpaTransactionManager&quot;&amp;gt;  
+    &amp;lt;property name=&quot;entityManagerFactory&quot; ref=&quot;entityManagerFactory&quot;/&amp;gt;  
+&amp;lt;/bean&amp;gt;  
+
+&amp;lt;bean id=&quot;entityManagerFactory&quot; class=&quot;org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean&quot;&amp;gt;  
+    &amp;lt;property name=&quot;persistenceUnitName&quot; value=&quot;appName&quot; /&amp;gt;  
+    &amp;lt;property name=&quot;persistenceXmlLocation&quot; value=&quot;classpath:META-INF/persistence.xml&quot;/&amp;gt;  
+    &amp;lt;property name=&quot;jpaVendorAdapter&quot;&amp;gt;  
+        &amp;lt;bean class=&quot;org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter&quot;&amp;gt;  
+            &amp;lt;property name=&quot;generateDdl&quot; value=&quot;false&quot;/&amp;gt;  
+            &amp;lt;property name=&quot;showSql&quot; value=&quot;true&quot;/&amp;gt;  
+        &amp;lt;/bean&amp;gt;  
+    &amp;lt;/property&amp;gt;  
+&amp;lt;/bean&amp;gt;  
+
+&amp;lt;!-- 配置Spring Data JPA扫描目录--&amp;gt;  
+&amp;lt;jpa:repositories base-package=&quot;com.zjun.appname.dao&quot;  repository-impl-postfix=&quot;Impl&quot; entity-manager-factory-ref=&quot;entityManagerFactory&quot; transaction-manager-ref=&quot;transactionManager&quot;/&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/beans&gt;&lt;/p&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+
+<p><strong>说明：</strong>主要就是 <code>&lt;jpa:repositories base-package="com.zjun.appname.dao"/&gt;</code>，这个可以扫描repository接口。</p>
+
+<h3>log4j.properties</h3>
+
+<pre><code>log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.Target=System.out
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d{ABSOLUTE} %5p %c{1}:%L - %m%n
+
+log4j.rootLogger=debug, stdout
+log4j.logger.footmark=debug
+</code></pre>
+
+<h2>创建 Domain 类</h2>
+
+<p><div>
+  <pre><code class='java'>&lt;br/&gt;
+@Entity&lt;br/&gt;
+@Table(name = &amp;ldquo;account&amp;rdquo;)&lt;br/&gt;
+public class Account implements Serializable {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;private static final long serialVersionUID = 1487994788928657645L;  
+private int id;  
+private String name;  
+
+@Id  
+@GeneratedValue(strategy = GenerationType.AUTO)  
+public int getId() {  
+    return id;  
+}  
+
+public void setId(int id) {  
+    this.id = id;  
+}
+
+@Column(name = &quot;name&quot;)  
+public String getName() {  
+    return name;  
+}  
+
+public void setName(String name) {  
+    this.name = name;  
+}  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}&lt;/p&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+
+<h2>创建 DAO 类</h2>
+
+<p><div>
+  <pre><code class='java'>&lt;br/&gt;
+public interface AccountDao extends CrudRepository&amp;lt;Account, Integer&gt; {&lt;/p&gt;
+
+&lt;p&gt;}&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<p><strong>说明：</strong><br/>
+&ndash; 这里实现的是 <strong>CrudRepository</strong> 接口， 通过这个接口 Spring Data JPA 默认提供了全套的增删改查(CRUD)操作；<br/>
+&ndash; 也可以实现 <strong>JpaRepository</strong>接口，通过定义方法名来定制需要的操作；<br/>
+&ndash; 泛型中的参数，第一个是Entry类，第二个是这个类ID的类型；
+&ndash; 根据规范来对方法进行命名，比如 findByUsername 意思是通过username栏位进行数据查找，具体可以参照下面的表格：</p>
+
+<p><img src="http://farm4.staticflickr.com/3833/11186910614_341d29397c_c.jpg" alt="" /></p>
+
+<h2>Unit Test Case</h2>
+
+<p><div>
+  <pre><code class='java'>&lt;br/&gt;
+@RunWith(SpringJUnit4ClassRunner.class)&lt;br/&gt;
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    TransactionalTestExecutionListener.class })  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;@Transactional&lt;br/&gt;
+@ContextConfiguration(locations = { &amp;ldquo;classpath:spring-appname-cfg.xml&amp;rdquo; })&lt;br/&gt;
+public class TestAccountDao {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;private ApplicationContext ctx;  
+private AccountDao accountDao;  
+private Account account;  
+
+@Before  
+public void setup() {  
+    ctx = new ClassPathXmlApplicationContext(&quot;spring-appname-cfg.xml&quot;);  
+    accountDao = ctx.getBean(&quot;accountDao&quot;, AccountDao.class);   
+    account = new Account();  
+    account.setName(&quot;for testing&quot;);  
+}  
+
+@After  
+public void clear() {  
+    ctx = null;  
+}  
+
+@Test  
+public void testCRUD() {  
+    // Test create  
+    Account a = accountDao.save(account);  
+    long count = accountDao.count();  
+    Assert.assertEquals(1, count);  
+
+    // Test find  
+    Account b = accountDao.findOne(a.getId());  
+    Assert.assertNotNull(b);  
+    Assert.assertEquals(account.getName(), b.getName());  
+
+    // Test update  
+    b.setName(&quot;Test Update&quot;);  
+    accountDao.save(b);  
+    Account c = accountDao.findOne(a.getId());  
+    Assert.assertEquals(&quot;Test Update&quot;, c.getName());  
+
+    // Test delete  
+    accountDao.delete(account.getId());  
+    Account d = accountDao.findOne(account.getId());  
+    Assert.assertNull(d);  
+}  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<h3>参考资料</h3>
+
+<ul>
+<li><a href="http://www.ibm.com/developerworks/cn/opensource/os-cn-spring-jpa/">使用 Spring Data JPA 简化 JPA 开发</a></li>
+<li><a href="http://mybar.iteye.com/blog/1863390">Spring-data-jpa 使用</a></li>
+<li><a href="http://docs.spring.io/spring-data/jpa/docs/1.4.2.RELEASE/reference/html/index.html">Spring Data JPA &ndash; Reference Documentation</a></li>
+<li><a href="http://docs.spring.io/spring-data/jpa/docs/1.4.2.RELEASE/reference/html/repository-query-keywords.html">Appendix B. Repository query keywords</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hibernate中的继承关系]]></title>
+    <link href="http://zjun.github.io/blog/2006/08/16/inherit-in-hibernate/"/>
+    <updated>2006-08-16T15:15:00+08:00</updated>
+    <id>http://zjun.github.io/blog/2006/08/16/inherit-in-hibernate</id>
+    <content type="html"><![CDATA[<p>Hibernate中支持3种形式实现继承关系：<br/>
+1. <strong>Table per concrete class</strong> 表与子类之间独立一对一关系<br/>
+2. <strong>Table per subclass</strong> 每个子类对应一张子表，并与主类共享主表<br/>
+3. <strong>Table per class hierarchy</strong> 表与类一对多关系</p>
+
+<!-- more -->
+
+
+<h3>1. Table per concrete class</h3>
+
+<p><strong>数据库</strong>：父类没有对应的表，每个子类独立对应一张表，父类中的公共属性将在每一张表中以相同冗余字段的形式出现。<br/>
+<strong>映射文件</strong>：子类对应的Hibernate的配映射文件与普通映射文件没有特别区别，只是通过<class>节点的 polymorphism=&ldquo;implicit&rdquo; 属性实现隐式多态模式来实现与父类之间的继承关系。</p>
+
+<h3>2. Table per subclass</h3>
+
+<p><strong>数据库</strong>：父类单独映射一张主表，而每个子类分别映射一张子表。子表和主表通过外键相关联。<br/>
+<strong>映射文件</strong>：在映射文件中通过 &lt;joined-subclass> 节点来表示主类和子类之间的继承关系，如下：</p>
+
+<pre><code>&lt;hibernate-mapping&gt;
+  &lt;class name="BaseClass" table="T_BASE"&gt;
+    &lt;id name="id" column="id"&gt;
+      &lt;generator class="native"/&gt;
+    &lt;/id&gt;
+    &lt;property name="name" column="name"/&gt;
+    &lt;!--申明子类1--&gt;
+    &lt;joined-subclass name="SubClass1" table="T_SUB1"&gt;
+      &lt;key column="id"/&gt;
+      &lt;property name="subName1" column="subName1"/&gt;
+    &lt;/joined-subclass&gt;
+    &lt;!--申明子类2--&gt;
+    &lt;joined-subclass name="SubClass2" table="T_SUB1"&gt;
+      &lt;key column="id"/&gt;
+      &lt;property name="subName2" column="subName2"/&gt;
+    &lt;/joined-subclass&gt;
+  &lt;/class&gt;
+&lt;/hibernate-mapping&gt;
+</code></pre>
+
+<h3>3. Table per class hierarchy</h3>
+
+<p><strong>数据库</strong>：用一张表对应所有子类，包含所有子类字段，通过一个标示类别的字段来区分不同子类对应的数据。<br/>
+<strong>映射文件</strong>：通过<subclass> 和<disriminator>节点来对不同子类加以区别，如下：</p>
+
+<pre><code>&lt;hibernate-mapping&gt;
+  &lt;class name="BaseClass" table="T_BASE"&gt;
+    &lt;id name="id" column="id"&gt;
+      &lt;generator class="native"/&gt;
+    &lt;/id&gt;
+    &lt;discriminator column="category" type="string"/&gt;                &lt;------------- 声明discriminator字段
+    &lt;property name="name" column="name"/&gt;
+    &lt;!--子类1--&gt;     
+    &lt;subclass name="SubClass1" discriminator-value="1"&gt;       &lt;------------- discriminator为1，则是子类1
+       &lt;property name="subName1" column="subName1"/&gt;
+    &lt;/subclass&gt;  
+    &lt;!--子类2--&gt;     
+    &lt;subclass name="SubClass2" discriminator-value="2"&gt;       &lt;------------- discriminator为2，则是子类2
+       &lt;property name="subName2" column="subName2"/&gt;
+    &lt;/subclass&gt;
+  &lt;/class&gt;
+&lt;hibernate-mapping&gt;
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Struts使用多个配置文件]]></title>
+    <link href="http://zjun.github.io/blog/2006/04/27/mutilple-config-files-in-structs/"/>
+    <updated>2006-04-27T12:39:00+08:00</updated>
+    <id>http://zjun.github.io/blog/2006/04/27/mutilple-config-files-in-structs</id>
+    <content type="html"><![CDATA[<p>注：本文是对《<a href="https://www6.software.ibm.com/developerworks/cn/education/java/j-strutsconfig/index.html">使用多个Struts 配置文件</a>》一文的笔记，方便记忆和查询。</p>
+
+<hr />
+
+<!-- more -->
+
+
+<h1>1. 使用多个struts-config.xml 文件:</h1>
+
+<p>当<strong>struts-config.xml</strong> 变得越来越大时，维护这个文件变成了一件很痛苦的事。可以根据不同的功能或模块将<strong>struts-config.xml</strong> 分解为不同的文件，以方便后期的开发和维护。</p>
+
+<h2>第一步</h2>
+
+<p>按照功能将<strong>struts-config.xml</strong> 划分为几个小文件，具体做法是：
+(1) 将应用程序公共的全局配置放到<strong>struts-config.xml</strong> 中；
+(2) 将相同功能的配置放到同一个配置文件中，如：struts-sms.xml,struts-mms.xml,struts-report.xml。建议所有的配置文件都以struts-做前缀，并且在文件名中表明功能模块；</p>
+
+<h2>第二步</h2>
+
+<p>配置<strong>web.xml</strong>引用多个配置文件：</p>
+
+<pre><code>&lt; servlet &gt;
+     &lt; servlet-name &gt; message &lt;/ servlet-name &gt;
+     &lt; servlet-class &gt; org.apache.struts.action.ActionServlet &lt;/ servlet-class &gt;
+     &lt; init-param &gt;
+       &lt; param-name &gt; config &lt;/ param-name &gt;
+       &lt; param-value &gt; /WEB-INF/struts-config.xml,
+                   /WEB-INF/struts-sms.xml,
+                   /WEB-INF/struts-mms.xml,
+                   /WEB-INF/struts-report.xml 
+       &lt;/ param-value &gt;
+     &lt;/ init-param &gt;
+
+     &lt; load-on-startup &gt; 1 &lt;/ load-on-startup &gt;
+   &lt;/ servlet &gt;
+</code></pre>
+
+<p><strong>注意</strong>：文件间用逗号分隔，包含每个文件的完整路径。</p>
+
+<h1>2. 使用多个资源文件：</h1>
+
+<p>同样的原因，实现多语言的资源文件太大也是一件痛苦的事情，我们也可以将它按照功能分解为几个文件进行维护。</p>
+
+<h2>第一步</h2>
+
+<p>按照功能将内容放入不同的资源文件，不多赘述；</p>
+
+<h2>第二步</h2>
+
+<p>在struts-config.xml中放置资源文件：</p>
+
+<pre><code>&lt; message-resources  parameter ="Resources"  null ="false" /&gt;  
+&lt; message-resources  parameter ="SmsResources"  key ="sms" /&gt;  
+&lt; message-resources  parameter ="MmsResources"  key ="mms" /&gt;  
+&lt; message-resources  parameter ="ReportResources"  key ="report" /&gt;  
+</code></pre>
+
+<p><strong>说明</strong>：这里面的第一个元素（没有 key 属性）成为默认的资源集。所以所有的 JSP 和 servet 都可以通过 servlet 上下文访问这组资源。其他的资源则需要通过指定后面的key值来访问资源。</p>
+
+<h2>第三步</h2>
+
+<p>在页面中引用资源文件：</p>
+
+<pre><code>&lt; bean:message  bundle ="sms"  key ="sms.label.send.name"   /&gt;
+</code></pre>
+
+<p><strong>说明</strong>：属性 bundle用于指定要使用的非默认包，即指定前面在struts-config.xml中的key值。</p>
+]]></content>
+  </entry>
+  
+</feed>

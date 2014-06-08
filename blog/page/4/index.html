@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zjun.github.io">
+  <link rel="canonical" href="http://zjun.github.io/blog/page/4">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="zJun's Tech Blog" type="application/atom+xml">
 
@@ -102,39 +102,35 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-02-08T21:06:19+08:00" pubdate data-updated="true">Feb 8<span>th</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-10-24T21:06:19+08:00" pubdate data-updated="true">Oct 24<span>th</span>, 2013</time>
         
-           | <a href="/blog/2014/02/08/go_note_7_goroutine/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/02/08/go_note_7_goroutine/">Comments</a>
+           | <a href="/blog/2013/10/24/go_note_1_install/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2013/10/24/go_note_1_install/">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2014/02/08/go_note_7_goroutine/">Go笔记7:并发</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/10/24/go_note_1_install/">Go笔记1：环境配置</a></h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><p>Golang 给人印象最深刻的一个特性就是：从语言层面支持并行，而且实现起来相当简单。</p>
+  <div class="entry-content clearfix"><h2>Go 安装</h2>
 
-<h2>goroutine</h2>
+<p>我的环境是Win7，所以这里主要记录在Win7下安装Go的过程：</p>
 
-<p>goroutine是Go并行设计的核心。goroutine其实就是协程，它比线程更小，十几个goroutine可能体现在底层就是五六个线程，Go语言内部实现了这些goroutine之间的内存共享。oroutine比thread更易用、更高效、更轻便。</p>
+<ul>
+<li>首先到<a href="http://code.google.com/p/go/downloads/list">这里</a>去下载安装程序，32位系统下载go1.0.3.windows-386.msi，64位系统下载go1.0.3.windows-amd64.msi；</li>
+<li>双击打开下载的文件，一路按照默认点击下一步，这个时候go已经安装到你的系统中，默认安装之后已经在你的系统环境变量中加入了c:/go/bin；</li>
+<li>打开cmd，输入go，如果出现Go的Usage信息，那么说明Go已经安装成功了；如果出现该命令不存在，那么可以检查一下PATH环境变中是否包含了Go的安装目录。</li>
+</ul>
 
-<p>goroutine通过<code>go</code>关键字实现：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">go</span> <span class="nx">hello</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
 
 </div>
   
   
     <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/02/08/go_note_7_goroutine/">Read on &rarr;</a>
+      <a class="btn btn-default" rel="full-article" href="/blog/2013/10/24/go_note_1_install/">Read on &rarr;</a>
     </footer>
   
 
@@ -160,35 +156,34 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-22T21:06:19+08:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-09-18T21:06:19+08:00" pubdate data-updated="true">Sep 18<span>th</span>, 2013</time>
         
-           | <a href="/blog/2014/01/22/go_note_6_data_structure/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/01/22/go_note_6_data_structure/">Comments</a>
+           | <a href="/blog/2013/09/18/change_mysql_root_password/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2013/09/18/change_mysql_root_password/">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2014/01/22/go_note_6_data_structure/">Go笔记6：Go数据结构</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/09/18/change_mysql_root_password/">MySQL 修改 Root 密码</a></h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><h2>结构与指针</h2>
+  <div class="entry-content clearfix"><h2>方法1： 用SET PASSWORD命令</h2>
 
-<p>定义一个叫Point的简单的结构类型，意味着内存里是两个相邻的int。</p>
+<div>
+  <pre><code class='console'>mysql -u root  
+mysql&gt; SET PASSWORD FOR 'root'@'localhost' = PASSWORD('newpass');</code></pre>
+</div>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kd">type</span> <span class="nx">Point</span> <span class="kd">struct</span> <span class="p">{</span> <span class="nx">X</span> <span class="p">,</span> <span class="nx">Y</span> <span class="kt">int</span> <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p></p>
 
 </div>
   
   
     <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/01/22/go_note_6_data_structure/">Read on &rarr;</a>
+      <a class="btn btn-default" rel="full-article" href="/blog/2013/09/18/change_mysql_root_password/">Read on &rarr;</a>
     </footer>
   
 
@@ -214,26 +209,36 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-16T21:06:19+08:00" pubdate data-updated="true">Jan 16<span>th</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-09-17T21:06:19+08:00" pubdate data-updated="true">Sep 17<span>th</span>, 2013</time>
         
-           | <a href="/blog/2014/01/16/dev_go_in_sublimetext2/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2014/01/16/dev_go_in_sublimetext2/">Comments</a>
+           | <a href="/blog/2013/09/17/setup_raspberrypi_as_webserver/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2013/09/17/setup_raspberrypi_as_webserver/">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2014/01/16/dev_go_in_sublimetext2/">在Sublime Text2中开发Golang</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/09/17/setup_raspberrypi_as_webserver/">把Raspberry Pi打造成 Web Server</a></h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><p>Sublime Text 2 是一个可定制程度相当高的轻量级编辑器,具有丰富的第三方插件，关键是可以无限期的免费使用。下面就介绍通过安装几种插件，将Sublime Text 2定制成为一款相当好用的Golang IDE。</p>
+  <div class="entry-content clearfix"><h2>Setup Raspberry Pi</h2>
+
+<h3>安装</h3>
+
+<p>理论上 OS 可以是任何支持 ARM v6 的 Linux 发行版，推荐使用官方的 wheezy 系统，因为这是针对树莓派定制并优化了的 Debian。<br/>
+下载地址：<a href="http://www.raspberrypi.org/downloads" title="http://www.raspberrypi.org/downloads">http://www.raspberrypi.org/downloads</a><br/>
+解压之后得到一个 .img 的镜像文件，比如 2013-07-26-wheezy-raspbian.img.</p>
+
+<p>在Windows下使用工具：<a href="http://sourceforge.net/projects/win32diskimager/">win32diskimager</a> 把镜像文件写入 SD 卡。</p>
+
+<p>将刻好的 SD 卡插入树莓派的 SD 卡插槽，接上键盘和显示器。然后开机，也就是插上电源，树莓派没有电源开关，插电即开机。拔出电源就是关机，不过最安全的方式是使用 <code>sudo shutdown -h now</code> 或 <code>sudo halt</code> 命令正确地关闭系统，然后再拔电源。 重启使用 <code>sudo reboot</code> 命令。</p>
 
 </div>
   
   
     <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/01/16/dev_go_in_sublimetext2/">Read on &rarr;</a>
+      <a class="btn btn-default" rel="full-article" href="/blog/2013/09/17/setup_raspberrypi_as_webserver/">Read on &rarr;</a>
     </footer>
   
 
@@ -244,11 +249,11 @@
 
     <ul class="pager">
       
-        <li class="previous"><a href="/blog/page/2/">&larr;&nbsp;Older</a></li>
+        <li class="previous"><a href="/blog/page/5/">&larr;&nbsp;Older</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
       
-        <li class="next disabled"><a href="#">Newer&nbsp;&rarr;</a></li>
+        <li class="next"><a href="/blog/page/3/">Newer&nbsp;&rarr;</a></li>
       
     </ul>
   </div>

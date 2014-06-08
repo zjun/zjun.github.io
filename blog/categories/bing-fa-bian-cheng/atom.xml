@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 并发编程 | zJun's Tech Blog]]></title>
+  <link href="http://zjun.github.io/blog/categories/bing-fa-bian-cheng/atom.xml" rel="self"/>
+  <link href="http://zjun.github.io/"/>
+  <updated>2014-06-08T12:11:00+08:00</updated>
+  <id>http://zjun.github.io/</id>
+  <author>
+    <name><![CDATA[zJun]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Java并发编程笔记：线程管理]]></title>
+    <link href="http://zjun.github.io/blog/2012/05/02/java_concurrency_note_basic_manage_threads/"/>
+    <updated>2012-05-02T16:52:00+08:00</updated>
+    <id>http://zjun.github.io/blog/2012/05/02/java_concurrency_note_basic_manage_threads</id>
+    <content type="html"><![CDATA[<h2>创建线程</h2>
+
+<p>两种方法：<br/>
+1. 通过直接继承thread类，然后覆盖run()方法;
+2. 构建一个实现Runnable接口的类, 然后创建一个thread类对象并传递Runnable对象作为构造参数;</p>
+
+<p><strong>启动线程：</strong><br/>
+只有调用start()方法才能启动一个新的执行线程。</p>
+
+<h2>线程的属性</h2>
+
+<p>通过以下方法访问线程属性：<br/>
+1. id:          <code>thread.getId()</code><br/>
+2. name:        <code>thread.getName()</code><br/>
+3. Priority:    <code>thread.getPriority()</code><br/>
+4. State:       <code>thread.getState()</code></p>
+
+<h2>中断线程</h2>
+
+<ol>
+<li>在线程外调用线程的 <code>interrupt()</code> 方法；</li>
+<li>在线程内判断 <code>isInterrupted()</code>，如果为true 则退出线程；</li>
+<li>可以在线程内判断 <code>isInterrupted()</code>， 如果为true 则抛出 <code>InterruptedException</code> 异常来进行中断处理；</li>
+</ol>
+
+
+<p><strong>说明</strong>： Thread 类有一个boolean类型的属性来表明线程是否被中断。当你调用线程的 <code>interrupt()</code> 方法，就代表你把这个属性设置为 true。 而 <code>isInterrupted()</code> 方法仅返回属性值。</p>
+
+<h2>线程的睡眠和恢复</h2>
+
+<ol>
+<li>可以使用 <code>Thread.sleep()</code> 方法休眠线程，此方法接收一个整数作为参数，表示线程暂停运行的毫秒数；</li>
+<li>也可以使用一个有TimeUnit列举元素的sleep() 方法，使用线程类的 sleep() 方法让当前线程睡眠，它接收的参数单位是表示并转换成毫秒的: <code>TimeUnit.SECONDS.sleep(1);</code>  ；</li>
+<li>可以通过 <code>thread.interrupt();</code> 中断休眠，唤醒线程；</li>
+</ol>
+
+
+<p><strong>说明</strong>：当调用sleep()方法， Thread 离开CPU并在一段时间内停止运行。在这段时间内，它是不消耗CPU时间的，使用可以执行其他任务。</p>
+
+<h2>等待线程终结</h2>
+
+<p>当前线程调用其他线程的 join() 后， 会暂停当前线程，直到被调用线程执行完成。</p>
+
+<p>Java 提供2种形式的 join() 方法:<br/>
+1. <code>join (long milliseconds)</code><br/>
+2. <code>join (long milliseconds, long nanos)</code></p>
+
+<p>第一种 join() 方法, 这方法让调用线程等待特定的毫秒数。例如，如果thread1对象使用代码 thread2.join(1000), 那么线程 thread1暂停运行，直到以下其中一个条件发生：</p>
+
+<ol>
+<li>thread2 结束运行</li>
+<li>1000 毫秒过去了</li>
+</ol>
+
+
+<p>当其中一个条件为真时，join() 方法返回。</p>
+
+<p>第二个版本的 join() 方法和第一个很像，只不过它接收一个毫秒数和一个纳秒数作为参数。</p>
+
+<h2>守护线程</h2>
+
+<p><strong>守护线程</strong>: 这种线程的优先级非常低，通常在程序里没有其他线程运行时才会执行它。当守护线程是程序里唯一在运行的线程时，JVM会结束守护线程并终止程序。</p>
+
+<ol>
+<li><code>setDaemon(true);</code> 设置守护线程</li>
+<li>只能在 <code>start()</code> 方法之前可以调用 <code>setDaemon()</code> 方法。一旦线程运行了，就不能修改守护状态</li>
+<li>可以使用 <code>isDaemon()</code> 方法来检查线程是否是守护线程（方法返回 true) 或者是使用者线程 (方法返回 false)</li>
+</ol>
+
+
+<h2>处理线程中的 Unchecked exceptions</h2>
+
+<p>Java里有2种异常:</p>
+
+<ul>
+<li><p>检查异常（<strong>Checked exceptions</strong>）: 这些异常必须强制捕获它们或在一个方法里的throws子句中。 例如， <code>IOException</code> 或者<code>ClassNotFoundException</code></p></li>
+<li><p>未检查异常（<strong>Unchecked exceptions</strong>）: 这些异常不用强制捕获它们。例如:<code>NumberFormatException</code></p></li>
+<li><p>thread.run() 方法不接受 throws 子句。当一个非检查异常被抛出，默认的行为是在控制台写下stack trace并退出程序。</p></li>
+<li>实现 UncaughtExceptionHandler 接口并实现 uncaughtException() 方法;</li>
+<li>thread.setUncaughtExceptionHandler(new ExceptionHandler());</li>
+</ul>
+
+
+<p><div>
+  <pre><code class='java'>&lt;br/&gt;
+public class ExceptionHandler implements UncaughtExceptionHandler{&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public void uncaughtException(Thread t, Throwable e){  
+    System.out.printf(&quot;An exception has been captured\n&quot;);  
+    System.out.printf(&quot;Thread: %s\n&quot;,t.getId());  
+    System.out.printf(&quot;Exception: %s: %s\n&quot;,e.getClass().getName(),e.getMessage());  
+    System.out.printf(&quot;Stack Trace: \n&quot;);  
+    e.printStackTrace(System.out); System.out.printf(&quot;Thread status: %s\n&quot;,t.getState());  
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+
+<p><div>
+  <pre><code class='java'>&lt;br/&gt;
+Thread thread=new Thread(task);&lt;br/&gt;
+thread.setUncaughtExceptionHandler(new ExceptionHandler());&lt;br/&gt;
+thread.start();&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<h2>本地线程变量</h2>
+
+<ol>
+<li>本地线程变量 ThreadLocal;</li>
+<li>本地线程变量为每个使用这些变量的线程储存属性值;</li>
+<li>使用 get() 方法读取值和使用 set() 方法改变值;</li>
+<li>如果第一次访问本地线程变量的值，没有值给当前的线程对象，那么本地线程变量会调用 initialValue() 方法来设置值给线程并返回初始值;</li>
+<li>本地线程类还提供 remove() 方法，删除存储在线程本地变量里的值;</li>
+</ol>
+
+
+<h2>线程组</h2>
+
+<ol>
+<li>创建线程组： ThreadGroup threadGroup = new ThreadGroup(&ldquo;Searcher&rdquo;);</li>
+<li>加入线程组： Thread thread=new Thread(threadGroup, runnable );</li>
+<li>threadGroup.list() 得到关于 ThreadGroup ob对象信息；</li>
+<li>activeCount() 方法获取线程个数；</li>
+<li>enumerate() 方法获取与ThreadGroup对象关联的线程的列表；
+threadGroup.enumerate(Thread[]);</li>
+<li>interrupt() 方法中断组里的其他线程： threadGroup.interrupt();</li>
+</ol>
+
+
+<h2>处理线程组中的 Unchecked exceptions</h2>
+
+<ol>
+<li>override ThreadGroup 的 uncaughtException() 方法；</li>
+<li>当一个非捕捉异常在线程内抛出，JVM会为这个异常寻找3种可能handlers：<br/>
+1). 找这个未捕捉的线程对象的异常handle;<br/>
+2). 在线程对象的ThreadGroup里寻找非捕捉异常的handler;<br/>
+3) 寻找默认非捕捉异常handle;</li>
+</ol>
+
+
+<p>如果没有 handlers存在, 那么 JVM会把异常的 stack trace 写入控制台并结束任务。</p>
+
+<h2>线程工厂</h2>
+
+<ol>
+<li>ThreadFactory 接口;</li>
+<li>实现接口方法: newThread(), 接收 Runnable 对象作为参数并返回一个 Thread 对象;</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>
