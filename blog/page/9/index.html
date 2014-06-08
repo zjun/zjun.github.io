@@ -102,29 +102,28 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-08-16T15:15:00+08:00" pubdate data-updated="true">Aug 16<span>th</span>, 2006</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-03-21T23:34:00+08:00" pubdate data-updated="true">Mar 21<span>st</span>, 2006</time>
         
-           | <a href="/blog/2006/08/16/inherit-in-hibernate/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2006/08/16/inherit-in-hibernate/">Comments</a>
+           | <a href="/blog/2006/03/21/proxy-pattern-in-java/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2006/03/21/proxy-pattern-in-java/">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2006/08/16/inherit-in-hibernate/">Hibernate中的继承关系</a></h1>
+      <h1 class="entry-title"><a href="/blog/2006/03/21/proxy-pattern-in-java/">[GoF23] java中的Proxy模式</a></h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><p>Hibernate中支持3种形式实现继承关系：<br/>
-1. <strong>Table per concrete class</strong> 表与子类之间独立一对一关系<br/>
-2. <strong>Table per subclass</strong> 每个子类对应一张子表，并与主类共享主表<br/>
-3. <strong>Table per class hierarchy</strong> 表与类一对多关系</p>
+  <div class="entry-content clearfix"><p><strong>代理（Proxy）模式</strong>，顾名思义就是对象之间不直接发生联系，而是通过中间的代理人进行沟通。这种关系在现在的娱乐圈中普遍存在：明星通常都有经纪人来代理自己的演出事宜，而不是直接去联系演出商。下面就通过这个实际中的例子来说明代理模式。<br/>
+首先画出<strong>关系类图</strong>：<br/>
+<img src="http://www.blogjava.net/images/blogjava_net/zjun/8140/r_Proxy.jpg" alt="" /></p>
 
 </div>
   
   
     <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2006/08/16/inherit-in-hibernate/">Read on &rarr;</a>
+      <a class="btn btn-default" rel="full-article" href="/blog/2006/03/21/proxy-pattern-in-java/">Read on &rarr;</a>
     </footer>
   
 
@@ -150,28 +149,30 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-07-31T14:52:00+08:00" pubdate data-updated="true">Jul 31<span>st</span>, 2006</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-03-12T23:38:00+08:00" pubdate data-updated="true">Mar 12<span>th</span>, 2006</time>
         
-           | <a href="/blog/2006/07/31/use-lrumap/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2006/07/31/use-lrumap/">Comments</a>
+           | <a href="/blog/2006/03/12/shutdownhook-in-javaapp/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2006/03/12/shutdownhook-in-javaapp/">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2006/07/31/use-lrumap/">使用 LRUMap</a></h1>
+      <h1 class="entry-title"><a href="/blog/2006/03/12/shutdownhook-in-javaapp/">为程序加上关闭钩子(ShutdownHook)</a></h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><p>使用过开源缓存包(如:<a href="http://ehcache.sourceforge.net/">EHCache</a>)都知道，缓存策略中主要分为FIFO,LRU,LFU等几种。而Jakarta Commons中提供的 <strong>org.apache.commons.collections.map.LRUMap</strong> 可用来保存最近使用的几条记录，提供了<strong>LRU(Least Recently Used)</strong>缓存策略的实现。</p>
+  <div class="entry-content clearfix"><p>“<strong>关闭钩子</strong>”（ShutdownHook）是这样一个概念：向虚拟机注册一个线程，当程序退出(Ctrl+C)时虚拟机会启动这个线程,我们可以在这个线程的run()中做一些清除的工作,如:<strong>释放数据库连接,关闭文件</strong>等.</p>
 
-<p>具体使用方法如下:</p>
+<h2>说明</h2>
+
+<p>shutdownhook通常用来在Ctrl+C退出时触发清理工作(多是在后台服务中，这种服务通常是24*7运行的，正常情况下是不退出的)，如果能够在程序中显式地确定退出的时机，那么最好是直接在退出前做清理，不用搞得这么复杂。</p>
 
 </div>
   
   
     <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2006/07/31/use-lrumap/">Read on &rarr;</a>
+      <a class="btn btn-default" rel="full-article" href="/blog/2006/03/12/shutdownhook-in-javaapp/">Read on &rarr;</a>
     </footer>
   
 
@@ -197,26 +198,126 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-07-27T16:01:00+08:00" pubdate data-updated="true">Jul 27<span>th</span>, 2006</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-03-08T18:59:00+08:00" pubdate data-updated="true">Mar 8<span>th</span>, 2006</time>
         
-           | <a href="/blog/2006/07/27/using-stringutils/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2006/07/27/using-stringutils/">Comments</a>
+           | <a href="/blog/2006/03/08/common-pagenation-sql/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2006/03/08/common-pagenation-sql/">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2006/07/27/using-stringutils/">使用 StringUtils 工具类</a></h1>
+      <h1 class="entry-title"><a href="/blog/2006/03/08/common-pagenation-sql/">[转] 常见数据库分页SQL语句</a></h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><p>org.apache.commons.lang.StringUtils中提供许多有用的字符串操作方法，了解这些方法，我们可以避免许多不必要的重复工作。下面介绍其中比较有用的几个方法：</p>
+  <div class="entry-content clearfix"><p>常见数据库分页SQL语句:原文在<a href="http://http//www.360doc.com/showWeb/0/0/51724.aspx">这里</a>。</p>
+
+<hr />
 
 </div>
   
   
     <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2006/07/27/using-stringutils/">Read on &rarr;</a>
+      <a class="btn btn-default" rel="full-article" href="/blog/2006/03/08/common-pagenation-sql/">Read on &rarr;</a>
+    </footer>
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-03-06T19:40:00+08:00" pubdate data-updated="true">Mar 6<span>th</span>, 2006</time>
+        
+           | <a href="/blog/2006/03/06/inherit-in-javascriot/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2006/03/06/inherit-in-javascriot/">Comments</a>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2006/03/06/inherit-in-javascriot/">在javascript中实现继承关系</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>意译自KevLinDev上一篇文章，才疏学浅，望指正，英文原文可到<a href="http://www.kevlindev.com/tutorials/javascript/inheritance/">这里</a>查看。</p>
+
+<hr />
+
+<p>javascript脚本语言是支持面向对象编程(Object Oriented Programming )的,只是javascript实现的方式比较特别，与C++和java中的实现方式不同。在javascript中我们需要借助prototype对象来访问父类的方法，下面将讨论在javascript中实现OOP中最基本的特征关系 &mdash;&ndash; <strong>继承</strong>。</p>
+
+</div>
+  
+  
+    <footer>
+      <a class="btn btn-default" rel="full-article" href="/blog/2006/03/06/inherit-in-javascriot/">Read on &rarr;</a>
+    </footer>
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-03-06T16:52:00+08:00" pubdate data-updated="true">Mar 6<span>th</span>, 2006</time>
+        
+           | <a href="/blog/2006/03/06/inherit_in_javascript/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2006/03/06/inherit_in_javascript/">Comments</a>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2006/03/06/inherit_in_javascript/">在javascript中实现继承关系</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>意译自KevLinDev上一篇文章，才疏学浅，望指正，英文原文可到<a href="http://www.kevlindev.com/tutorials/javascript/inheritance/">这里</a>查看。</p>
+
+<hr />
+
+<p>javascript脚本语言是支持面向对象编程(<strong>O</strong>bject <strong>O</strong>riented <strong>P</strong>rogramming )的,只是javascript实现的方式比较特别，与C++和java中的实现方式不同。在javascript中我们需要借助<strong>prototype</strong>对象来访问父类的方法，下面将讨论在javascript中实现OOP中最基本的特征关系 &mdash;&ndash; <strong>继承</strong>。</p>
+
+</div>
+  
+  
+    <footer>
+      <a class="btn btn-default" rel="full-article" href="/blog/2006/03/06/inherit_in_javascript/">Read on &rarr;</a>
     </footer>
   
 
@@ -241,6 +342,106 @@
       
         <section class="panel panel-default">
   <div class="panel-heading">
+    <h3 class="panel-title">Blogroll</h3>
+  </div>
+  <div id="recent_posts" class="list-group">
+      <a class="list-group-item" href="http://coolshell.cn/">陈皓</a>
+      <a class="list-group-item" href="http://mindhacks.cn/">刘未鹏MIND HACKS</a>
+      <a class="list-group-item" href="http://blog.codingnow.com/">云风</a>
+      <a class="list-group-item" href="http://www.cnblogs.com/Solstice/">陈硕</a>
+      <a class="list-group-item" href="http://blog.nosqlfan.com/">NoSQLFan</a>
+      <a class="list-group-item" href="http://ifeve.com/">并发编程网</a>
+      <a class="list-group-item" href="http://blog.javachen.com/">JavaChen</a>
+      <a class="list-group-item" href="http:http://www.parallellabs.com/">并行实验室</a>
+      <a class="list-group-item" href="http:http://www.yanjiuyanjiu.com/">研究研究</a>
+  </div>
+</section><section class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Categories</h3>
+  </div>
+  <div class="list-group">
+    
+    
+    <a class="list-group-item " href="/blog/categories/web开发/index.html">
+        <span class="badge">8</span>
+        Web开发
+      </a>
+    
+    
+    <a class="list-group-item " href="/blog/categories/java/index.html">
+        <span class="badge">7</span>
+        Java
+      </a>
+    
+    
+    <a class="list-group-item " href="/blog/categories/数据库/index.html">
+        <span class="badge">3</span>
+        数据库
+      </a>
+    
+    
+    <a class="list-group-item " href="/blog/categories/设计模式/index.html">
+        <span class="badge">3</span>
+        设计模式
+      </a>
+    
+    
+    <a class="list-group-item " href="/blog/categories/工具/index.html">
+        <span class="badge">5</span>
+        工具
+      </a>
+    
+    
+    <a class="list-group-item " href="/blog/categories/开源框架/index.html">
+        <span class="badge">4</span>
+        开源框架
+      </a>
+    
+    
+    <a class="list-group-item " href="/blog/categories/others/index.html">
+        <span class="badge">2</span>
+        Others
+      </a>
+    
+    
+    <a class="list-group-item " href="/blog/categories/数据结构/index.html">
+        <span class="badge">3</span>
+        数据结构
+      </a>
+    
+    
+    <a class="list-group-item " href="/blog/categories/shell/index.html">
+        <span class="badge">1</span>
+        Shell
+      </a>
+    
+    
+    <a class="list-group-item " href="/blog/categories/并发编程/index.html">
+        <span class="badge">1</span>
+        并发编程
+      </a>
+    
+    
+    <a class="list-group-item " href="/blog/categories/git/index.html">
+        <span class="badge">1</span>
+        Git
+      </a>
+    
+    
+    <a class="list-group-item " href="/blog/categories/树莓派/index.html">
+        <span class="badge">1</span>
+        树莓派
+      </a>
+    
+    
+    <a class="list-group-item " href="/blog/categories/golang/index.html">
+        <span class="badge">8</span>
+        golang
+      </a>
+    
+  </div>
+</section><section class="panel panel-default">
+  <div class="panel-heading">
     <h3 class="panel-title">Recent Posts</h3>
   </div>
   
@@ -263,44 +464,12 @@
   </div>
 </section>
 
-<section class="panel panel-default clearfix">
+<section class="panel panel-default">
   <div class="panel-heading">
-      <h3 class="panel-title">GitHub Repos</h3>
+    <h3 class="panel-title">Recent Posts</h3>
   </div>
-  <div class="list-group" id="gh_repos">
-    <p class="loading">Status updating&#8230;</p>
-  </div>
-  
-    <div class="gh-profile-link pull-right text-muted">
-      <a href="https://github.com/zjun">@zjun</a> on GitHub
-    </div>
-  
-  <script type="text/javascript">
-    $(document).ready(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'zjun',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
+  <script type="text/javascript" src="http://zjun.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
 </section>
-
-
-
-
-
-
       
     </aside>
   
