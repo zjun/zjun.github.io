@@ -4,7 +4,7 @@ title: "配置Log4j"
 date: 2006-06-28 16:42
 comments: true
 external-url: 
-categories: 工具
+categories: Others
 ---
 
 Log4J的配置文件(Configuration File)就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。

@@ -4,7 +4,7 @@ title: "DisplayTag 1.1 Released, 可分页读取数据！！！"
 date: 2006-02-27 20:21
 comments: true
 external-url: 
-categories: Web开发
+categories: Web
 ---
 
 DisplayTag一直以来为人们所诟病的缺点就是它的装载数据的方式: **一次性把所有数据读取到内存中，然后再分页显示**。这样做的后果就是在处理大批量数据时力不从心,可用性急剧下降,并且在翻页显示的仅仅是内存中的数据而不是实时数据.因此人们往往只是在实现小型项目的小数量表格分页显示时才想到DisplayTag，并且因为考虑到项目的扩展往往最终弃用DiaplayTag.

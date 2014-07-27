@@ -3,7 +3,7 @@ layout: post
 title: "Java并发编程笔记：线程管理"
 date: 2012-05-02 16:52
 comments: true
-category: 并发编程 
+category: Java 
 ---
 ## 创建线程 ##
 两种方法：  

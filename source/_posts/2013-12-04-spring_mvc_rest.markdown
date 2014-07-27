@@ -3,7 +3,7 @@ layout: post
 title: "Spring MVC 实现 REST service"
 date: 2013-12-04 21:06:19 +0800
 comments: true
-category: 开源框架
+category: Java
 ---
 
 ## web.xml ##

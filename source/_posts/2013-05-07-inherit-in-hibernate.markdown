@@ -4,7 +4,7 @@ title: "Hibernate中的继承关系"
 date: 2006-08-16 15:15
 comments: true
 external-url: 
-categories: 开源框架
+categories: Java
 ---
 Hibernate中支持3种形式实现继承关系：  
 1. **Table per concrete class** 表与子类之间独立一对一关系  

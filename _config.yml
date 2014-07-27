@@ -3,8 +3,8 @@
 # ----------------------- #
 
 url: http://zjun.github.io
-title: zJun's Tech Blog
-subtitle: No Zuo No Die.
+title: ZJUN NOTE
+subtitle: zJun's Tech Notes
 author: zJun
 simple_search: https://www.google.com/search
 description:
@@ -54,7 +54,8 @@ default_asides: [asides/recent_posts.html]
 
 # Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below
 # and add an array with the asides you want to use.
-blog_index_asides: [custom/asides/Blogroll.html, custom/asides/category_list.html, asides/recent_posts.html, custom/asides/recent_comments.html]
+#blog_index_asides: [custom/asides/Blogroll.html, custom/asides/category_list.html, asides/recent_posts.html, custom/asides/recent_comments.html]
+blog_index_asides: [custom/asides/category_list.html, asides/recent_posts.html]
 # post_asides:
 # page_asides:
 

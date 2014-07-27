@@ -3,7 +3,7 @@ layout: post
 title: "MySQL 修改 root 密码"
 date: 2013-09-18 21:06:19 +0800
 comments: true
-category: 数据库
+category: Database
 ---
 ## 方法1： 用SET PASSWORD命令 ##
 {% highlight console %}   

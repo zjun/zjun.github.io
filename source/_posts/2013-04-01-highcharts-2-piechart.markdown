@@ -4,7 +4,7 @@ title: "HighCharts 笔记2：通过表格生成Pie Chart"
 date: 2013-04-01 15:49
 comments: true
 external-url: 
-categories: Web开发
+categories: Web
 ---
 接上一篇 [HighCharts笔记之: Bar Chart](http://zjun.github.com/2013/03/28/highcharts-json-dataformat/)，这一篇继续记录在项目中使用 Pie Chart 的情况,只是自己的一点总结和记录，以备日后翻阅。这一次是通过页面上的表格(Table)数据，生成对应的饼图（Pie Chart），具体实现如下：
 >**Highcharts** 是一个用纯JavaScript编写的一个图表库, 能够很简单便捷的在web网站或是web应用程序添加有交互性的图表，并且免费提供给个人学习、个人网站和非商业用途使用。目前HighCharts支持的图表类型有曲线图、区域图、柱状图、饼状图、散状点图和综合图表。

@@ -4,7 +4,7 @@ title: "使用Eclipse远程调试tomcat上的web应用"
 date: 2006-04-21 17:55
 comments: true
 external-url: 
-categories: 工具
+categories: Others
 ---
 
 其实解决这个问题最有效的方法就安装插件：简单，直接。但是如果你不想安装太多的插件到eclipse中或者你调试使用的tomcat和eclipse不在同一机器上的话，就要使用eclipse的remote debug直接进行调试,具体配置步骤如下:  

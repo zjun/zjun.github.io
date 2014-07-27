@@ -4,7 +4,7 @@ title: "常用JDBC连接字符串"
 date: 2006-07-27 14:45
 comments: true
 external-url: 
-categories: 数据库
+categories: Java
 ---
 常用数据库的JDBC连接字符串：
 <!-- more -->

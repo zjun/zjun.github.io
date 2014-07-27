@@ -4,7 +4,7 @@ title: "[转] 常见数据库分页SQL语句"
 date: 2006-03-08 18:59
 comments: true
 external-url: 
-categories: 数据库
+categories: Database
 ---
 
 常见数据库分页SQL语句:原文在[这里](http://http//www.360doc.com/showWeb/0/0/51724.aspx)。

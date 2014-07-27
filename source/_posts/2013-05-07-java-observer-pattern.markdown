@@ -4,7 +4,7 @@ title: "[GoF]java中的观察者模式(Observer)"
 date: 2006-05-18 10:54
 comments: true
 external-url: 
-categories: 设计模式
+categories: Java
 ---
 
 Java作为一种面向对象的开发语言，对实现设计模式提供了良好的支持，并且提供了许多默认的实现，比如：通过Java中的**Observable类**和**Observer接口**可以方便的实现观察者模式。

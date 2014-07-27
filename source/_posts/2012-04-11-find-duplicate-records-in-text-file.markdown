@@ -3,7 +3,7 @@ layout: post
 title: "Find duplicate records in text file"
 date: 2012-04-11 16:52
 comments: true
-category: Shell
+category: Others
 ---
 ## Example: ##
 	abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  

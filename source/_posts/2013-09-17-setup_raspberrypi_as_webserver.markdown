@@ -3,7 +3,7 @@ layout: post
 title: "把Raspberry Pi打造成 Web Server"
 date: 2013-09-17 21:06:19 +0800
 comments: true
-category: 树莓派
+category: Others
 ---
 
 ## Setup Raspberry Pi ##

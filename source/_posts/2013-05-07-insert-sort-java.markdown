@@ -4,7 +4,7 @@ title: "插入排序"
 date: 2006-07-10 14:32
 comments: true
 external-url: 
-categories: 数据结构
+categories: Java
 ---
 
 

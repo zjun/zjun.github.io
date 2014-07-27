@@ -4,7 +4,7 @@ title: "在javascript中实现继承关系"
 date: 2006-03-06 19:40
 comments: true
 external-url: 
-categories: Web开发
+categories: Web
 ---
 
 意译自KevLinDev上一篇文章，才疏学浅，望指正，英文原文可到[这里](http://www.kevlindev.com/tutorials/javascript/inheritance/)查看。
