@@ -102,26 +102,35 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-05-14T17:37:00+08:00" pubdate data-updated="true">May 14<span>th</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-10-24T21:06:19+08:00" pubdate data-updated="true">Oct 24<span>th</span>, 2013</time>
         
-           | <a href="/blog/2013/05/14/dojo-traps-in-ie/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2013/05/14/dojo-traps-in-ie/">Comments</a>
+           | <a href="/blog/2013/10/24/go_note_1_install/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2013/10/24/go_note_1_install/">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2013/05/14/dojo-traps-in-ie/">Dojo在IE中的那些坑</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/10/24/go_note_1_install/">Go笔记1：环境配置</a></h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><p>最近的一个小项目中使用的<a href="http://dojotoolkit.org/">dojo</a>作为前台页面框架。本来很简单的功能，但是发布给用户做  UAT时却发现一堆简单低级的错误，但在开发环境却始终不能重现，百思不得其解&hellip;原来用户的测试环境是 IE8，果然问题在这，之前测试是在FireFox，没想到相同的功能在IE中却报错。</p>
+  <div class="entry-content clearfix"><h2>Go 安装</h2>
+
+<p>我的环境是Win7，所以这里主要记录在Win7下安装Go的过程：</p>
+
+<ul>
+<li>首先到<a href="http://code.google.com/p/go/downloads/list">这里</a>去下载安装程序，32位系统下载go1.0.3.windows-386.msi，64位系统下载go1.0.3.windows-amd64.msi；</li>
+<li>双击打开下载的文件，一路按照默认点击下一步，这个时候go已经安装到你的系统中，默认安装之后已经在你的系统环境变量中加入了c:/go/bin；</li>
+<li>打开cmd，输入go，如果出现Go的Usage信息，那么说明Go已经安装成功了；如果出现该命令不存在，那么可以检查一下PATH环境变中是否包含了Go的安装目录。</li>
+</ul>
+
 
 </div>
   
   
     <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2013/05/14/dojo-traps-in-ie/">Read on &rarr;</a>
+      <a class="btn btn-default" rel="full-article" href="/blog/2013/10/24/go_note_1_install/">More >></a>
     </footer>
   
 
@@ -147,26 +156,34 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-05-08T14:36:00+08:00" pubdate data-updated="true">May 8<span>th</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-09-18T21:06:19+08:00" pubdate data-updated="true">Sep 18<span>th</span>, 2013</time>
         
-           | <a href="/blog/2013/05/08/using-sublime/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2013/05/08/using-sublime/">Comments</a>
+           | <a href="/blog/2013/09/18/change_mysql_root_password/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2013/09/18/change_mysql_root_password/">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2013/05/08/using-sublime/">Sublime Text 2快捷键及常用插件</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/09/18/change_mysql_root_password/">MySQL 修改 Root 密码</a></h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><p>SublimeText2 是我目前为止用过的最为强大的编辑器，支持但不限于 C, C++, C#, CSS, D, Erlang, HTML, Groovy, Haskell, HTML, Java, JavaScript, LaTeX, Lisp, Lua, Markdown, Matlab, OCaml, Perl, PHP, Python, R, Ruby, SQL, TCL, Textile and XML 等主流编程语言的语法高亮。拥有优秀的代码自动完成功能 (自动补齐括号，大括号等配对符号；自动补全已经出现的单词；自动补全函数名)，非常智能。 最重要的是这么一个原来高不可攀的“神器”，现在居然开源免费了，所以还不赶快试试：</p>
+  <div class="entry-content clearfix"><h2>方法1： 用SET PASSWORD命令</h2>
+
+<div>
+  <pre><code class='console'>mysql -u root  
+mysql&gt; SET PASSWORD FOR &#39;root&#39;@&#39;localhost&#39; = PASSWORD(&#39;newpass&#39;);</code></pre>
+</div>
+
+
+
 
 </div>
   
   
     <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2013/05/08/using-sublime/">Read on &rarr;</a>
+      <a class="btn btn-default" rel="full-article" href="/blog/2013/09/18/change_mysql_root_password/">More >></a>
     </footer>
   
 
@@ -192,125 +209,36 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-05-03T21:06:19+08:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-09-17T21:06:19+08:00" pubdate data-updated="true">Sep 17<span>th</span>, 2013</time>
         
-           | <a href="/blog/2013/05/03/use-octopress-to-write-blog/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2013/05/03/use-octopress-to-write-blog/">Comments</a>
+           | <a href="/blog/2013/09/17/setup_raspberrypi_as_webserver/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2013/09/17/setup_raspberrypi_as_webserver/">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2013/05/03/use-octopress-to-write-blog/">使用Octopress写博客</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/09/17/setup_raspberrypi_as_webserver/">把Raspberry Pi打造成 Web Server</a></h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><p><code>Octopress</code>是利用<code>Jekyll</code>博客引擎开发的一个博客系统，生成的静态页面能够很好的在github page上展现。号称是hacker专属的一个博客系统(<code>A blogging framework for hackers.</code>)
-本文就来介绍一下如何利用Octopress搭建一个Github博客。本文需要读者熟悉一些shell命令，并掌握基本的git操作。</p>
+  <div class="entry-content clearfix"><h2>Setup Raspberry Pi</h2>
+
+<h3>安装</h3>
+
+<p>理论上 OS 可以是任何支持 ARM v6 的 Linux 发行版，推荐使用官方的 wheezy 系统，因为这是针对树莓派定制并优化了的 Debian。<br/>
+下载地址：<a href="http://www.raspberrypi.org/downloads" title="http://www.raspberrypi.org/downloads">http://www.raspberrypi.org/downloads</a><br/>
+解压之后得到一个 .img 的镜像文件，比如 2013-07-26-wheezy-raspbian.img.</p>
+
+<p>在Windows下使用工具：<a href="http://sourceforge.net/projects/win32diskimager/">win32diskimager</a> 把镜像文件写入 SD 卡。</p>
+
+<p>将刻好的 SD 卡插入树莓派的 SD 卡插槽，接上键盘和显示器。然后开机，也就是插上电源，树莓派没有电源开关，插电即开机。拔出电源就是关机，不过最安全的方式是使用 <code>sudo shutdown -h now</code> 或 <code>sudo halt</code> 命令正确地关闭系统，然后再拔电源。 重启使用 <code>sudo reboot</code> 命令。</p>
 
 </div>
   
   
     <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2013/05/03/use-octopress-to-write-blog/">Read on &rarr;</a>
-    </footer>
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-04-01T15:49:00+08:00" pubdate data-updated="true">Apr 1<span>st</span>, 2013</time>
-        
-           | <a href="/blog/2013/04/01/highcharts-2-piechart/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2013/04/01/highcharts-2-piechart/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/01/highcharts-2-piechart/">HighCharts 笔记2：通过表格生成Pie Chart</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>接上一篇 <a href="http://zjun.github.com/2013/03/28/highcharts-json-dataformat/">HighCharts笔记之: Bar Chart</a>，这一篇继续记录在项目中使用 Pie Chart 的情况,只是自己的一点总结和记录，以备日后翻阅。这一次是通过页面上的表格(Table)数据，生成对应的饼图（Pie Chart），具体实现如下：</p>
-
-<blockquote><p><strong>Highcharts</strong> 是一个用纯JavaScript编写的一个图表库, 能够很简单便捷的在web网站或是web应用程序添加有交互性的图表，并且免费提供给个人学习、个人网站和非商业用途使用。目前HighCharts支持的图表类型有曲线图、区域图、柱状图、饼状图、散状点图和综合图表。
-HighCharts界面美观，由于使用JavaScript编写，所以不需要像Flash和Java那样需要插件才可以运行，而且运行速度快。另外HighCharts还有很好的兼容性，能够完美支持当前大多数浏览器。</p></blockquote>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2013/04/01/highcharts-2-piechart/">Read on &rarr;</a>
-    </footer>
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-03-28T16:52:00+08:00" pubdate data-updated="true">Mar 28<span>th</span>, 2013</time>
-        
-           | <a href="/blog/2013/03/28/highcharts-json-dataformat/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2013/03/28/highcharts-json-dataformat/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2013/03/28/highcharts-json-dataformat/">HighCharts笔记之: Bar Chart</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>最近需要做一些Web图标，研究了几个开源的第三方工具后，最后决定使用<strong>HighCharts</strong>开发：</p>
-
-<p><strong>Highcharts</strong> 是一个用纯JavaScript编写的一个图表库, 能够很简单便捷的在web网站或是web应用程序添加有交互性的图表，并且免费提供给个人学习、个人网站和非商业用途使用。目前HighCharts支持的图表类型有曲线图、区域图、柱状图、饼状图、散状点图和综合图表。
-HighCharts界面美观，由于使用JavaScript编写，所以不需要像Flash和Java那样需要插件才可以运行，而且运行速度快。另外HighCharts还有很好的兼容性，能够完美支持当前大多数浏览器。</p>
-
-<p>HighCharts 可以通过JSON 数据格式与后台交互，从而生成动态的图表。但是在官方的文档中关于 JSON 数据格式的资料很少，经过一下午的调试终于找到了关于柱状图和饼图的数据格式，在这里记录一下，以备后续的查询：</p>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2013/03/28/highcharts-json-dataformat/">Read on &rarr;</a>
+      <a class="btn btn-default" rel="full-article" href="/blog/2013/09/17/setup_raspberrypi_as_webserver/">More >></a>
     </footer>
   
 
@@ -396,6 +324,12 @@ HighCharts界面美观，由于使用JavaScript编写，所以不需要像Flash�
     <a class="list-group-item " href="/blog/2013/12/19/go_note_3_object/">Go笔记3：面向对象</a>
     
     <a class="list-group-item " href="/blog/2013/12/04/spring_mvc_rest/">Spring MVC 实现 REST Service</a>
+    
+    <a class="list-group-item " href="/blog/2013/12/03/use_spring_data_jpa/">使用Spring Data JPA 简化持久层的开发</a>
+    
+    <a class="list-group-item " href="/blog/2013/10/27/go_note_2_basic_grammar/">Go笔记2：基础语法</a>
+    
+    <a class="list-group-item " href="/blog/2013/10/24/go_note_1_install/">Go笔记1：环境配置</a>
     
   </div>
 </section>

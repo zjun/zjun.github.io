@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zjun.github.io/blog/page/10">
+  <link rel="canonical" href="http://zjun.github.io/blog/page/14">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="ZJUN NOTE" type="application/atom+xml">
 
@@ -102,26 +102,28 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-07-27T14:45:00+08:00" pubdate data-updated="true">Jul 27<span>th</span>, 2006</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-04-12T11:06:00+08:00" pubdate data-updated="true">Apr 12<span>th</span>, 2006</time>
         
-           | <a href="/blog/2006/07/27/jdbc-connection/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2006/07/27/jdbc-connection/">Comments</a>
+           | <a href="/blog/2006/04/12/proxy-pattern-in-java-2/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2006/04/12/proxy-pattern-in-java-2/">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2006/07/27/jdbc-connection/">常用JDBC连接字符串</a></h1>
+      <h1 class="entry-title"><a href="/blog/2006/04/12/proxy-pattern-in-java-2/">[GoF23]java中的Proxy模式(续)</a></h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><p>常用数据库的JDBC连接字符串：</p>
+  <div class="entry-content clearfix"><p>在 <a href="http://zjun.github.io/2006/03/21/proxy-pattern-in-java/">上一篇随笔</a> 中,由于时间和篇幅的关系只是简单介绍了Proxy模式的概念,并没有写到Java中对Proxy模式特有的支持,所以严格说起来是有点&#8221;名不符实&#8221;,现在就接着介绍JDK中Proxy模式的实现:</p>
+
+<h2>Java API中提供了对Proxy模式的支持,主要是通过反射(Reflect)包中的<strong>Proxy</strong>类和<strong>InvocationHandler</strong>接口实现,具体过程如下:  </h2>
 
 </div>
   
   
     <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2006/07/27/jdbc-connection/">More >></a>
+      <a class="btn btn-default" rel="full-article" href="/blog/2006/04/12/proxy-pattern-in-java-2/">More >></a>
     </footer>
   
 
@@ -147,28 +149,28 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-07-20T14:23:00+08:00" pubdate data-updated="true">Jul 20<span>th</span>, 2006</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-03-21T23:34:00+08:00" pubdate data-updated="true">Mar 21<span>st</span>, 2006</time>
         
-           | <a href="/blog/2006/07/20/event-in-jsp-servlet/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2006/07/20/event-in-jsp-servlet/">Comments</a>
+           | <a href="/blog/2006/03/21/proxy-pattern-in-java/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2006/03/21/proxy-pattern-in-java/">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2006/07/20/event-in-jsp-servlet/">JSP/Servlet中的事件处理</a></h1>
+      <h1 class="entry-title"><a href="/blog/2006/03/21/proxy-pattern-in-java/">[GoF23] java中的Proxy模式</a></h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><p>写过AWT或Swing程序的人一定对桌面程序的事件处理机制印象深刻：通过实现Listener接口的类可以在特定事件(Event)发生时，呼叫特定的方法来对事件进行响应。</p>
-
-<p>其实我们在编写JSP/Servle程序时，也有类似的事件处理机制，所不同的是在JSP/Servlet中是在web.xml中注册Listener，由Container在特定事件发生时呼叫特定的实现Listener的类。</p>
+  <div class="entry-content clearfix"><p><strong>代理（Proxy）模式</strong>，顾名思义就是对象之间不直接发生联系，而是通过中间的代理人进行沟通。这种关系在现在的娱乐圈中普遍存在：明星通常都有经纪人来代理自己的演出事宜，而不是直接去联系演出商。下面就通过这个实际中的例子来说明代理模式。<br/>
+首先画出<strong>关系类图</strong>：<br/>
+<img src="http://www.blogjava.net/images/blogjava_net/zjun/8140/r_Proxy.jpg" alt="" /></p>
 
 </div>
   
   
     <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2006/07/20/event-in-jsp-servlet/">More >></a>
+      <a class="btn btn-default" rel="full-article" href="/blog/2006/03/21/proxy-pattern-in-java/">More >></a>
     </footer>
   
 
@@ -194,26 +196,30 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-07-13T11:30:00+08:00" pubdate data-updated="true">Jul 13<span>th</span>, 2006</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-03-12T23:38:00+08:00" pubdate data-updated="true">Mar 12<span>th</span>, 2006</time>
         
-           | <a href="/blog/2006/07/13/select-sort-java/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2006/07/13/select-sort-java/">Comments</a>
+           | <a href="/blog/2006/03/12/shutdownhook-in-javaapp/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2006/03/12/shutdownhook-in-javaapp/">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2006/07/13/select-sort-java/">选择排序</a></h1>
+      <h1 class="entry-title"><a href="/blog/2006/03/12/shutdownhook-in-javaapp/">为程序加上关闭钩子(ShutdownHook)</a></h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><p>选择排序的思想和插入排序差不多，都是先把排序的对象分作两组，不同点在于选择排序 将要排序的对象 <strong>分作一个是已排序的，一个是未排序的，从后端未排序部份选择一个最小值，并放入前端已排序部份的最后一个。</strong></p>
+  <div class="entry-content clearfix"><p>“<strong>关闭钩子</strong>”（ShutdownHook）是这样一个概念：向虚拟机注册一个线程，当程序退出(Ctrl+C)时虚拟机会启动这个线程,我们可以在这个线程的run()中做一些清除的工作,如:<strong>释放数据库连接,关闭文件</strong>等.</p>
+
+<h2>说明</h2>
+
+<p>shutdownhook通常用来在Ctrl+C退出时触发清理工作(多是在后台服务中，这种服务通常是24*7运行的，正常情况下是不退出的)，如果能够在程序中显式地确定退出的时机，那么最好是直接在退出前做清理，不用搞得这么复杂。</p>
 
 </div>
   
   
     <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2006/07/13/select-sort-java/">More >></a>
+      <a class="btn btn-default" rel="full-article" href="/blog/2006/03/12/shutdownhook-in-javaapp/">More >></a>
     </footer>
   
 
@@ -224,11 +230,11 @@
 
     <ul class="pager">
       
-        <li class="previous"><a href="/blog/page/11/">&larr;&nbsp;Older</a></li>
+        <li class="previous"><a href="/blog/page/15/">&larr;&nbsp;Older</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
       
-        <li class="next"><a href="/blog/page/9/">Newer&nbsp;&rarr;</a></li>
+        <li class="next"><a href="/blog/page/13/">Newer&nbsp;&rarr;</a></li>
       
     </ul>
   </div>

@@ -102,26 +102,139 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-05-19T14:26:00+08:00" pubdate data-updated="true">May 19<span>th</span>, 2006</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2012-04-11T16:52:00+08:00" pubdate data-updated="true">Apr 11<span>th</span>, 2012</time>
         
-           | <a href="/blog/2006/05/19/cmpp3-dot-0-status-list/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2006/05/19/cmpp3-dot-0-status-list/">Comments</a>
+           | <a href="/blog/2012/04/11/find-duplicate-records-in-text-file/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2012/04/11/find-duplicate-records-in-text-file/">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2006/05/19/cmpp3-dot-0-status-list/">[转]CMPP3.0状态报告</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/04/11/find-duplicate-records-in-text-file/">Find Duplicate Records in Text File</a></h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><h2>CMPP3.0状态报告,原文在<a href="http://tbbs.spforum.net/viewthread.php?fid=43&amp;tid=72656">这里</a>  </h2>
+  <div class="entry-content clearfix"><h2>Example:</h2>
+
+<pre><code>abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  
+abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  
+tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452  
+aer 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  
+tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452  
+</code></pre>
+
+<h2>UNIX:</h2>
+
+<p>display the no of occurance and the record</p>
+
+<div>
+  <pre><code class='console'>**sort f1.txt|uniq -c**  
+
+2 abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  
+1 aer 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  
+2 tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452</code></pre>
+</div>
+
+
+<p>display only the duplicate records</p>
+
+<div>
+  <pre><code class='console'>**sort f1.txt|uniq -d**  
+
+abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  
+tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452</code></pre>
+</div>
+
+
+<p>display distinct records</p>
+
+<div>
+  <pre><code class='console'>**sort f1.txt|uniq**  
+
+abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  
+aer 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  
+tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452</code></pre>
+</div>
+
+
+<h2>Windows:</h2>
+
+<p>Notepad++ can sort by line, and remove the duplicate lines at the same time.</p>
+
+<blockquote><ol>
+<li>Open the menu under: <strong>TextFX&mdash;>TextFX</strong> Tools</li>
+<li>Make sure &ldquo;<strong>sort outputs only unique&hellip;</strong>&rdquo; is checked</li>
+<li>select a block of text (ctrl-a to select the entire document).</li>
+<li>click &ldquo;<strong>sort lines case sensitive</strong>&rdquo; or &ldquo;<strong>sort lines case insensitive</strong>&rdquo;</li>
+</ol>
+</blockquote>
+
+<h2>参考阅读：</h2>
+
+<p><a href="http://www.unix.com/shell-programming-scripting/85711-how-find-duplicate-records-text-file.html">How to find Duplicate Records in a text file</a><br/>
+<a href="http://www.cyberciti.biz/faq/unix-linux-shell-removing-duplicate-lines/">Shell: How To Remove Duplicate Text Lines</a><br/>
+<a href="http://www.ehow.com/how_5084389_remove-duplicate-lines-unix.html">How to Remove Duplicate Lines in Unix</a><br/>
+<a href="http://answers.yahoo.com/question/index?qid=20080522091139AAoVO8m">remove duplicates from a text file in free editor</a></p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2007-01-18T13:48:00+08:00" pubdate data-updated="true">Jan 18<span>th</span>, 2007</time>
+        
+           | <a href="/blog/2007/01/18/remove-duplicate-items-in-array/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2007/01/18/remove-duplicate-items-in-array/">Comments</a>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2007/01/18/remove-duplicate-items-in-array/">剔除List中的重复值</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><h3>方法一：循环元素删除</h3>
+
+<pre><code>//  删除ArrayList中重复元素
+public   static   void  removeDuplicate(List list)  {
+   for  ( int  i  =   0 ; i  &lt;  list.size()  -   1 ; i ++ )  {
+    for  ( int  j  =  list.size()  -   1 ; j  &gt;  i; j -- )  {
+      if  (list.get(j).equals(list.get(i)))  {
+        list.remove(j);
+      }
+    }
+  }
+  System.out.println(list);
+}
+</code></pre>
 
 </div>
   
   
     <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2006/05/19/cmpp3-dot-0-status-list/">Read on &rarr;</a>
+      <a class="btn btn-default" rel="full-article" href="/blog/2007/01/18/remove-duplicate-items-in-array/">More >></a>
     </footer>
   
 
@@ -147,168 +260,24 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-05-18T10:54:00+08:00" pubdate data-updated="true">May 18<span>th</span>, 2006</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-09-19T18:33:00+08:00" pubdate data-updated="true">Sep 19<span>th</span>, 2006</time>
         
-           | <a href="/blog/2006/05/18/java-observer-pattern/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2006/05/18/java-observer-pattern/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2006/05/18/java-observer-pattern/">[GoF]java中的观察者模式(Observer)</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>Java作为一种面向对象的开发语言，对实现设计模式提供了良好的支持，并且提供了许多默认的实现，比如：通过Java中的<strong>Observable类</strong>和<strong>Observer接口</strong>可以方便的实现观察者模式。</p>
-
-<p>下面我们就用一个实际的例子来说明：日常生活中说起观察者，最常见的例子可能就是天气预报，在这里我们的观察对象是地球，而我们是通过发射气象卫星这个观察者来检测地球气象变化的。</p>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2006/05/18/java-observer-pattern/">Read on &rarr;</a>
-    </footer>
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-04-27T12:39:00+08:00" pubdate data-updated="true">Apr 27<span>th</span>, 2006</time>
-        
-           | <a href="/blog/2006/04/27/mutilple-config-files-in-structs/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2006/04/27/mutilple-config-files-in-structs/">Comments</a>
+           | <a href="/blog/2006/09/19/forward-and-redirect/#disqus_thread"
+             data-disqus-identifier="http://zjun.github.io/blog/2006/09/19/forward-and-redirect/">Comments</a>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2006/04/27/mutilple-config-files-in-structs/">Struts使用多个配置文件</a></h1>
+      <h1 class="entry-title"><a href="/blog/2006/09/19/forward-and-redirect/">Forward & Redirect</a></h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><p>注：本文是对《<a href="https://www6.software.ibm.com/developerworks/cn/education/java/j-strutsconfig/index.html">使用多个Struts 配置文件</a>》一文的笔记，方便记忆和查询。</p>
+  <div class="entry-content clearfix"><blockquote><p>使用forward的話，網址列上並不會出現被轉發的目標位址，而且forward是在Web應用程式之內進行，可以訪問Web應用程式的隱藏目錄，像是WEB-INF，然而forward只能在Web應用程式中進行，不能指定至其它的Web應用程式位址。</p>
 
-<hr />
-
+<p>使用redirect的話，是要求客戶端瀏覽器重新發出一個指定的請求位址，因此網址列上會出現被重導的目錄位址，重導的請求是由瀏覽器發出，所以不能訪問Web應用程式中的隱藏目錄，像是WEB-INF，然而重導是重新要求一個網頁，所以可以指定至其它的Web應用程式位址。</p></blockquote>
 </div>
   
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2006/04/27/mutilple-config-files-in-structs/">Read on &rarr;</a>
-    </footer>
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-04-21T17:55:00+08:00" pubdate data-updated="true">Apr 21<span>st</span>, 2006</time>
-        
-           | <a href="/blog/2006/04/21/eclipse-debug-webapp-on-tomcat/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2006/04/21/eclipse-debug-webapp-on-tomcat/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2006/04/21/eclipse-debug-webapp-on-tomcat/">使用Eclipse远程调试tomcat上的web应用</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>其实解决这个问题最有效的方法就安装插件：简单，直接。但是如果你不想安装太多的插件到eclipse中或者你调试使用的tomcat和eclipse不在同一机器上的话，就要使用eclipse的remote debug直接进行调试,具体配置步骤如下:</p>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2006/04/21/eclipse-debug-webapp-on-tomcat/">Read on &rarr;</a>
-    </footer>
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-04-12T11:06:00+08:00" pubdate data-updated="true">Apr 12<span>th</span>, 2006</time>
-        
-           | <a href="/blog/2006/04/12/proxy-pattern-in-java-2/#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io/blog/2006/04/12/proxy-pattern-in-java-2/">Comments</a>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2006/04/12/proxy-pattern-in-java-2/">[GoF23]java中的Proxy模式(续)</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>在 <a href="http://zjun.github.io/2006/03/21/proxy-pattern-in-java/">上一篇随笔</a> 中,由于时间和篇幅的关系只是简单介绍了Proxy模式的概念,并没有写到Java中对Proxy模式特有的支持,所以严格说起来是有点&#8221;名不符实&#8221;,现在就接着介绍JDK中Proxy模式的实现:</p>
-
-<h2>Java API中提供了对Proxy模式的支持,主要是通过反射(Reflect)包中的<strong>Proxy</strong>类和<strong>InvocationHandler</strong>接口实现,具体过程如下:  </h2>
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2006/04/12/proxy-pattern-in-java-2/">Read on &rarr;</a>
-    </footer>
   
 
 
@@ -393,6 +362,12 @@
     <a class="list-group-item " href="/blog/2013/12/19/go_note_3_object/">Go笔记3：面向对象</a>
     
     <a class="list-group-item " href="/blog/2013/12/04/spring_mvc_rest/">Spring MVC 实现 REST Service</a>
+    
+    <a class="list-group-item " href="/blog/2013/12/03/use_spring_data_jpa/">使用Spring Data JPA 简化持久层的开发</a>
+    
+    <a class="list-group-item " href="/blog/2013/10/27/go_note_2_basic_grammar/">Go笔记2：基础语法</a>
+    
+    <a class="list-group-item " href="/blog/2013/10/24/go_note_1_install/">Go笔记1：环境配置</a>
     
   </div>
 </section>
