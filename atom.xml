@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[zJun's Tech Blog]]></title>
+  <title><![CDATA[ZJUN NOTE]]></title>
   <link href="http://zjun.github.io/atom.xml" rel="self"/>
   <link href="http://zjun.github.io/"/>
-  <updated>2014-06-09T01:16:54+08:00</updated>
+  <updated>2014-07-27T16:05:26+08:00</updated>
   <id>http://zjun.github.io/</id>
   <author>
     <name><![CDATA[zJun]]></name>
@@ -1526,7 +1526,7 @@ const Pi float32 = 3.1415926  //如果需要，也可以明确指定常量的类
 <div>
   <pre><code class='go'>s := &quot;hello&quot;  
 c := []byte(s)  // 将字符串 s 转换为 []byte 类型  
-c[0] = 'c'  
+c[0] = &#39;c&#39;  
 s2 := string(c)  // 再转换回 string 类型  
 fmt.Printf(&quot;%s\n&quot;, s2)</code></pre>
 </div>
@@ -1631,7 +1631,7 @@ doubleArray := [2][4]int{[4]int{1, 2, 3, 4}, [4]int{5, 6, 7, 8}} //声明了一�
   <pre><code class='go'>var fslice []int //和声明array一样，只是少了长度  
 
 // 声明一个含有10个元素元素类型为byte的数组
-var ar = [10]byte {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'}
+var ar = [10]byte {&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;, &#39;g&#39;, &#39;h&#39;, &#39;i&#39;, &#39;j&#39;}
  
 // 声明两个含有byte的slice
 var a, b []byte
@@ -1767,7 +1767,7 @@ func main(){
 
 <div>
   <pre><code class='console'>mysql -u root  
-mysql&gt; SET PASSWORD FOR 'root'@'localhost' = PASSWORD('newpass');</code></pre>
+mysql&gt; SET PASSWORD FOR &#39;root&#39;@&#39;localhost&#39; = PASSWORD(&#39;newpass&#39;);</code></pre>
 </div>
 
 
@@ -1795,7 +1795,7 @@ mysql&gt; SET PASSWORD FOR 'root'@'localhost' = PASSWORD('newpass');</code></pre
 <div>
   <pre><code class='console'>mysql -u root  
 mysql&gt; use mysql;  
-mysql&gt; UPDATE user SET Password = PASSWORD('newpass') WHERE user = 'root';  
+mysql&gt; UPDATE user SET Password = PASSWORD(&#39;newpass&#39;) WHERE user = &#39;root&#39;;  
 mysql&gt; FLUSH PRIVILEGES;</code></pre>
 </div>
 
@@ -1805,7 +1805,7 @@ mysql&gt; FLUSH PRIVILEGES;</code></pre>
 <div>
   <pre><code class='console'>mysqld_safe --skip-grant-tables&amp;  
 mysql -u root mysql  
-mysql&gt; UPDATE user SET password=PASSWORD(&quot;new password&quot;) WHERE user='root';  
+mysql&gt; UPDATE user SET password=PASSWORD(&quot;new password&quot;) WHERE user=&#39;root&#39;;  
 mysql&gt; FLUSH PRIVILEGES;</code></pre>
 </div>
 
@@ -2079,7 +2079,7 @@ If you want to add a new database called foo for user bar and remote IP <code>20
 
 <div>
   <pre><code class='console'>mysql&gt; CREATE DATABASE foo;  
-mysql&gt; GRANT ALL ON foo.* TO bar@'202.54.10.20' IDENTIFIED BY 'PASSWORD';</code></pre>
+mysql&gt; GRANT ALL ON foo.* TO bar@&#39;202.54.10.20&#39; IDENTIFIED BY &#39;PASSWORD&#39;;</code></pre>
 </div>
 
 
@@ -2089,8 +2089,8 @@ mysql&gt; GRANT ALL ON foo.* TO bar@'202.54.10.20' IDENTIFIED BY 'PASSWORD';</co
 
 
 <div>
-  <pre><code class='console'>mysql&gt; update db set Host='202.54.10.20' where Db='webdb';  
-mysql&gt; update user set Host='202.54.10.20' where user='webadmin';</code></pre>
+  <pre><code class='console'>mysql&gt; update db set Host=&#39;202.54.10.20&#39; where Db=&#39;webdb&#39;;  
+mysql&gt; update user set Host=&#39;202.54.10.20&#39; where user=&#39;webadmin&#39;;</code></pre>
 </div>
 
 
@@ -2163,9 +2163,9 @@ mysql&gt; update user set Host='202.54.10.20' where user='webadmin';</code></pre
 <p>执行SET NAMES utf8的效果等同于同时设定如下：</p>
 
 <div>
-  <pre><code class='console'>SET character_set_client='utf8';  
-SET character_set_connection='utf8';  
-SET character_set_results='utf8';</code></pre>
+  <pre><code class='console'>SET character_set_client=&#39;utf8&#39;;  
+SET character_set_connection=&#39;utf8&#39;;  
+SET character_set_results=&#39;utf8&#39;;</code></pre>
 </div>
 
 
@@ -2201,7 +2201,7 @@ mysql&gt;</code></pre>
 <p><strong>3.当前联接系统参数</strong></p>
 
 <div>
-  <pre><code class='console'>show variables like 'char%'    
+  <pre><code class='console'>show variables like &#39;char%&#39;    
 &gt;+--------------------------+----------------  
 | Variable_name            | Value  
 +--------------------------+----------------  
@@ -2554,7 +2554,7 @@ http://ruby.taobao.org</code></pre>
 $ cd USERNAME.github.com  
 $ git init  
 $ git add .  
-$ git commit -m 'init commit'  
+$ git commit -m &#39;init commit&#39;  
 $ git remote add origin git@github.com:USERNAME/USERNAME.github.com.git  
 $ git push  -u origin master</code></pre>
 </div>

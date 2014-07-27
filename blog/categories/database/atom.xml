@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: 数据库 | zJun's Tech Blog]]></title>
-  <link href="http://zjun.github.io/blog/categories/shu-ju-ku/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Database | ZJUN NOTE]]></title>
+  <link href="http://zjun.github.io/blog/categories/database/atom.xml" rel="self"/>
   <link href="http://zjun.github.io/"/>
-  <updated>2014-06-09T01:16:54+08:00</updated>
+  <updated>2014-07-27T16:05:26+08:00</updated>
   <id>http://zjun.github.io/</id>
   <author>
     <name><![CDATA[zJun]]></name>
@@ -71,97 +71,6 @@ mysql&gt; FLUSH PRIVILEGES;  &lt;br/&gt;</code></pre>
 <hr />
 
 <p>经测试，方法三修改成功，其他三种方法没有测试。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[常用JDBC连接字符串]]></title>
-    <link href="http://zjun.github.io/blog/2006/07/27/jdbc-connection/"/>
-    <updated>2006-07-27T14:45:00+08:00</updated>
-    <id>http://zjun.github.io/blog/2006/07/27/jdbc-connection</id>
-    <content type="html"><![CDATA[<p>常用数据库的JDBC连接字符串：</p>
-
-<!-- more -->
-
-
-<h3>1.MySQL</h3>
-
-<p><div>
-  <pre><code class='sql'>&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Class.forName(  &quot; org.gjt.mm.mysql.Driver &quot;  );
-Connection conn  =  DriverManager.getConnection(  &quot; jdbc:mysql://MyDbComputerNameOrIP:3306/myDatabaseName &quot; , sUsr, sPwd );
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;</code></pre>
-</div>
-</p>
-
-<h3>2.Microsoft SQLServer</h3>
-
-<p><div>
-  <pre><code class='sql'>&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Class.forName(  &quot; com.microsoft.jdbc.sqlserver.SQLServerDriver &quot;  );
-Connection conn  =  DriverManager.getConnection(  &quot; jdbc:microsoft:sqlserver://MyDbComputerNameOrIP:1433;databaseName=master &quot; , sUsr, sPwd );
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;</code></pre>
-</div>
-</p>
-
-<h3>3.Oracle</h3>
-
-<p><div>
-  <pre><code class='sql'>&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Class.forName(  &quot; oracle.jdbc.driver.OracleDriver &quot;  );
-Connection conn  =  DriverManager.getConnection(  &quot; jdbc:oracle:thin:@MyDbComputerNameOrIP:1521:ORCL &quot; , sUsr, sPwd );
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;</code></pre>
-</div>
-</p>
-
-<h3>4.DB2</h3>
-
-<p><div>
-  <pre><code class='sql'>&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Class.forName( &quot; com.ibm.db2.jdbc.net.DB2Driver &quot; );
-String url = &quot; jdbc:db2://192.9.200.108:6789/SAMPLE &quot;
-Connection conn  =  DriverManager.getConnection( url, sUsr, sPwd );
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;</code></pre>
-</div>
-</p>
-
-<h3>5.ODBC</h3>
-
-<p><div>
-  <pre><code class='sql'>&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Class.forName(  &quot; sun.jdbc.odbc.JdbcOdbcDriver &quot;  );
-Connection conn  =  DriverManager.getConnection(  &quot; jdbc:odbc: &quot;   +  sDsn, sUsr, sPwd );
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;</code></pre>
-</div>
-</p>
-
-<h3>6.PostgreSQL</h3>
-
-<p><div>
-  <pre><code class='sql'>&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Class.forName(  &quot; org.postgresql.Driver &quot;  );
-Connection conn  =  DriverManager.getConnection(  &quot; jdbc:postgresql://MyDbComputerNameOrIP/myDatabaseName &quot; , sUsr, sPwd );
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;</code></pre>
-</div>
-</p>
 ]]></content>
   </entry>
   

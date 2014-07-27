@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>把Raspberry Pi打造成 Web Server - zJun's Tech Blog</title>
+  <title>把Raspberry Pi打造成 Web Server - ZJUN NOTE</title>
   <meta name="author" content="zJun">
 
   
@@ -18,7 +18,7 @@
   
   <link rel="canonical" href="http://zjun.github.io/blog/2013/09/17/setup_raspberrypi_as_webserver">
   <link href="/favicon.png" type="image/png" rel="icon">
-  <link href="/atom.xml" rel="alternate" title="zJun's Tech Blog" type="application/atom+xml">
+  <link href="/atom.xml" rel="alternate" title="ZJUN NOTE" type="application/atom+xml">
 
   <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
@@ -41,16 +41,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">zJun's Tech Blog</a>
+            <a class="navbar-brand" href="/">ZJUN NOTE</a>
         </div>
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="/">Blog</a>
+                    <a href="/">文章</a>
                 </li>
                 <li >
-                    <a href="/blog/archives">Archives</a>
+                    <a href="/blog/archives">归档</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -79,7 +79,7 @@
       <div id="main" class="container">
         <div id="content">
           <div class="row">
-  <div class="page-content col-md-9">
+  <div id="content" class="page-content col-md-9">
     <article class="hentry" role="article">
       
   <header class="page-header">
@@ -372,7 +372,7 @@ If you want to add a new database called foo for user bar and remote IP <code>20
 
 <div>
   <pre><code class='console'>mysql&gt; CREATE DATABASE foo;  
-mysql&gt; GRANT ALL ON foo.* TO bar@'202.54.10.20' IDENTIFIED BY 'PASSWORD';</code></pre>
+mysql&gt; GRANT ALL ON foo.* TO bar@&#39;202.54.10.20&#39; IDENTIFIED BY &#39;PASSWORD&#39;;</code></pre>
 </div>
 
 
@@ -382,8 +382,8 @@ mysql&gt; GRANT ALL ON foo.* TO bar@'202.54.10.20' IDENTIFIED BY 'PASSWORD';</co
 
 
 <div>
-  <pre><code class='console'>mysql&gt; update db set Host='202.54.10.20' where Db='webdb';  
-mysql&gt; update user set Host='202.54.10.20' where user='webadmin';</code></pre>
+  <pre><code class='console'>mysql&gt; update db set Host=&#39;202.54.10.20&#39; where Db=&#39;webdb&#39;;  
+mysql&gt; update user set Host=&#39;202.54.10.20&#39; where user=&#39;webadmin&#39;;</code></pre>
 </div>
 
 
@@ -456,9 +456,9 @@ mysql&gt; update user set Host='202.54.10.20' where user='webadmin';</code></pre
 <p>执行SET NAMES utf8的效果等同于同时设定如下：</p>
 
 <div>
-  <pre><code class='console'>SET character_set_client='utf8';  
-SET character_set_connection='utf8';  
-SET character_set_results='utf8';</code></pre>
+  <pre><code class='console'>SET character_set_client=&#39;utf8&#39;;  
+SET character_set_connection=&#39;utf8&#39;;  
+SET character_set_results=&#39;utf8&#39;;</code></pre>
 </div>
 
 
@@ -494,7 +494,7 @@ mysql&gt;</code></pre>
 <p><strong>3.当前联接系统参数</strong></p>
 
 <div>
-  <pre><code class='console'>show variables like 'char%'    
+  <pre><code class='console'>show variables like &#39;char%&#39;    
 &gt;+--------------------------+----------------  
 | Variable_name            | Value  
 +--------------------------+----------------  
@@ -579,7 +579,7 @@ default-character-set=gbk</code></pre>
 <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category label label-primary' href='/blog/categories/shu-mei-pai/'>树莓派</a>
+    <a class='category label label-primary' href='/blog/categories/others/'>Others</a>
   
 </span>
 
@@ -645,6 +645,7 @@ default-character-set=gbk</code></pre>
   </aside>
   
 </div>
+
 
         </div>
       </div>
