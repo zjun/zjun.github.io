@@ -3,7 +3,7 @@
 # ----------------------- #
 
 url: http://zjun.github.io
-title: ZJUN NOTE
+title: zJun's Notes
 subtitle: zJun's Tech Notes
 author: zJun
 simple_search: https://www.google.com/search
@@ -64,10 +64,10 @@ default_asides: [custom/asides/category_list.html, asides/recent_posts.html]
 # ----------------------- #
 
 # Github repositories
-#github_user: zjun
-#github_repo_count: 0
-#github_show_profile_link: true
-#github_skip_forks: true
+github_user: zjun
+github_repo_count: 0
+github_show_profile_link: true
+github_skip_forks: true
 
 # Twitter
 #twitter_user:
@@ -89,6 +89,13 @@ default_asides: [custom/asides/category_list.html, asides/recent_posts.html]
 # Delicious
 #delicious_user:
 #delicious_count: 3
+
+# Email
+email: zjun101@gmail.com
+
+# Weibo
+weibo_user: zjun101 # 微博数字 ID 或域名 ID
+weibo_share: true # 是否开启微博分享按钮
 
 # Disqus Comments
 disqus_short_name: zJun
