@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Database | ZJUN NOTE]]></title>
+  <title><![CDATA[Category: Database | zJun's Notes]]></title>
   <link href="http://zjun.github.io/blog/categories/database/atom.xml" rel="self"/>
   <link href="http://zjun.github.io/"/>
-  <updated>2014-07-27T17:00:58+08:00</updated>
+  <updated>2014-10-26T17:33:45+08:00</updated>
   <id>http://zjun.github.io/</id>
   <author>
     <name><![CDATA[zJun]]></name>
-    
+    <email><![CDATA[zjun101@gmail.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 

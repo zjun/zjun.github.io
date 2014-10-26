@@ -1,120 +1,96 @@
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>配置Log4j - ZJUN NOTE</title>
-  <meta name="author" content="zJun">
 
-  
-  
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>配置Log4j - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="配置Log4j Log4J的配置文件(Configuration File)就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。 1. 配置文件 Log4J配置文件的基本格式如下： #配置根Logger &hellip;">
+	
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  
-  <link rel="canonical" href="http://zjun.github.io/blog/2006/06/28/config-log4j">
-  <link href="/favicon.png" type="image/png" rel="icon">
-  <link href="/atom.xml" rel="alternate" title="ZJUN NOTE" type="application/atom+xml">
-
-  <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-
-  <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2006/06/28/config-log4j/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
   
 
 </head>
 
-  <body   >
-    <div id="wrap">
-      <header role="banner">
-        <nav class="navbar navbar-default" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">ZJUN NOTE</a>
-        </div>
 
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="active">
-                    <a href="/">文章</a>
-                </li>
-                <li >
-                    <a href="/blog/archives">归档</a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a class="subscribe-rss" href="/atom.xml" title="subscribe via RSS">
-                        <span class="visible-xs">RSS</span>
-                        <img class="hidden-xs" src="/images/rss.png" alt="RSS">
-                    </a>
-                </li>
-                
-            </ul>
-            
-                <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
-                    <input type="hidden" name="q" value="site:zjun.github.io">
-                    <div class="form-group">
-                        <input class="form-control" type="text" name="q" placeholder="Search">
-                    </div>
-                </form>
-            
-        </div>
-    </div>
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
 </nav>
-
-
-      </header>
-      <div id="main" class="container">
-        <div id="content">
-          <div class="row">
-  <div id="content" class="page-content col-md-9">
-    <article class="hentry" role="article">
-      
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-06-28T16:42:00+08:00" pubdate data-updated="true">Jun 28<span>th</span>, 2006</time>
-        
-           | <a href="#disqus_thread"
-             data-disqus-identifier="http://zjun.github.io">Comments</a>
-        
-      </p>
-    
-    
-    <h2 class="entry-title">
-        配置Log4j
-        
-    </h2>
-    
-  </header>
-
-
-<div class="entry-content clearfix"><p>Log4J的配置文件(Configuration File)就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。</p>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">配置Log4j</h1>
+	<div class="entry-content" itemprop="articleBody"><p>Log4J的配置文件(Configuration File)就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。</p>
 
 <!-- more -->
 
@@ -231,165 +207,36 @@ log4j.appender.D.layout.ConversionPattern = %-d{yyyy-MM-dd HH:mm:ss}  [ %t:%r ] 
 <p>运行一下，看看异常信息是不是保存在了一个单独的文件error.log中。</p>
 </div>
 
+</article>
 
-      <footer>
-        <p class="meta text-muted">
-          
-  
-
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">zJun</span></span>
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2006-06-28T16:42:00+08:00" pubdate data-updated="true">Jun 28<span>th</span>, 2006</time>
-          
-
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
-<span class="categories">
-  
-    <a class='category label label-primary' href='/blog/categories/others/'>Others</a>
-  
-</span>
-
-
-        </p>
-        
-          <div class="sharing">
-  
-  
-  
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
 </div>
 
-        
-        
-          <ul class="meta text-muted pager">
-            
-            <li class="previous"><a href="/blog/2006/05/19/cmpp-long-sms-format/" title="Previous Post: [转]基于cmpp协议的超长短信格式">&laquo; [转]基于cmpp协议的超长短信格式</a></li>
-            
-            
-            <li class="next"><a href="/blog/2006/07/10/bubble-sort-java/" title="Next Post: 冒泡排序">冒泡排序 &raquo;</a></li>
-            
-          </ul>
-        
-      </footer>
-    </article>
-    
-      <section>
-        <h1>Comments</h1>
-        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-      </section>
-    
-  </div>
 
-  
-  <aside class="sidebar col-md-3">
-    
-      <section class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Categories</h3>
-  </div>
-  <div class="list-group">
-    
-    
-    <a class="list-group-item " href="/blog/categories/web/index.html">
-        <span class="badge">7</span>
-        Web
-      </a>
-    
-    
-    <a class="list-group-item " href="/blog/categories/java/index.html">
-        <span class="badge">19</span>
-        Java
-      </a>
-    
-    
-    <a class="list-group-item " href="/blog/categories/database/index.html">
-        <span class="badge">2</span>
-        Database
-      </a>
-    
-    
-    <a class="list-group-item " href="/blog/categories/others/index.html">
-        <span class="badge">10</span>
-        Others
-      </a>
-    
-    
-    <a class="list-group-item " href="/blog/categories/web开发/index.html">
-        <span class="badge">1</span>
-        Web开发
-      </a>
-    
-    
-    <a class="list-group-item " href="/blog/categories/golang/index.html">
-        <span class="badge">8</span>
-        golang
-      </a>
-    
-  </div>
-</section><section class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Recent Posts</h3>
-  </div>
-  
-  <div id="recent_posts" class="list-group">
-    
-    <a class="list-group-item " href="/blog/2014/02/08/go_note_7_goroutine/">Go笔记7:并发</a>
-    
-    <a class="list-group-item " href="/blog/2014/01/22/go_note_6_data_structure/">Go笔记6：Go数据结构</a>
-    
-    <a class="list-group-item " href="/blog/2014/01/16/dev_go_in_sublimetext2/">在Sublime Text2中开发Golang</a>
-    
-    <a class="list-group-item " href="/blog/2014/01/03/go_note_5_accessmysql/">Go笔记5：访问MySQL数据库</a>
-    
-    <a class="list-group-item " href="/blog/2013/12/30/go_note_4_interface/">Go笔记4：接口</a>
-    
-    <a class="list-group-item " href="/blog/2013/12/19/go_note_3_object/">Go笔记3：面向对象</a>
-    
-    <a class="list-group-item " href="/blog/2013/12/04/spring_mvc_rest/">Spring MVC 实现 REST Service</a>
-    
-    <a class="list-group-item " href="/blog/2013/12/03/use_spring_data_jpa/">使用Spring Data JPA 简化持久层的开发</a>
-    
-    <a class="list-group-item " href="/blog/2013/10/27/go_note_2_basic_grammar/">Go笔记2：基础语法</a>
-    
-    <a class="list-group-item " href="/blog/2013/10/24/go_note_1_install/">Go笔记1：环境配置</a>
-    
-  </div>
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
 </section>
-
-    
-  </aside>
-  
 </div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
 
 
-        </div>
-      </div>
-    </div>
-    <footer role="contentinfo"><div class="container">
-    <p class="text-muted credits">
-  Copyright &copy; 2014 - zJun<br>
-  <small>
-      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
-      <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
-  </small>
-</p>
-
-</div>
-</footer>
-    <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/javascripts/modernizr-2.0.js"></script>
 
 
@@ -404,7 +251,7 @@ log4j.appender.D.layout.ConversionPattern = %-d{yyyy-MM-dd HH:mm:ss}  [ %t:%r ] 
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -418,6 +265,5 @@ log4j.appender.D.layout.ConversionPattern = %-d{yyyy-MM-dd HH:mm:ss}  [ %t:%r ] 
 
 
 
-
-  </body>
+</body>
 </html>
