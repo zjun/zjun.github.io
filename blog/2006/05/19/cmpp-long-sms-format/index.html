@@ -1,0 +1,200 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>[转]基于cmpp协议的超长短信格式 - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="[转]基于cmpp协议的超长短信格式 基于cmpp协议的超长短信格式: 原文在 这里 //当短信超过70个汉字时短信的第一部分
+E0 00 00 00 //4byte 数据总长度
+05 00 00 00 //4byte 命令号
+3F 38 0B 01 //4byte 流水号
+31 3B 6E &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2006/05/19/cmpp-long-sms-format/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">[转]基于cmpp协议的超长短信格式</h1>
+	<div class="entry-content" itemprop="articleBody"><p>基于cmpp协议的超长短信格式: 原文在 <a href="http://www.cppblog.com/Khan/archive/2006/03/10/3342.html">这里</a></p>
+
+<!-- more -->
+
+
+<p>//当短信超过70个汉字时短信的第一部分<br/>
+E0 00 00 00               //4byte 数据总长度<br/>
+05 00 00 00               //4byte 命令号<br/>
+3F 38 0B 01               //4byte 流水号<br/>
+31 3B 6E 0B A2 84 61 F0   //8byte msg_id<br/>
+30 35 37 37 35 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  //21byte Dest_Id<br/>
+00 00 00 00 00 00 00 00 00 00  //10byte  Service_Id<br/>
+00                        //1byte TP_pid<br/>
+01                        //1byte TP_udhi<br/>
+08                        //1byte Msg_Fmt<br/>
+38 36 31 33 37 35 30 32 34 33 33 30 33 00 00 00 00 00 00 00 00  //21byte Src_terminal_Id<br/>
+00                        //Registered_Delivery<br/>
+8B                        //Msg_Length<br/>
+06 08 04 00 2A      //06表示短信正文内容从6+2的位置开始读取<br/>
+02                        //超长短信总条数<br/>
+01                        //序号<br/>
+00 61 00 61 00 61 00 61 00 61 00 61 00 61 00 61 00 61 00 61 4E 00 4E 2A 4E BA 6C 11 4E 3B 4E 49 52 A1 5B 9E 57 28 8F D9 4E 2A 4E BA 6C 11 4E 3B 4E 49 52 A1 5B 9E 57 28 8F D9 4E 2A 4E BA 6C 11 4E 3B 4E 49 52 A1 5B 9E 57 28 8F D9 4E 2A 4E BA 6C 11 4E 3B 4E 49 52 A1 5B 9E 57 28 8F D9 4E 2A 4E BA 6C 11 4E 3B 4E 49 52 A1 5B 9E 57 28 8F D9 4E 2A 4E BA 6C 11 4E 3B 00 61 00 61 00 61 00 61 00 61 00 61  //短信内容<br/>
+00 00 00 00 00 00 00 00   //8byte Reserved</p>
+
+<p>//当短信超过70个汉字时短信的第二部分<br/>
+78 00 00 00<br/>
+05 00 00 00<br/>
+49 38 0B 01<br/>
+31 3B 74 8B A2 84 62 0D<br/>
+30 35 37 37 35 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00<br/>
+00 00 00 00 00 00 00 00 00 00<br/>
+00<br/>
+01<br/>
+08
+38 36 31 33 37 35 30 32 34 33 33 30 33 00 00 00 00 00 00 00 00<br/>
+00<br/>
+23<br/>
+06 08 04 00 2A     //06表示短信正文内容从6+2的位置开始读取<br/>
+02                       //超长短信总条数<br/>
+02                       //序号<br/>
+00 61 00 61 00 61 00 61 00 62 00 62 00 62 00 62 00 62 00 62 00 62 00 62 00 62 00 62  //短信内容<br/>
+00 00 00 00 00 00 00 00 00 //8byte Reserved</p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2006/05/19/cmpp-long-sms-format/';
+        var disqus_url = 'http://zjun.github.io/blog/2006/05/19/cmpp-long-sms-format/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

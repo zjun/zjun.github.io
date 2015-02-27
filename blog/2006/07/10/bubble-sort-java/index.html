@@ -1,0 +1,207 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>冒泡排序 - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="冒泡排序 冒泡排序, 顾名思义，就是排序时，最大的元素会如同气泡一样移至右端，其利用比较相邻元素的方法，将大的元素交换至右端，所以大的元素会不断的往右移动，直到适当的位置为止。 基本的气泡排序法可以利用旗标的方式稍微减少一些比较的时间，当寻访完数组后都没有发生任何的交换动作，表示排序已经完成， &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2006/07/10/bubble-sort-java/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">冒泡排序</h1>
+	<div class="entry-content" itemprop="articleBody"><p>冒泡排序, 顾名思义，就是排序时，最大的元素会如同气泡一样移至右端，其利用比较相邻元素的方法，将大的元素交换至右端，所以大的元素会不断的往右移动，直到适当的位置为止。</p>
+
+<!-- more -->
+
+
+<p>基本的气泡排序法可以利用旗标的方式稍微减少一些比较的时间，当寻访完数组后都没有发生任何的交换动作，表示排序已经完成，而无需再进行之后的循环比较与交换动作，例如：</p>
+
+<p>排序前：    95, 27, 90, 49, 80, 58, 6, 9, 18, 50</p>
+
+<p>第 1 次排序：27 90 49 80 58 6 9 18 50 <strong>95</strong> <br/>
+第 2 次排序：27 49 80 58 6 9 18 50 <strong>90</strong> 95 <br/>
+第 3 次排序：27 49 58 6 9 18 50 <strong>80</strong> 90 95 <br/>
+第 4 次排序：27 49 6 9 18 50 <strong>58</strong> 80 90 95 <br/>
+第 5 次排序：27 6 9 18 <strong>49</strong> 50 58 80 90 95 <br/>
+第 6 次排序：6 9 18 <strong>27</strong> 49 50 58 80 90 95 <br/>
+第 7 次排序：6 9 18 27 49 50 58 80 90 95  &mdash; 没有改变次序,排序完成</p>
+
+<p><strong>Java代码实现：</strong></p>
+
+<pre><code>/*  *
+  * 冒泡排序  
+  * @param data：等待排序整型数组  
+  *     data = { 95, 27, 90, 49, 80, 58, 6, 9, 18, 50 }  
+  *    排序结果：  
+  *        第 1 次排序：27 90 49 80 58 6 9 18 50 95   
+  *        第 2 次排序：27 49 80 58 6 9 18 50 90 95   
+  *        第 3 次排序：27 49 58 6 9 18 50 80 90 95   
+  *        第 4 次排序：27 49 6 9 18 50 58 80 90 95   
+  *        第 5 次排序：27 6 9 18 49 50 58 80 90 95   
+  *        第 6 次排序：6 9 18 27 49 50 58 80 90 95   
+  *        第 7 次排序：6 9 18 27 49 50 58 80 90 95   
+    */   
+    public   void  sort( int [] data)  {  
+         int  max  =  data.length;  
+         boolean  hasChange  =   true ;  
+         for  ( int  i  =   0 ; i  &lt;  max  -   1   &amp;&amp;  hasChange; i ++ )  {  
+            hasChange  =   false ;  
+             for  ( int  j  =   0 ; j  &lt;  max  -  i  -   1 ; j ++ )  {  
+                 if  (data[j  +   1 ]  &lt;  data[j])  {  
+                     int  temp  =  data[j];  
+                    data[j]  =  data[j  +   1 ];  
+                    data[j  +   1 ]  =  temp;  
+                    hasChange  =   true ;  
+                }  
+            }  
+            System.out.print( "  第   "   +  (i  +   1 )  +   "   次排序：  " );  
+             for  ( int  k  =   0 ; k  &lt;=  max  -   1 ; k ++ )  {  
+                System.out.print(data[k]  +   "     " );  
+            }  
+            System.out.println();  
+        }  
+    }  
+</code></pre>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2006/07/10/bubble-sort-java/';
+        var disqus_url = 'http://zjun.github.io/blog/2006/07/10/bubble-sort-java/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

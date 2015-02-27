@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Database | zJun's Notes]]></title>
+  <link href="http://zjun.github.io/blog/categories/database/atom.xml" rel="self"/>
+  <link href="http://zjun.github.io/"/>
+  <updated>2014-10-26T17:54:42+08:00</updated>
+  <id>http://zjun.github.io/</id>
+  <author>
+    <name><![CDATA[zJun]]></name>
+    <email><![CDATA[zjun101@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[MySQL 修改 root 密码]]></title>
+    <link href="http://zjun.github.io/blog/2013/09/18/change_mysql_root_password/"/>
+    <updated>2013-09-18T21:06:19+08:00</updated>
+    <id>http://zjun.github.io/blog/2013/09/18/change_mysql_root_password</id>
+    <content type="html"><![CDATA[<h2>方法1： 用SET PASSWORD命令</h2>
+
+<p><div>
+  <pre><code class='console'>&lt;br/&gt;
+mysql -u root&lt;br/&gt;
+mysql&gt; SET PASSWORD FOR &amp;lsquo;root&amp;rsquo;@&amp;lsquo;localhost&amp;rsquo; = PASSWORD(&amp;lsquo;newpass&amp;rsquo;);&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<!--more-->
+
+
+<h2>方法2：用mysqladmin</h2>
+
+<p><div>
+  <pre><code class='console'>&lt;br/&gt;
+mysqladmin -u root password &amp;ldquo;newpass&quot;&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<p>如果root已经设置过密码，采用如下方法</p>
+
+<p><div>
+  <pre><code class='console'>&lt;br/&gt;
+mysqladmin -u root password oldpass &amp;ldquo;newpass&quot;&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<h2>方法3： 用UPDATE直接编辑user表</h2>
+
+<p><div>
+  <pre><code class='console'>&lt;br/&gt;
+mysql -u root&lt;br/&gt;
+mysql&gt; use mysql;&lt;br/&gt;
+mysql&gt; UPDATE user SET Password = PASSWORD(&amp;lsquo;newpass&amp;rsquo;) WHERE user = &amp;lsquo;root&amp;rsquo;;&lt;br/&gt;
+mysql&gt; FLUSH PRIVILEGES;  &lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<h2>方法4： 在丢失root密码的时候，可以这样</h2>
+
+<p><div>
+  <pre><code class='console'>&lt;br/&gt;
+mysqld_safe &amp;mdash;skip-grant-tables&amp;amp;&lt;br/&gt;
+mysql -u root mysql&lt;br/&gt;
+mysql&gt; UPDATE user SET password=PASSWORD(&amp;ldquo;new password&amp;rdquo;) WHERE user=&amp;lsquo;root&amp;rsquo;;&lt;br/&gt;
+mysql&gt; FLUSH PRIVILEGES;  &lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<hr />
+
+<p>经测试，方法三修改成功，其他三种方法没有测试。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[转] 常见数据库分页SQL语句]]></title>
+    <link href="http://zjun.github.io/blog/2006/03/08/common-pagenation-sql/"/>
+    <updated>2006-03-08T18:59:00+08:00</updated>
+    <id>http://zjun.github.io/blog/2006/03/08/common-pagenation-sql</id>
+    <content type="html"><![CDATA[<p>常见数据库分页SQL语句:原文在<a href="http://http//www.360doc.com/showWeb/0/0/51724.aspx">这里</a>。</p>
+
+<hr />
+
+<!-- more -->
+
+
+<p>我们在编写MIS系统和Web应用程序等系统时，都涉及到与数据库的交互，如果数据库中数据量很大的话，一次检索所有的记录，会占用系统很大的资源，因此我们常常采用，需要多少数据就只从数据库中取多少条记录，即采用分页语句。根据自己使用过的内容，把常见数据库Sql Server,Oracle和My sql的分页语句，从数据库表中的第M条数据开始取N条记录的语句总结如下：</p>
+
+<h2>SQL Server</h2>
+
+<p>从数据库表中的第M条记录开始取N条记录，利用Top关键字：注意如果Select语句中既有top，又有order by，则是从排序好的结果集中选择：
+<div>
+  <pre><code class='sql'>&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;SELECT *
+    FROM  ( SELECT Top N *  
+                     FROM  (SELECT Top (M + N - 1) * FROM 表名称 Order by 主键 desc) t1 ) t2
+    Order by 主键 asc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+
+<p>例如从表Sys_option（主键为sys_id)中从10条记录还是检索20条记录，语句如下：
+<div>
+  <pre><code class='sql'>&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;SELECT * 
+    FROM ( SELECT TOP 20 *
+                    FROM (SELECT TOP 29 * FROM Sys_option order by sys_id desc) t1) t2
+    Order by sys_id asc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+
+<h2>Oralce数据库</h2>
+
+<p>从数据库表中第M条记录开始检索N条记录<br/>
+<div>
+  <pre><code class='sql'>&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;SELECT * 
+    FROM (SELECT ROWNUM r,t1.* From 表名称 t1 where rownum &amp;lt; M + N) t2
+    where t2.r &amp;gt;= M
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+
+<p> 例如从表Sys_option（主键为sys_id)中从10条记录还是检索20条记录，语句如下：<br/>
+<div>
+  <pre><code class='sql'>&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;SELECT * 
+    FROM (SELECT ROWNUM R,t1.* From Sys_option where rownum &amp;lt; 30 ) t2
+     Where t2.R &amp;gt;= 10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+
+<h2>My sql数据库</h2>
+
+<p>My sql数据库最简单，是利用mysql的LIMIT函数,LIMIT [offset,] rows从数据库表中M条记录开始检索N条记录的语句为：<br/>
+<div>
+  <pre><code class='sql'>&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;SELECT * FROM 表名称 LIMIT M,N
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+
+<p>例如从表Sys_option（主键为sys_id)中从10条记录还是检索20条记录，语句如下：<br/>
+<div>
+  <pre><code class='sql'>&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;select * from sys_option limit 10,20
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+]]></content>
+  </entry>
+  
+</feed>

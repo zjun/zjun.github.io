@@ -1,0 +1,321 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="Dec 4th, 2013 Java Comments Spring MVC 实现 REST Service web.xml &lt;!-- 配置字符过滤器--&gt; &lt;filter&gt; &lt;filter-name&gt;CharacterFilter&lt;/filter- &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/page/3/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner">
+<div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-04T21:06:19+08:00" data-updated="true" itemprop="datePublished">Dec 4<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category label label-primary' href='/blog/categories/java/'>Java</a>
+
+
+</div>
+		
+			<span class="comments"><a href="/blog/2013/12/04/spring_mvc_rest/#disqus_thread">Comments</a></span>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2013/12/04/spring_mvc_rest/" itemprop="url">Spring MVC 实现 REST Service</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h2>web.xml</h2>
+
+<pre><code>&lt;!-- 配置字符过滤器--&gt;    
+&lt;filter&gt;  
+    &lt;filter-name&gt;CharacterFilter&lt;/filter-name&gt;  
+    &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;  
+    &lt;init-param&gt;  
+        &lt;param-name&gt;encoding&lt;/param-name&gt;  
+        &lt;param-value&gt;UTF-8&lt;/param-value&gt;  
+    &lt;/init-param&gt;  
+&lt;/filter&gt;  
+
+&lt;filter-mapping&gt;  
+    &lt;filter-name&gt;CharacterFilter&lt;/filter-name&gt;  
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;  
+&lt;/filter-mapping&gt;  
+
+&lt;!-- 指定spring配置文件位置 --&gt;  
+&lt;context-param&gt;  
+    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;  
+    &lt;param-value&gt;  
+        &lt;!--加载多个spring配置文件 --&gt;  
+        classpath:spring-homebills-cfg.xml
+    &lt;/param-value&gt;  
+&lt;/context-param&gt;  
+
+&lt;!-- 定义SPRING监听器，加载spring --&gt;  
+&lt;listener&gt;  
+    &lt;listener-class&gt;  
+        org.springframework.web.context.ContextLoaderListener
+    &lt;/listener-class&gt;  
+&lt;/listener&gt;  
+
+&lt;listener&gt;  
+    &lt;listener-class&gt;  
+org.springframework.web.context.request.RequestContextListener
+    &lt;/listener-class&gt;  
+&lt;/listener&gt;   
+
+&lt;servlet&gt;  
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;  
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;  
+    &lt;init-param&gt;  
+        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;  
+        &lt;param-value&gt;classpath:homebills-servlet.xml&lt;/param-value&gt;  
+    &lt;/init-param&gt;  
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;  
+&lt;/servlet&gt;  
+
+&lt;servlet-mapping&gt;  
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;  
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;  
+&lt;/servlet-mapping&gt;  
+</code></pre>
+
+
+		
+		<a href="/blog/2013/12/04/spring_mvc_rest/" class="more-link">阅读全文  >></a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-03T21:06:19+08:00" data-updated="true" itemprop="datePublished">Dec 3<span>rd</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category label label-primary' href='/blog/categories/java/'>Java</a>
+
+
+</div>
+		
+			<span class="comments"><a href="/blog/2013/12/03/use_spring_data_jpa/#disqus_thread">Comments</a></span>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2013/12/03/use_spring_data_jpa/" itemprop="url">使用Spring Data JPA 简化持久层的开发</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>最近看到<a href="http://www.springside.org.cn/">SpringSide</a>最新版的<a href="https://github.com/springside/springside4/wiki/Design">技术选型</a>中提到了<a href="http://www.springsource.org/spring-data/jpa">Spring Data JPA</a>,号称只需要实现接口就可以实现大部分操作。真有怎么神奇？于是Google一番，果然好使，在这里记录一下：</p>
+
+
+		
+		<a href="/blog/2013/12/03/use_spring_data_jpa/" class="more-link">阅读全文  >></a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T21:06:19+08:00" data-updated="true" itemprop="datePublished">Oct 27<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category label label-primary' href='/blog/categories/golang/'>golang</a>
+
+
+</div>
+		
+			<span class="comments"><a href="/blog/2013/10/27/go_note_2_basic_grammar/#disqus_thread">Comments</a></span>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2013/10/27/go_note_2_basic_grammar/" itemprop="url">Go笔记2：基础语法</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h2>变量</h2>
+
+<p><strong>说明：</strong><br/>
+1. 使用var关键字是Go最基本的定义变量方式，Go把变量类型放在变量名后面；<br/>
+2. _（下划线）是个特殊的变量名，任何赋予它的值都会被丢弃；</p>
+
+<div>
+  <pre><code class='go'>_, b := 34, 35 //将值35赋予b，并同时丢弃34</code></pre>
+</div>
+
+
+<ol>
+<li>Go对于已声明但未使用的变量会在编译阶段报错；</li>
+</ol>
+
+
+
+		
+		<a href="/blog/2013/10/27/go_note_2_basic_grammar/" class="more-link">阅读全文  >></a>
+	</div>
+
+</article>
+
+</div>
+<nav id="pagenavi">
+    
+        <a href="/blog/page/2/" class="prev">Prev</a>
+    
+    
+        <a href="/blog/page/4/" class="next">Next</a>
+    
+    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
+</nav></div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

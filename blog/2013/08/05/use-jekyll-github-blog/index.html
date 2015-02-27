@@ -1,0 +1,452 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>用Jekyll+Github+Markdown来写Blog - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="用Jekyll+Github+Markdown来写Blog 继续折腾，之前使用 Octpress 来写Blog,但用了一段时间以后还是觉得笨重，发布一篇新文章需要把所有页面重新发布一遍，最终还是决定使用定制更灵活的Jekyll.下面就记录一下这次迁移的步骤和遇到的问题。 &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2013/08/05/use-jekyll-github-blog/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">用Jekyll+Github+Markdown来写Blog</h1>
+	<div class="entry-content" itemprop="articleBody"><p>继续折腾，之前使用 Octpress 来写Blog,但用了一段时间以后还是觉得笨重，发布一篇新文章需要把所有页面重新发布一遍，最终还是决定使用定制更灵活的Jekyll.下面就记录一下这次迁移的步骤和遇到的问题。</p>
+
+<p>以下过程在Windows7下进行：</p>
+
+<!--more-->
+
+
+<h2>安装 Ruby</h2>
+
+<p>在Windows环境下推荐安装<a href="http://railsinstaller.org/">RailsInstaller</a>.</p>
+
+<h2>安装 Git</h2>
+
+<ol>
+<li>在windows下安装<a href="http://code.google.com/p/msysgit/downloads/list">msysgit</a>.</li>
+<li>设置<code>SSH keys</code><br/>
+首先备份已有的keys</li>
+</ol>
+
+
+<div>
+  <pre><code class='console'>$ ls  
+config  id_rsa  id_rsa.pub  known_hosts  
+$ mkdir key_backup
+$ cp id_rsa* key_backup  
+$ rm id_rsa*</code></pre>
+</div>
+
+
+<p>  生成新的 SSH keys</p>
+
+<div>
+  <pre><code class='console'>$ ssh-keygen -t rsa -C &quot;邮件地址@youremail.com&quot;    
+Generating public/private rsa key pair.  
+Enter file in which to save the key (/Users、your_user_directory/.ssh/id_rsa):&lt;回车就好&gt;</code></pre>
+</div>
+
+
+<p>输入GitHub的密码</p>
+
+<div>
+  <pre><code class='console'>Enter passphrase (empty for no passphrase):&lt;输入加密串&gt;  
+Enter same passphrase again:&lt;再次输入加密串&gt;</code></pre>
+</div>
+
+
+<ol>
+<li>添加SSH Key到GitHub：登录GitHub，在主页上点击设置按钮，选择<code>SSH Keys</code>项，把复制的内容粘贴进去，然后点击Add Key按钮即可。<br/>
+可以输入下面的命令，看看设置是否成功，<code>git@github.com</code>的部分不要修改：</li>
+</ol>
+
+
+<div>
+  <pre><code class='console'>$ ssh -T git@github.com</code></pre>
+</div>
+
+
+<ol>
+<li>设置GitHub账号信息：</li>
+</ol>
+
+
+<div>
+  <pre><code class='console'>$ git config --global user.name &quot;你的名字&quot;  
+$ git config --global user.email &quot;your_email@youremail.com&quot;</code></pre>
+</div>
+
+
+<h2>安装jekyll</h2>
+
+<ol>
+<li>把淘宝的镜像加到gem的镜像列表里</li>
+</ol>
+
+
+<div>
+  <pre><code class='console'>gem sources --remove http://rubygems.org/  
+gem sources -a http://ruby.taobao.org/</code></pre>
+</div>
+
+
+<p>  用<code>gem sources -l</code>看看现在源列表</p>
+
+<div>
+  <pre><code class='console'>*** CURRENT SOURCES ***
+
+http://ruby.taobao.org</code></pre>
+</div>
+
+
+<ol>
+<li>如果是上面这样就可以安装jekyll了</li>
+</ol>
+
+
+<div>
+  <pre><code class='console'>gem install jekyll</code></pre>
+</div>
+
+
+<p>  安装<code>rdiscount</code>来解析Markdown文档</p>
+
+<div>
+  <pre><code class='console'>gem install rdiscount kramdown</code></pre>
+</div>
+
+
+<h2>建立github pages</h2>
+
+<ol>
+<li>登录GitHub,建立一个名为 <code>USERNAME.github.com</code> 的 repositories，（注意：这里的USERNAME要与你的GitHub用户名一致）。</li>
+<li>建立本地Blog目录：</li>
+</ol>
+
+
+<div>
+  <pre><code class='console'>$ mkdir USERNAME.github.com  
+$ cd USERNAME.github.com  
+$ git init  
+$ git add .  
+$ git commit -m &#39;init commit&#39;  
+$ git remote add origin git@github.com:USERNAME/USERNAME.github.com.git  
+$ git push  -u origin master</code></pre>
+</div>
+
+
+<ol>
+<li>等待大约10分钟，就可以通过　<code>USERNAME.github.io</code> 访问新的blog了</li>
+<li>使用脚本来新建文章<br/>
+在本地的Blog目录下新建一个 <code>Rakefile</code> 文件，然后将<a href="https://github.com/plusjade/jekyll-bootstrap/blob/master/Rakefile">Rakefile content</a>拷贝到文件中.<br/>
+现在就可以在命令行中新建一篇文章了：</li>
+</ol>
+
+
+<div>
+  <pre><code class='console'>rake post title=&quot;titlename&quot;</code></pre>
+</div>
+
+
+<p>  执行该命令后，将会在<code>_post</code>的文件夹下生成形式为<code>YYYY-MM-dd-titlename.md</code>的文件，并且会提供好一些附加信息。其中，titlename就是命令中的title后引号中的值。</p>
+
+<h2>代码高亮 Pygments</h2>
+
+<p>Jekyll通过Pygments支持对代码/语法的高亮显示。<br/>
+<a href="https://github.com/mojombo/jekyll/wiki/Liquid-Extensions">Pygments on github</a><br/>
+<a href="http://pygments.org/">Pygments homepage</a><br/>
+<a href="http://pygments.org/languages/">Supported languages list</a><br/>
+1. 安装 Python:</p>
+
+<div>
+  <pre><code class='console'>$ python --version  
+Python 2.7.2</code></pre>
+</div>
+
+
+<ol>
+<li>安装setuptools： 下载并运行 <a href="https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py">ez_setup.py</a></li>
+</ol>
+
+
+<div>
+  <pre><code class='console'>python ez_setup.py</code></pre>
+</div>
+
+
+<ol>
+<li>安装 pygments：</li>
+</ol>
+
+
+<div>
+  <pre><code class='console'>$ sudo easy_install Pygments</code></pre>
+</div>
+
+
+<ol>
+<li>生成CSS文件</li>
+</ol>
+
+
+<div>
+  <pre><code class='console'>$ pygmentize -S default -f html &gt; highlight.css</code></pre>
+</div>
+
+
+<ol>
+<li>在<code>config.yaml</code>中enable <code>pygmentize</code>:</li>
+</ol>
+
+
+<div>
+  <pre><code class='console'>pygments: true</code></pre>
+</div>
+
+
+<ol>
+<li>Include pygments.css
+在 <code>/_layouts/default.html</code> 中include highlight.css:</li>
+</ol>
+
+
+<div>
+  <pre><code class='html'>&lt;link rel=&quot;stylesheet&quot; href=&quot;/highlight.css&quot;&gt;</code></pre>
+</div>
+
+
+<h3><strong>Note: 遇到的问题</strong></h3>
+
+<p>在文章中使用<code>highlight</code>后每次<code>jekyll build</code>时都会遇到异常：</p>
+
+<div>
+  <pre><code class='console'>C:/Ruby193/lib/ruby/gems/1.9.1/gems/posix-spawn-0.3.6/lib/posix/spawn.rb:162: warning: cannot close fd before spawn
+←[31m  Liquid Exception: No such file or directory - /bin/sh in 2013-08-05-test-post.md←[0m</code></pre>
+</div>
+
+
+<p>在这里找到了原因和解决方法：<a href="http://stackoverflow.com/questions/17364028/jekyll-on-windows-pygments-not-working">Jekyll on Windows: Pygments not working</a></p>
+
+<p>原来是因为 jekyll 和 Pygments 只能和 Pygments.rb 0.5.0 配合使用，但是我本机装的是 Pygments.rb 0.5.2，卸载后重新安装Pygments.rb 0.5.0，再重新build,异常消失。</p>
+
+<div>
+  <pre><code class='console'>gem uninstall pygments.rb --version &quot;=0.5.2&quot;
+gem install pygments.rb --version &quot;=0.5.0&quot;</code></pre>
+</div>
+
+
+<p><strong><em>2013-12-20 更新：</em></strong><br/>
+Jekyll现在已经支持用<a href="https://github.com/vmg/redcarpet">Redcarpet</a>来处理markdown，并且在1.1以后的版本中， <code>Jekyll new</code> 新建的站点也将默认采用Redcarpet。目前只要在<code>_config.yml</code>中进行类似如下相关设置：</p>
+
+<pre><code>markdown: redcarpet
+redcarpet:
+    extensions: ["fenced_code_blocks", "autolink", "tables", "strikethrough"]
+</code></pre>
+
+<p>代码高亮均可以采用如下格式：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">foo</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s1">&#39;foo&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>显示效果如下：</p>
+
+<blockquote><p>&#8220;` ruby<br/>
+require &lsquo;rubygems&rsquo;</p>
+
+<p>def foo<br/>
+  puts &lsquo;foo&#8217;<br/>
+end</p>
+
+<h1>comment</h1>
+
+<p>&#8220;`</p></blockquote>
+
+<h2>常用命令</h2>
+
+<div>
+  <pre><code class='console'>$ git clone git@github.com:username/username.github.com.git //本地如果无远程代码，先做这步，不然就忽略
+
+$ cd .ssh/username.github.com //定位到你blog的目录下
+
+$ git pull origin master //先同步远程文件，后面的参数会自动连接你远程的文件
+
+$ git status //查看本地自己修改了多少文件
+
+$ git add . //添加远程不存在的git文件
+
+$ git commit * -m &quot;what I want told to someone&quot;
+
+$ git push origin master //更新到远程服务器上</code></pre>
+</div>
+
+
+<h2>参考资料</h2>
+
+<p><a href="http://beiyuu.com/github-pages/#github">使用Github Pages建独立博客</a></p>
+
+<p><a href="http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html">搭建一个免费的，无限流量的Blog&mdash;&mdash;github Pages和Jekyll入门</a></p>
+
+<p><a href="http://site.douban.com/196781/widget/notes/12161495/note/264946576/">写作环境搭建(git+github+markdown+jekyll)</a></p>
+
+<p><a href="http://yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/">Github Pages极简教程</a></p>
+
+<p><a href="http://web-design-weekly.com/2013/03/04/going-static-with-jekyll-deploying-via-github-for-free/">Going Static with Jekyll &amp; Deploying via GitHub for Free</a></p>
+
+<p><a href="http://www.cnblogs.com/purediy/archive/2013/03/07/2948892.html">通过GitHub Pages建立个人站点（详细步骤）</a></p>
+
+<p><a href="http://ztpala.com/2011/10/27/code-highlighting-jekyll/">Jekyll的代码高亮</a></p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2013/08/05/use-jekyll-github-blog/';
+        var disqus_url = 'http://zjun.github.io/blog/2013/08/05/use-jekyll-github-blog/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

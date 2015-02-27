@@ -1,0 +1,1235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Others | zJun's Notes]]></title>
+  <link href="http://zjun.github.io/blog/categories/others/atom.xml" rel="self"/>
+  <link href="http://zjun.github.io/"/>
+  <updated>2014-10-26T17:54:42+08:00</updated>
+  <id>http://zjun.github.io/</id>
+  <author>
+    <name><![CDATA[zJun]]></name>
+    <email><![CDATA[zjun101@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[把Raspberry Pi打造成 Web Server]]></title>
+    <link href="http://zjun.github.io/blog/2013/09/17/setup_raspberrypi_as_webserver/"/>
+    <updated>2013-09-17T21:06:19+08:00</updated>
+    <id>http://zjun.github.io/blog/2013/09/17/setup_raspberrypi_as_webserver</id>
+    <content type="html"><![CDATA[<h2>Setup Raspberry Pi</h2>
+
+<h3>安装</h3>
+
+<p>理论上 OS 可以是任何支持 ARM v6 的 Linux 发行版，推荐使用官方的 wheezy 系统，因为这是针对树莓派定制并优化了的 Debian。<br/>
+下载地址：<a href="http://www.raspberrypi.org/downloads" title="http://www.raspberrypi.org/downloads">http://www.raspberrypi.org/downloads</a><br/>
+解压之后得到一个 .img 的镜像文件，比如 2013-07-26-wheezy-raspbian.img.</p>
+
+<p>在Windows下使用工具：<a href="http://sourceforge.net/projects/win32diskimager/">win32diskimager</a> 把镜像文件写入 SD 卡。</p>
+
+<p>将刻好的 SD 卡插入树莓派的 SD 卡插槽，接上键盘和显示器。然后开机，也就是插上电源，树莓派没有电源开关，插电即开机。拔出电源就是关机，不过最安全的方式是使用 <code>sudo shutdown -h now</code> 或 <code>sudo halt</code> 命令正确地关闭系统，然后再拔电源。 重启使用 <code>sudo reboot</code> 命令。</p>
+
+<!--more-->
+
+
+<p></p>
+
+<h3>设置</h3>
+
+<p>第一次开机正常启动后，看到的是 Raspi-config 界面， 你可以使用键盘做一些基本的系统设置:</p>
+
+<ul>
+<li>先简单地设置一下地区、时区、键盘。注意默认的键盘布局（layout）设置是 English(UK) （因为是英国人发明的），在 Others 中把它改为 English(US)，否则 # 号的位置不对。</li>
+<li>接着还可以修改默认用户 pi 的密码，官方系统的默认账号是 pi / raspberry 。</li>
+<li>在 ssh 设置中启用 ssh 服务（默认已启用），这样以后就可以 ssh 远程控制了。</li>
+<li>在 boot_behaviour 设置中，设置开机是否自动进入桌面环境（默认进入），选择否则只进入命令行模式。建议关闭桌面，需要的时候使用 <code>startx</code> 命令就可以进入。系统提供的桌面是 LXDE ，有一些基本功能。</li>
+<li>expand_rootfs 设置是让你的系统扩展到全部 SD 卡空间，默认没有使用全部 SD 卡空间，所以请执行这个选项。</li>
+<li>最后，执行 Finish 完成设置，重启系统。</li>
+</ul>
+
+
+<p>重启之后就不会再出现这个设置界面了，但你随时可以使用 <code>sudo raspi-config</code> 命令再次使用这个设置工具。</p>
+
+<p>装好 OS 后，建议先升级一下系统，最新的更新可能会提高系统的性能：</p>
+
+<p><div>
+  <pre><code class='console'>&lt;br/&gt;
+sudo apt-get update    &lt;br/&gt;
+sudo apt-get upgrade&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<p>一些在设置系统时常用到的命令：</p>
+
+<ul>
+<li>关机: <div>
+  <pre><code class='console'>sudo shutdown -h now</code></pre>
+</div>
+ 或 <div>
+  <pre><code class='console'>sudo halt</code></pre>
+</div>
+</li>
+<li>重启: <div>
+  <pre><code class='console'>sudo reboot</code></pre>
+</div>
+</li>
+<li>查看IP地址： <div>
+  <pre><code class='console'>ifconfig</code></pre>
+</div>
+</li>
+<li><p>Set Up SSH:<br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+sudo mv /boot/boot_enable_ssh.rc /boot/boot.rc &lt;br/&gt;
+sudo shutdown -r now</code></pre>
+</div>
+</p></li>
+<li><p>Install FTP<br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+sudo chown -R pi /var/www  &amp;mdash; Take ownership of the web root&lt;br/&gt;
+sudo apt-get install vsftpd &amp;mdash; install vsftpd&lt;br/&gt;
+sudo service vsftpd restart &amp;mdash; restart vsftpd</code></pre>
+</div>
+</p></li>
+</ul>
+
+
+<p>到这里，<strong>就装好了一台 RPi</strong></p>
+
+<h2>Setup Tomcat</h2>
+
+<h3>安装</h3>
+
+<ul>
+<li>install tomcat server<br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+sudo apt-get install tomcat7&lt;br/&gt;</code></pre>
+</div>
+</li>
+</ul>
+
+
+<h3>设置</h3>
+
+<ul>
+<li><p>link conf and webapps folders<br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+cd /usr/share/tomcat7&lt;br/&gt;
+sudo rm -r webapps&lt;br/&gt;
+sudo ln -s /var/lib/tomcat7/conf conf&lt;br/&gt;
+sudo ln -s /var/lib/tomcat7/webapps webapps &lt;br/&gt;</code></pre>
+</div>
+</p></li>
+<li><p>give full access to webapps folder<br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+sudo chmod 777 /usr/share/tomcat7/webapps&lt;br/&gt;</code></pre>
+</div>
+</p></li>
+<li><p>copy war file to server webapps folder (from local pc)<br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+scp &lt;path&gt;/&lt;file&gt;.war &lt;username&gt;@&lt;ip&gt;:/usr/share/tomcat7/webapps/&lt;file&gt;.war &lt;br/&gt;</code></pre>
+</div>
+</p></li>
+<li><p>restart tomcat server<br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+sudo service tomcat7 restart  &lt;br/&gt;</code></pre>
+</div>
+</p></li>
+</ul>
+
+
+<h3>管理</h3>
+
+<ul>
+<li><p>tomcat server commands<br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+sudo service tomcat7 [&lt;start&gt; &lt;stop&gt; &lt;restart&gt;]</code></pre>
+</div>
+</p></li>
+<li><p>Where to find the web app log files:<br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+/var/log/tomcat</code></pre>
+</div>
+</p></li>
+</ul>
+
+
+<h2>Setup MySQL</h2>
+
+<h3>安装</h3>
+
+<ul>
+<li>Install MySQL server<br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+sudo apt-get install mysql-server mysql-client php5-mysql</code></pre>
+</div>
+</li>
+</ul>
+
+
+<h3>管理</h3>
+
+<ul>
+<li>Manage MySQL service<br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+sudo service mysql start/stop/restart&lt;br/&gt;</code></pre>
+</div>
+</li>
+</ul>
+
+
+<h3>设置</h3>
+
+<h4>远程访问</h4>
+
+<p>By default remote access to the MySQL database server is disabled for security reasons.To allow remotely access to the database server from the web server or home, follow below quick steps.</p>
+
+<p><strong>1.Edit my.cnf File</strong>  <br/>
+&ndash; If you are using Debian Linux file is located at <strong>/etc/mysql/my.cnf</strong> location <br/>
+&ndash; If you are using Red Hat Linux/Fedora/Centos Linux file is located at <strong>/etc/my.cnf</strong> location <br/>
+&ndash; If you are using FreeBSD you need to create a file <strong>/var/db/mysql/my.cnf</strong>
+Edit <strong>/etc/my.cnf</strong>, run:<br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+vi /etc/my.cnf&lt;br/&gt;</code></pre>
+</div>
+ <br/>
+Once file opened, locate line that read as follows</p>
+
+<p>[mysqld]<br/>
+Make sure line skip-networking is commented (or remove line) and add following line<br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+bind-address=YOUR-SERVER-IP&lt;br/&gt;</code></pre>
+</div>
+ <br/>
+For example, if your MySQL server IP is <code>65.55.55.2</code> then entire block should be look like as follows:
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+[mysqld]&lt;br/&gt;
+user            = mysql&lt;br/&gt;
+pid-file        = /var/run/mysqld/mysqld.pid&lt;br/&gt;
+socket          = /var/run/mysqld/mysqld.sock&lt;br/&gt;
+port            = 3306&lt;br/&gt;
+basedir         = /usr&lt;br/&gt;
+datadir         = /var/lib/mysql&lt;br/&gt;
+tmpdir          = /tmp&lt;br/&gt;
+language        = /usr/share/mysql/English&lt;br/&gt;
+bind-address    = 65.55.55.2&lt;/p&gt;
+
+&lt;h1&gt;skip-networking&lt;/h1&gt;
+
+&lt;p&gt;&amp;hellip;.&lt;br/&gt;
+..&lt;br/&gt;
+&amp;hellip;.&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<p>Where,</p>
+
+<ul>
+<li><strong>bind-address</strong> : IP address to bind to.</li>
+<li><strong>skip-networking</strong> : Don’t listen for TCP/IP connections at all. All interaction with mysqld must be made via Unix sockets. This option is highly recommended for systems where only local requests are allowed. Since you need to allow remote connection this line should be removed from my.cnf or put it in comment state.</li>
+</ul>
+
+
+<p>2.Grant access to remote IP address  <br/>
+&ndash; Connect to mysql server:
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+$ mysql -u root -p mysql&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<ul>
+<li><p>Grant access to a new database<br/>
+If you want to add a new database called foo for user bar and remote IP <code>202.54.10.20</code> then you need to type the following commands at mysql> prompt:
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+mysql&gt; CREATE DATABASE foo;&lt;br/&gt;
+mysql&gt; GRANT ALL ON foo.* TO bar@&amp;lsquo;202.54.10.20&amp;rsquo; IDENTIFIED BY &amp;lsquo;PASSWORD&amp;rsquo;;&lt;br/&gt;</code></pre>
+</div>
+</p></li>
+<li><p>Grant Access To An Existing Database<br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+mysql&gt; update db set Host=&amp;lsquo;202.54.10.20&amp;rsquo; where Db=&amp;lsquo;webdb&amp;rsquo;;&lt;br/&gt;
+mysql&gt; update user set Host=&amp;lsquo;202.54.10.20&amp;rsquo; where user=&amp;lsquo;webadmin&amp;rsquo;; &lt;br/&gt;</code></pre>
+</div>
+</p></li>
+<li><p>Test connection
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+$ mysql -u webadmin –h 65.55.55.2 –p</code></pre>
+</div>
+</p></li>
+</ul>
+
+
+<p>Where<br/>
+&ndash; u webadmin: webadmin is MySQL username <br/>
+&ndash; h IP or hostname: 65.55.55.2 is MySQL server IP address or hostname (FQDN) <br/>
+&ndash; p Prompt for password</p>
+
+<p>You can also use the telnet or nc command to connect to port 3306 for testing purpose:
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+$ echo X | telnet -e X 65.55.55.2 3306&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<p>OR<br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+$ nc -z -w1 65.55.55.2 3306&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<p>Sample outputs:
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+Connection to 65.55.55.2 3306 port [tcp/mysql] succeeded!&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<h4>MySQL 中文乱码</h4>
+
+<p>MySQL中默认字符集的设置有四级:服务器级，数据库级，表级 。最终是字段级 的字符集设置。注意前三种均为默认设置，并不代码你的字段最终会使用这个字符集设置。所以我们建议要用<code>show create table table ;</code> 或<code>show full fields from tableName;</code> 来检查当前表中字段的字符集设置。</p>
+
+<p><strong>1.查看默认的编码格式:</strong><br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+mysql&gt; show variables like &amp;ldquo;%char%&amp;rdquo;;&lt;/p&gt;
+
+&lt;p&gt;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;+&lt;br/&gt;
+| Variable_name | Value |&lt;br/&gt;
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;+&lt;br/&gt;
+| character_set_client | gbk |&lt;br/&gt;
+| character_set_connection | gbk |&lt;br/&gt;
+| character_set_database | utf8 |&lt;br/&gt;
+| character_set_filesystem | binary |&lt;br/&gt;
+| character_set_results | gbk |&lt;br/&gt;
+| character_set_server | utf8 |&lt;br/&gt;
+| character_set_system | utf8 |&lt;br/&gt;
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;+&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<p>注：以前2个来确定,可以使用<code>set names utf8</code>,<code>set names gbk</code>设置默认的编码格式;
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+mysql&gt; set names utf8;   &lt;strong&gt;有时候这一句很关键！&lt;/strong&gt;</code></pre>
+</div>
+</p>
+
+<p>执行SET NAMES utf8的效果等同于同时设定如下：<br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+SET character_set_client=&amp;lsquo;utf8&amp;rsquo;;&lt;br/&gt;
+SET character_set_connection=&amp;lsquo;utf8&amp;rsquo;;&lt;br/&gt;
+SET character_set_results=&amp;lsquo;utf8&amp;rsquo;;&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<p><strong>2.数据库表中字段的字符集设置 :</strong></p>
+
+<p><code>show create table TableName</code> 或 <code>show full columns from tableName</code></p>
+
+<p><div>
+  <pre><code class='console'>&lt;br/&gt;
+mysql&gt; show create table t1;&lt;br/&gt;
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&lt;br/&gt;
+| Table | Create Table                     &lt;br/&gt;
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&lt;br/&gt;
+| t1    | CREATE TABLE &lt;code&gt;t1&lt;/code&gt; (&lt;br/&gt;
+  &lt;code&gt;id&lt;/code&gt; int(11) NOT NULL,&lt;br/&gt;
+  &lt;code&gt;c1&lt;/code&gt; varchar(30) DEFAULT NULL,&lt;br/&gt;
+  PRIMARY KEY (&lt;code&gt;id&lt;/code&gt;)    &lt;br/&gt;
+) ENGINE=InnoDB DEFAULT CHARSET=gbk |&lt;br/&gt;
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&lt;br/&gt;
+1 row in set (0.00 sec)&lt;/p&gt;
+
+&lt;p&gt;mysql&gt; show full columns from t1;&lt;br/&gt;
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;ndash;+-&lt;br/&gt;
+| Field | Type        | Collation      | Null | Key | &lt;br/&gt;
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;ndash;+-&lt;br/&gt;
+| id    | int(11)     | NULL           | NO   | PRI | &lt;br/&gt;
+| c1    | varchar(30) | gbk_chinese_ci | YES  |     | &lt;br/&gt;
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;ndash;+-&lt;br/&gt;
+2 rows in set (0.00 sec) &lt;br/&gt;
+mysql&gt; &lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<p><strong>3.当前联接系统参数</strong><br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+show variables like &amp;lsquo;char%&amp;rsquo;&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&lt;br/&gt;
+| Variable_name            | Value&lt;br/&gt;
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&lt;br/&gt;
+| character_set_client     | gbk&lt;br/&gt;
+| character_set_connection | gbk&lt;br/&gt;
+| character_set_database   | latin1&lt;br/&gt;
+| character_set_filesystem | binary&lt;br/&gt;
+| character_set_results    | gbk&lt;br/&gt;
+| character_set_server     | latin1&lt;br/&gt;
+| character_set_system     | utf8&lt;br/&gt;
+| character_sets_dir       | C:/Program File&lt;br/&gt;
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&lt;br/&gt;
+8 rows in set (0.00 sec) &lt;br/&gt;
+mysql&gt; &lt;br/&gt;</code></pre>
+</div>
+</p></blockquote>
+
+<p><strong>4.中文，请确保 表中该字段的字符集为中文兼容：</strong><br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+big5     | Big5 Traditional Chinese&lt;br/&gt;
+gb2312   | GB2312 Simplified Chinese&lt;br/&gt;
+gbk      | GBK Simplified Chinese&lt;br/&gt;
+utf8     | UTF-8 Unicode &lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<p><strong>5.确保联接参数与这个字段字符集一致,你可以用 <code>set name 'charsetname';</code></strong><br/>
+比如， <code>set name 'gbk';</code><br/>
+ 这条命令会同时修改<br/>
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+character_set_client&lt;br/&gt;
+character_set_connection&lt;br/&gt;
+character_set_results&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<p>(如果你的这架MySQL中都为中文，则你可以在<code>my.ini</code>或<code>my.cnf</code>中加上或修改这个参数, 参数文件修改后需重启MySQL服务)
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+[mysql]
+default-character-set=gbk</code></pre>
+</div>
+</p>
+
+<p><strong>Update on 2013-9-20</strong><br/>
+上面提到的方法都没有解决中文乱码的问题，最终采用在connection URL 中加入编码参数的方法，问题解决，终于可以正常存入和显示中文了。</p>
+
+<p><div>
+  <pre><code class='console'>&lt;br/&gt;
+jdbc:mysql://serverhost:3306/database?useUnicode=true&amp;amp;characterEncoding=utf-8</code></pre>
+</div>
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Git常用命令笔记]]></title>
+    <link href="http://zjun.github.io/blog/2013/08/15/git_commands_notes/"/>
+    <updated>2013-08-15T21:06:19+08:00</updated>
+    <id>http://zjun.github.io/blog/2013/08/15/git_commands_notes</id>
+    <content type="html"><![CDATA[<p>在 <a href="http://robbinfan.com/">Robin Fan</a> 那里看到一份 <a href="http://robbinfan.com/blog/34/git-common-command" title="Git常用命令备忘">http://robbinfan.com/blog/34/git-common-command</a>， 非常的干货，转帖在这里，以备日后查询。</p>
+
+<!--more-->
+
+
+<h2>配置命令</h2>
+
+<pre><code>git config --global user.name "zJun"     
+git config --global user.email "zjun101@gmail.com"  
+git config --global color.ui true  
+git config --global alias.co checkout  
+git config --global alias.ci commit  
+git config --global alias.st status  
+git config --global alias.br branch  
+</code></pre>
+
+<p>用户的git配置文件~/.gitconfig</p>
+
+<h2>常用命令</h2>
+
+<h3>查看、添加、提交、删除、找回，重置修改文件</h3>
+
+<pre><code>git help &lt;command&gt;  # 显示command的help
+git show            # 显示某次提交的内容
+git show $id
+
+git co  -- &lt;file&gt;   # 抛弃工作区修改
+git co  .           # 抛弃工作区修改
+
+git add &lt;file&gt;      # 将工作文件修改提交到本地暂存区
+git add .           # 将所有修改过的工作文件提交暂存区
+
+git rm &lt;file&gt;       # 从版本库中删除文件
+git rm &lt;file&gt; --cached  # 从版本库中删除文件，但不删除文件
+
+git reset &lt;file&gt;    # 从暂存区恢复到工作文件
+git reset -- .      # 从暂存区恢复到工作文件
+git reset --hard    # 恢复最近一次提交过的状态，即放弃上次提交后的所有本次修改
+
+git ci &lt;file&gt;
+git ci .
+git ci -a           # 将git add, git rm和git ci等操作都合并在一起做
+git ci -am "some comments"
+git ci --amend      # 修改最后一次提交记录
+
+git revert &lt;$id&gt;    # 恢复某次提交的状态，恢复动作本身也创建了一次提交对象
+git revert HEAD     # 恢复最后一次提交的状态
+</code></pre>
+
+<h3>查看文件diff</h3>
+
+<pre><code>git diff &lt;file&gt;     # 比较当前文件和暂存区文件差异
+git diff
+git diff &lt;$id1&gt; &lt;$id2&gt;   # 比较两次提交之间的差异
+git diff &lt;branch1&gt;..&lt;branch2&gt; # 在两个分支之间比较 
+git diff --staged   # 比较暂存区和版本库差异
+git diff --cached   # 比较暂存区和版本库差异
+git diff --stat     # 仅仅比较统计信息
+</code></pre>
+
+<h3>查看提交记录</h3>
+
+<pre><code>git log
+git log &lt;file&gt;      # 查看该文件每次提交记录
+git log -p &lt;file&gt;   # 查看每次详细修改内容的diff
+git log -p -2       # 查看最近两次详细修改
+</code></pre>
+
+<h2>本地分支管理</h2>
+
+<h3>查看、切换、创建和删除分支</h3>
+
+<pre><code>git br -r           # 查看远程分支
+git br &lt;new_branch&gt; # 创建新的分支
+git br -v           # 查看各个分支最后提交信息
+git br --merged     # 查看已经被合并到当前分支的分支
+git br --no-merged  # 查看尚未被合并到当前分支的分支
+
+git co &lt;branch&gt;     # 切换到某个分支
+git co -b &lt;new_branch&gt; # 创建新的分支，并且切换过去
+git co -b &lt;new_branch&gt; &lt;branch&gt;  # 基于branch创建新的new_branch
+
+git co $id          # 把某次历史提交记录checkout出来，但无分支信息，切换到其他分支会自动删除
+git co $id -b &lt;new_branch&gt;  # 把某次历史提交记录checkout出来，创建成一个分支
+
+git br -d &lt;branch&gt;  # 删除某个分支
+git br -D &lt;branch&gt;  # 强制删除某个分支 (未被合并的分支被删除的时候需要强制)
+</code></pre>
+
+<h3>分支合并和rebase</h3>
+
+<pre><code>git merge &lt;branch&gt;               # 将branch分支合并到当前分支
+git merge origin/master --no-ff  # 不要Fast-Foward合并，这样可以生成merge提交
+
+git rebase master &lt;branch&gt;       # 将master rebase到branch，相当于：
+git co &lt;branch&gt; &amp;&amp; git rebase master &amp;&amp; git co master &amp;&amp; git merge &lt;branch&gt;
+</code></pre>
+
+<h2>补丁管理(方便在多台机器上开发同步时用)</h2>
+
+<pre><code>git diff &gt; ../sync.patch         # 生成补丁
+git apply ../sync.patch          # 打补丁
+git apply --check ../sync.patch  # 测试补丁能否成功
+</code></pre>
+
+<h2>暂存管理</h2>
+
+<pre><code>git stash                        # 暂存
+git stash list                   # 列所有stash
+git stash apply                  # 恢复暂存的内容
+git stash drop                   # 删除暂存区
+</code></pre>
+
+<h2>远程分支管理</h2>
+
+<pre><code>git pull                         # 抓取远程仓库所有分支更新并合并到本地
+git pull --no-ff                 # 抓取远程仓库所有分支更新并合并到本地，不要快进合并
+git fetch origin                 # 抓取远程仓库更新
+git merge origin/master          # 将远程主分支合并到本地当前分支
+git co --track origin/branch     # 跟踪某个远程分支创建相应的本地分支
+git co -b &lt;local_branch&gt; origin/&lt;remote_branch&gt;  # 基于远程分支创建本地分支，功能同上
+
+git push                         # push所有分支
+git push origin master           # 将本地主分支推到远程主分支
+git push -u origin master        # 将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)
+git push origin &lt;local_branch&gt;   # 创建远程分支， origin是远程仓库名
+git push origin &lt;local_branch&gt;:&lt;remote_branch&gt;  # 创建远程分支
+git push origin :&lt;remote_branch&gt;  #先删除本地分支(git br -d &lt;branch&gt;)，然后再push删除远程分支
+</code></pre>
+
+<h2>远程仓库管理</h2>
+
+<pre><code>git remote -v                    # 查看远程服务器地址和仓库名称
+git remote show origin           # 查看远程服务器仓库状态
+git remote add origin git@github:robbin/robbin_site.git         # 添加远程仓库地址
+git remote set-url origin git@github.com:robbin/rob
+</code></pre>
+
+<h3>创建远程仓库</h3>
+
+<pre><code>git clone --bare robbin_site robbin_site.git  # 用带版本的项目创建纯版本仓库
+scp -r my_project.git git@git.csdn.net:~      # 将纯仓库上传到服务器上
+
+mkdir robbin_site.git &amp;&amp; cd robbin_site.git &amp;&amp; git --bare init # 在服务器创建纯仓库
+git remote add origin git@github.com:robbin/robbin_site.git    # 设置远程仓库地址
+git push -u origin master                                      # 客户端首次提交
+git push -u origin develop  # 首次将本地develop分支提交到远程develop分支，并且track
+
+git remote set-head origin master   # 设置远程仓库的HEAD指向master分支
+</code></pre>
+
+<h3>命令设置跟踪远程库和本地库</h3>
+
+<pre><code>git branch --set-upstream master origin/master
+git branch --set-upstream develop origin/develop
+</code></pre>
+
+<h2>参考资料</h2>
+
+<p><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">廖雪峰的官方网站-Git教程</a><br/>
+<a href="http://robbinfan.com/blog/34/git-common-command" title="Git常用命令备忘">Git常用命令备忘</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[用Jekyll+Github+Markdown来写Blog]]></title>
+    <link href="http://zjun.github.io/blog/2013/08/05/use-jekyll-github-blog/"/>
+    <updated>2013-08-05T21:06:19+08:00</updated>
+    <id>http://zjun.github.io/blog/2013/08/05/use-jekyll-github-blog</id>
+    <content type="html"><![CDATA[<p>继续折腾，之前使用 Octpress 来写Blog,但用了一段时间以后还是觉得笨重，发布一篇新文章需要把所有页面重新发布一遍，最终还是决定使用定制更灵活的Jekyll.下面就记录一下这次迁移的步骤和遇到的问题。</p>
+
+<p>以下过程在Windows7下进行：</p>
+
+<!--more-->
+
+
+<h2>安装 Ruby</h2>
+
+<p>在Windows环境下推荐安装<a href="http://railsinstaller.org/">RailsInstaller</a>.</p>
+
+<h2>安装 Git</h2>
+
+<ol>
+<li>在windows下安装<a href="http://code.google.com/p/msysgit/downloads/list">msysgit</a>.</li>
+<li>设置<code>SSH keys</code><br/>
+首先备份已有的keys<br/>
+<div>
+  <pre><code class='console'>$ ls&lt;br/&gt;
+config  id_rsa  id_rsa.pub  known_hosts&lt;br/&gt;
+$ mkdir key_backup
+$ cp id_rsa&lt;em&gt; key_backup&lt;br/&gt;
+$ rm id_rsa&lt;/em&gt;&lt;br/&gt;</code></pre>
+</div>
+</li>
+</ol>
+
+
+<p>  生成新的 SSH keys</p>
+
+<p><div>
+  <pre><code class='console'>$ ssh-keygen -t rsa -C &amp;ldquo;邮件地址@youremail.com&amp;rdquo;  &lt;br/&gt;
+Generating public/private rsa key pair.&lt;br/&gt;
+Enter file in which to save the key (/Users、your_user_directory/.ssh/id_rsa):&amp;lt;回车就好&gt;&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<p>输入GitHub的密码</p>
+
+<p><div>
+  <pre><code class='console'>Enter passphrase (empty for no passphrase):&amp;lt;输入加密串&gt;&lt;br/&gt;
+Enter same passphrase again:&amp;lt;再次输入加密串&gt;&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<ol>
+<li>添加SSH Key到GitHub：登录GitHub，在主页上点击设置按钮，选择<code>SSH Keys</code>项，把复制的内容粘贴进去，然后点击Add Key按钮即可。<br/>
+可以输入下面的命令，看看设置是否成功，<code>git@github.com</code>的部分不要修改：
+<div>
+  <pre><code class='console'>&lt;br/&gt;
+$ ssh -T git@github.com&lt;br/&gt;</code></pre>
+</div>
+</li>
+<li>设置GitHub账号信息：<br/>
+<div>
+  <pre><code class='console'>$ git config &amp;mdash;global user.name &amp;ldquo;你的名字&quot;&lt;br/&gt;
+$ git config &amp;mdash;global user.email &quot;&lt;a href=&quot;&amp;#109;&amp;#97;&amp;#105;&amp;#x6c;&amp;#116;&amp;#111;&amp;#x3a;&amp;#x79;&amp;#x6f;&amp;#x75;&amp;#114;&amp;#x5f;&amp;#x65;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#x40;&amp;#x79;&amp;#x6f;&amp;#x75;&amp;#x72;&amp;#101;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#109;&quot;&gt;&amp;#121;&amp;#111;&amp;#x75;&amp;#x72;&amp;#x5f;&amp;#x65;&amp;#109;&amp;#97;&amp;#105;&amp;#x6c;&amp;#64;&amp;#x79;&amp;#111;&amp;#x75;&amp;#x72;&amp;#x65;&amp;#109;&amp;#97;&amp;#x69;&amp;#108;&amp;#x2e;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;&quot;&lt;br/&gt;</code></pre>
+</div>
+
+
+<h2>安装jekyll</h2></li>
+<li>把淘宝的镜像加到gem的镜像列表里
+<div>
+  <pre><code class='console'>gem sources &amp;mdash;remove &lt;a href=&quot;http://rubygems.org/  &quot;&gt;http://rubygems.org/  &lt;/a&gt;
+gem sources -a &lt;a href=&quot;http://ruby.taobao.org/  &quot;&gt;http://ruby.taobao.org/  &lt;/a&gt;</code></pre>
+</div>
+
+用<code>gem sources -l</code>看看现在源列表<br/>
+<div>
+  <pre><code class='console'>&lt;strong&gt;&lt;em&gt; CURRENT SOURCES &lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;&lt;a href=&quot;http://ruby.taobao.org&quot;&gt;http://ruby.taobao.org&lt;/a&gt; &lt;br/&gt;</code></pre>
+</div>
+
+2. 如果是上面这样就可以安装jekyll了
+<div>
+  <pre><code class='console'>gem install jekyll&lt;br/&gt;</code></pre>
+</div>
+
+  安装<code>rdiscount</code>来解析Markdown文档<br/>
+<div>
+  <pre><code class='console'>gem install rdiscount kramdown&lt;br/&gt;</code></pre>
+</div>
+</p>
+
+<h2>建立github pages</h2>
+
+<ol>
+<li>登录GitHub,建立一个名为 <code>USERNAME.github.com</code> 的 repositories，（注意：这里的USERNAME要与你的GitHub用户名一致）。</li>
+<li>建立本地Blog目录：
+<div>
+  <pre><code class='console'>$ mkdir USERNAME.github.com&lt;br/&gt;
+$ cd USERNAME.github.com&lt;br/&gt;
+$ git init&lt;br/&gt;
+$ git add .&lt;br/&gt;
+$ git commit -m &amp;lsquo;init commit&#39;&lt;br/&gt;
+$ git remote add origin git@github.com:USERNAME/USERNAME.github.com.git&lt;br/&gt;
+$ git push  -u origin master</code></pre>
+</div>
+</li>
+<li>等待大约10分钟，就可以通过　<code>USERNAME.github.io</code> 访问新的blog了</li>
+<li>使用脚本来新建文章<br/>
+在本地的Blog目录下新建一个 <code>Rakefile</code> 文件，然后将<a href="https://github.com/plusjade/jekyll-bootstrap/blob/master/Rakefile">Rakefile content</a>拷贝到文件中.<br/>
+现在就可以在命令行中新建一篇文章了：
+<div>
+  <pre><code class='console'>rake post title=&amp;ldquo;titlename&quot;&lt;br/&gt;</code></pre>
+</div>
+
+执行该命令后，将会在<code>_post</code>的文件夹下生成形式为<code>YYYY-MM-dd-titlename.md</code>的文件，并且会提供好一些附加信息。其中，titlename就是命令中的title后引号中的值。</li>
+</ol>
+
+
+<h2>代码高亮 Pygments</h2>
+
+<p>Jekyll通过Pygments支持对代码/语法的高亮显示。<br/>
+<a href="https://github.com/mojombo/jekyll/wiki/Liquid-Extensions">Pygments on github</a><br/>
+<a href="http://pygments.org/">Pygments homepage</a><br/>
+<a href="http://pygments.org/languages/">Supported languages list</a><br/>
+1. 安装 Python:
+<div>
+  <pre><code class='console'>$ python &amp;mdash;version&lt;br/&gt;
+Python 2.7.2</code></pre>
+</div>
+
+2. 安装setuptools： 下载并运行 <a href="https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py">ez_setup.py</a><br/>
+<div>
+  <pre><code class='console'>python ez_setup.py</code></pre>
+</div>
+
+3. 安装 pygments：
+<div>
+  <pre><code class='console'>$ sudo easy_install Pygments</code></pre>
+</div>
+
+4. 生成CSS文件
+<div>
+  <pre><code class='console'>$ pygmentize -S default -f html &gt; highlight.css</code></pre>
+</div>
+
+5. 在<code>config.yaml</code>中enable <code>pygmentize</code>:
+<div>
+  <pre><code class='console'>pygments: true</code></pre>
+</div>
+
+6. Include pygments.css
+在 <code>/_layouts/default.html</code> 中include highlight.css:
+<div>
+  <pre><code class='html'>&lt;link rel=&quot;stylesheet&quot; href=&quot;http://zjun.github.io/highlight.css&quot;&gt;</code></pre>
+</div>
+</p>
+
+<h3><strong>Note: 遇到的问题</strong></h3>
+
+<p>在文章中使用<code>highlight</code>后每次<code>jekyll build</code>时都会遇到异常：
+<div>
+  <pre><code class='console'>C:/Ruby193/lib/ruby/gems/1.9.1/gems/posix-spawn-0.3.6/lib/posix/spawn.rb:162: warning: cannot close fd before spawn
+←[31m  Liquid Exception: No such file or directory &amp;ndash; /bin/sh in 2013-08-05-test-post.md←[0m</code></pre>
+</div>
+</p>
+
+<p>在这里找到了原因和解决方法：<a href="http://stackoverflow.com/questions/17364028/jekyll-on-windows-pygments-not-working">Jekyll on Windows: Pygments not working</a></p>
+
+<p>原来是因为 jekyll 和 Pygments 只能和 Pygments.rb 0.5.0 配合使用，但是我本机装的是 Pygments.rb 0.5.2，卸载后重新安装Pygments.rb 0.5.0，再重新build,异常消失。
+<div>
+  <pre><code class='console'>gem uninstall pygments.rb &amp;mdash;version &amp;ldquo;=0.5.2&amp;rdquo;
+gem install pygments.rb &amp;mdash;version &amp;ldquo;=0.5.0&amp;rdquo;</code></pre>
+</div>
+</p>
+
+<p><strong><em>2013-12-20 更新：</em></strong><br/>
+Jekyll现在已经支持用<a href="https://github.com/vmg/redcarpet">Redcarpet</a>来处理markdown，并且在1.1以后的版本中， <code>Jekyll new</code> 新建的站点也将默认采用Redcarpet。目前只要在<code>_config.yml</code>中进行类似如下相关设置：</p>
+
+<pre><code>markdown: redcarpet
+redcarpet:
+    extensions: ["fenced_code_blocks", "autolink", "tables", "strikethrough"]
+</code></pre>
+
+<p>代码高亮均可以采用如下格式：<br/>
+``` ruby  <br/>
+require &lsquo;rubygems&rsquo;</p>
+
+<p>def foo  <br/>
+  puts &lsquo;foo&rsquo;  <br/>
+end<br/>
+```</p>
+
+<p>显示效果如下：</p>
+
+<blockquote><p>``` ruby<br/>
+require &lsquo;rubygems&rsquo;</p>
+
+<p>def foo<br/>
+  puts &lsquo;foo'<br/>
+end</p>
+
+<h1>comment</h1>
+
+<p>```</p></blockquote>
+
+<h2>常用命令</h2>
+
+<p><div>
+  <pre><code class='console'>$ git clone git@github.com:username/username.github.com.git //本地如果无远程代码，先做这步，不然就忽略&lt;/p&gt;
+
+&lt;p&gt;$ cd .ssh/username.github.com //定位到你blog的目录下&lt;/p&gt;
+
+&lt;p&gt;$ git pull origin master //先同步远程文件，后面的参数会自动连接你远程的文件&lt;/p&gt;
+
+&lt;p&gt;$ git status //查看本地自己修改了多少文件&lt;/p&gt;
+
+&lt;p&gt;$ git add . //添加远程不存在的git文件&lt;/p&gt;
+
+&lt;p&gt;$ git commit * -m &amp;ldquo;what I want told to someone&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;$ git push origin master //更新到远程服务器上</code></pre>
+</div>
+</p>
+
+<h2>参考资料</h2>
+
+<p><a href="http://beiyuu.com/github-pages/#github">使用Github Pages建独立博客</a></p>
+
+<p><a href="http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html">搭建一个免费的，无限流量的Blog&mdash;&mdash;github Pages和Jekyll入门</a></p>
+
+<p><a href="http://site.douban.com/196781/widget/notes/12161495/note/264946576/">写作环境搭建(git+github+markdown+jekyll)</a></p>
+
+<p><a href="http://yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/">Github Pages极简教程</a></p>
+
+<p><a href="http://web-design-weekly.com/2013/03/04/going-static-with-jekyll-deploying-via-github-for-free/">Going Static with Jekyll &amp; Deploying via GitHub for Free</a></p>
+
+<p><a href="http://www.cnblogs.com/purediy/archive/2013/03/07/2948892.html">通过GitHub Pages建立个人站点（详细步骤）</a></p>
+
+<p><a href="http://ztpala.com/2011/10/27/code-highlighting-jekyll/">Jekyll的代码高亮</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Sublime Text 2快捷键及常用插件]]></title>
+    <link href="http://zjun.github.io/blog/2013/05/08/using-sublime/"/>
+    <updated>2013-05-08T14:36:00+08:00</updated>
+    <id>http://zjun.github.io/blog/2013/05/08/using-sublime</id>
+    <content type="html"><![CDATA[<p>SublimeText2 是我目前为止用过的最为强大的编辑器，支持但不限于 C, C++, C#, CSS, D, Erlang, HTML, Groovy, Haskell, HTML, Java, JavaScript, LaTeX, Lisp, Lua, Markdown, Matlab, OCaml, Perl, PHP, Python, R, Ruby, SQL, TCL, Textile and XML 等主流编程语言的语法高亮。拥有优秀的代码自动完成功能 (自动补齐括号，大括号等配对符号；自动补全已经出现的单词；自动补全函数名)，非常智能。 最重要的是这么一个原来高不可攀的“神器”，现在居然开源免费了，所以还不赶快试试：</p>
+
+<!-- more -->
+
+
+<h1>常用快捷键：</h1>
+
+<h2>默认方式：</h2>
+
+<ul>
+<li>鼠标选中多行，按下 Ctrl+Shift+L    —->     同时编辑这些行</li>
+<li>鼠标选中文本，反复按 CTRL+D       —->     继续向下同时选中下一个相同的文本进行同时编辑</li>
+<li>鼠标选中文本，按下 Alt+F3             —->     一次性选择全部的相同文本进行同时编辑</li>
+<li>Shift+鼠标右键/按住鼠标中键          —->     进行竖向多行选择</li>
+<li>Ctrl+鼠标左键                                  —->     选择同时要编辑的多处文本</li>
+<li>ctrl+L                                               —->     选择整行</li>
+<li>ctrl+kk                                             —->     从光标处删除至行尾</li>
+<li>ctrl+j                                                —->     合并行</li>
+<li>ctrl+/                                               —->     注释整行</li>
+<li>ctrl+y                                               —->    恢复撤销</li>
+<li>ctrl+shift+enter                              —->     插入行前</li>
+<li>shift+ctrl+上下键                            —->    光标与上/下行对调，非常实用</li>
+<li>cmd+shift+d —-> Duplicate Line</li>
+<li>ctrl+shift+w —-> Wrap Selection with Tag</li>
+<li>cmd+r —-> Goto Symbol&hellip;</li>
+<li>cmd+shift+t —-> Reopen Closed File</li>
+<li>cmd+shift+p —-> Command Pallete</li>
+</ul>
+
+
+<h2>常用的Emment快捷键</h2>
+
+<ul>
+<li>ctrl+,                                                              ======> 选中标签的内容</li>
+<li>shift+ctrl+;                                                   ======> 删除标签</li>
+<li>shift+ctrl+r                                                   =====> 更新所有相同css属性的值(在css3中不需要在每个不同前缀都去修改了，非常好用)</li>
+<li><p>选中某个css属性的数值，按ctrl+上下键     =====> 值增减1(类似chrome浏览器，非常棒)</p>
+
+<h2>CodeIntel实用快捷键</h2></li>
+<li><p>ctrl+鼠标点击某一变量                                 =====> 跳转至定义该变量的行</p></li>
+</ul>
+
+
+<h1>常用插件</h1>
+
+<h3><a href="https://github.com/sergeche/emmet-sublime">Emmet</a>(原名为Zen Coding)</h3>
+
+<p>一个用于HTML和CSS高效的编程的插件，只能在HTML或CSS文件中才能打开，原先zen coding需要按快捷键 ctrl+alt+enter才能运行，现在更新了另一种方式——直接在文本中输入zen coding的语句，然后按tag键就可以实现同样功能。</p>
+
+<h3><a href="https://github.com/aaronpowell/sublime-jquery-snippets">jQuery-snippets</a></h3>
+
+<p>这个插件提供jQuery的提示功能，不过每次提示都需要快捷键ctrl+shift+p上查找，不过如果和CodeIntel插件（下面说到）配合使用能互补不足，因为两个插件都有些jQuery代码缺少。</p>
+
+<h3><a href="https://github.com/wbond/sublime_alignment">Alignment</a></h3>
+
+<p>选定要对齐的行，按ctrl+alt+a</p>
+
+<h3><a href="https://github.com/facelessuser/BracketHighlighter">BracketHighlighter</a></h3>
+
+<p>高亮显示光标所在的括号和引号，类似于代码匹配，可以匹配括号，引号等符号内的范围</p>
+
+<h3><a href="https://github.com/kemayo/sublime-text-2-clipboard-history">Clipboard History</a></h3>
+
+<p>粘贴板历史记录，方便使用复制/剪切的内容，快捷键ctrl+shift+v可调出该历史记录面板</p>
+
+<h3><a href="https://github.com/kemayo/sublime-text-2-git">Git</a></h3>
+
+<p>用法：在菜单上 Tools –> Git，可使用git的功能
+git——大名鼎鼎的git，该插件可以实现大部分的git功能</p>
+
+<h3><a href="https://github.com/Kronuz/SublimeCodeIntel">CodeIntel</a></h3>
+
+<p>代码自动提示，支持大多数语言，能很好的提示大部分jquery函数</p>
+
+<h1>如何安装插件</h1>
+
+<p>最简单的方式就是到上面的插件网站上下载压缩包，然后手工拷贝到sublime得packages 目录下</p>
+
+<blockquote><p>Preferences &ndash;> Browse Packages&hellip;</p></blockquote>
+
+<p>但是sublime提供了更加简单和自动化的安装方式： <a href="http://wbond.net/sublime_packages/package_control">Package Control</a></p>
+
+<blockquote><p>A full-featured package manager that helps discovering, installing, updating and removing packages for Sublime Text 2. It features an automatic upgrader and supports GitHub, BitBucket and a full channel/repository system.</p></blockquote>
+
+<h2>安装 Package Control</h2>
+
+<ul>
+<li>Open Sublime Text 2 console:  <strong>ctrl+`</strong></li>
+<li>将以下的命令粘贴到console中，并回车运行：  <br/>
+  import urllib2,os; pf=&lsquo;Package Control.sublime-package&rsquo;; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),&lsquo;wb&rsquo;).write(urllib2.urlopen(&lsquo;<a href="http://sublime.wbond.net/">http://sublime.wbond.net/</a>&rsquo;+pf.replace(&lsquo; &rsquo;,&lsquo;%20&rsquo;)).read()); print(&lsquo;Please restart Sublime Text to finish installation&rsquo;)</li>
+</ul>
+
+
+<h2>通过 Package Control 安装插件</h2>
+
+<ul>
+<li>Open <strong>Command Pallete</strong> in sublime：    press <strong>ctrl+shift+p</strong> (Windows, Linux) or <strong>cmd+shift+p</strong> (OS X)</li>
+<li>Enter <strong>Package Control: Install Package</strong> in the Command Pallete</li>
+<li>Input/select the plugin name in the list of all available packages that are available for install.</li>
+</ul>
+
+
+<h1>参考资料：</h1>
+
+<ul>
+<li><a href="http://drewbarontini.com/setup/sublime-text/">Setup Sublime Text 2</a></li>
+<li><a href="http://vtmerhome.com/2013/05/sublime-shortcuts-and-common-plug/">sublime快捷键及常用插件——工欲善其事，必先利其器</a></li>
+<li><a href="http://www.iplaysoft.com/sublimetext.html/comment-page-1">Sublime Text 2 &ndash; 性感无比的代码编辑器！程序员必备神器！跨平台支持Win/Mac/Linux</a></li>
+<li><a href="http://wbond.net/sublime_packages/package_control">Sublime Package Control</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用Octopress写博客]]></title>
+    <link href="http://zjun.github.io/blog/2013/05/03/use-octopress-to-write-blog/"/>
+    <updated>2013-05-03T21:06:19+08:00</updated>
+    <id>http://zjun.github.io/blog/2013/05/03/use-octopress-to-write-blog</id>
+    <content type="html"><![CDATA[<p><code>Octopress</code>是利用<code>Jekyll</code>博客引擎开发的一个博客系统，生成的静态页面能够很好的在github page上展现。号称是hacker专属的一个博客系统(<code>A blogging framework for hackers.</code>)
+本文就来介绍一下如何利用Octopress搭建一个Github博客。本文需要读者熟悉一些shell命令，并掌握基本的git操作。</p>
+
+<!--more-->
+
+
+<h2>1. 安装 Ruby</h2>
+
+<p>Octopress需要Ruby环境，RVM(Ruby Version Manager)负责安装和管理Ruby的环境。所以我们先在终端输入如下命令，来安装RVM：<br/>
+<code>console  
+curl -L https://get.rvm.io | bash -s stable --ruby  
+</code><br/>
+接着安装Ruby 1.9.3，在终端依次运行如下命令：<br/>
+<code>console   
+rvm install 1.9.3  
+rvm use 1.9.3  
+rvm rubygems latest  
+</code><br/>
+完成上面的操作之后，运行<code>ruby --version</code>确认ruby 1.9.3环境已经安装好了。</p>
+
+<p>参考: <a href="http://octopress.org/docs/setup/rvm/">Installing Ruby With RVM</a></p>
+
+<h2>2. 安装Octopress</h2>
+
+<p>在安装Octopress之前，需要安装有<code>git</code>了，在终端输入<code>git --version</code>，可以看到电脑中的git版本，如果没有显示相关内容，请先安装<a href="http://git-scm.com/">git</a>。</p>
+
+<p>git安装之后，利用git命令将octopress从github上clone到本机，如下命令：
+<code>console
+git clone git://github.com/imathis/octopress.git octopress  
+cd octopress    # If you use RVM, You'll be asked if you trust the .rvmrc file (say yes).  
+ruby --version  # Should report Ruby 1.9.3  
+</code></p>
+
+<p>在安装相关依赖项之前，最好把<code>gem sources</code>改成淘宝的resource：</p>
+
+<blockquote><p>由于国内网络原因（你懂的），导致 rubygems.org 存放在 Amazon S3 上面的资源文件间歇性连接失败。所以你会与遇到 <code>gem install rack</code> 或 <code>bundle install</code> 的时候半天没有响应，具体可以用 <code>gem install rails -V</code> 来查看执行过程。</p></blockquote>
+
+<p>通过一下命令修改gem sources:<br/>
+```  <br/>
+$ gem sources &mdash;remove <a href="https://rubygems.org/  ">https://rubygems.org/  </a>
+$ gem sources -a <a href="https://ruby.taobao.org/  ">https://ruby.taobao.org/  </a>
+$ gem sources -l<br/>
+<strong><em> CURRENT SOURCES </em></strong></p>
+
+<p><a href="https://ruby.taobao.org">https://ruby.taobao.org</a></p>
+
+<h1>请确保只有 ruby.taobao.org</h1>
+
+<p>$ gem install rails<br/>
+```</p>
+
+<p>参考： <a href="http://ruby.taobao.org/">RubyGems 镜像 &ndash; 淘宝网</a></p>
+
+<p>接着安装相关依赖项：<br/>
+<code>console
+gem install bundler  
+rbenv rehash    # If you use rbenv, rehash to be able to run the bundle command  
+bundle install  
+</code></p>
+
+<p>最后安装默认的Octopress 主题。<br/>
+<code>
+rake install
+</code>
+也可以安装定制的主题，我安装的是这个主题: <a href="https://github.com/kAworu/octostrap3">octostrap3</a> <br/>
+<code>  
+  % cd octopress   
+  % git clone https://github.com/kAworu/octostrap3 .themes/octostrap3  
+  % rake 'install[octostrap3]'  
+  % rake generate  
+</code></p>
+
+<p>参考：<a href="http://octopress.org/docs/setup/">Octopress Setup</a></p>
+
+<h2>3. 配置Octopress</h2>
+
+<p>Octopress的作者已经尽量让配置简化了。大多数情况下只需要配置<code>_config.yml</code>和<code>Rakefile</code>文件即可。其中Rakefile是跟博客部署相关，一般情况下并不需要修改这个文件，除非使用了rsync。</p>
+
+<p>config.yml是博客重要的一个配置文件，在config.yml文件中有三大配置项：<code>Main Configs</code>、<code>Jekyll &amp; Plugins</code>和<code>3rd Party Settings</code>。</p>
+
+<p>一般，该文件中其中url是必须要填写的，这里的url是在github上创建的一个仓库地址，具体请看第四步中创建的地址。另外再修改一下<code>title</code>、<code>subtitle</code>和<code>author</code>，根据需求，在开启一些第三方组件服务。</p>
+
+<p>关于_config.yml文件中的更多内容，请看这里的内容：<a href="http://octopress.org/docs/configuring/">Configuring Octopress</a></p>
+
+<p>建议：最好把里面的google+ 和 twitter相关的信息全部删掉，否则由于GFW的原因，将会造成页面load很慢。</p>
+
+<h2>4. 部署到GitHub上</h2>
+
+<p>Github的<code>[Page service](http://pages.github.com/)</code>可以免费托管博客，并且还可以自定义域名。</p>
+
+<p>首先需要在GitHub上<code>[创建一个仓库](https://github.com/new)</code>，并将仓库名称按照这样的方式进行命名：<code>username.github.com</code>。等后面配置完毕之后，我们就可以在浏览器中使用页面地址<code>http://username.github.com</code>来访问我们的博客。一般来说，博客的源码放到source分支下，生成的内容提交到master分支。</p>
+
+<p>创建好仓库之后，我们需要利用octopress的一个<code>配置rake任务</code>来自动配置上面创建的仓库：可以让我们方便的部署GitHub page。在终端输入如下命令：
+<code>
+$ rake setup_github_pages   
+</code> <br/>
+上面的命令会做一些事情(详细介绍看下面给出的参考链接)。其中最主要的就是创建一个<code>_deploy</code>目录，目录用来存放部署到master分支的内容。期间会要求你输入仓库的url，根据提示，进行输入即可。</p>
+
+<p>完成上面的命令之后，我们就可以生成博客并真正的部署到仓库中了。执行如下命令：
+<code>
+rake generate  
+rake deploy  
+</code>
+上面的命令首先生成博客文件，并将生成的博客文件拷贝到<code>_deploy/</code>目录下，然后将这些内容添加到git中，并commit和push到仓库的master分支。</p>
+
+<p>现在可以访问<code>http://username.github.com</code>了。注意：有时候可能会有延时，要等几分钟才能打开。</p>
+
+<p>至此，我们的博客已经完成基本的部署，不过博客的source需要单独提交，执行如下命令就可以将source提交到仓库的source分支下。
+<code>
+$ git add .  
+$ git commit -m 'Initial source commit'  
+$ git push origin source  
+</code>
+如果在部署到仓库之前，需要先预览一下博客，可以在终端输入<code>rake preview</code>命令，然后就能在浏览器中进行本地预览访问了：<code>http://127.0.0.1:4000/</code>或<code>http://localhost:4000/</code>，效果跟仓库中的一样。
+参考：<a href="http://octopress.org/docs/deploying/">Deploying to Github Pages</a></p>
+
+<h3>Update:</h3>
+
+<p>推送是出现下面错误：</p>
+
+<blockquote><p>## Pushing generated _deploy website<br/>
+To git@github.com:GinSmile/ginsmile.github.io.git<br/>
+! [rejected]        master &ndash;> master (non-fast-forward)<br/>
+error: 无法推送一些引用到 &lsquo;git@github.com:GinSmile/ginsmile.github.io.git'<br/>
+提示：更新被拒绝，因为您当前分支的最新提交落后于其对应的远程分支。<br/>
+提示：再次推送前，先与远程变更合并（如 'git pull &hellip;'）。详见<br/>
+提示：'git push &mdash;help&rsquo; 中的 &lsquo;Note about fast-forwards&rsquo; 小节。</p></blockquote>
+
+<p>在这里找到解决办法： <a href="http://ginsmile.github.io/blog/2013/08/29/octopressbo-ke-ji-qiao/#.U5M_X3WSxhE">Octopress博客技巧</a></p>
+
+<p>修改RakeFile文件（Octopress目录下）来强制推送，这里参考了stackoverflow的解决办法
+<code>  
+system "git push origin #{deploy_branch}"   
+</code> <br/>
+修改为：<br/>
+<code>  
+system "git push origin +#{deploy_branch}"   
+</code></p>
+
+<p>注意：此方法使强制推送，会删除GitHub上的所有的本地分支没有的提交。记住推送完毕后再把RakeFile文件改回来。</p>
+
+<h2>5. 写博客</h2>
+
+<p>Octopress中文章存储在<code>source/_posts</code>目录下，并且需要按照Jekyll的命名规范对文章进行命名：<code>YYYY-MM-DD-post-title.markdown</code>。文章的名字会被当做url的一部分，而其中的日期用于对博文的区分和排序。</p>
+
+<p>通过一下命令，可以正确的按照命名规范创建一个博文，并且在博文中会附带常用的一些yaml元数据。<br/>
+<code>
+rake generate  
+rake deploy    
+</code> <br/>
+其中title为博文的文件名，创建出来的文件默认是markdown格式。上面的命令会创建出这样一个文件：<code>source/_posts/2013-05-03-title.markdown</code>。打开这个文件，可以看到里面有如下一些内容了(告诉Jekyll博客引擎如何处理博文和页面)：</p>
+
+<h2>```</h2>
+
+<p>layout: post<br/>
+title: &ldquo;title&rdquo;
+date: 2013-05-03 16:36<br/>
+comments: true</p>
+
+<h2>categories:   </h2>
+
+<p>```
+接着就可以在这个文件中写博文了。</p>
+
+<p>完成之后，我们可以预览和部署博文。下面是创建并部署博文的一个完整过程：
+<code>
+$ rake new_post["New Post"]  
+$ rake generate  
+$ git add .  
+$ git commit -am "Some comment here."   
+$ git push origin source  
+$ rake deploy  
+</code></p>
+
+<p>参考：<a href="http://octopress.org/docs/blogging/">Blogging Basics</a></p>
+
+<h2>6. 在另一台电脑上重建Octopress</h2>
+
+<p>Octopress的repositories中有两个分支：<code>source</code> and <code>master</code>.</p>
+
+<p>其中<code>source</code>分支存储的是生成静态文件的原始文件，<code>master</code>存储的是生成的静态文件本身.</p>
+
+<p>所以在另一台电脑上恢复Octopress的时候也要分两步进行恢复：</p>
+
+<h3>clone <code>source</code>分支</h3>
+
+<p><code>
+git clone -b source git@github.com:username/username.github.com.git octopress  
+</code></p>
+
+<h3>clone <code>master</code>分支</h3>
+
+<p><code>
+cd octopress  
+git clone git@github.com:username/username.github.com.git _deploy   
+</code></p>
+
+<h3>Setup github pages</h3>
+
+<p><code>
+gem install bundler  
+$ bundle install  
+$ rake setup_github_pages  
+</code></p>
+
+<h3>在两台电脑之间同步</h3>
+
+<h4>1. push on 1 machine</h4>
+
+<p><code>
+$ rake generate  
+$ git add .  
+$ git commit -am "Some comment here."   
+$ git push origin source  # update the remote source branch   
+$ rake deploy             # update the remote master branch  
+</code></p>
+
+<h4>2. pull on the other machine</h4>
+
+<p><code>
+$ cd octopress  
+$ git pull origin source  # update the local source branch  
+$ cd ./_deploy  
+$ git pull origin master  # update the local master branch  
+</code>
+参考： <a href="http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/">Clone Your Octopress to Blog From Two Places</a></p>
+
+<h2>7. 小结：常用命令</h2>
+
+<p>```<br/>
+rake generate  # 生成静态页面 <br/>
+rake preview   # 本地预览: <a href="http://localhost:4000">http://localhost:4000</a> <br/>
+rake deploy    # 发布到github<br/>
+rake new_post[&ldquo;title&rdquo;]   # 新建文章</p>
+
+<p> # 以下命令将source  push 到github<br/>
+git add . <br/>
+git commit -m &lsquo;Initial source commit&rsquo;  <br/>
+git push origin source</p>
+
+<p> # 以下命令将source pull 到本地
+git pull origin source  # update the local source branch<br/>
+cd ./_deploy<br/>
+git pull origin master  # update the local master branch</p>
+
+<p>```</p>
+
+<h2>8. 参考资料</h2>
+
+<ul>
+<li><a href="http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress/">利用Octopress搭建一个Github博客</a></li>
+<li><a href="http://www.yangzhiping.com/tech/octopress.html">Ruby开源项目介绍(1)：octopress——像黑客一样写博客</a></li>
+<li><a href="http://www.lijinma.com/blog/2013/01/23/move-from-wordpress-to-octopress/">博客搬家：从Wordpress迁移到octopress</a></li>
+<li><a href="http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/">象写程序一样写博客：搭建基于github的博客</a></li>
+<li><a href="http://kaworu.github.io/octopress/setup/install/">Octopress3</a></li>
+<li><a href="http://ginsmile.github.io/blog/2013/08/29/octopressbo-ke-ji-qiao/#.U5M_X3WSxhE">Octopress博客技巧</a></li>
+<li><a href="http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/">Clone Your Octopress to Blog From Two Places</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

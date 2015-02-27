@@ -1,0 +1,451 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Spring MVC 实现 REST service - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="Spring MVC 实现 REST Service web.xml &lt;!-- 配置字符过滤器--&gt; &lt;filter&gt; &lt;filter-name&gt;CharacterFilter&lt;/filter-name&gt; &lt;filter-class&gt; &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2013/12/04/spring_mvc_rest/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Spring MVC 实现 REST Service</h1>
+	<div class="entry-content" itemprop="articleBody"><h2>web.xml</h2>
+
+<pre><code>&lt;!-- 配置字符过滤器--&gt;    
+&lt;filter&gt;  
+    &lt;filter-name&gt;CharacterFilter&lt;/filter-name&gt;  
+    &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;  
+    &lt;init-param&gt;  
+        &lt;param-name&gt;encoding&lt;/param-name&gt;  
+        &lt;param-value&gt;UTF-8&lt;/param-value&gt;  
+    &lt;/init-param&gt;  
+&lt;/filter&gt;  
+
+&lt;filter-mapping&gt;  
+    &lt;filter-name&gt;CharacterFilter&lt;/filter-name&gt;  
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;  
+&lt;/filter-mapping&gt;  
+
+&lt;!-- 指定spring配置文件位置 --&gt;  
+&lt;context-param&gt;  
+    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;  
+    &lt;param-value&gt;  
+        &lt;!--加载多个spring配置文件 --&gt;  
+        classpath:spring-homebills-cfg.xml
+    &lt;/param-value&gt;  
+&lt;/context-param&gt;  
+
+&lt;!-- 定义SPRING监听器，加载spring --&gt;  
+&lt;listener&gt;  
+    &lt;listener-class&gt;  
+        org.springframework.web.context.ContextLoaderListener
+    &lt;/listener-class&gt;  
+&lt;/listener&gt;  
+
+&lt;listener&gt;  
+    &lt;listener-class&gt;  
+org.springframework.web.context.request.RequestContextListener
+    &lt;/listener-class&gt;  
+&lt;/listener&gt;   
+
+&lt;servlet&gt;  
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;  
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;  
+    &lt;init-param&gt;  
+        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;  
+        &lt;param-value&gt;classpath:homebills-servlet.xml&lt;/param-value&gt;  
+    &lt;/init-param&gt;  
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;  
+&lt;/servlet&gt;  
+
+&lt;servlet-mapping&gt;  
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;  
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;  
+&lt;/servlet-mapping&gt;  
+</code></pre>
+
+<!--more-->
+
+
+<h2>application-servlet.xml</h2>
+
+<div>
+  <pre><code class='xml'>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;  
+&lt;beans  xmlns=&quot;http://www.springframework.org/schema/beans&quot;  
+       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;
+       xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        &quot;&gt;
+
+    &lt;!--
+        指定使用注解方式配置,配置自动扫描的包名,
+        base-package指定自己应用中控制器所在的包目录
+        &lt;context:component-scan/&gt; 扫描指定的包中的类上的注解，常用的注解有： 
+        @Controller 声明Action组件
+        @Service 声明Service组件
+        @Service(&quot;myMovieLister&quot;) 
+        @Repository 声明Dao组件
+        @Component 泛指组件, 当不好归类时. 
+        @RequestMapping(&quot;/menu&quot;) 请求映射 
+        @Resource用于注入，( j2ee提供的 ) 默认按名称装配，
+        @Resource(name=&quot;beanName&quot;) 
+        @Autowired用于注入，(srping提供的) 默认按类型装配 
+        @Transactional(rollbackFor={Exception.class}) 事务管理 
+        @ResponseBody @Scope(&quot;prototype&quot;)设定bean的作用域
+    --&gt;
+    &lt;context:component-scan base-package=&quot;com.zjun.homebills.controller&quot; /&gt;
+    
+    &lt;!-- 默认的注解映射的支持 --&gt;
+    &lt;!-- JSR-303 support will be detected on classpath and enabled automatically --&gt;
+    &lt;mvc:annotation-driven/&gt;
+    
+    &lt;!-- http://static.springsource.org/spring/docs/3.0.0.RC3/reference/html/ch05s07.html --&gt;&lt;!-- 配置视图解析器 --&gt;
+    &lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;
+        &lt;!-- 配置视图层 使用jstl标签 --&gt;
+        &lt;property name=&quot;viewClass&quot; value=&quot;org.springframework.web.servlet.view.JstlView&quot; /&gt;
+        &lt;!-- 定义视图前缀格式 --&gt;
+        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot; /&gt;
+        &lt;!-- 定义视图后缀格式 --&gt;
+        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot; /&gt;
+    &lt;/bean&gt;  
+&lt;/beans&gt;</code></pre>
+</div>
+
+
+<h2>Controler</h2>
+
+<div>
+  <pre><code class='java'>package com.zjun.homebills.controller;  
+
+import java.util.List;  
+
+import org.springframework.beans.factory.annotation.Autowired;  
+import org.springframework.stereotype.Controller;  
+import org.springframework.ui.Model;  
+import org.springframework.validation.BindingResult;  
+import org.springframework.validation.annotation.Validated;  
+import org.springframework.web.bind.annotation.PathVariable;  
+import org.springframework.web.bind.annotation.RequestMapping;  
+import org.springframework.web.bind.annotation.RequestMethod;  
+
+import com.zjun.homebills.domain.Account;  
+import com.zjun.homebills.service.AccountService;  
+
+@Controller  
+@RequestMapping(value = &quot;/account&quot;)  
+public class AccountController {  
+
+    @Autowired
+    AccountService accountService;
+
+    /**
+     * 
+     * 
+     * Description: 构建REST风格 /account/list的GET请求时才执行该方法的操作RequestMethod.GET表示
+     * 只处理GET请求
+     * 
+     * @param model
+     *            用于上下文参数传递
+     * @return 视图页面 account/list 结合user-servlet.xml中配置的视图模型匹配视图页面
+     *         实例中方法返回表示/WEB-INF/jsp/account/list.jsp页面
+     * 
+     */
+    @RequestMapping(value = &quot;/list&quot;, method = RequestMethod.GET)
+    public String list(Model model) {
+        List&lt;Account&gt; accounts = accountService.getAll();
+        model.addAttribute(&quot;accounts&quot;, accounts);
+        return &quot;account/list&quot;;
+    }
+
+    @RequestMapping(value = &quot;/add&quot;, method = RequestMethod.GET)
+    public String add(Model model) {
+        model.addAttribute(&quot;account&quot;, new Account()); // 开启ModelDriven
+                                                        // 跳转到增加页面时使用该Model
+        return &quot;account/add&quot;;
+    }
+
+    /**
+     * 
+     * Description: 添加操作 请求/account/add form表单提交时使用的post请求调用该方法
+     * 
+     * @param user
+     *            添加的User对象
+     * @param br
+     *            验证绑定
+     * @return 视图页面 添加成功 请求重定向redirect:/account/list 表示执行操作结束后请求定向为/user/users
+     *         添加失败 页面转到/WEB-INF/jsp/add.jsp 这里有验证绑定,将在视图页面展示验证错误信息
+     * @throws Exception
+     * 
+     */
+    @RequestMapping(value = &quot;/add&quot;, method = RequestMethod.POST)
+    public String add(@Validated Account account, BindingResult br)
+            throws Exception {
+        // 需要说明的是BindingResult形参一定要跟@Validated修饰的形参后面写验证
+        if (br.hasErrors()) { // 如果有错误,直接跳转到添加视图
+            return &quot;account/add&quot;; // 服务端跳转 该跳转会自动在前面增加 forward
+        }
+        accountService.save(account);
+        return &quot;redirect:/account/list&quot;; // 客户端跳转 使用 redirect
+    }
+
+    /**
+     * 
+     * 
+     * Description: 预更新操作根据用户名查询用户信息 然后数据交给携带体 展示到视图 REST风格: /更新的用户的用户名/update
+     * 
+     * @param username
+     * @PathVariable修饰 表示形参同URL中的请求参数
+     * @param model
+     *            携带数据的Model
+     * @return 视图页面/WEB-INF/jsp/account/update页面
+     * 
+     */
+    @RequestMapping(value = &quot;/{id}/update&quot;, method = RequestMethod.GET)
+    public String update(@PathVariable Integer id, Model model) {
+        System.out.println(&quot;获取到传入的参数值为:&quot; + id);
+        Account account = accountService.findById(id);
+        model.addAttribute(account);
+        return &quot;account/update&quot;;
+    }
+
+    /**
+     * 
+     * 
+     * Description: 真正更新的操作 REST风格： /更新的id/update
+     * 
+     * @param username
+     *            带更新的用户的用户名
+     * @param user
+     *            带更新的用户的信息对象 @Validated修饰表示信息需要被验证
+     * @param br
+     *            验证信息绑定对象 必须紧跟在待验证的信息形参后面
+     * @return 视图页面 更新成功 请求重定向 /account/list 更新失败 转到/WEB-INF/jsp/account/update.jsp页面
+     * 
+     */
+    @RequestMapping(value = &quot;/{id}/update&quot;, method = RequestMethod.POST)
+    public String update(@PathVariable Integer id, @Validated Account account,
+            BindingResult br) {
+        if (br.hasErrors()) { // 如果有错误,直接跳转到修改视图
+            return &quot;account/update&quot;;
+        }
+        accountService.update(account);
+        return &quot;redirect:/account/list&quot;;
+    }
+
+    /**
+     * 
+     * 
+     * Description: 删除操作 REST风格:/删除的id/delete
+     * 
+     * @param username
+     *            删除的用户名 类似表主键,可以标记到整个记录信息
+     * @return 视图页面 请求重定向到 /account/list
+     * 
+     */
+    @RequestMapping(value = &quot;/{id}/delete&quot;, method = RequestMethod.GET)
+    public String delete(@PathVariable Integer id) {
+        System.out.println(&quot;获取到传入的参数值为:&quot; + id);
+        accountService.deleteById(id);
+        return &quot;redirect:/account/list&quot;;
+    }  
+}</code></pre>
+</div>
+
+
+<h2>JSP</h2>
+
+<div>
+  <pre><code class='java'>&lt;%@ page language=&quot;java&quot; import=&quot;java.util.*&quot; pageEncoding=&quot;UTF-8&quot;%&gt;
+&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot; %&gt;
+&lt;%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+&quot;://&quot;+request.getServerName()+&quot;:&quot;+request.getServerPort()+path;
+%&gt;
+
+&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;base href=&quot;&lt;%=basePath%&gt;&quot;&gt;
+    &lt;title&gt;&lt;%=basePath%&gt;&lt;/title&gt;
+  &lt;/head&gt;
+  
+  &lt;body&gt;
+    &lt;h2&gt;账户&lt;/h2&gt;   
+    &lt;p&gt;&lt;a href=&quot;&lt;%=basePath %&gt;/account/add&quot;&gt;添加账户&lt;/a&gt;&lt;/p&gt;
+    &lt;table&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;&lt;th&gt;ID&lt;/th&gt;&lt;th&gt;名称&lt;/th&gt;&lt;th&gt;操作&lt;/th&gt;&lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;c:forEach items=&quot;${accounts}&quot; var=&quot;account&quot;&gt;
+            &lt;tr&gt;
+                &lt;td&gt;${account.id }&lt;/td&gt;
+                &lt;td&gt;${account.name }&lt;/td&gt;
+                &lt;td&gt;
+                    &lt;a href=&quot;&lt;%=basePath %&gt;/account/${account.id }/update&quot;&gt;修改&lt;/a&gt;
+                    &lt;a href=&quot;&lt;%=basePath %&gt;/account/${account.id }/delete&quot;&gt;删除&lt;/a&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;/c:forEach&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+    
+  &lt;/body&gt;  
+&lt;/html&gt;</code></pre>
+</div>
+
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2013/12/04/spring_mvc_rest/';
+        var disqus_url = 'http://zjun.github.io/blog/2013/12/04/spring_mvc_rest/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

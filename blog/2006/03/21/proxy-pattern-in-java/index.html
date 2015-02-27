@@ -1,0 +1,285 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>[GoF23] java中的Proxy模式 - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="[GoF23] java中的Proxy模式 代理（Proxy）模式，顾名思义就是对象之间不直接发生联系，而是通过中间的代理人进行沟通。这种关系在现在的娱乐圈中普遍存在：明星通常都有经纪人来代理自己的演出事宜，而不是直接去联系演出商。下面就通过这个实际中的例子来说明代理模式。
+首先画出关系类图： &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2006/03/21/proxy-pattern-in-java/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">[GoF23] java中的Proxy模式</h1>
+	<div class="entry-content" itemprop="articleBody"><p><strong>代理（Proxy）模式</strong>，顾名思义就是对象之间不直接发生联系，而是通过中间的代理人进行沟通。这种关系在现在的娱乐圈中普遍存在：明星通常都有经纪人来代理自己的演出事宜，而不是直接去联系演出商。下面就通过这个实际中的例子来说明代理模式。<br/>
+首先画出<strong>关系类图</strong>：<br/>
+<img src="http://www.blogjava.net/images/blogjava_net/zjun/8140/r_Proxy.jpg" alt="" /></p>
+
+<!-- more -->
+
+
+<p><strong>演艺人士</strong>：包括经纪人和明星，都属于娱乐圈中人。</p>
+
+<pre><code>/**
+ * 演艺人士
+ * 
+ *  @author  zJun
+  */
+public   interface  Artist  {
+     /**
+     * 演出活动
+      */
+     public   void  show(String showType);
+}
+</code></pre>
+
+<p><strong>经纪人</strong>：</p>
+
+<pre><code>/**
+ * 经纪人（参考《Java与模式》－ "代理(Proxy)模式"一章部分代码）
+ * 
+ *  @author  zJun
+ * 
+  */
+public   class  Broker  implements  Artist, InvocationHandler  {
+
+     private  String SIGN  =   " [经纪人] " ;
+
+     //  旗下明星
+     private  Star star;
+
+     /**
+     * 签订和约
+      */
+     public   void  subcontract()  {
+        System.out.println(SIGN  +   " 签订和约 " );
+    }
+
+     /**
+     * 经纪人代明星打理一切演出事宜
+      */
+     public   void  show(String showType)  {
+         //  签约
+        subcontract();
+
+         //  通知明星演出
+         if  (star  ==   null )  {
+            star  =   new  Star();
+        }
+        star.show(showType);
+
+         //  交税
+        payTax();
+    }
+
+     /**
+     * 演出后交税
+      */
+     public   void  payTax()  {
+        System.out.println(SIGN  +   " 演出后交税 " );
+    }
+}
+</code></pre>
+
+<p><strong>明星</strong>：</p>
+
+<pre><code>/**
+ * 明星
+ * 
+ *  @author  zJun
+ * 
+  */
+public   class  Star  implements  Artist  {
+
+     private  String SIGN  =   " [明星] " ;
+
+     public   void  show(String showType)  {
+        System.out.println(SIGN  +  showType);
+    }
+
+}
+</code></pre>
+
+<p><strong>赞助商</strong>：通过联系经纪人安排明星演出</p>
+
+<pre><code>/**
+ * 赞助商: 与经纪人联系安排演出事宜
+ * 
+ *  @author  zJun
+  */
+public   class  Patron  {
+
+     /**
+     *  @param  args
+      */
+     public   static   void  main(String[] args)  {
+        Broker broker  =   new  Broker();
+        broker.show( " 演电影 " );
+        broker.show( " 拍电视 " );
+        broker.show( " 出唱片 " );
+        broker.show( " 演唱会 " );
+    }
+
+}
+</code></pre>
+
+<p><strong>[运行结果]：</strong></p>
+
+<pre><code>[ 经纪人 ] 签订和约  
+[ 明星 ] 演电影  
+[ 经纪人 ] 演出后交税  
+[ 经纪人 ] 签订和约  
+[ 明星 ] 拍电视  
+[ 经纪人 ] 演出后交税  
+[ 经纪人 ] 签订和约  
+[ 明星 ] 出唱片  
+[ 经纪人 ] 演出后交税  
+[ 经纪人 ] 签订和约   
+[ 明星 ] 演唱会  
+[ 经纪人 ] 演出后交税  
+</code></pre>
+
+<p><strong>参考资料</strong>：<br/>
+《Java与模式》 阎宏 电子工业出版社</p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2006/03/21/proxy-pattern-in-java/';
+        var disqus_url = 'http://zjun.github.io/blog/2006/03/21/proxy-pattern-in-java/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

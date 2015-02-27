@@ -1,0 +1,210 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>插入排序 - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="插入排序 插入排序，好比是洗扑克一样，我们将牌分作两堆，每次从后面一堆的牌抽出最前端的牌，然后插入前面一堆牌的适当位置，例如： 排序前： [92], 77, 67, 8, 6, 84, 55, 85, 43, 67 &mdash; 将数组分为两部分，第一个元素为一组 第 1 次排序：[77 92 &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2006/07/10/insert-sort-java/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">插入排序</h1>
+	<div class="entry-content" itemprop="articleBody"><p>插入排序，好比是洗扑克一样，我们将牌分作两堆，每次从后面一堆的牌抽出最前端的牌，然后插入前面一堆牌的适当位置，例如：</p>
+
+<p>排序前： [<strong>92</strong>], 77, 67, 8, 6, 84, 55, 85, 43, 67  &mdash; 将数组分为两部分，第一个元素为一组</p>
+
+<!-- more -->
+
+
+<p>第 1 次排序：[<strong>77 92</strong>] 67 8 6 84 55 85 43 67     &mdash; 将后一组的第一个元素 77 插入前一组的适当位置<br/>
+第 2 次排序：[<strong>67 77 92</strong>] 8 6 84 55 85 43 67     &mdash; 将后一组的第一个元素 67 插入前一组的适当位置<br/>
+第 3 次排序：[<strong>8 67 77 92</strong>] 6 84 55 85 43 67     &mdash; 将后一组的第一个元素 8 插入前一组的适当位置 <br/>
+第 4 次排序：[<strong>6 8 67 77 92 84</strong>] 55 85 43 67      &mdash; 将后一组的第一个元素 6 插入前一组的适当位置<br/>
+第 5 次排序：[<strong>6 8 67 77 84 92 55</strong>] 85 43 67      &mdash; 将后一组的第一个元素 84 插入前一组的适当位置<br/>
+第 6 次排序：[<strong>6 8 55 67 77 84 92 85</strong>] 43 67      &mdash; 将后一组的第一个元素 55 插入前一组的适当位置<br/>
+第 7 次排序：[<strong>6 8 55 67 77 84 85 92 43</strong>] 67      &mdash; 将后一组的第一个元素 85 插入前一组的适当位置<br/>
+第 8 次排序：[<strong>6 8 43 55 67 77 84 85 92</strong>] 67      &mdash; 将后一组的第一个元素 43 插入前一组的适当位置<br/>
+第 9 次排序：[<strong>6 8 43 55 67 67 77 84 85 92</strong>]      &mdash; 将后一组的第一个元素 67 插入前一组的适当位置</p>
+
+<p><strong>Java代码实现</strong>，如下：</p>
+
+<pre><code>/**  
+  * 插入排序  
+  *   @param   data：等代排序整型数组  
+  *     data = { 92, 77, 67, 8, 6, 84, 55, 85, 43, 67 }  
+  *     排序结果：  
+  *        第 1 次排序：77 92 67 8 6 84 55 85 43 67   
+  *        第 2 次排序：67 77 92 8 6 84 55 85 43 67   
+  *        第 3 次排序：8 67 77 92 6 84 55 85 43 67   
+  *        第 4 次排序：6 8 67 77 92 84 55 85 43 67   
+  *        第 5 次排序：6 8 67 77 84 92 55 85 43 67   
+  *        第 6 次排序：6 8 55 67 77 84 92 85 43 67   
+  *        第 7 次排序：6 8 55 67 77 84 85 92 43 67   
+  *        第 8 次排序：6 8 43 55 67 77 84 85 92 67   
+  *        第 9 次排序：6 8 43 55 67 67 77 84 85 92   
+    */    
+public   void  insertSort( int  data[])  {
+         int  k, temp, max  =  data.length;
+
+         for  ( int  i  =   1 ; i  &lt;  max; i ++ )  {
+            temp  =  data[i];  //  后一组的第一个元素
+            k  =  i  -   1 ;  //  从前一组的最后一个元素开始比较
+             while  (temp  &lt;  data[k])  {
+                data[k  +   1 ]  =  data[k];  //  如果前一组元素大于后一组第一个元素，则后移
+                k -- ;
+                 if  (k  ==   - 1 )
+                     break ;  //  如果前一组元素比较完，则跳出
+            }
+            data[k  +   1 ]  =  temp;  //  插入适当的位置
+
+            System.out.print( "  第   "   +  i  +   "   次排序：  " );
+             for  ( int  j  =   0 ; j  &lt;=  max  -   1 ; j ++ )  {
+                System.out.print(data[j]  +   "     " );
+            }
+            System.out.println();
+        }
+    }
+</code></pre>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2006/07/10/insert-sort-java/';
+        var disqus_url = 'http://zjun.github.io/blog/2006/07/10/insert-sort-java/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

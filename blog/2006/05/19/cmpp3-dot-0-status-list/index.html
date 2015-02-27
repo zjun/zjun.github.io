@@ -1,0 +1,233 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>[转]CMPP3.0状态报告 - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="[转]CMPP3.0状态报告 CMPP3.0状态报告,原文在这里 CB:0001 非神州行预付费用户 CB:0005 PPS用户状态异常（包括未头次使用、储值卡被封锁、储值卡进入保留期、储值卡挂失） CB:0007 用户余额不足
+CA 0054 发送消息失败 CB 0001 非神州行预付费用户（ &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2006/05/19/cmpp3-dot-0-status-list/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">[转]CMPP3.0状态报告</h1>
+	<div class="entry-content" itemprop="articleBody"><h2>CMPP3.0状态报告,原文在<a href="http://tbbs.spforum.net/viewthread.php?fid=43&amp;tid=72656">这里</a>  </h2>
+
+<!-- more -->
+
+
+<p>CB:0001        非神州行预付费用户     <br/>
+CB:0005        PPS用户状态异常（包括未头次使用、储值卡被封锁、储值卡进入保留期、储值卡挂失）     <br/>
+CB:0007        用户余额不足
+CA 0054  发送消息失败</p>
+
+<p>CB 0001   非神州行预付费用户（用户已经被销号）</p>
+
+<p>CB 0002  数据库操作失败</p>
+
+<p>CB 0053  梦网用户不存在
+CB0005 移动用户帐户数据异常</p>
+
+<p>CB0007 用户余额不足
+DELIVRD        消息发送成功     <br/>
+EXPIRED        表示因为用户长时间关机或者不在服务区等导致的短信息超时没有递交到用户手机上     <br/>
+REJECTD        消息因为某些原因被拒绝     <br/>
+UNDELIV        表示全球通用户因为状态不正确如处于停机、挂起等状态而导致的用户无法享受服务     <br/>
+MC:xxxx        系统未从短信中心接收到状态报告     <br/>
+MC:xxxx        没有从SMSC处接收到状态报告时的状态报告</p>
+
+<p>MI:xxxx        同“EXPIRED”     <br/>
+MN:xxxx        同“REJECTD”     <br/>
+MB:0066 短信中心回的，超作最大发送次数</p>
+
+<p>可能是手机满了。<br/>
+MK:0015 可能是手机满了。<br/>
+MK:xxxx        同“UNDELIV”<br/>
+网关返回大量的DA:0054错误<br/>
+原因分析：
+  出现这个问题是由于网关发送鉴权批价请求到MISC时，MISC不给响应或者网关和MISC连接阻塞引起；</p>
+
+<p>DB:0100        手机号码不存在     <br/>
+DB:0101        手机号码错误     <br/>
+DB:0102        用户停机        用户冲值后，要主动上行一条信息到SP，才能激活用户的短信接收服务
+DB:0103        用户欠费     <br/>
+DB:0104        用户没有使用该业务的权限     <br/>
+DB:0105        业务代码错误     <br/>
+DB:0106        服务代码错误     <br/>
+DB:0107        业务不存在     <br/>
+DB:0108        该业务暂停服务     <br/>
+DB:0109        该服务种类不存在     <br/>
+DB:0110        该服务种类尚未开通     <br/>
+DB:0111        该业务尚未开通     <br/>
+DB:0112        SP代码错误     <br/>
+DB:0113        SP不存在     <br/>
+DB:0114        SP暂停服务     <br/>
+DB:0115        用户没有定购该业务     <br/>
+DB:0116        用户暂停定购该业务     <br/>
+DB:0117        该业务不能对该用户开放     <br/>
+DB:0118        用户已经订购了该业务     <br/>
+DB:0119        用户不能取消该业务     <br/>
+DB:0120        话单格式错误     <br/>
+DB:0121        没有该类业务     <br/>
+DB:0122        接收异常     <br/>
+DB:0123        业务价格为负     <br/>
+DB:0124        业务价格格式错误     <br/>
+DB:0125        业务价格超出范围     <br/>
+DB:0126        该用户不是神州行用户     <br/>
+DB:0127        该用户没有足够的余额     <br/>
+DB:0128        补款,冲正失败     <br/>
+DB:0129        用户已经是梦网用户     <br/>
+DB:0130        用户在BOSS中没有相关用户数据     <br/>
+DB:0131        BOSS系统数据同步出错     <br/>
+DB:0132        相关信息不存在     <br/>
+DB:0133        用户数据同步出错     <br/>
+DB:0134        SP数据同步出错     <br/>
+DB:0135        业务数据同步出错     <br/>
+DB:0136        用户密码错误     <br/>
+DB:0137        伪码信息错误     <br/>
+DB:0138        用户相关信息不存在     <br/>
+DB:0140        用户未点播该业务     <br/>
+DB:9001        网络异常     <br/>
+DB:9007        业务网关超过限制的流量</p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2006/05/19/cmpp3-dot-0-status-list/';
+        var disqus_url = 'http://zjun.github.io/blog/2006/05/19/cmpp3-dot-0-status-list/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

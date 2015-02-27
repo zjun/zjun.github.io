@@ -1,0 +1,378 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Go笔记2：基础语法 - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="Go笔记2：基础语法 变量 说明：
+1. 使用var关键字是Go最基本的定义变量方式，Go把变量类型放在变量名后面；
+2. _（下划线）是个特殊的变量名，任何赋予它的值都会被丢弃； _, b := 34, 35 //将值35赋予b，并同时丢弃34 Go对于已声明但未使用的变量会在编译阶段报错； &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2013/10/27/go_note_2_basic_grammar/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Go笔记2：基础语法</h1>
+	<div class="entry-content" itemprop="articleBody"><h2>变量</h2>
+
+<p><strong>说明：</strong><br/>
+1. 使用var关键字是Go最基本的定义变量方式，Go把变量类型放在变量名后面；<br/>
+2. _（下划线）是个特殊的变量名，任何赋予它的值都会被丢弃；</p>
+
+<div>
+  <pre><code class='go'>_, b := 34, 35 //将值35赋予b，并同时丢弃34</code></pre>
+</div>
+
+
+<ol>
+<li>Go对于已声明但未使用的变量会在编译阶段报错；</li>
+</ol>
+
+
+<!--more-->
+
+
+<div>
+  <pre><code class='go'>var variableName type //定义一个名称为“variableName”，类型为&quot;type&quot;的变量  
+var vname1, vname2, vname3 type //定义三个类型都是“type”的三个变量  
+var variableName type = value //初始化“variableName”的变量为“value”值，类型是“type”  
+var vname1, vname2, vname3 type= v1, v2, v3 //定义三个类型都是&quot;type&quot;的三个变量,并且它们分别初始化相应的值   
+var vname1, vname2, vname3 = v1, v2, v3 // 定义三个变量，它们分别初始化相应的值,Go会根据其相应值的类型来初始化它们  
+vname1, vname2, vname3 := v1, v2, v3 //**:=**这个符号直接取代了var和type,这种形式叫做简短声明,只能用在函数内部；在函数外部使用var方式来定义全局变量</code></pre>
+</div>
+
+
+<h2>常量</h2>
+
+<p><strong>说明：</strong><br/>
+1. 在Go程序中，常量可定义为<strong>数值</strong>、<strong>布尔值</strong>或<strong>字符串</strong>等类型；</p>
+
+<div>
+  <pre><code class='go'>const constantName = value  
+  
+const Pi float32 = 3.1415926  //如果需要，也可以明确指定常量的类型</code></pre>
+</div>
+
+
+<h2>基础类型</h2>
+
+<ul>
+<li>布尔型：类型为bool，值是true或false，默认为false;</li>
+<li>数值类型:
+
+<ol>
+<li>整数类型: 有无符号和带符号两种 &ndash; int和uint，这两种类型的长度相同;</li>
+<li>浮点类型: 有float32和float64两种（没有float类型），默认是float64;</li>
+<li>复数: 它的默认类型是complex128（64位实数+64位虚数）,也有complex64(32位实数+32位虚数) ;</li>
+</ol>
+</li>
+<li>字符串: 类型是string, 是用一对双引号（&#8221;&ldquo;）或反引号（<code></code>）括起来定义;
+
+<ol>
+<li>Go中字符串是不可变的;</li>
+<li>可以将字符串转换为 []byte 类型数组，修改后在转换回 []string 数组，例如下面的例子：</li>
+</ol>
+</li>
+</ul>
+
+
+<div>
+  <pre><code class='go'>s := &quot;hello&quot;  
+c := []byte(s)  // 将字符串 s 转换为 []byte 类型  
+c[0] = &#39;c&#39;  
+s2 := string(c)  // 再转换回 string 类型  
+fmt.Printf(&quot;%s\n&quot;, s2)</code></pre>
+</div>
+
+
+<ol>
+<li> Go中使用+操作符来连接两个字符串；</li>
+<li><p> 使用反引号（<code></code>）来申明多行字符串：<strong>` 括起的字符串为Raw字符串，即字符串在代码中的形式就是打印时的形式，它没有字符转义，换行也将原样输出</strong>；</p></li>
+<li><p>错误类型：内置有一个error类型，专门用来处理错误信息，Go的package里面还专门有一个包errors来处理错误：</p></li>
+</ol>
+
+
+<div>
+  <pre><code class='go'>err := errors.New(&quot;emit macho dwarf: elf header corrupted&quot;)  
+if err != nil {  
+    fmt.Print(err)  
+}</code></pre>
+</div>
+
+
+<h2>分组声明</h2>
+
+<p>同时声明多个常量、变量，或者导入多个包时，可采用分组的方式进行声明：</p>
+
+<div>
+  <pre><code class='go'>import(  
+    &quot;fmt&quot;  
+    &quot;os&quot;  
+)  
+ 
+const(  
+    i = 100  
+    pi = 3.1415  
+    prefix = &quot;Go_&quot;  
+)  
+ 
+var(  
+    i int  
+    pi float32  
+    prefix string  
+)</code></pre>
+</div>
+
+
+<h2>iota枚举</h2>
+
+<p>关键字<strong>iota</strong>用来声明enum的时候采用，它默认开始值是0，每调用一次加1：</p>
+
+<div>
+  <pre><code class='go'>const(  
+    x = iota  // x == 0  
+    y = iota  // y == 1  
+    z = iota  // z == 2  
+    w  // 常量声明省略值时，默认和之前一个值的字面相同。这里隐式地说w = iota，因此w == 3。其实上面y和z可同样不用&quot;= iota&quot;  
+)
+ 
+const v = iota // 每遇到一个const关键字，iota就会重置，此时v == 0  
+ 
+const (  
+  e, f, g = iota, iota, iota //e=0,f=0,g=0 iota在同一行值相同  
+)</code></pre>
+</div>
+
+
+<h2>默认规则</h2>
+
+<ul>
+<li><strong>大写字母开头的变量</strong>是可导出的，也就是其它包可以读取的，是<strong>公用变量</strong>；</li>
+<li><strong>小写字母开头的变量</strong>就是不可导出的，是<strong>私有变量</strong>。</li>
+<li><strong>大写字母开头的函数</strong>也是一样，相当于class中的带<strong>public关键词的公有函数</strong>；</li>
+<li><strong>小写字母开头的函数</strong>就是有<strong>private关键词的私有函数</strong>。</li>
+</ul>
+
+
+<h2>array、slice、map</h2>
+
+<h3>array</h3>
+
+<p>array就是数组，定义方式如下：</p>
+
+<div>
+  <pre><code class='go'>var arr [n]type  //n表示数组的长度，type表示存储元素的类型  
+a := [3]int{1, 2, 3} // 声明了一个长度为3的int数组
+ 
+b := [10]int{1, 2, 3} // 声明了一个长度为10的int数组，其中前三个元素初始化为1、2、3，其它默认为0
+ 
+c := [...]int{4, 5, 6} // 可以省略长度而采用`...`的方式，Go会自动根据元素个数来计算长度  
+
+doubleArray := [2][4]int{[4]int{1, 2, 3, 4}, [4]int{5, 6, 7, 8}} //声明了一个二维数组</code></pre>
+</div>
+
+
+<p><strong>说明：</strong><br/>
+1. 数组不能改变长度；
+2. 数组之间的赋值是值的赋值，即当把一个数组作为参数传入函数的时候，传入的其实是该数组的副本，而不是它的指针;</p>
+
+<h3>slice</h3>
+
+<p>slice是一个引用类型, slice总是指向一个底层array，slice的声明也可以像array一样，只是不需要长度:</p>
+
+<div>
+  <pre><code class='go'>var fslice []int //和声明array一样，只是少了长度  
+
+// 声明一个含有10个元素元素类型为byte的数组
+var ar = [10]byte {&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;, &#39;g&#39;, &#39;h&#39;, &#39;i&#39;, &#39;j&#39;}
+ 
+// 声明两个含有byte的slice
+var a, b []byte
+ 
+// a指向数组的第3个元素开始，并到第五个元素结束，
+a = ar[2:5]
+//现在a含有的元素: ar[2]、ar[3]和ar[4]
+ 
+// b是数组ar的另一个slice
+b = ar[3:5]
+// b的元素是：ar[3]和ar[4]</code></pre>
+</div>
+
+
+<p><strong>说明：声明数组时，方括号内写明了数组的长度或使用&hellip;自动计算长度，而声明slice时，方括号内没有任何字符。</strong></p>
+
+<h3>map</h3>
+
+<p>map的格式为</p>
+
+<pre><code>map[keyType]valueType  
+</code></pre>
+
+<p><strong>说明：</strong><br/>
+&ndash; map是无序的，每次打印出来的map都会不一样，它不能通过index获取，而必须通过key获取<br/>
+&ndash; map的长度是不固定的，也就是和slice一样，也是一种引用类型<br/>
+&ndash; 内置的len函数同样适用于map，返回map拥有的key的数量<br/>
+&ndash; map的值可以很方便的修改，通过numbers[&ldquo;one&rdquo;]=11可以很容易的把key为one的字典值改为11<br/>
+&ndash; map和其他基本型别不同，它不是thread-safe，在多个go-routine存取时，必须使用mutex lock机制<br/>
+&ndash; map的初始化可以通过<strong>key:val</strong>的方式初始化值
+&ndash; map有两个返回值，第二个返回值，如果不存在key，那么ok为false，如果存在ok为true
+&ndash; 通过函数<strong>delete(array,key)</strong>删除map的元素</p>
+
+<h2>make 和 new操作</h2>
+
+<h3>new</h3>
+
+<p>new(T)分配了零值填充的T类型的内存空间，并且返回其地址：</p>
+
+<blockquote><p><strong>new返回指针</strong></p></blockquote>
+
+<h3>make</h3>
+
+<p>make(T, args)只能创建slice、map和channel，并且返回一个有初始值(非零)的T类型，而不是*T:</p>
+
+<blockquote><p><strong>make返回初始化后的（非零）值</strong></p></blockquote>
+
+<h2>参考资料</h2>
+
+<p><a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/ebook/02.2.md">Go Web 编程 ：Go　基础</a></p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2013/10/27/go_note_2_basic_grammar/';
+        var disqus_url = 'http://zjun.github.io/blog/2013/10/27/go_note_2_basic_grammar/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

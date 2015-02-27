@@ -1,0 +1,305 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Go笔记3：面向对象 - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="Go笔记3：面向对象 Go是一个面向对象的语言，但是不同于Java，C++中略显复杂的面向对象思想，Golang 则将 OOP 思想做了极大的简化，只留下了最核心的特征：你可以给任何类型（包括内置类型）“增加”新方法。而在实现某个接口时，只需要实现该接口要求的所有方法即可。 &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2013/12/19/go_note_3_object/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Go笔记3：面向对象</h1>
+	<div class="entry-content" itemprop="articleBody"><p>Go是一个面向对象的语言，但是不同于Java，C++中略显复杂的面向对象思想，Golang 则将 OOP 思想做了极大的简化，只留下了最核心的特征：你可以给任何类型（包括内置类型）“增加”新方法。而在实现某个接口时，<strong>只需要实现该接口要求的所有方法即可</strong>。</p>
+
+<p>接下来就是我对Go语言面向对象的特点一些总结。</p>
+
+<!--more-->
+
+
+<h2>对象</h2>
+
+<p>Golang中没有类似于Java中的Class对象，而是和C类似，通过结构体 struct 来实现的：</p>
+
+<div>
+  <pre><code class='go'>type person struct {  
+    name string  
+    age int  
+}</code></pre>
+</div>
+
+
+<p>可以同下面几种方法来声明和初始化 struct 变量：</p>
+
+<ol>
+<li>先声明，后赋值：</li>
+</ol>
+
+
+<div>
+  <pre><code class='go'>var P person  // P现在就是person类型的变量了  
+P.name = &quot;zJun&quot;  // 赋值&quot;Astaxie&quot;给P的name属性  
+P.age = 25  // 赋值&quot;25&quot;给变量P的age属性</code></pre>
+</div>
+
+
+<ol>
+<li>按照顺序提供初始化值</li>
+</ol>
+
+
+<div>
+  <pre><code class='go'>P := person{&quot;Tom&quot;, 25}</code></pre>
+</div>
+
+
+<ol>
+<li>通过field:value的方式初始化，可以任意顺序</li>
+</ol>
+
+
+<div>
+  <pre><code class='go'>P := person{age:24, name:&quot;Tom&quot;}</code></pre>
+</div>
+
+
+<ol>
+<li>通过new函数分配一个指针，此处P的类型为*person</li>
+</ol>
+
+
+<div>
+  <pre><code class='go'>P := new(person)</code></pre>
+</div>
+
+
+<h2>继承</h2>
+
+<p>Golang中继承是通过<strong>匿名变量</strong>实现的：<br/>
+<strong>匿名字段</strong>，也称为嵌入字段 &ndash; 只提供类型，而不写字段名的变量。<br/>
+当匿名字段是一个struct的时候，那么这个struct所拥有的全部字段都被隐式地引入了当前定义的这个struct。  比如下面的例子：</p>
+
+<div>
+  <pre><code class='go'>type Human struct {  
+    name string  
+    age int  
+    weight int  
+}  
+ 
+type Student struct {  
+    Human  // 匿名字段，默认Student包含了Human的所有字段  
+    speciality string  
+}  
+
+func main() {  
+    // 初始化一个学生  
+    mark := Student{Human{&quot;Mark&quot;, 25, 120}, &quot;Computer Science&quot;}  
+ 
+    // 访问相应的字段  
+    fmt.Println(&quot;His name is &quot;, mark.name)  
+    fmt.Println(&quot;His age is &quot;, mark.age)  
+    fmt.Println(&quot;His weight is &quot;, mark.weight)  
+    fmt.Println(&quot;His speciality is &quot;, mark.speciality)  
+}</code></pre>
+</div>
+
+
+<h2>方法</h2>
+
+<p>上面我们已经看到在Golang中可以通过 struct 来定义对象的属性(变量)，但是还不能直接在 struct 中定义方法(method),下面我们就来看看如何在Golang中定义一个对象的方法：</p>
+
+<h3>定义</h3>
+
+<p>method的语法如下：</p>
+
+<div>
+  <pre><code class='go'>func (r ReceiverType) funcName(parameters) (results)</code></pre>
+</div>
+
+
+<p>其中的 ReceiverType(接收者)如果是自定义的struct类型，那么这个方法就是struct的一个方法，可以通过下面的方式调用：</p>
+
+<div>
+  <pre><code class='go'>r.funcName(param);</code></pre>
+</div>
+
+
+<h3>方法的继承</h3>
+
+<p>和前面提到的一样，方法也可以通过匿名方法的方式进行继承：如果一个对象中有一个匿名字段实现了方法，那么在这个对象中也继承了这个方法，比如下面的例子：</p>
+
+<div>
+  <pre><code class='go'>type Human struct {  
+    name string  
+    age int  
+    phone string  
+}  
+ 
+type Student struct {  
+    Human //匿名字段  
+    school string  
+}  
+   
+//在human上面定义了一个method  
+func (h *Human) SayHi() {  
+    fmt.Printf(&quot;Hi, I am %s you can call me on %s%n&quot;, h.name, h.phone)  
+}  
+ 
+func main() {  
+    mark := Student{Human{&quot;Mark&quot;, 25, &quot;222-222-YYYY&quot;}, &quot;MIT&quot;}
+ 
+    mark.SayHi()  
+}</code></pre>
+</div>
+
+
+<h3>方法重写</h3>
+
+<p>Golang不支持方法的重载(override)，但是可以对方法进行重写(overwrite),实现的方式也很简单：<strong>直接在子类中实现一个相同的方法</strong>。在调用时，会优先调用子类自己实现的方法，如果没有找到才会向上寻找调用父类(匿名变量)中的方法。</p>
+
+<h2>参考资料</h2>
+
+<p><a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/ebook/02.5.md">Go Web 编程：面向对象</a><br/>
+<a href="http://www.oschina.net/translate/go-object-oriented-design">Go 面向对象</a></p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2013/12/19/go_note_3_object/';
+        var disqus_url = 'http://zjun.github.io/blog/2013/12/19/go_note_3_object/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

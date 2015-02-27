@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Web开发 | zJun's Notes]]></title>
+  <link href="http://zjun.github.io/blog/categories/webkai-fa/atom.xml" rel="self"/>
+  <link href="http://zjun.github.io/"/>
+  <updated>2014-10-26T17:54:42+08:00</updated>
+  <id>http://zjun.github.io/</id>
+  <author>
+    <name><![CDATA[zJun]]></name>
+    <email><![CDATA[zjun101@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Forward & Redirect]]></title>
+    <link href="http://zjun.github.io/blog/2006/09/19/forward-and-redirect/"/>
+    <updated>2006-09-19T18:33:00+08:00</updated>
+    <id>http://zjun.github.io/blog/2006/09/19/forward-and-redirect</id>
+    <content type="html"><![CDATA[<blockquote><p>使用forward的話，網址列上並不會出現被轉發的目標位址，而且forward是在Web應用程式之內進行，可以訪問Web應用程式的隱藏目錄，像是WEB-INF，然而forward只能在Web應用程式中進行，不能指定至其它的Web應用程式位址。</p>
+
+<p>使用redirect的話，是要求客戶端瀏覽器重新發出一個指定的請求位址，因此網址列上會出現被重導的目錄位址，重導的請求是由瀏覽器發出，所以不能訪問Web應用程式中的隱藏目錄，像是WEB-INF，然而重導是重新要求一個網頁，所以可以指定至其它的Web應用程式位址。</p></blockquote>
+]]></content>
+  </entry>
+  
+</feed>

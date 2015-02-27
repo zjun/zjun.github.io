@@ -1,0 +1,235 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>使用 StringUtils 工具类 - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="使用 StringUtils 工具类 org.apache.commons.lang.StringUtils中提供许多有用的字符串操作方法，了解这些方法，我们可以避免许多不必要的重复工作。下面介绍其中比较有用的几个方法： 检查空字符串： StringUtils.isBlank(String &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2006/07/27/using-stringutils/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">使用 StringUtils 工具类</h1>
+	<div class="entry-content" itemprop="articleBody"><p>org.apache.commons.lang.StringUtils中提供许多有用的字符串操作方法，了解这些方法，我们可以避免许多不必要的重复工作。下面介绍其中比较有用的几个方法：</p>
+
+<!-- more -->
+
+
+<p><strong>检查空字符串：</strong></p>
+
+<pre><code>StringUtils.isBlank(String str);  
+StringUtils.isNotBlank(String str);
+</code></pre>
+
+<p><strong>缩写字符串：</strong></p>
+
+<pre><code>String test  =   " This is a test of the abbreviation. ";  
+System.out.println( StringUtils.abbreviate( test,  10  ) );
+</code></pre>
+
+<p>[<strong>Console输出</strong>]</p>
+
+<blockquote><p>This is&hellip;</p></blockquote>
+
+<p><strong>查找嵌套字符串：</strong></p>
+
+<pre><code>String htmlContent  =   " &lt;html&gt;\n "   +  
+                      "   &lt;head&gt;\n "   +  
+                      "     &lt;title&gt;Test Page&lt;/title&gt;\n "   +  
+                      "   &lt;/head&gt;\n "   +  
+                      "   &lt;body&gt;\n "   +  
+                      "     &lt;p&gt;This is a TEST!&lt;/p&gt;\n "   +  
+                      "   &lt;/body&gt;\n "   +  
+                      " &lt;/html&gt; " ;  
+
+//  Extract the title from this XHTML content   
+String title  =  StringUtils.substringBetween(htmlContent,  " &lt;title&gt; " ,  " &lt;/title&gt; " );
+System.out.println(  " Title:  "   +  title );
+</code></pre>
+
+<p>[<strong>Console输出</strong>]</p>
+
+<blockquote><p>Title: Test Page</p></blockquote>
+
+<p><strong>验证字符串：</strong></p>
+
+<pre><code>String test1  =   " ORANGE " ;  
+String test2  =   " ICE9 " ;  
+String test3  =   " ICE CREAM " ;  
+String test4  =   " 820B Judson Avenue " ;  
+boolean  t1val  =  StringUtils.isAlpha( test1 );  //  returns true  
+boolean  t2val  =  StringUtils.isAlphanumeric( test2 );  //  returns true   
+boolean  t3val  =  StringUtils.isAlphaSpace( test3 );  //  returns true  
+boolean  t4val  =  StringUtils.isAlphanumericSpace( test4 );  //  returns true  
+</code></pre>
+
+<p><strong>计算字符串出现频率：</strong></p>
+
+<pre><code>File manuscriptFile  =   new  File( " manuscript.txt " );  
+Reader reader  =   new  FileReader( manuscriptFile );  
+StringWriter stringWriter  =   new  StringWriter( );  
+while ( reader.ready( ) )  { writer.write( reader.read( ) ); }  
+String manuscript  =  stringWriter.toString( );  
+//  Convert string to lowercase  
+manuscript  =  StringUtils.lowerCase(manuscript);  
+//  count the occurrences of "futility"  
+int  numFutility  =  StringUtils.countMatches( manuscript,  " futility "  );   
+</code></pre>
+
+<p><strong>比较不同字符串：</strong></p>
+
+<pre><code>int  dist  =  StringUtils.getLevenshteinDistance(  " Word " ,  " World "  );  
+String diff  =  StringUtils.difference(  " Word " ,  " World "  );  
+int  index  =  StringUtils.indexOfDifference(  " Word " ,  " World "  );  
+System.out.println(  " Edit Distance:  "   +  dist );  
+System.out.println(  " Difference:  "   +  diff );  
+System.out.println(  " Diff Index:  "   +  index );  
+</code></pre>
+
+<p>[<strong>Console输出</strong>]</p>
+
+<blockquote><p>Edit Distance:  2<br/>
+Difference: ld<br/>
+Diff Index:  3</p></blockquote>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2006/07/27/using-stringutils/';
+        var disqus_url = 'http://zjun.github.io/blog/2006/07/27/using-stringutils/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

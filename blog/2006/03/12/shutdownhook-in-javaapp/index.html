@@ -1,0 +1,247 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>为程序加上关闭钩子(ShutdownHook) - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="为程序加上关闭钩子(ShutdownHook) “关闭钩子”（ShutdownHook）是这样一个概念：向虚拟机注册一个线程，当程序退出(Ctrl+C)时虚拟机会启动这个线程,我们可以在这个线程的run()中做一些清除的工作,如:释放数据库连接,关闭文件等. 说明 &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2006/03/12/shutdownhook-in-javaapp/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">为程序加上关闭钩子(ShutdownHook)</h1>
+	<div class="entry-content" itemprop="articleBody"><p>“<strong>关闭钩子</strong>”（ShutdownHook）是这样一个概念：向虚拟机注册一个线程，当程序退出(Ctrl+C)时虚拟机会启动这个线程,我们可以在这个线程的run()中做一些清除的工作,如:<strong>释放数据库连接,关闭文件</strong>等.</p>
+
+<h2>说明</h2>
+
+<p>shutdownhook通常用来在Ctrl+C退出时触发清理工作(多是在后台服务中，这种服务通常是24*7运行的，正常情况下是不退出的)，如果能够在程序中显式地确定退出的时机，那么最好是直接在退出前做清理，不用搞得这么复杂。</p>
+
+<!-- more -->
+
+
+<h2>注册</h2>
+
+<pre><code>Runtime.getRuntime().addShutdownHook(Thread t); 
+</code></pre>
+
+<h2>注销</h2>
+
+<pre><code>Runtime.getRuntime().removeShutdownHook(Thread t);
+</code></pre>
+
+<p><strong>[例子]</strong></p>
+
+<pre><code>/**
+ * 在这个线程中实现程序退出前的清理工作  
+ * 
+ * @author Administrator  
+ * 
+ */  
+class TestThread extends Thread {
+    boolean isTerminal = false;
+
+    public void run() {
+        while (!isTerminal) {
+               try {
+                  Thread.sleep(1000);
+               } catch (InterruptedException e) {
+                  e.printStackTrace();
+               }
+            System.out.println("run sub thread");
+        }
+    }
+
+    /**
+     * 清理工作
+     */
+    public void onTerminal() {
+        isTerminal = true;
+        System.out.println("stop sun sub thread");
+    }
+}
+
+/**
+ * ShutdownDownHook测试类
+ * 
+ * @author Administrator
+ * 
+ */
+public class TestShutdownHook extends Thread {
+    TestThread testThread;
+
+    public void addThread(TestThread t) {
+        testThread = t;
+    }
+
+    /**
+     * 实现程序退出前的清理工作
+     */
+    public void run() {
+        System.out.println("This is ShutdownHook");
+        testThread.onTerminal();
+    }
+
+    public static void main(String[] args) {
+        TestShutdownHook m = new TestShutdownHook();
+        TestThread t = new TestThread();
+        t.start();
+        m.addThread(t);
+        // 注册退出处理线程
+        Runtime.getRuntime().addShutdownHook(m);
+    }
+}
+</code></pre>
+
+<p><strong>运行结果</strong>:</p>
+
+<pre><code>run sub thread  
+run sub thread  
+run sub thread  
+run sub thread  
+This is ShutdownHook  
+stop sun sub thread  
+</code></pre>
+
+<p>可以看到:<strong>当程序退出时启动了TestThread线程，执行了定义的释放工作</strong>。</p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2006/03/12/shutdownhook-in-javaapp/';
+        var disqus_url = 'http://zjun.github.io/blog/2006/03/12/shutdownhook-in-javaapp/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

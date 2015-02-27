@@ -1,0 +1,220 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Go笔记1：环境配置 - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="Go笔记1：环境配置 Go 安装 我的环境是Win7，所以这里主要记录在Win7下安装Go的过程： 首先到这里去下载安装程序，32位系统下载go1.0.3.windows-386.msi，64位系统下载go1.0.3.windows-amd64.msi；
+双击打开下载的文件， &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2013/10/24/go_note_1_install/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Go笔记1：环境配置</h1>
+	<div class="entry-content" itemprop="articleBody"><h2>Go 安装</h2>
+
+<p>我的环境是Win7，所以这里主要记录在Win7下安装Go的过程：</p>
+
+<ul>
+<li>首先到<a href="http://code.google.com/p/go/downloads/list">这里</a>去下载安装程序，32位系统下载go1.0.3.windows-386.msi，64位系统下载go1.0.3.windows-amd64.msi；</li>
+<li>双击打开下载的文件，一路按照默认点击下一步，这个时候go已经安装到你的系统中，默认安装之后已经在你的系统环境变量中加入了c:/go/bin；</li>
+<li>打开cmd，输入go，如果出现Go的Usage信息，那么说明Go已经安装成功了；如果出现该命令不存在，那么可以检查一下PATH环境变中是否包含了Go的安装目录。</li>
+</ul>
+
+
+<!--more-->
+
+
+<p></p>
+
+<h2>GOPATH</h2>
+
+<p>go 命令依赖一个重要的环境变量：$GOPATH。<em>(注：这个不是Go安装目录)</em><br/>
+在Windows中新建一个环境变量名称叫做GOPATH：<code>GOPATH=c:\mygo</code> .</p>
+
+<p>$GOPATH 目录约定有三个子目录：</p>
+
+<ul>
+<li>src 存放源代码（比如：.go .c .h .s等）</li>
+<li>pkg 编译后生成的文件（比如：.a）</li>
+<li>bin 编译后生成的可执行文件（为了方便，可以把此目录加入到 $PATH变量中）</li>
+</ul>
+
+
+<h2>开发工具</h2>
+
+<p>Windows平台上还是有很多Go的开发工具可供选择，比如：<a href="http://code.google.com/p/golangide">LiteIDE</a>， Sublime Text， IntelliJ IDEA&hellip; 这里我还是选择平时最常用最熟悉的Eclipse。步骤如下：</p>
+
+<h3>Eclipse</h3>
+
+<ol>
+<li>下载并安装<a href="http://www.eclipse.org/">Eclipse</a>；</li>
+<li>安装 goclipse 插件：<a href="http://code.google.com/p/goclipse/wiki/InstallationInstructions">http://code.google.com/p/goclipse/wiki/InstallationInstructions</a>;</li>
+<li>下载gocode，用于go的代码补全提示: <code>go get -u github.com/nsf/gocode</code> <em>(注:在Windows中这一步老是报错，然后自动退出，还没有找到原因，如果不能顺利下载gocode的话，可以直接下载gocode.exe文件)</em></li>
+<li>下载 <a href="http://sourceforge.net/projects/mingw/files/MinGW/">MinGW</a> 并按要求装好; <em>(做调试用)</em></li>
+<li>配置插件：<code>Windows-&gt;Reference-&gt;Go</code><br/>
+(1). 配置Go的编译器
+(2). 配置Gocode（可选，代码补全），设置Gocode路径为之前生成的gocode.exe文件;
+(3). 配置GDB（可选，做调试用），设置GDB路径为MingW安装目录下的gdb.exe文件;</li>
+</ol>
+
+
+<p>接下来就可以写一个简单的Go程序来检验安装是否成功了：</p>
+
+<div>
+  <pre><code class='go'>package main
+ 
+import &quot;fmt&quot;
+
+func main(){  
+    fmt.Println(&quot;Hellow World&quot;);  
+}</code></pre>
+</div>
+
+
+<h3>IntelliJ IDEA</h3>
+
+<p>上面提到的 Eclipse 插件在 Win 环境下还是会时不时的出现问题，最后在 CSDN 上看到这篇文章：
+<a href="http://blog.csdn.net/slug302/article/details/16991323">使用Intellij IDEA在Windwos下搭建golang开发环境 (把屎把尿超详细)</a> ，超详细的介绍了在Win7下配置 IntelliJ IDEA 开发 Golang 环境的过程，试过了目前最好的可行方案。</p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2013/10/24/go_note_1_install/';
+        var disqus_url = 'http://zjun.github.io/blog/2013/10/24/go_note_1_install/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

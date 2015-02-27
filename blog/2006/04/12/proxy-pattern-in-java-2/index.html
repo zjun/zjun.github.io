@@ -1,0 +1,297 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>[GoF23]java中的Proxy模式(续) - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="[GoF23]java中的Proxy模式(续) 在 上一篇随笔 中,由于时间和篇幅的关系只是简单介绍了Proxy模式的概念,并没有写到Java中对Proxy模式特有的支持,所以严格说起来是有点&#8221;名不符实&#8221;,现在就接着介绍JDK中Proxy模式的实现: Java &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2006/04/12/proxy-pattern-in-java-2/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">[GoF23]java中的Proxy模式(续)</h1>
+	<div class="entry-content" itemprop="articleBody"><p>在 <a href="http://zjun.github.io/2006/03/21/proxy-pattern-in-java/">上一篇随笔</a> 中,由于时间和篇幅的关系只是简单介绍了Proxy模式的概念,并没有写到Java中对Proxy模式特有的支持,所以严格说起来是有点&#8221;名不符实&#8221;,现在就接着介绍JDK中Proxy模式的实现:</p>
+
+<h2>Java API中提供了对Proxy模式的支持,主要是通过反射(Reflect)包中的<strong>Proxy</strong>类和<strong>InvocationHandler</strong>接口实现,具体过程如下:  </h2>
+
+<!-- more -->
+
+
+<p>(1) 实现<strong>InvocationHandler</strong>接口,在<strong>invoke()</strong>方法中实现代理类要完成的操作;<br/>
+(2) 通过<strong>Proxy.newProxyInstance(ClassLoader loader,Class[]
+interfaces,InvocationHandler h)</strong>方法生成一个代理类,从参数可以看出代理类将实现被代理对象的接口,而具体的实现过程是在上面实现的<strong>InvocationHandler.invoke()</strong>中定义的.</p>
+
+<hr />
+
+<p>我们还是用演艺圈的例子来说明：<br/>
+首先，<strong>类的关系图</strong>需要修改一下：<br/>
+<img src="http://www.blogjava.net/images/blogjava_net/zjun/8140/r_proxy2.gif" alt="" /></p>
+
+<p>可以看出，这里并没有经纪人(Broke)类，而是新增了一个经纪人操作类(BrokeHandler),这是因为通过Proxy.newProxyInstance()方法,Java API将自动为我们生成一个对于Artist接口的代理类(即：Broke),我们只需定义代理的操作即可．</p>
+
+<h2>经纪人工作</h2>
+
+<pre><code>/**
+ * 经纪人工作
+ * 
+ *  @author  zjun
+ *  @version  1.0 create on 2006-4-11 18:06:36
+  */
+public   class  BrokerHandler  implements  InvocationHandler  {
+
+     private  String SIGN  =   "  [经纪人工作]  " ;
+
+     //  旗下明星
+     private  Star star;
+
+     public  BrokerHandler(Star star)  {
+         this .star  =  star;
+    }
+
+     /**
+     * 签订和约
+      */
+     private   void  subcontract()  {
+        System.out.println(SIGN  +   "  签订和约  " );
+    }
+
+     /**
+     * 演出后交税
+      */
+     private   void  payTax()  {
+        System.out.println(SIGN  +   "  演出后交税  " );
+    }
+
+     /**
+     *  @see  java.lang.reflect.InvocationHandler#invoke(java.lang.Object,
+     *      java.lang.reflect.Method, java.lang.Object)
+      */
+     public  Object invoke(Object proxy, Method method, Object[] args)
+             throws  Throwable  {
+        Object obj  =   null ;
+         //  签约
+        subcontract();
+         //  安排艺人演出
+        obj  =  method.invoke(star, args);
+         //  交税
+        payTax();
+         return  obj;
+    }
+}
+</code></pre>
+
+<h2>艺人</h2>
+
+<pre><code>/**
+ * 艺人
+ * 
+ *  @author  zjun
+ *  @version  1.0 create on 2006-4-11 18:05:48
+  */
+public   interface  Artist  {
+     public   void  show(String showType);
+}
+</code></pre>
+
+<h2>明星</h2>
+
+<pre><code>/** 
+ * 明星
+ * 
+ *  @author zjun
+ *  @version 1.0 create on 2006-4-11 18:08:17
+  */
+public   class  Star  implements  Artist  {
+     private  String SIGN  =   "  [明星]  ";
+
+     public   void  show(String showType)  {
+        System.out.println(SIGN  + showType);
+    }
+
+}
+</code></pre>
+
+<h2>演出赞助商</h2>
+
+<pre><code>/**
+ * 演出赞助商
+ * 
+ *  @author zjun
+ *  @version 1.0 create on 2006-4-11 18:30:25
+  */
+public   class  Patron  {
+
+     /** 
+      *  @param args
+      */
+    public   static   void  main(String[] args)  {
+        Star star  =   new Star();
+        BrokerHandler broker  =   new BrokerHandler(star);
+        Artist b  = (Artist) Proxy.newProxyInstance(star.getClass()
+                .getClassLoader(), star.getClass().getInterfaces(), broker);
+        b.show( "  演电影  ");
+        b.show( "  拍电视  ");
+        b.show( "  出唱片  ");
+        b.show( "  演唱会  ");
+
+    }
+}
+</code></pre>
+
+<p><strong>[运行结果]</strong>：</p>
+
+<pre><code>  [ 经纪人工作 ]  签订和约   
+  [ 明星 ]  演电影   
+  [ 经纪人工作 ]  演出后交税   
+  [ 经纪人工作 ]  签订和约   
+  [ 明星 ]  拍电视   
+  [ 经纪人工作 ]  演出后交税   
+  [ 经纪人工作 ]  签订和约   
+  [ 明星 ]  出唱片   
+  [ 经纪人工作 ]  演出后交税   
+  [ 经纪人工作 ]  签订和约   
+  [ 明星 ]  演唱会   
+  [ 经纪人工作 ]   演出后交税   
+</code></pre>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2006/04/12/proxy-pattern-in-java-2/';
+        var disqus_url = 'http://zjun.github.io/blog/2006/04/12/proxy-pattern-in-java-2/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,221 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Struts使用多个配置文件 - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="Struts使用多个配置文件 注：本文是对《使用多个Struts 配置文件》一文的笔记，方便记忆和查询。 1. 使用多个struts-config.xml 文件: 当struts-config.xml 变得越来越大时，维护这个文件变成了一件很痛苦的事。可以根据不同的功能或模块将struts- &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2006/04/27/mutilple-config-files-in-structs/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Struts使用多个配置文件</h1>
+	<div class="entry-content" itemprop="articleBody"><p>注：本文是对《<a href="https://www6.software.ibm.com/developerworks/cn/education/java/j-strutsconfig/index.html">使用多个Struts 配置文件</a>》一文的笔记，方便记忆和查询。</p>
+
+<hr />
+
+<!-- more -->
+
+
+<h1>1. 使用多个struts-config.xml 文件:</h1>
+
+<p>当<strong>struts-config.xml</strong> 变得越来越大时，维护这个文件变成了一件很痛苦的事。可以根据不同的功能或模块将<strong>struts-config.xml</strong> 分解为不同的文件，以方便后期的开发和维护。</p>
+
+<h2>第一步</h2>
+
+<p>按照功能将<strong>struts-config.xml</strong> 划分为几个小文件，具体做法是：
+(1) 将应用程序公共的全局配置放到<strong>struts-config.xml</strong> 中；
+(2) 将相同功能的配置放到同一个配置文件中，如：struts-sms.xml,struts-mms.xml,struts-report.xml。建议所有的配置文件都以struts-做前缀，并且在文件名中表明功能模块；</p>
+
+<h2>第二步</h2>
+
+<p>配置<strong>web.xml</strong>引用多个配置文件：</p>
+
+<pre><code>&lt; servlet &gt;
+     &lt; servlet-name &gt; message &lt;/ servlet-name &gt;
+     &lt; servlet-class &gt; org.apache.struts.action.ActionServlet &lt;/ servlet-class &gt;
+     &lt; init-param &gt;
+       &lt; param-name &gt; config &lt;/ param-name &gt;
+       &lt; param-value &gt; /WEB-INF/struts-config.xml,
+                   /WEB-INF/struts-sms.xml,
+                   /WEB-INF/struts-mms.xml,
+                   /WEB-INF/struts-report.xml 
+       &lt;/ param-value &gt;
+     &lt;/ init-param &gt;
+
+     &lt; load-on-startup &gt; 1 &lt;/ load-on-startup &gt;
+   &lt;/ servlet &gt;
+</code></pre>
+
+<p><strong>注意</strong>：文件间用逗号分隔，包含每个文件的完整路径。</p>
+
+<h1>2. 使用多个资源文件：</h1>
+
+<p>同样的原因，实现多语言的资源文件太大也是一件痛苦的事情，我们也可以将它按照功能分解为几个文件进行维护。</p>
+
+<h2>第一步</h2>
+
+<p>按照功能将内容放入不同的资源文件，不多赘述；</p>
+
+<h2>第二步</h2>
+
+<p>在struts-config.xml中放置资源文件：</p>
+
+<pre><code>&lt; message-resources  parameter ="Resources"  null ="false" /&gt;  
+&lt; message-resources  parameter ="SmsResources"  key ="sms" /&gt;  
+&lt; message-resources  parameter ="MmsResources"  key ="mms" /&gt;  
+&lt; message-resources  parameter ="ReportResources"  key ="report" /&gt;  
+</code></pre>
+
+<p><strong>说明</strong>：这里面的第一个元素（没有 key 属性）成为默认的资源集。所以所有的 JSP 和 servet 都可以通过 servlet 上下文访问这组资源。其他的资源则需要通过指定后面的key值来访问资源。</p>
+
+<h2>第三步</h2>
+
+<p>在页面中引用资源文件：</p>
+
+<pre><code>&lt; bean:message  bundle ="sms"  key ="sms.label.send.name"   /&gt;
+</code></pre>
+
+<p><strong>说明</strong>：属性 bundle用于指定要使用的非默认包，即指定前面在struts-config.xml中的key值。</p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2006/04/27/mutilple-config-files-in-structs/';
+        var disqus_url = 'http://zjun.github.io/blog/2006/04/27/mutilple-config-files-in-structs/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

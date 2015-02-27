@@ -1,0 +1,217 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>选择排序 - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="选择排序 选择排序的思想和插入排序差不多，都是先把排序的对象分作两组，不同点在于选择排序 将要排序的对象 分作一个是已排序的，一个是未排序的，从后端未排序部份选择一个最小值，并放入前端已排序部份的最后一个。 [例子] 排序前： 70 80 31 37 10 1 48 60 33 80
+1. [1 &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2006/07/13/select-sort-java/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">选择排序</h1>
+	<div class="entry-content" itemprop="articleBody"><p>选择排序的思想和插入排序差不多，都是先把排序的对象分作两组，不同点在于选择排序 将要排序的对象 <strong>分作一个是已排序的，一个是未排序的，从后端未排序部份选择一个最小值，并放入前端已排序部份的最后一个。</strong></p>
+
+<!-- more -->
+
+
+<p><strong>[例子]</strong></p>
+
+<p>排序前： 70 80 31 37 10 <strong>1</strong> 48 60 33 80<br/>
+1.      [<strong>1</strong>] 80 31 37 <strong>10</strong> 70 48 60 33 80 选出最小值 1<br/>
+2.      [1 <strong>10</strong>] <strong>31</strong> 37 80 70 48 60 33 80 选出最小值 10<br/>
+3.      [1 10 <strong>31</strong>] 37 80 70 48 60 <strong>33</strong> 80 选出最小值 31<br/>
+4.      [1 10 31 <strong>33</strong>] 80 70 48 60 <strong>37</strong> 80 &hellip;&hellip;<br/>
+5.      [1 10 31 33 <strong>37</strong>] 70 <strong>48</strong> 60 80 80 &hellip;&hellip;<br/>
+6.      [1 10 31 33 37 <strong>48</strong>] 70 <strong>60</strong> 80 80 &hellip;&hellip;<br/>
+7.      [1 10 31 33 37 48 <strong>60</strong>] <strong>70</strong> 80 80 &hellip;&hellip;<br/>
+8.      [1 10 31 33 37 48 60 <strong>70</strong>] <strong>80</strong> 80 &hellip;&hellip;<br/>
+9.      [1 10 31 33 37 48 60 70 <strong>80</strong>] 80 &hellip;&hellip;</p>
+
+<p>[<strong>代码</strong>]</p>
+
+<pre><code>/**   
+  * 选择排序
+  *   @param   data：等待排序整型数组
+  *  
+  *  data = {70, 81, 31, 37, 10, 1, 48, 60, 33, 80}
+  *  排序结果：  
+  *        第 1 次排序：81 70 31 37 10 1 48 60 33 80 
+  *        第 2 次排序：81 80 31 37 10 1 48 60 33 70 
+  *        第 3 次排序：81 80 70 37 10 1 48 60 33 31 
+  *        第 4 次排序：81 80 70 60 10 1 48 37 33 31 
+  *        第 5 次排序：81 80 70 60 48 1 10 37 33 31 
+  *        第 6 次排序：81 80 70 60 48 37 10 1 33 31 
+  *        第 7 次排序：81 80 70 60 48 37 33 1 10 31 
+  *        第 8 次排序：81 80 70 60 48 37 33 31 10 1 
+  *        第 9 次排序：81 80 70 60 48 37 33 31 10 1 
+    */  
+public   void  selectSort( int [] data)  {
+         int  max  =  data.length;
+         int  m, temp;
+
+         for  ( int  i  =   0 ; i  &lt;  max  -   1 ; i ++ )  {
+            m  =  i;
+             for  ( int  j  =  i  +   1 ; j  &lt;=  max  -   1 ; j ++ )  {
+                 if  (data[j]  &gt;  data[m])  {
+                    m  =  j;
+                }
+            }
+
+             if  (m  !=  i)  {
+                temp  =  data[i];
+                data[i]  =  data[m];
+                data[m]  =  temp;
+            }
+
+            System.out.print( " 第  "   +  (i  +   1 )  +   "  次排序： " );
+             for  ( int  k  =   0 ; k  &lt;=  max  -   1 ; k ++ )  {
+                System.out.print(data[k]  +   "   " );
+            }
+            System.out.println();
+        }
+    }
+</code></pre>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2006/07/13/select-sort-java/';
+        var disqus_url = 'http://zjun.github.io/blog/2006/07/13/select-sort-java/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

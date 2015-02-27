@@ -1,0 +1,330 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Go笔记5：访问MySQL数据库 - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="Go笔记5：访问MySQL数据库 安装驱动 MySQL驱动： https://github.com/go-sql-driver/mysql 。 1
+$ go get github.com/go-sql-driver/mysql 连接数据库 1
+2
+3
+4
+5
+6
+7
+import ( &quot &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2014/01/03/go_note_5_accessmysql/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Go笔记5：访问MySQL数据库</h1>
+	<div class="entry-content" itemprop="articleBody"><h2>安装驱动</h2>
+
+<p>MySQL驱动： <a href="https://github.com/go-sql-driver/mysql">https://github.com/go-sql-driver/mysql</a> 。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ go get github.com/go-sql-driver/mysql</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<!--more-->
+
+
+<h2>连接数据库</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kn">import</span> <span class="p">(</span>
+</span><span class='line'>  <span class="s">&quot;database/sql&quot;</span>
+</span><span class='line'>  <span class="s">&quot;fmt&quot;</span>
+</span><span class='line'>  <span class="nx">_</span> <span class="s">&quot;github.com/Go-SQL-Driver/MySQL&quot;</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">db</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">sql</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="s">&quot;mysql&quot;</span><span class="p">,</span> <span class="s">&quot;user:password@/dbname&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h2>关闭数据库连接</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="nx">db</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h2>增删改查</h2>
+
+<h3>查询</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="nx">db</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">sql</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="s">&quot;mysql&quot;</span><span class="p">,</span> <span class="s">&quot;user:password@/dbname?charset=utf8&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="nx">checkErr</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//查询数据  </span>
+</span><span class='line'><span class="nx">rows</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Query</span><span class="p">(</span><span class="s">&quot;SELECT * FROM account&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="nx">checkErr</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="nx">rows</span><span class="p">.</span><span class="nx">Next</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">id</span> <span class="kt">int</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">name</span> <span class="kt">string</span>
+</span><span class='line'>  <span class="nx">err</span> <span class="p">=</span> <span class="nx">rows</span><span class="p">.</span><span class="nx">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">id</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">name</span><span class="p">)</span>
+</span><span class='line'>  <span class="nx">checkErr</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span><span class='line'>  <span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+</span><span class='line'>  <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>新增</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="nx">db</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">sql</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="s">&quot;mysql&quot;</span><span class="p">,</span> <span class="s">&quot;zjun:zjun@/test?charset=utf8&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="nx">checkErr</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span><span class='line'><span class="c1">//插入数据  </span>
+</span><span class='line'><span class="nx">stmt</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Prepare</span><span class="p">(</span><span class="s">&quot;INSERT INTO userinfo(username, departname, created) VALUES(?,?,?)&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="nx">checkErr</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">stmt</span><span class="p">.</span><span class="nx">Exec</span><span class="p">(</span><span class="s">&quot;zjun&quot;</span><span class="p">,</span> <span class="s">&quot;研发部门&quot;</span><span class="p">,</span> <span class="s">&quot;2014-01-03&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="nx">checkErr</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">id</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">res</span><span class="p">.</span><span class="nx">LastInsertId</span><span class="p">()</span>
+</span><span class='line'><span class="nx">checkErr</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>修改</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="c1">//更新数据</span>
+</span><span class='line'><span class="nx">stmt</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Prepare</span><span class="p">(</span><span class="s">&quot;update userinfo set username=? where uid=?&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="nx">checkErr</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">stmt</span><span class="p">.</span><span class="nx">Exec</span><span class="p">(</span><span class="s">&quot;zjunupdate&quot;</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span>
+</span><span class='line'><span class="nx">checkErr</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">affect</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">res</span><span class="p">.</span><span class="nx">RowsAffected</span><span class="p">()</span>
+</span><span class='line'><span class="nx">checkErr</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">affect</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>删除</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="c1">//删除数据</span>
+</span><span class='line'><span class="nx">stmt</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Prepare</span><span class="p">(</span><span class="s">&quot;delete from userinfo where uid=?&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="nx">checkErr</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">stmt</span><span class="p">.</span><span class="nx">Exec</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+</span><span class='line'><span class="nx">checkErr</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">affect</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">res</span><span class="p">.</span><span class="nx">RowsAffected</span><span class="p">()</span>
+</span><span class='line'><span class="nx">checkErr</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">affect</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>参考资料</h2>
+
+<p><a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/ebook/05.2.md">Go Web编程：使用MySQL数据库</a></p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2014/01/03/go_note_5_accessmysql/';
+        var disqus_url = 'http://zjun.github.io/blog/2014/01/03/go_note_5_accessmysql/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

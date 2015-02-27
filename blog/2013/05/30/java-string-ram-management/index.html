@@ -1,0 +1,211 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>关于 Java String 内存管理的几个有趣的例子 - zJun's Notes</title>
+	<meta name="author" content="zJun">
+
+	
+	<meta name="description" content="关于 Java String 内存管理的几个有趣的例子 今天在 OSChina 上看到一篇有趣的文章：关于String内存分配的深入探讨,文章通过几个简单的例子，把Java中String的内存管理的方式解释的很清楚，涨了不少姿势，现根据自己的理解做些笔记在这里： 废话不多说，先上代码： &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="zJun's Notes" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://zjun.github.io/blog/2013/05/30/java-string-ram-management/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='/images/images150.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/blog/about">About</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:zjun101@gmail.com" title="Email">Email</a>
+		
+		
+		
+		
+		
+			<a class="github" href="https://github.com/zjun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">关于 Java String 内存管理的几个有趣的例子</h1>
+	<div class="entry-content" itemprop="articleBody"><p>今天在 <a href="http://www.oschina.net">OSChina</a> 上看到一篇有趣的文章：<a href="http://my.oschina.net/u/551903/blog/134000">关于String内存分配的深入探讨</a>,文章通过几个简单的例子，把Java中String的内存管理的方式解释的很清楚，涨了不少姿势，现根据自己的理解做些笔记在这里：</p>
+
+<!-- more -->
+
+
+<p>废话不多说，先上代码：</p>
+
+<pre><code>public class StringDemo {
+
+    public static final String MESSAGE = "taobao";
+
+    public static void main(String[] args) {
+
+        // ---------------------------------------------
+        String a = "tao" + "bao";
+        String b = "tao";
+        String c = "bao";
+
+        System.out.println(a == MESSAGE);// true
+        System.out.println((b + c) == MESSAGE);// false
+
+        // ---------------------------------------------
+        final String d = "tao";
+        final String e = "bao";
+
+        System.out.println((d + e) == MESSAGE);// true
+
+        // ---------------------------------------------
+        String f = "tao" + "bao";
+        String g = new String("taobao");
+
+        System.out.println(f == MESSAGE); // true
+        System.out.println(g == MESSAGE); // false
+
+        g = g.intern();
+
+        System.out.println(g == MESSAGE); // true
+        System.out.println(f == g.intern()); // true
+        // ---------------------------------------------
+    }
+}
+</code></pre>
+
+<h2>笔记：</h2>
+
+<ul>
+<li>Java中对于编译和运行时能够知道大小的变量（如：引用变量和基本类型的值）存放于<strong>栈内存</strong></li>
+<li>Java中通过 new 产生的变量和大小会在运行时变化的变量(如：数组和链表)存放于<strong>堆内存，但指向对象的引用还是存放在栈内存</strong></li>
+<li><strong>栈内存中的数据会相互共享</strong>，如果新增变量的值在栈中已经存在，那么新变量将指向同一个地址和值，而不会新增一个空间来存放自己的值;如果没有就在该栈内存增加一个该常量，并将变量指向该常量。</li>
+<li>对于<strong>直接赋值的字符串常量</strong>（如String s=“Hello World”；中的Hello World）也是<strong>存放在栈内存中</strong></li>
+<li>堆内存没有数据共享的特点,每次都会新增划分一个空间给新的变量，哪怕是相同的值</li>
+<li>Java <strong>编译器的优化</strong>，会对于<strong>字符串常量的相加</strong>，在编译时<strong>直接</strong>将字符串<strong>合并</strong>，而不是等到运行时再合并，比如：<strong>String a = &ldquo;tao&rdquo;+&ldquo;bao&rdquo;;和String a = &ldquo;taobao&rdquo;;编译出的字节码是一样的</strong></li>
+<li><strong>Java对String的相加是通过StringBuffer实现的</strong>，先构造一个StringBuffer,然后调用append()方法追加，然后将StringBuffer转化成String对象。StringBuffer对象<strong>在堆内存中</strong>，那转换成的String对象理所应当的也是在堆内存中</li>
+<li><strong>intern()</strong>方法会<strong>先检查</strong>String池(或者说成<strong>栈内存</strong>)中是否存在相同的字符串常量，如果有就返回</li>
+<li><strong>final变量</strong>不可能再次赋值了，所以存放在<strong>栈内存里</strong></li>
+</ul>
+
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    zJun
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'zJun';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zjun.github.io/blog/2013/05/30/java-string-ram-management/';
+        var disqus_url = 'http://zjun.github.io/blog/2013/05/30/java-string-ram-management/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
