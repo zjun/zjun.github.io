@@ -3,7 +3,7 @@ layout: post
 title: "用Jekyll+Github+Markdown来写Blog"  
 date: 2013-08-05 21:06:19 +0800
 comments: true
-category: 工具
+category: Others
 ---
 继续折腾，之前使用 Octpress 来写Blog,但用了一段时间以后还是觉得笨重，发布一篇新文章需要把所有页面重新发布一遍，最终还是决定使用定制更灵活的Jekyll.下面就记录一下这次迁移的步骤和遇到的问题。
 

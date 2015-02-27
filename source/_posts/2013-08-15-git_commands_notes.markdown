@@ -3,7 +3,7 @@ layout: post
 title: "Git常用命令笔记"
 date: 2013-08-15 21:06:19 +0800
 comments: true
-category: Git
+category: Others
 ---
 在 [Robin Fan](http://robbinfan.com/) 那里看到一份 [http://robbinfan.com/blog/34/git-common-command](http://robbinfan.com/blog/34/git-common-command "Git常用命令备忘")， 非常的干货，转帖在这里，以备日后查询。
 <!--more-->

@@ -4,7 +4,7 @@ title: "Dojo在IE中的那些坑"
 date: 2013-05-14 17:37
 comments: true
 external-url: 
-categories: Web开发
+categories: Web
 ---
 
 最近的一个小项目中使用的[dojo](http://dojotoolkit.org/)作为前台页面框架。本来很简单的功能，但是发布给用户做  UAT时却发现一堆简单低级的错误，但在开发环境却始终不能重现，百思不得其解...原来用户的测试环境是 IE8，果然问题在这，之前测试是在FireFox，没想到相同的功能在IE中却报错。   

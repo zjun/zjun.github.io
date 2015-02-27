@@ -4,7 +4,7 @@ title: "HighCharts笔记之: Bar Chart"
 date: 2013-03-28 16:52
 comments: true
 external-url: 
-categories: Web开发 
+categories: Web 
 ---
 最近需要做一些Web图标，研究了几个开源的第三方工具后，最后决定使用**HighCharts**开发：
 

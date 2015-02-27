@@ -3,7 +3,7 @@ layout: post
 title: "使用Octopress写博客"
 date: 2013-05-03 21:06:19 +0800
 comments: true
-categories: 工具
+categories: Others
 ---
 `Octopress`是利用`Jekyll`博客引擎开发的一个博客系统，生成的静态页面能够很好的在github page上展现。号称是hacker专属的一个博客系统(`A blogging framework for hackers.`)
 本文就来介绍一下如何利用Octopress搭建一个Github博客。本文需要读者熟悉一些shell命令，并掌握基本的git操作。

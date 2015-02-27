@@ -4,7 +4,7 @@ title: "JSP/Servlet中的事件处理"
 date: 2006-07-20 14:23
 comments: true
 external-url: 
-categories: Web开发
+categories: Web
 ---
 
 

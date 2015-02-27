@@ -4,7 +4,7 @@ title: "[GoF23]java中的Proxy模式(续)"
 date: 2006-04-12 11:06
 comments: true
 external-url: 
-categories: 设计模式
+categories: Java
 ---
 
 在 [上一篇随笔](http://zjun.github.io/2006/03/21/proxy-pattern-in-java/) 中,由于时间和篇幅的关系只是简单介绍了Proxy模式的概念,并没有写到Java中对Proxy模式特有的支持,所以严格说起来是有点"名不符实",现在就接着介绍JDK中Proxy模式的实现:  

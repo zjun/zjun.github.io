@@ -4,7 +4,7 @@ title: "Struts使用多个配置文件"
 date: 2006-04-27 12:39
 comments: true
 external-url: 
-category: 开源框架
+category: Java
 ---
 注：本文是对《[使用多个Struts 配置文件](https://www6.software.ibm.com/developerworks/cn/education/java/j-strutsconfig/index.html)》一文的笔记，方便记忆和查询。  
 

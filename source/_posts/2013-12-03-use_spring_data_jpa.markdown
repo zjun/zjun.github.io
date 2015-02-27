@@ -3,7 +3,7 @@ layout: post
 title: "使用Spring Data JPA 简化持久层的开发"
 date: 2013-12-03 21:06:19 +0800
 comments: true
-category: 开源框架 
+category: Java 
 ---
 最近看到[SpringSide](http://www.springside.org.cn/)最新版的[技术选型](https://github.com/springside/springside4/wiki/Design)中提到了[Spring Data JPA](http://www.springsource.org/spring-data/jpa),号称只需要实现接口就可以实现大部分操作。真有怎么神奇？于是Google一番，果然好使，在这里记录一下：
 <!--more-->
