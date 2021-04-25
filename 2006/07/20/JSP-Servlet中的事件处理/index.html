@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;zjun.gitee.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Mist&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;Searching...&quot;,&quot;empty&quot;:&quot;We didn&#39;t find any results for the search: ${query}&quot;,&quot;hits_time&quot;:&quot;${hits} results found in ${time} ms&quot;,&quot;hits&quot;:&quot;${hits} results found&quot;}}</script>
+<meta name="description" content="写过AWT或Swing程序的人一定对桌面程序的事件处理机制印象深刻：通过实现Listener接口的类可以在特定事件(Event)发生时，呼叫特定的方法来对事件进行响应。 其实我们在编写JSP&#x2F;Servle程序时，也有类似的事件处理机制，所不同的是在JSP&#x2F;Servlet中是在web.xml中注册Listener，由Container在特定事件发生时呼叫特定的实现Listener的类。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSP&#x2F;Servlet中的事件处理">
+<meta property="og:url" content="http://zjun.gitee.io/2006/07/20/JSP-Servlet%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/index.html">
+<meta property="og:site_name" content="zJun&#39;s Blog">
+<meta property="og:description" content="写过AWT或Swing程序的人一定对桌面程序的事件处理机制印象深刻：通过实现Listener接口的类可以在特定事件(Event)发生时，呼叫特定的方法来对事件进行响应。 其实我们在编写JSP&#x2F;Servle程序时，也有类似的事件处理机制，所不同的是在JSP&#x2F;Servlet中是在web.xml中注册Listener，由Container在特定事件发生时呼叫特定的实现Listener的类。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2006-07-20T15:36:11.000Z">
+<meta property="article:modified_time" content="2021-04-21T15:40:33.959Z">
+<meta property="article:author" content="zJun">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://zjun.gitee.io/2006/07/20/JSP-Servlet%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;cn&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;zjun.gitee.io&#x2F;2006&#x2F;07&#x2F;20&#x2F;JSP-Servlet%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86&#x2F;&quot;,&quot;path&quot;:&quot;2006&#x2F;07&#x2F;20&#x2F;JSP-Servlet中的事件处理&#x2F;&quot;,&quot;title&quot;:&quot;JSP&#x2F;Servlet中的事件处理&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>JSP/Servlet中的事件处理 | zJun's Blog</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">zJun's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-时间线"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间线</a></li>
+        <li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Servlet%E4%B8%AD%E7%9A%84Listener%E5%92%8CEvent"><span class="nav-number">1.</span> <span class="nav-text">1. Servlet中的Listener和Event:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%A6%82%E4%BD%95%E6%B3%A8%E5%86%8CServlet%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">2. 如何注册Servlet中的事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Servlet%E4%BA%8B%E4%BB%B6%E7%9A%84%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">3. Servlet事件的应用实例</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zJun"
+      src="/images/me.jpeg">
+  <p class="site-author-name" itemprop="name">zJun</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zjun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zjun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zjun101@qq.com" title="E-Mail → mailto:zjun101@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/zjun101" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;zjun101" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="cn">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2006/07/20/JSP-Servlet%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpeg">
+      <meta itemprop="name" content="zJun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zJun's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JSP/Servlet中的事件处理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2006-07-20 23:36:11" itemprop="dateCreated datePublished" datetime="2006-07-20T23:36:11+08:00">2006-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>写过AWT或Swing程序的人一定对桌面程序的事件处理机制印象深刻：通过实现Listener接口的类可以在特定事件(Event)发生时，呼叫特定的方法来对事件进行响应。</p>
+<p>其实我们在编写JSP/Servle程序时，也有类似的事件处理机制，所不同的是在JSP/Servlet中是在web.xml中注册Listener，由Container在特定事件发生时呼叫特定的实现Listener的类。</p>
+<span id="more"></span>
+
+<h3 id="1-Servlet中的Listener和Event"><a href="#1-Servlet中的Listener和Event" class="headerlink" title="1. Servlet中的Listener和Event:"></a>1. Servlet中的Listener和Event:</h3><p>在JSP 2.0/Servlet 2.4中，共有八个Listener接口，六个Event类别。</p>
+<ul>
+<li><strong>ServletContextListener接口</strong></li>
+</ul>
+<p>[<strong>接口方法</strong>] contextInitialized()与 contextDestroyed()</p>
+<p>[<strong>接收事件</strong>] ServletContextEvent</p>
+<p>[<strong>触发场景</strong>] 在Container加载Web应用程序时（例如启动 Container之后），会呼叫contextInitialized()，而当容器移除Web应用程序时，会呼叫contextDestroyed ()方法。</p>
+<ul>
+<li><strong>ServletContextAttributeListener</strong></li>
+</ul>
+<p>[<strong>接口方法</strong>] attributeAdded()、 attributeReplaced()、attributeRemoved()</p>
+<p>[<strong>接收事件</strong>] ServletContextAttributeEvent</p>
+<p>[<strong>触发场景</strong>] 若有对象加入为application（ServletContext）对象的属性，则会呼叫attributeAdded()，同理在置换属性与移除属性时，会分别呼叫attributeReplaced()、attributeRemoved()。</p>
+<ul>
+<li><strong>HttpSessionListener</strong></li>
+</ul>
+<p>[<strong>接口方法</strong>] sessionCreated()与sessionDestroyed ()</p>
+<p>[<strong>接收事件</strong>] HttpSessionEvent</p>
+<p>[<strong>触发场景</strong>] 在session （HttpSession）对象建立或被消灭时，会分别呼叫这两个方法。</p>
+<ul>
+<li><strong>HttpSessionAttributeListener</strong></li>
+</ul>
+<p>[<strong>接口方法</strong>] attributeAdded()、 attributeReplaced()、attributeRemoved()</p>
+<p>[<strong>接收事件</strong>] HttpSessionBindingEvent</p>
+<p>[<strong>触发场景</strong>] 若有对象加入为session（HttpSession）对象的属性，则会呼叫attributeAdded()，同理在置换属性与移除属性时，会分别呼叫attributeReplaced()、 attributeRemoved()。</p>
+<ul>
+<li><strong>HttpSessionActivationListener</strong></li>
+</ul>
+<p>[<strong>接口方法</strong>] sessionDidActivate()与 sessionWillPassivate()</p>
+<p>[<strong>接收事件</strong>] HttpSessionEvent</p>
+<p>[<strong>触发场景</strong>] Activate与Passivate是用于置换对象的动作，当session对象为了资源利用或负载平衡等原因而必须暂时储存至硬盘或其它储存器时（透过对象序列化），所作的动作称之为Passivate，而硬盘或储存器上的session对象重新加载JVM时所采的动作称之为Activate，所以容易理解的，sessionDidActivate()与 sessionWillPassivate()分别于Activeate后与将Passivate前呼叫。</p>
+<ul>
+<li><strong>ServletRequestListener</strong></li>
+</ul>
+<p>[<strong>接口方法</strong>] requestInitialized()与 requestDestroyed()</p>
+<p>[<strong>接收事件</strong>] RequestEvent</p>
+<p>[<strong>触发场景</strong>] 在request（HttpServletRequest）对象建立或被消灭时，会分别呼叫这两个方法。</p>
+<ul>
+<li><strong>ServletRequestAttributeListener</strong></li>
+</ul>
+<p>[<strong>接口方法</strong>] attributeAdded()、 attributeReplaced()、attributeRemoved()</p>
+<p>[<strong>接收事件</strong>] HttpSessionBindingEvent</p>
+<p>[<strong>触发场景</strong>] 若有对象加入为request（HttpServletRequest）对象的属性，则会呼叫attributeAdded()，同理在置换属性与移除属性时，会分别呼叫attributeReplaced()、 attributeRemoved()。</p>
+<ul>
+<li><strong>HttpSessionBindingListener</strong></li>
+</ul>
+<p>[<strong>接口方法</strong>] valueBound()与valueUnbound()</p>
+<p>[<strong>接收事件</strong>] HttpSessionBindingEvent</p>
+<p>[<strong>触发场景</strong>] 实现HttpSessionBindingListener接口的类别，其实例如果被加入至session（HttpSession）对象的属性中，则会呼叫 valueBound()，如果被从session（HttpSession）对象的属性中移除，则会呼叫valueUnbound()，实现HttpSessionBindingListener接口的类别不需在web.xml中设定。</p>
+<h3 id="2-如何注册Servlet中的事件"><a href="#2-如何注册Servlet中的事件" class="headerlink" title="2. 如何注册Servlet中的事件"></a>2. 如何注册Servlet中的事件</h3><p>实现上面这几个接口的类别，除了HttpSessionBindingListener外,必须在web.xml中向容器注册，容器才会在对应的事件发生时呼叫对应的类别，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt; listener &gt;  </span><br><span class="line">&lt; listener-class &gt; demo.servlet.listener.CustomServletContextListener &lt;&#x2F; listener-class &gt;  </span><br><span class="line">&lt;&#x2F; listener &gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-Servlet事件的应用实例"><a href="#3-Servlet事件的应用实例" class="headerlink" title="3. Servlet事件的应用实例"></a>3. Servlet事件的应用实例</h3><p>看到这里,你也许会有疑问: 了解这些 listener和event 有什么用呢?我平时开发没有用到这些,一样也能完成任务啊.</p>
+<p>不错,在日常的开发中很少用到这些事件处理的方面,但是在某些情况下使用事件处理机制却可以达到事半功倍的效果,例如下面两个例子:</p>
+<p><a target="_blank" rel="noopener" href="http://www.blogjava.net/javaora/archive/2005/09/12/12760.html">利用HttpSessionListener实现网站在线人数统计功能</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.blogjava.net/liuwentao253/archive/2006/11/26/83571.html">使用ServletContextListener在服务器启动和关闭时创建和关闭缓存</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/web/" rel="tag"><i class="fa fa-tag"></i> web</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2006/03/06/%E5%9C%A8javascript%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB/" rel="prev" title="在javascript中实现继承关系">
+                  <i class="fa fa-chevron-left"></i> 在javascript中实现继承关系
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/19/hello-world/" rel="next" title="Hello World">
+                  Hello World <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zJun</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
