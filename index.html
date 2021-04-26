@@ -129,7 +129,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -140,7 +140,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -316,6 +316,339 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2006/07/20/JSP-Servlet%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2006/04/12/java%E4%B8%AD%E7%9A%84Proxy%E6%A8%A1%E5%BC%8F-%E7%BB%AD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpeg">
+      <meta itemprop="name" content="zJun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zJun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2006/04/12/java%E4%B8%AD%E7%9A%84Proxy%E6%A8%A1%E5%BC%8F-%E7%BB%AD/" class="post-title-link" itemprop="url">java中的Proxy模式(续)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2006-04-12 21:46:08" itemprop="dateCreated datePublished" datetime="2006-04-12T21:46:08+08:00">2006-04-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>在 <a target="_blank" rel="noopener" href="http://zjun.github.io/2006/03/21/proxy-pattern-in-java/">上一篇随笔</a> 中,由于时间和篇幅的关系只是简单介绍了Proxy模式的概念,并没有写到Java中对Proxy模式特有的支持,所以严格说起来是有点”名不符实”,现在就接着介绍JDK中Proxy模式的实现:</p>
+<p>Java API中提供了对Proxy模式的支持,主要是通过反射(Reflect)包中的<strong>Proxy</strong>类和<strong>InvocationHandler</strong>接口实现,具体过程如下:</p>
+<hr>
+<p>(1) 实现<strong>InvocationHandler</strong>接口,在**invoke()<strong>方法中实现代理类要完成的操作;<br>(2) 通过</strong>Proxy.newProxyInstance(ClassLoader loader,Class[] interfaces,InvocationHandler h)<strong>方法生成一个代理类,从参数可以看出代理类将实现被代理对象的接口,而具体的实现过程是在上面实现的</strong>InvocationHandler.invoke()**中定义的.</p>
+<hr>
+<p>我们还是用演艺圈的例子来说明：<br>首先，<strong>类的关系图</strong>需要修改一下：<br><img src="https://tva1.sinaimg.cn/large/008i3skNly1gpxhg36ih9g30el096glw.gif">]</p>
+<p>可以看出，这里并没有经纪人(Broke)类，而是新增了一个经纪人操作类(BrokeHandler),这是因为通过Proxy.newProxyInstance()方法,Java API将自动为我们生成一个对于Artist接口的代理类(即：Broke),我们只需定义代理的操作即可．</p>
+<h2 id="经纪人工作"><a href="#经纪人工作" class="headerlink" title="经纪人工作"></a>经纪人工作</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 经纪人工作</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@author</span>  zjun</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@version</span>  1.0 create on 2006-4-11 18:06:36</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">public</span>   <span class="class"><span class="keyword">class</span>  <span class="title">BrokerHandler</span>  <span class="keyword">implements</span>  <span class="title">InvocationHandler</span>  </span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">private</span>  String SIGN  =   <span class="string">&quot;  [经纪人工作]  &quot;</span> ;</span><br><span class="line"></span><br><span class="line">     <span class="comment">//  旗下明星</span></span><br><span class="line">     <span class="keyword">private</span>  Star star;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span>  <span class="title">BrokerHandler</span><span class="params">(Star star)</span>  </span>&#123;</span><br><span class="line">         <span class="keyword">this</span> .star  =  star;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 签订和约</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">     <span class="function"><span class="keyword">private</span>   <span class="keyword">void</span>  <span class="title">subcontract</span><span class="params">()</span>  </span>&#123;</span><br><span class="line">        System.out.println(SIGN  +   <span class="string">&quot;  签订和约  &quot;</span> );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 演出后交税</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">     <span class="function"><span class="keyword">private</span>   <span class="keyword">void</span>  <span class="title">payTax</span><span class="params">()</span>  </span>&#123;</span><br><span class="line">        System.out.println(SIGN  +   <span class="string">&quot;  演出后交税  &quot;</span> );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *  <span class="doctag">@see</span>  java.lang.reflect.InvocationHandler#invoke(java.lang.Object,</span></span><br><span class="line"><span class="comment">     *      java.lang.reflect.Method, java.lang.Object)</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span>  Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span></span></span><br><span class="line"><span class="function">             <span class="keyword">throws</span>  Throwable  </span>&#123;</span><br><span class="line">        Object obj  =   <span class="keyword">null</span> ;</span><br><span class="line">         <span class="comment">//  签约</span></span><br><span class="line">        subcontract();</span><br><span class="line">         <span class="comment">//  安排艺人演出</span></span><br><span class="line">        obj  =  method.invoke(star, args);</span><br><span class="line">         <span class="comment">//  交税</span></span><br><span class="line">        payTax();</span><br><span class="line">         <span class="keyword">return</span>  obj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="艺人"><a href="#艺人" class="headerlink" title="艺人"></a>艺人</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 艺人</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@author</span>  zjun</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@version</span>  1.0 create on 2006-4-11 18:05:48</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">public</span>   <span class="class"><span class="keyword">interface</span>  <span class="title">Artist</span>  </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">public</span>   <span class="keyword">void</span>  <span class="title">show</span><span class="params">(String showType)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="明星"><a href="#明星" class="headerlink" title="明星"></a>明星</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> * 明星</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@author</span> zjun</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@version</span> 1.0 create on 2006-4-11 18:08:17</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">public</span>   <span class="class"><span class="keyword">class</span>  <span class="title">Star</span>  <span class="keyword">implements</span>  <span class="title">Artist</span>  </span>&#123;</span><br><span class="line">     <span class="keyword">private</span>  String SIGN  =   <span class="string">&quot;  [明星]  &quot;</span>;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span>   <span class="keyword">void</span>  <span class="title">show</span><span class="params">(String showType)</span>  </span>&#123;</span><br><span class="line">        System.out.println(SIGN  + showType);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="演出赞助商"><a href="#演出赞助商" class="headerlink" title="演出赞助商"></a>演出赞助商</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 演出赞助商</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@author</span> zjun</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@version</span> 1.0 create on 2006-4-11 18:30:25</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">public</span>   <span class="class"><span class="keyword">class</span>  <span class="title">Patron</span>  </span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="comment">/** </span></span><br><span class="line"><span class="comment">      *  <span class="doctag">@param</span> args</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span>   <span class="keyword">static</span>   <span class="keyword">void</span>  <span class="title">main</span><span class="params">(String[] args)</span>  </span>&#123;</span><br><span class="line">        Star star  =   <span class="keyword">new</span> Star();</span><br><span class="line">        BrokerHandler broker  =   <span class="keyword">new</span> BrokerHandler(star);</span><br><span class="line">        Artist b  = (Artist) Proxy.newProxyInstance(star.getClass()</span><br><span class="line">                .getClassLoader(), star.getClass().getInterfaces(), broker);</span><br><span class="line">        b.show( <span class="string">&quot;  演电影  &quot;</span>);</span><br><span class="line">        b.show( <span class="string">&quot;  拍电视  &quot;</span>);</span><br><span class="line">        b.show( <span class="string">&quot;  出唱片  &quot;</span>);</span><br><span class="line">        b.show( <span class="string">&quot;  演唱会  &quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>**[运行结果]**：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[ 经纪人工作 ] 签订和约</span><br><span class="line">[ 明星 ] 演电影</span><br><span class="line">[ 经纪人工作 ] 演出后交税</span><br><span class="line">[ 经纪人工作 ] 签订和约</span><br><span class="line">[ 明星 ] 拍电视</span><br><span class="line">[ 经纪人工作 ] 演出后交税</span><br><span class="line">[ 经纪人工作 ] 签订和约</span><br><span class="line">[ 明星 ] 出唱片</span><br><span class="line">[ 经纪人工作 ] 演出后交税</span><br><span class="line">[ 经纪人工作 ] 签订和约</span><br><span class="line">[ 明星 ] 演唱会</span><br><span class="line">[ 经纪人工作 ] 演出后交税</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2006/03/21/java%E4%B8%AD%E7%9A%84Proxy%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpeg">
+      <meta itemprop="name" content="zJun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zJun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2006/03/21/java%E4%B8%AD%E7%9A%84Proxy%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">java中的Proxy模式</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2006-03-21 23:38:52" itemprop="dateCreated datePublished" datetime="2006-03-21T23:38:52+08:00">2006-03-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><strong>代理（Proxy）模式</strong>，顾名思义就是对象之间不直接发生联系，而是通过中间的代理人进行沟通。这种关系在现在的娱乐圈中普遍存在：明星通常都有经纪人来代理自己的演出事宜，而不是直接去联系演出商。下面就通过这个实际中的例子来说明代理模式。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2006/03/21/java%E4%B8%AD%E7%9A%84Proxy%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2006/03/12/%E4%B8%BA%E7%A8%8B%E5%BA%8F%E5%8A%A0%E4%B8%8A%E5%85%B3%E9%97%AD%E9%92%A9%E5%AD%90-ShutdownHook/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpeg">
+      <meta itemprop="name" content="zJun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zJun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2006/03/12/%E4%B8%BA%E7%A8%8B%E5%BA%8F%E5%8A%A0%E4%B8%8A%E5%85%B3%E9%97%AD%E9%92%A9%E5%AD%90-ShutdownHook/" class="post-title-link" itemprop="url">为程序加上关闭钩子(ShutdownHook)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2006-03-12 22:34:34" itemprop="dateCreated datePublished" datetime="2006-03-12T22:34:34+08:00">2006-03-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>“<strong>关闭钩子</strong>”（ShutdownHook）是这样一个概念：向虚拟机注册一个线程，当程序退出(Ctrl+C)时虚拟机会启动这个线程,我们可以在这个线程的run()中做一些清除的工作,如:<strong>释放数据库连接,关闭文件</strong>等.</p>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>shutdownhook通常用来在Ctrl+C退出时触发清理工作(多是在后台服务中，这种服务通常是24*7运行的，正常情况下是不退出的)，如果能够在程序中显式地确定退出的时机，那么最好是直接在退出前做清理，不用搞得这么复杂。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2006/03/12/%E4%B8%BA%E7%A8%8B%E5%BA%8F%E5%8A%A0%E4%B8%8A%E5%85%B3%E9%97%AD%E9%92%A9%E5%AD%90-ShutdownHook/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2006/03/08/%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5SQL%E8%AF%AD%E5%8F%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpeg">
+      <meta itemprop="name" content="zJun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zJun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2006/03/08/%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5SQL%E8%AF%AD%E5%8F%A5/" class="post-title-link" itemprop="url">常见数据库分页SQL语句</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2006-03-08 21:27:46" itemprop="dateCreated datePublished" datetime="2006-03-08T21:27:46+08:00">2006-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>原文在<a target="_blank" rel="noopener" href="http://http//www.360doc.com/showWeb/0/0/51724.aspx">这里</a>。</p>
+<hr>
+<p>我们在编写MIS系统和Web应用程序等系统时，都涉及到与数据库的交互，如果数据库中数据量很大的话，一次检索所有的记录，会占用系统很大的资源，因此我们常常采用，需要多少数据就只从数据库中取多少条记录，即采用分页语句。根据自己使用过的内容，把常见数据库Sql Server,Oracle和My sql的分页语句，从数据库表中的第M条数据开始取N条记录的语句总结如下：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2006/03/08/%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5SQL%E8%AF%AD%E5%8F%A5/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>

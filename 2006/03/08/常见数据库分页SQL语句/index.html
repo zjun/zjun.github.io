@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;zjun.gitee.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Mist&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;Searching...&quot;,&quot;empty&quot;:&quot;We didn&#39;t find any results for the search: ${query}&quot;,&quot;hits_time&quot;:&quot;${hits} results found in ${time} ms&quot;,&quot;hits&quot;:&quot;${hits} results found&quot;}}</script>
+<meta name="description" content="原文在这里。  我们在编写MIS系统和Web应用程序等系统时，都涉及到与数据库的交互，如果数据库中数据量很大的话，一次检索所有的记录，会占用系统很大的资源，因此我们常常采用，需要多少数据就只从数据库中取多少条记录，即采用分页语句。根据自己使用过的内容，把常见数据库Sql Server,Oracle和My sql的分页语句，从数据库表中的第M条数据开始取N条记录的语句总结如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见数据库分页SQL语句">
+<meta property="og:url" content="http://zjun.gitee.io/2006/03/08/%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5SQL%E8%AF%AD%E5%8F%A5/index.html">
+<meta property="og:site_name" content="zJun&#39;s Blog">
+<meta property="og:description" content="原文在这里。  我们在编写MIS系统和Web应用程序等系统时，都涉及到与数据库的交互，如果数据库中数据量很大的话，一次检索所有的记录，会占用系统很大的资源，因此我们常常采用，需要多少数据就只从数据库中取多少条记录，即采用分页语句。根据自己使用过的内容，把常见数据库Sql Server,Oracle和My sql的分页语句，从数据库表中的第M条数据开始取N条记录的语句总结如下：">
+<meta property="og:locale">
+<meta property="article:published_time" content="2006-03-08T13:27:46.000Z">
+<meta property="article:modified_time" content="2021-04-26T13:32:49.809Z">
+<meta property="article:author" content="zJun">
+<meta property="article:tag" content="Database">
+<meta property="article:tag" content="SQL">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://zjun.gitee.io/2006/03/08/%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5SQL%E8%AF%AD%E5%8F%A5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;cn&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;zjun.gitee.io&#x2F;2006&#x2F;03&#x2F;08&#x2F;%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5SQL%E8%AF%AD%E5%8F%A5&#x2F;&quot;,&quot;path&quot;:&quot;2006&#x2F;03&#x2F;08&#x2F;常见数据库分页SQL语句&#x2F;&quot;,&quot;title&quot;:&quot;常见数据库分页SQL语句&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>常见数据库分页SQL语句 | zJun's Blog</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">zJun's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-时间线"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间线</a></li>
+        <li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL-Server"><span class="nav-number">1.</span> <span class="nav-text">SQL Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Oralce%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">Oralce数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#My-sql%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">3.</span> <span class="nav-text">My sql数据库</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zJun"
+      src="/images/me.jpeg">
+  <p class="site-author-name" itemprop="name">zJun</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zjun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zjun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zjun101@qq.com" title="E-Mail → mailto:zjun101@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/zjun101" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;zjun101" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="cn">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2006/03/08/%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5SQL%E8%AF%AD%E5%8F%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpeg">
+      <meta itemprop="name" content="zJun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zJun's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          常见数据库分页SQL语句
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2006-03-08 21:27:46" itemprop="dateCreated datePublished" datetime="2006-03-08T21:27:46+08:00">2006-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>原文在<a target="_blank" rel="noopener" href="http://http//www.360doc.com/showWeb/0/0/51724.aspx">这里</a>。</p>
+<hr>
+<p>我们在编写MIS系统和Web应用程序等系统时，都涉及到与数据库的交互，如果数据库中数据量很大的话，一次检索所有的记录，会占用系统很大的资源，因此我们常常采用，需要多少数据就只从数据库中取多少条记录，即采用分页语句。根据自己使用过的内容，把常见数据库Sql Server,Oracle和My sql的分页语句，从数据库表中的第M条数据开始取N条记录的语句总结如下：</p>
+<span id="more"></span>
+
+<h2 id="SQL-Server"><a href="#SQL-Server" class="headerlink" title="SQL Server"></a>SQL Server</h2><p>从数据库表中的第M条记录开始取N条记录，利用Top关键字：注意如果Select语句中既有top，又有order by，则是从排序好的结果集中选择：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span>  ( <span class="keyword">SELECT</span> Top N <span class="operator">*</span>  </span><br><span class="line">        <span class="keyword">FROM</span>  (<span class="keyword">SELECT</span> Top (M <span class="operator">+</span> N <span class="operator">-</span> <span class="number">1</span>) <span class="operator">*</span> <span class="keyword">FROM</span> 表名称 <span class="keyword">Order</span> <span class="keyword">by</span> 主键 <span class="keyword">desc</span>) t1 </span><br><span class="line">      ) t2</span><br><span class="line"><span class="keyword">Order</span> <span class="keyword">by</span> 主键 <span class="keyword">asc</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>例如从表Sys_option（主键为sys_id)中从10条记录还是检索20条记录，语句如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span> ( <span class="keyword">SELECT</span> TOP <span class="number">20</span> <span class="operator">*</span></span><br><span class="line">       <span class="keyword">FROM</span> (<span class="keyword">SELECT</span> TOP <span class="number">29</span> <span class="operator">*</span> <span class="keyword">FROM</span> Sys_option <span class="keyword">order</span> <span class="keyword">by</span> sys_id <span class="keyword">desc</span>) t1</span><br><span class="line">     ) t2</span><br><span class="line"><span class="keyword">Order</span> <span class="keyword">by</span> sys_id <span class="keyword">asc</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Oralce数据库"><a href="#Oralce数据库" class="headerlink" title="Oralce数据库"></a>Oralce数据库</h2><p>从数据库表中第M条记录开始检索N条记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span> (<span class="keyword">SELECT</span> ROWNUM r,t1.<span class="operator">*</span> <span class="keyword">From</span> 表名称 t1 <span class="keyword">where</span> rownum <span class="operator">&lt;</span> M <span class="operator">+</span> N) t2</span><br><span class="line"><span class="keyword">where</span> t2.r <span class="operator">&gt;=</span> M</span><br></pre></td></tr></table></figure>
+
+
+
+<p>例如从表Sys_option（主键为sys_id)中从10条记录还是检索20条记录，语句如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span> (<span class="keyword">SELECT</span> ROWNUM R,t1.<span class="operator">*</span> <span class="keyword">From</span> Sys_option <span class="keyword">where</span> rownum <span class="operator">&lt;</span> <span class="number">30</span> ) t2</span><br><span class="line"><span class="keyword">Where</span> t2.R <span class="operator">&gt;=</span> <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="My-sql数据库"><a href="#My-sql数据库" class="headerlink" title="My sql数据库"></a>My sql数据库</h2><p>My sql数据库最简单，是利用mysql的LIMIT函数,LIMIT [offset,] rows从数据库表中M条记录开始检索N条记录的语句为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> 表名称 LIMIT M,N</span><br></pre></td></tr></table></figure>
+
+
+
+<p>例如从表Sys_option（主键为sys_id)中从10条记录还是检索20条记录，语句如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> sys_option limit <span class="number">10</span>,<span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Database/" rel="tag"><i class="fa fa-tag"></i> Database</a>
+              <a href="/tags/SQL/" rel="tag"><i class="fa fa-tag"></i> SQL</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2006/03/06/%E5%9C%A8javascript%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB/" rel="prev" title="在javascript中实现继承关系">
+                  <i class="fa fa-chevron-left"></i> 在javascript中实现继承关系
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2006/03/12/%E4%B8%BA%E7%A8%8B%E5%BA%8F%E5%8A%A0%E4%B8%8A%E5%85%B3%E9%97%AD%E9%92%A9%E5%AD%90-ShutdownHook/" rel="next" title="为程序加上关闭钩子(ShutdownHook)">
+                  为程序加上关闭钩子(ShutdownHook) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zJun</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
