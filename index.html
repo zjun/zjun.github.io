@@ -129,18 +129,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -189,7 +189,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2021/04/19/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2014/11/15/%E5%88%9B%E5%BB%BA%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F-Singleton-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/me.jpeg">
@@ -202,7 +202,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/19/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+          <a href="/2014/11/15/%E5%88%9B%E5%BB%BA%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F-Singleton-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">创建单例模式(Singleton)的几种方式</a>
         </h2>
 
         <div class="post-meta-container">
@@ -213,7 +213,16 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2021-04-19 22:07:23" itemprop="dateCreated datePublished" datetime="2021-04-19T22:07:23+08:00">2021-04-19</time>
+      <time title="Created: 2014-11-15 22:06:04" itemprop="dateCreated datePublished" datetime="2014-11-15T22:06:04+08:00">2014-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+        </span>
     </span>
 
   
@@ -226,19 +235,191 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+          <p>单例模式可能是最常用到的设计模式了，但是想要正确的使用单例模式却并不简单。<br>我们先从最简单最常用的方式开始：</p>
+<h1 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">         instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2014/11/15/%E5%88%9B%E5%BB%BA%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F-Singleton-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+    
+    
+    
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2014/02/08/Go%E7%AC%94%E8%AE%B07-%E5%B9%B6%E5%8F%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpeg">
+      <meta itemprop="name" content="zJun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zJun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2014/02/08/Go%E7%AC%94%E8%AE%B07-%E5%B9%B6%E5%8F%91/" class="post-title-link" itemprop="url">Go笔记:并发</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2014-02-08 22:03:03" itemprop="dateCreated datePublished" datetime="2014-02-08T22:03:03+08:00">2014-02-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Golang 给人印象最深刻的一个特性就是：从语言层面支持并行，而且实现起来相当简单。</p>
+<h2 id="goroutine"><a href="#goroutine" class="headerlink" title="goroutine"></a>goroutine</h2><p>goroutine是Go并行设计的核心。goroutine其实就是协程，它比线程更小，十几个goroutine可能体现在底层就是五六个线程，Go语言内部实现了这些goroutine之间的内存共享。oroutine比thread更易用、更高效、更轻便。</p>
+<p>goroutine通过<code>go</code>关键字实现：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> hello(a, b, c)  </span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2014/02/08/Go%E7%AC%94%E8%AE%B07-%E5%B9%B6%E5%8F%91/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2014/01/22/Go%E7%AC%94%E8%AE%B0%EF%BC%9AGo%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpeg">
+      <meta itemprop="name" content="zJun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zJun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2014/01/22/Go%E7%AC%94%E8%AE%B0%EF%BC%9AGo%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">Go笔记：Go数据结构</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2014-01-22 22:00:49" itemprop="dateCreated datePublished" datetime="2014-01-22T22:00:49+08:00">2014-01-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="结构与指针"><a href="#结构与指针" class="headerlink" title="结构与指针"></a>结构与指针</h2><p>定义一个叫Point的简单的结构类型，意味着内存里是两个相邻的int。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">type Point struct &#123; X , Y int &#125;   </span><br><span class="line">​&#96;&#96;&#96;   </span><br><span class="line"></span><br><span class="line">&lt;!-- more --&gt;</span><br><span class="line"></span><br><span class="line">![](http:&#x2F;&#x2F;research.swtch.com&#x2F;godata1a.png)</span><br><span class="line"></span><br><span class="line">Point&#123; 10, 20 &#125;表示一个被初始化的Point对象。  </span><br><span class="line">&amp;Point&#123; 10, 20 &#125;则表示一个指向被初始化的Point对象的指针。  </span><br><span class="line">前者在内存中有两个数据块，而后者则存放着一个指向两个数据块的指针。</span><br><span class="line"></span><br><span class="line">结构中的字段被依次地排列在内存里面。</span><br><span class="line"></span><br><span class="line">​&#96;&#96;&#96; go</span><br><span class="line">type Rect1 struct &#123; Min, Max Point &#125;</span><br><span class="line">type Rect2 struct &#123; Min, Max *Point &#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://research.swtch.com/godata1b.png"><img src="http://research.swtch.com/godata1b.png" alt="img"></a></p>
+<p>Rect1是一个拥有两个Point类型字段的结构，它的一条记录包含了两条Point记录——共4个int。Rect2是一个拥有两个Point类型指针的结构，在内存里它占两个Point指针的空间。</p>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>接下来我们看一个字符串的例子：</p>
+<p><a target="_blank" rel="noopener" href="http://research.swtch.com/godata2.png"><img src="http://research.swtch.com/godata2.png" alt="img"></a></p>
+<p>一个字符串在内存中的表示被分成两段，一个指向字符串数据的指针和一个长度值。对s字符串进行一个切片选择，将得到一个可能不一样的指针和长度，但它们也指向同一段字节序列。这意味着，切片并不需要分配空间或者是复制数据，创建切片很容易，只需要传递明确的下标值就行了。</p>
+<h2 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h2><p><a target="_blank" rel="noopener" href="http://research.swtch.com/godata3.png"><img src="http://research.swtch.com/godata3.png" alt="img"></a><br>切片是对数组中一段数据的引用。在内存中它有三段数据组成：一个指向数据头的指针、切片的长度、切片的容量。长度是索引操作的上界，如：x[i] ,容量是切片操作的上界，如：x[i:j]</p>
+<p>关于切片的长度(len)和容量(cap),可以通过 <code>len()</code>和<code>cap()</code>函数得到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">arry :&#x3D; [5]int&#123;1, 2, 3, 4, 5&#125;  </span><br><span class="line">fmt.Println(arry)      &#x2F;&#x2F; [1 2 3 4 5]  </span><br><span class="line">fmt.Println(len(arry)) &#x2F;&#x2F; 5  </span><br><span class="line">fmt.Println(cap(arry)) &#x2F;&#x2F; 5  </span><br><span class="line"></span><br><span class="line">slce :&#x3D; arry[1:2]        </span><br><span class="line">fmt.Println(slce)       &#x2F;&#x2F; [2]  </span><br><span class="line">fmt.Println(len(slce))  &#x2F;&#x2F; 1  </span><br><span class="line">fmt.Println(cap(slce))  &#x2F;&#x2F; 4  </span><br><span class="line"></span><br><span class="line">slce &#x3D; arry[1:3]              </span><br><span class="line">fmt.Println(slce)       &#x2F;&#x2F; [2 3]  </span><br><span class="line">fmt.Println(len(slce))  &#x2F;&#x2F; 2  </span><br><span class="line">fmt.Println(cap(slce))  &#x2F;&#x2F; 4  </span><br><span class="line"></span><br><span class="line">slce &#x3D; arry[1:4]        </span><br><span class="line">fmt.Println(slce)       &#x2F;&#x2F; [2 3 4]  </span><br><span class="line">fmt.Println(len(slce))  &#x2F;&#x2F; 3  </span><br><span class="line">fmt.Println(cap(slce))  &#x2F;&#x2F; 4  </span><br><span class="line"></span><br><span class="line">slce &#x3D; arry[1:5]</span><br><span class="line">fmt.Println(slce)       &#x2F;&#x2F; [2 3 4 5]  </span><br><span class="line">fmt.Println(len(slce))  &#x2F;&#x2F; 4  </span><br><span class="line">fmt.Println(cap(slce))  &#x2F;&#x2F; 4</span><br></pre></td></tr></table></figure>
+
+<p>从上面的例子可以看出，slice的 len 表示切片中实际存在item的的个数，cap 表示分配的内存空间的大小。<strong>如果是通过对已有数组切片生成的slice ,默认分配的内存空间 cap 是从切片的起始位置到原有数组的结尾</strong>。比如上面的例子： <code>slce := arry[1:2]</code>的 cap() 就是 4。</p>
+<h2 id="new和make"><a href="#new和make" class="headerlink" title="new和make"></a>new和make</h2><p>Go有两种创建数据结构的方法：new和make。<br>它们的区别于:</p>
+<ul>
+<li>new(T)返回一个*T类型，一个可以被隐性反向引用的指针（如图中的黑色指针）</li>
+<li>make(T,args)返回一个原始的T，它并不是一个指针。T中常有写隐性的指针（如图中的灰色指针）</li>
+</ul>
+<p><strong>new返回一个指向初始化为全0值的指针，而make返回一个复杂的结构</strong>。</p>
+<p><a target="_blank" rel="noopener" href="http://research.swtch.com/godata4.png"><img src="http://research.swtch.com/godata4.png" alt="img"></a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="http://research.swtch.com/godata">Go Data Structures</a><br><a target="_blank" rel="noopener" href="http://www.oschina.net/question/1441707_141799">【原创翻译】深度剖析Go数据结构</a><br><a target="_blank" rel="noopener" href="http://golang.org/doc/effective_go.html#slices">Effective Go: slices</a><br><a target="_blank" rel="noopener" href="http://www.zingscript.com/category/snack">慎用GO中的SLICE——关于SLICE的隐含陷阱</a><br><a target="_blank" rel="noopener" href="http://blog.golang.org/slices">The Go Blog: Arrays, slices (and strings): The mechanics of ‘append’</a><br><a target="_blank" rel="noopener" href="http://www.golang-book.com/6">Arrays, Slices and Maps</a><br><a target="_blank" rel="noopener" href="http://blog.golang.org/go-slices-usage-and-internals">The Go Blog: Go Slices: usage and internals</a></p>
 
       
     </div>
@@ -265,7 +446,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2006/07/20/JSP-Servlet%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2014/01/16/%E5%9C%A8Sublime-Text2%E4%B8%AD%E5%BC%80%E5%8F%91Golang/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/me.jpeg">
@@ -278,7 +459,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2006/07/20/JSP-Servlet%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">JSP/Servlet中的事件处理</a>
+          <a href="/2014/01/16/%E5%9C%A8Sublime-Text2%E4%B8%AD%E5%BC%80%E5%8F%91Golang/" class="post-title-link" itemprop="url">在Sublime Text2中开发Golang</a>
         </h2>
 
         <div class="post-meta-container">
@@ -289,7 +470,372 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2006-07-20 23:36:11" itemprop="dateCreated datePublished" datetime="2006-07-20T23:36:11+08:00">2006-07-20</time>
+      <time title="Created: 2014-01-16 21:58:39" itemprop="dateCreated datePublished" datetime="2014-01-16T21:58:39+08:00">2014-01-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Sublime Text 2 是一个可定制程度相当高的轻量级编辑器,具有丰富的第三方插件，关键是可以无限期的免费使用。下面就介绍通过安装几种插件，将Sublime Text 2定制成为一款相当好用的Golang IDE。</p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><ol>
+<li>下载<a target="_blank" rel="noopener" href="http://www.sublimetext.com/">Sublime Text 2</a></li>
+<li>安装</li>
+</ol>
+<h2 id="安装Package-Control"><a href="#安装Package-Control" class="headerlink" title="安装Package Control"></a>安装Package Control</h2><ol>
+<li><p>按Ctrl + ` 打开console</p>
+</li>
+<li><p>粘贴下列代码到console并回车</p>
+<p>import urllib2,os;pf=’Package Control.sublime-package’;ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),’wb’).write(urllib2.urlopen(‘<a target="_blank" rel="noopener" href="http://sublime.wbond.net/&#39;+pf.replace">http://sublime.wbond.net/&#39;+pf.replace</a>(‘ ‘,’%20’)).read())</p>
+</li>
+</ol>
+<p>重启Sublime Text 2, 重启后，如果在 Preferences菜单下，多出一个菜单项 Package Control，说明安装成功。</p>
+<h2 id="安装-gocode"><a href="#安装-gocode" class="headerlink" title="安装 gocode"></a>安装 <a target="_blank" rel="noopener" href="https://github.com/nsf/gocode">gocode</a></h2><p>打开终端，输入以下内容（需要安装git工具):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go get github.com&#x2F;nsf&#x2F;gocode  </span><br><span class="line">go install github.com&#x2F;nsf&#x2F;gocode  </span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，我们可以在 go/bin 目录下，发现多出了个 gocode 文件。</p>
+<h2 id="安装-Gosublime-插件"><a href="#安装-Gosublime-插件" class="headerlink" title="安装 Gosublime 插件"></a>安装 Gosublime 插件</h2><ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip（即“Package Control: Install Package”的缩写）</li>
+<li>输入GoSublime，回车开始安装</li>
+</ol>
+<h2 id="安装-SidebarEnhancements-插件"><a href="#安装-SidebarEnhancements-插件" class="headerlink" title="安装 SidebarEnhancements 插件"></a>安装 SidebarEnhancements 插件</h2><ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入SidebarEnhancements，回车开始安装</li>
+</ol>
+<h2 id="安装-Go-Build-插件"><a href="#安装-Go-Build-插件" class="headerlink" title="安装 Go Build 插件"></a>安装 Go Build 插件</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入 <a target="_blank" rel="noopener" href="https://github.com/cthackers/SublimeGoBuild">Go Build</a>，回车开始安装</li>
+</ol>
+<p>如果通过Package Controll 不能安装 Go Build, 那么可以通过git手动安装：</p>
+<ul>
+<li><p>For Windows:<br>Open a cmd, go to <code>%APPDATA%\Sublime Text 2\Packages</code> and type…</p>
+</li>
+<li><p>For Linux:<br>Open a shell, go to <code>~/.config/Sublime Text 2/Packages</code> and type…</p>
+<p><code>git clone git://github.com/cthackers/SublimeGoBuild.git</code></p>
+</li>
+</ul>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul>
+<li><code>F5</code> to run your project</li>
+<li><code>F7</code> to build</li>
+<li><code>CTRL + F5</code> to run tests</li>
+</ul>
+<h2 id="安装-Git-Gutter-插件"><a href="#安装-Git-Gutter-插件" class="headerlink" title="安装 Git Gutter 插件"></a>安装 Git Gutter 插件</h2><p><a target="_blank" rel="noopener" href="https://github.com/jisaacks/GitGutter">Git Gutter</a> is a sublime text 2/3 plugin to show an icon in the gutter area indicating whether a line has been inserted, modified or deleted.</p>
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入 Git Gutter，回车开始安装</li>
+</ol>
+<h2 id="安装-SideBarGit-插件"><a href="#安装-SideBarGit-插件" class="headerlink" title="安装 SideBarGit 插件"></a>安装 SideBarGit 插件</h2><p><a target="_blank" rel="noopener" href="https://github.com/SublimeText/SideBarGit">SideBarGit</a> provides git commands on Side Bar of Files and Folders for Sublime Text 2.</p>
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入 SideBarGit，回车开始安装</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2014/01/03/Go%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%AE%BF%E9%97%AEMySQL%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpeg">
+      <meta itemprop="name" content="zJun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zJun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2014/01/03/Go%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%AE%BF%E9%97%AEMySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-title-link" itemprop="url">Go笔记：访问MySQL数据库</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2014-01-03 21:53:38" itemprop="dateCreated datePublished" datetime="2014-01-03T21:53:38+08:00">2014-01-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="安装驱动"><a href="#安装驱动" class="headerlink" title="安装驱动"></a>安装驱动</h2><p>MySQL驱动： <a target="_blank" rel="noopener" href="https://github.com/go-sql-driver/mysql">https://github.com/go-sql-driver/mysql</a> 。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">go</span> get github.com/<span class="keyword">go</span>-sql-driver/mysql</span><br><span class="line"><span class="string">``</span><span class="string">`  </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;!--more--&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">## 连接数据库 ##</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span> <span class="keyword">go</span>  </span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;database/sql&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	_ <span class="string">&quot;github.com/Go-SQL-Driver/MySQL&quot;</span></span><br><span class="line">) </span><br><span class="line"></span><br><span class="line">db, err := sql.Open(<span class="string">&quot;mysql&quot;</span>, <span class="string">&quot;user:password@/dbname&quot;</span>)  </span><br><span class="line"><span class="string">``</span><span class="string">`  </span></span><br><span class="line"><span class="string">## 关闭数据库连接 ##</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span> <span class="keyword">go</span>  </span><br><span class="line">db.Close()</span><br><span class="line"><span class="string">``</span><span class="string">`  </span></span><br><span class="line"><span class="string">## 增删改查 ##</span></span><br><span class="line"><span class="string">### 查询 ###</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span> <span class="keyword">go</span>  </span><br><span class="line">db, err := sql.Open(<span class="string">&quot;mysql&quot;</span>, <span class="string">&quot;user:password@/dbname?charset=utf8&quot;</span>)  </span><br><span class="line">checkErr(err)  </span><br><span class="line"></span><br><span class="line"><span class="comment">//查询数据  </span></span><br><span class="line">rows, err := db.Query(<span class="string">&quot;SELECT * FROM account&quot;</span>)  </span><br><span class="line">checkErr(err)  </span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> rows.Next() &#123;  </span><br><span class="line">	<span class="keyword">var</span> id <span class="keyword">int</span>  </span><br><span class="line">	<span class="keyword">var</span> name <span class="keyword">string</span>  </span><br><span class="line">	err = rows.Scan(&amp;id, &amp;name)  </span><br><span class="line">	checkErr(err)  </span><br><span class="line">	fmt.Print(id)  </span><br><span class="line">	fmt.Println(name)  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2014/01/03/Go%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%AE%BF%E9%97%AEMySQL%E6%95%B0%E6%8D%AE%E5%BA%93/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2013/12/30/Go%E7%AC%94%E8%AE%B04%EF%BC%9A%E6%8E%A5%E5%8F%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpeg">
+      <meta itemprop="name" content="zJun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zJun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2013/12/30/Go%E7%AC%94%E8%AE%B04%EF%BC%9A%E6%8E%A5%E5%8F%A3/" class="post-title-link" itemprop="url">Go笔记：接口</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2013-12-30 21:50:41" itemprop="dateCreated datePublished" datetime="2013-12-30T21:50:41+08:00">2013-12-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="什么是接口-interface"><a href="#什么是接口-interface" class="headerlink" title="什么是接口(interface)"></a>什么是接口(interface)</h2><p>Golang中的interface是一组method的组合，我们通过interface来定义对象的一组行为。<strong>如果某个对象实现了某个接口的所有方法，则此对象就实现了此接口。</strong></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2013/12/30/Go%E7%AC%94%E8%AE%B04%EF%BC%9A%E6%8E%A5%E5%8F%A3/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2013/05/30/%E5%85%B3%E4%BA%8E-Java-String-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E7%9A%84%E5%87%A0%E4%B8%AA%E6%9C%89%E8%B6%A3%E7%9A%84%E4%BE%8B%E5%AD%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpeg">
+      <meta itemprop="name" content="zJun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zJun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2013/05/30/%E5%85%B3%E4%BA%8E-Java-String-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E7%9A%84%E5%87%A0%E4%B8%AA%E6%9C%89%E8%B6%A3%E7%9A%84%E4%BE%8B%E5%AD%90/" class="post-title-link" itemprop="url">关于 Java String 内存管理的几个有趣的例子</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2013-05-30 21:48:08" itemprop="dateCreated datePublished" datetime="2013-05-30T21:48:08+08:00">2013-05-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>今天在 <a target="_blank" rel="noopener" href="http://www.oschina.net/">OSChina</a> 上看到一篇有趣的文章：<a target="_blank" rel="noopener" href="http://my.oschina.net/u/551903/blog/134000">关于String内存分配的深入探讨</a>,文章通过几个简单的例子，把Java中String的内存管理的方式解释的很清楚，涨了不少姿势，现根据自己的理解做些笔记在这里：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2013/05/30/%E5%85%B3%E4%BA%8E-Java-String-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E7%9A%84%E5%87%A0%E4%B8%AA%E6%9C%89%E8%B6%A3%E7%9A%84%E4%BE%8B%E5%AD%90/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2013/05/14/Dojo%E5%9C%A8IE%E4%B8%AD%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpeg">
+      <meta itemprop="name" content="zJun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zJun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2013/05/14/Dojo%E5%9C%A8IE%E4%B8%AD%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/" class="post-title-link" itemprop="url">Dojo在IE中的那些坑</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2013-05-14 21:44:11" itemprop="dateCreated datePublished" datetime="2013-05-14T21:44:11+08:00">2013-05-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -311,11 +857,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>写过AWT或Swing程序的人一定对桌面程序的事件处理机制印象深刻：通过实现Listener接口的类可以在特定事件(Event)发生时，呼叫特定的方法来对事件进行响应。</p>
-<p>其实我们在编写JSP/Servle程序时，也有类似的事件处理机制，所不同的是在JSP/Servlet中是在web.xml中注册Listener，由Container在特定事件发生时呼叫特定的实现Listener的类。</p>
+          <p>最近的一个小项目中使用的<a target="_blank" rel="noopener" href="http://dojotoolkit.org/">dojo</a>作为前台页面框架。本来很简单的功能，但是发布给用户做 UAT时却发现一堆简单低级的错误，但在开发环境却始终不能重现，百思不得其解…原来用户的测试环境是 IE8，果然问题在这，之前测试是在FireFox，没想到相同的功能在IE中却报错。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2006/07/20/JSP-Servlet%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/#more" rel="contents">
+              <a class="btn" href="/2013/05/14/Dojo%E5%9C%A8IE%E4%B8%AD%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -346,7 +891,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2006/04/12/java%E4%B8%AD%E7%9A%84Proxy%E6%A8%A1%E5%BC%8F-%E7%BB%AD/">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2013/05/08/Sublime-Text-2%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%8F%8A%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/me.jpeg">
@@ -359,7 +904,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2006/04/12/java%E4%B8%AD%E7%9A%84Proxy%E6%A8%A1%E5%BC%8F-%E7%BB%AD/" class="post-title-link" itemprop="url">java中的Proxy模式(续)</a>
+          <a href="/2013/05/08/Sublime-Text-2%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%8F%8A%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6/" class="post-title-link" itemprop="url">Sublime Text 2快捷键及常用插件</a>
         </h2>
 
         <div class="post-meta-container">
@@ -370,7 +915,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2006-04-12 21:46:08" itemprop="dateCreated datePublished" datetime="2006-04-12T21:46:08+08:00">2006-04-12</time>
+      <time title="Created: 2013-05-08 21:39:32" itemprop="dateCreated datePublished" datetime="2013-05-08T21:39:32+08:00">2013-05-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -378,7 +923,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
         </span>
     </span>
 
@@ -392,14 +937,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>在 <a target="_blank" rel="noopener" href="http://zjun.github.io/2006/03/21/proxy-pattern-in-java/">上一篇随笔</a> 中,由于时间和篇幅的关系只是简单介绍了Proxy模式的概念,并没有写到Java中对Proxy模式特有的支持,所以严格说起来是有点”名不符实”,现在就接着介绍JDK中Proxy模式的实现:</p>
-<p>Java API中提供了对Proxy模式的支持,主要是通过反射(Reflect)包中的<strong>Proxy</strong>类和<strong>InvocationHandler</strong>接口实现,具体过程如下:</p>
-<hr>
-<p>(1) 实现<strong>InvocationHandler</strong>接口,在**invoke()<strong>方法中实现代理类要完成的操作;<br>(2) 通过</strong>Proxy.newProxyInstance(ClassLoader loader,Class[] interfaces,InvocationHandler h)<strong>方法生成一个代理类,从参数可以看出代理类将实现被代理对象的接口,而具体的实现过程是在上面实现的</strong>InvocationHandler.invoke()**中定义的.</p>
-<hr>
+          <p>SublimeText2 是我目前为止用过的最为强大的编辑器，支持但不限于 C, C++, C#, CSS, D, Erlang, HTML, Groovy, Haskell, HTML, Java, JavaScript, LaTeX, Lisp, Lua, Markdown, Matlab, OCaml, Perl, PHP, Python, R, Ruby, SQL, TCL, Textile and XML 等主流编程语言的语法高亮。拥有优秀的代码自动完成功能 (自动补齐括号，大括号等配对符号；自动补全已经出现的单词；自动补全函数名)，非常智能。 最重要的是这么一个原来高不可攀的“神器”，现在居然开源免费了，所以还不赶快试试：</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2006/04/12/java%E4%B8%AD%E7%9A%84Proxy%E6%A8%A1%E5%BC%8F-%E7%BB%AD/#more" rel="contents">
+              <a class="btn" href="/2013/05/08/Sublime-Text-2%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%8F%8A%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -430,7 +971,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2006/03/21/java%E4%B8%AD%E7%9A%84Proxy%E6%A8%A1%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2013/04/01/HighCharts-%E7%AC%94%E8%AE%B02%EF%BC%9A%E9%80%9A%E8%BF%87%E8%A1%A8%E6%A0%BC%E7%94%9F%E6%88%90Pie-Chart/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/me.jpeg">
@@ -443,7 +984,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2006/03/21/java%E4%B8%AD%E7%9A%84Proxy%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">java中的Proxy模式</a>
+          <a href="/2013/04/01/HighCharts-%E7%AC%94%E8%AE%B02%EF%BC%9A%E9%80%9A%E8%BF%87%E8%A1%A8%E6%A0%BC%E7%94%9F%E6%88%90Pie-Chart/" class="post-title-link" itemprop="url">HighCharts 笔记2：通过表格生成Pie Chart</a>
         </h2>
 
         <div class="post-meta-container">
@@ -454,250 +995,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2006-03-21 23:38:52" itemprop="dateCreated datePublished" datetime="2006-03-21T23:38:52+08:00">2006-03-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><strong>代理（Proxy）模式</strong>，顾名思义就是对象之间不直接发生联系，而是通过中间的代理人进行沟通。这种关系在现在的娱乐圈中普遍存在：明星通常都有经纪人来代理自己的演出事宜，而不是直接去联系演出商。下面就通过这个实际中的例子来说明代理模式。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2006/03/21/java%E4%B8%AD%E7%9A%84Proxy%E6%A8%A1%E5%BC%8F/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2006/03/12/%E4%B8%BA%E7%A8%8B%E5%BA%8F%E5%8A%A0%E4%B8%8A%E5%85%B3%E9%97%AD%E9%92%A9%E5%AD%90-ShutdownHook/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpeg">
-      <meta itemprop="name" content="zJun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zJun's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2006/03/12/%E4%B8%BA%E7%A8%8B%E5%BA%8F%E5%8A%A0%E4%B8%8A%E5%85%B3%E9%97%AD%E9%92%A9%E5%AD%90-ShutdownHook/" class="post-title-link" itemprop="url">为程序加上关闭钩子(ShutdownHook)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2006-03-12 22:34:34" itemprop="dateCreated datePublished" datetime="2006-03-12T22:34:34+08:00">2006-03-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>“<strong>关闭钩子</strong>”（ShutdownHook）是这样一个概念：向虚拟机注册一个线程，当程序退出(Ctrl+C)时虚拟机会启动这个线程,我们可以在这个线程的run()中做一些清除的工作,如:<strong>释放数据库连接,关闭文件</strong>等.</p>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>shutdownhook通常用来在Ctrl+C退出时触发清理工作(多是在后台服务中，这种服务通常是24*7运行的，正常情况下是不退出的)，如果能够在程序中显式地确定退出的时机，那么最好是直接在退出前做清理，不用搞得这么复杂。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2006/03/12/%E4%B8%BA%E7%A8%8B%E5%BA%8F%E5%8A%A0%E4%B8%8A%E5%85%B3%E9%97%AD%E9%92%A9%E5%AD%90-ShutdownHook/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2006/03/08/%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5SQL%E8%AF%AD%E5%8F%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpeg">
-      <meta itemprop="name" content="zJun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zJun's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2006/03/08/%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5SQL%E8%AF%AD%E5%8F%A5/" class="post-title-link" itemprop="url">常见数据库分页SQL语句</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2006-03-08 21:27:46" itemprop="dateCreated datePublished" datetime="2006-03-08T21:27:46+08:00">2006-03-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>原文在<a target="_blank" rel="noopener" href="http://http//www.360doc.com/showWeb/0/0/51724.aspx">这里</a>。</p>
-<hr>
-<p>我们在编写MIS系统和Web应用程序等系统时，都涉及到与数据库的交互，如果数据库中数据量很大的话，一次检索所有的记录，会占用系统很大的资源，因此我们常常采用，需要多少数据就只从数据库中取多少条记录，即采用分页语句。根据自己使用过的内容，把常见数据库Sql Server,Oracle和My sql的分页语句，从数据库表中的第M条数据开始取N条记录的语句总结如下：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2006/03/08/%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5SQL%E8%AF%AD%E5%8F%A5/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2006/03/06/%E5%9C%A8javascript%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpeg">
-      <meta itemprop="name" content="zJun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zJun's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2006/03/06/%E5%9C%A8javascript%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB/" class="post-title-link" itemprop="url">在javascript中实现继承关系</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2006-03-06 23:08:07" itemprop="dateCreated datePublished" datetime="2006-03-06T23:08:07+08:00">2006-03-06</time>
+      <time title="Created: 2013-04-01 21:37:35" itemprop="dateCreated datePublished" datetime="2013-04-01T21:37:35+08:00">2013-04-01</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -719,12 +1017,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>意译自KevLinDev上一篇文章，才疏学浅，望指正，英文原文可到<a target="_blank" rel="noopener" href="http://www.kevlindev.com/tutorials/javascript/inheritance/">这里</a>查看。</p>
-<hr>
-<p>javascript脚本语言是支持面向对象编程(<strong>O</strong>bject <strong>O</strong>riented <strong>P</strong>rogramming )的,只是javascript实现的方式比较特别，与C++和java中的实现方式不同。在javascript中我们需要借助<strong>prototype</strong>对象来访问父类的方法，下面将讨论在javascript中实现OOP中最基本的特征关系 — <strong>继承</strong>。</p>
+          <p>接上一篇 <a target="_blank" rel="noopener" href="http://zjun.github.com/2013/03/28/highcharts-json-dataformat/">HighCharts笔记之: Bar Chart</a>，这一篇继续记录在项目中使用 Pie Chart 的情况,只是自己的一点总结和记录，以备日后翻阅。这一次是通过页面上的表格(Table)数据，生成对应的饼图（Pie Chart），具体实现如下：</p>
+<blockquote>
+<p><strong>Highcharts</strong> 是一个用纯JavaScript编写的一个图表库, 能够很简单便捷的在web网站或是web应用程序添加有交互性的图表，并且免费提供给个人学习、个人网站和非商业用途使用。目前HighCharts支持的图表类型有曲线图、区域图、柱状图、饼状图、散状点图和综合图表。<br>HighCharts界面美观，由于使用JavaScript编写，所以不需要像Flash和Java那样需要插件才可以运行，而且运行速度快。另外HighCharts还有很好的兼容性，能够完美支持当前大多数浏览器。</p>
+</blockquote>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2006/03/06/%E5%9C%A8javascript%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB/#more" rel="contents">
+              <a class="btn" href="/2013/04/01/HighCharts-%E7%AC%94%E8%AE%B02%EF%BC%9A%E9%80%9A%E8%BF%87%E8%A1%A8%E6%A0%BC%E7%94%9F%E6%88%90Pie-Chart/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -747,166 +1046,9 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2006/02/28/%E5%B0%86Java%E5%BA%94%E7%94%A8%E6%B3%A8%E5%86%8C%E4%B8%BA%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpeg">
-      <meta itemprop="name" content="zJun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zJun's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2006/02/28/%E5%B0%86Java%E5%BA%94%E7%94%A8%E6%B3%A8%E5%86%8C%E4%B8%BA%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1/" class="post-title-link" itemprop="url">将Java应用注册为后台服务</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2006-02-28 22:59:42" itemprop="dateCreated datePublished" datetime="2006-02-28T22:59:42+08:00">2006-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>项目中有一个java应用程序，交付后用户要求要把这个程序做成后台服务程序，即：系统启动后该程序可以自动启动，并且在前台不要出现运行窗口，维护人员只要在“服务管理”(Windows)中选择启动或停止即可.<br>解决办法如下：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2006/02/28/%E5%B0%86Java%E5%BA%94%E7%94%A8%E6%B3%A8%E5%86%8C%E4%B8%BA%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2006/02/27/DisplayTag1-1-Released-%E5%8F%AF%E5%88%86%E9%A1%B5%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpeg">
-      <meta itemprop="name" content="zJun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zJun's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2006/02/27/DisplayTag1-1-Released-%E5%8F%AF%E5%88%86%E9%A1%B5%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">DisplayTag1.1 Released,可分页读取数据</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2006-02-27 22:46:34" itemprop="dateCreated datePublished" datetime="2006-02-27T22:46:34+08:00">2006-02-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>DisplayTag一直以来为人们所诟病的缺点就是它的装载数据的方式: <strong>一次性把所有数据读取到内存中，然后再分页显示</strong>。这样做的后果就是在处理大批量数据时力不从心,可用性急剧下降,并且在翻页显示的仅仅是内存中的数据而不是实时数据.因此人们往往只是在实现小型项目的小数量表格分页显示时才想到DisplayTag，并且因为考虑到项目的扩展往往最终弃用DiaplayTag.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2006/02/27/DisplayTag1-1-Released-%E5%8F%AF%E5%88%86%E9%A1%B5%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 <script src="/js/comments.js"></script>
 </div>
   </main>

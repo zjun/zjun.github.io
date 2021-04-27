@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;zjun.gitee.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Mist&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;Searching...&quot;,&quot;empty&quot;:&quot;We didn&#39;t find any results for the search: ${query}&quot;,&quot;hits_time&quot;:&quot;${hits} results found in ${time} ms&quot;,&quot;hits&quot;:&quot;${hits} results found&quot;}}</script>
+<meta name="description" content="接上一篇 HighCharts笔记之: Bar Chart，这一篇继续记录在项目中使用 Pie Chart 的情况,只是自己的一点总结和记录，以备日后翻阅。这一次是通过页面上的表格(Table)数据，生成对应的饼图（Pie Chart），具体实现如下：  Highcharts 是一个用纯JavaScript编写的一个图表库, 能够很简单便捷的在web网站或是web应用程序添加有交互性的图表，并且免">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HighCharts 笔记2：通过表格生成Pie Chart">
+<meta property="og:url" content="http://zjun.gitee.io/2013/04/01/HighCharts-%E7%AC%94%E8%AE%B02%EF%BC%9A%E9%80%9A%E8%BF%87%E8%A1%A8%E6%A0%BC%E7%94%9F%E6%88%90Pie-Chart/index.html">
+<meta property="og:site_name" content="zJun&#39;s Blog">
+<meta property="og:description" content="接上一篇 HighCharts笔记之: Bar Chart，这一篇继续记录在项目中使用 Pie Chart 的情况,只是自己的一点总结和记录，以备日后翻阅。这一次是通过页面上的表格(Table)数据，生成对应的饼图（Pie Chart），具体实现如下：  Highcharts 是一个用纯JavaScript编写的一个图表库, 能够很简单便捷的在web网站或是web应用程序添加有交互性的图表，并且免">
+<meta property="og:locale">
+<meta property="og:image" content="http://farm9.staticflickr.com/8539/8609442562_2945899e60.jpg">
+<meta property="article:published_time" content="2013-04-01T13:37:35.000Z">
+<meta property="article:modified_time" content="2021-04-27T13:46:36.273Z">
+<meta property="article:author" content="zJun">
+<meta property="article:tag" content="开源框架">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://farm9.staticflickr.com/8539/8609442562_2945899e60.jpg">
+
+
+<link rel="canonical" href="http://zjun.gitee.io/2013/04/01/HighCharts-%E7%AC%94%E8%AE%B02%EF%BC%9A%E9%80%9A%E8%BF%87%E8%A1%A8%E6%A0%BC%E7%94%9F%E6%88%90Pie-Chart/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;cn&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;zjun.gitee.io&#x2F;2013&#x2F;04&#x2F;01&#x2F;HighCharts-%E7%AC%94%E8%AE%B02%EF%BC%9A%E9%80%9A%E8%BF%87%E8%A1%A8%E6%A0%BC%E7%94%9F%E6%88%90Pie-Chart&#x2F;&quot;,&quot;path&quot;:&quot;2013&#x2F;04&#x2F;01&#x2F;HighCharts-笔记2：通过表格生成Pie-Chart&#x2F;&quot;,&quot;title&quot;:&quot;HighCharts 笔记2：通过表格生成Pie Chart&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>HighCharts 笔记2：通过表格生成Pie Chart | zJun's Blog</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">zJun's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-时间线"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间线</a></li>
+        <li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pie-Chart"><span class="nav-number">1.</span> <span class="nav-text">Pie Chart</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-Code"><span class="nav-number">2.</span> <span class="nav-text">HTML Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Javascript-Code"><span class="nav-number">3.</span> <span class="nav-text">Javascript Code</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zJun"
+      src="/images/me.jpeg">
+  <p class="site-author-name" itemprop="name">zJun</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zjun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zjun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zjun101@qq.com" title="E-Mail → mailto:zjun101@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/zjun101" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;zjun101" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="cn">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2013/04/01/HighCharts-%E7%AC%94%E8%AE%B02%EF%BC%9A%E9%80%9A%E8%BF%87%E8%A1%A8%E6%A0%BC%E7%94%9F%E6%88%90Pie-Chart/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpeg">
+      <meta itemprop="name" content="zJun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zJun's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          HighCharts 笔记2：通过表格生成Pie Chart
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2013-04-01 21:37:35" itemprop="dateCreated datePublished" datetime="2013-04-01T21:37:35+08:00">2013-04-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>接上一篇 <a target="_blank" rel="noopener" href="http://zjun.github.com/2013/03/28/highcharts-json-dataformat/">HighCharts笔记之: Bar Chart</a>，这一篇继续记录在项目中使用 Pie Chart 的情况,只是自己的一点总结和记录，以备日后翻阅。这一次是通过页面上的表格(Table)数据，生成对应的饼图（Pie Chart），具体实现如下：</p>
+<blockquote>
+<p><strong>Highcharts</strong> 是一个用纯JavaScript编写的一个图表库, 能够很简单便捷的在web网站或是web应用程序添加有交互性的图表，并且免费提供给个人学习、个人网站和非商业用途使用。目前HighCharts支持的图表类型有曲线图、区域图、柱状图、饼状图、散状点图和综合图表。<br>HighCharts界面美观，由于使用JavaScript编写，所以不需要像Flash和Java那样需要插件才可以运行，而且运行速度快。另外HighCharts还有很好的兼容性，能够完美支持当前大多数浏览器。</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="Pie-Chart"><a href="#Pie-Chart" class="headerlink" title="Pie Chart"></a>Pie Chart</h3><p><a target="_blank" rel="noopener" href="http://farm9.staticflickr.com/8539/8609442562_2945899e60.jpg"><img src="http://farm9.staticflickr.com/8539/8609442562_2945899e60.jpg" alt="img"></a></p>
+<h3 id="HTML-Code"><a href="#HTML-Code" class="headerlink" title="HTML Code"></a>HTML Code</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;modal-header&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">class</span>=<span class="string">&quot;close&quot;</span> <span class="attr">data-dismiss</span>=<span class="string">&quot;modal&quot;</span> <span class="attr">aria-hidden</span>=<span class="string">&quot;true&quot;</span>&gt;</span>×<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h3</span> <span class="attr">id</span>=<span class="string">&quot;myModalLabel&quot;</span>&gt;</span>$&#123;title&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;modal-body&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;container2&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 100%; height: 280px&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span> <span class="attr">id</span>=<span class="string">&quot;datatable&quot;</span> <span class="attr">class</span>=<span class="string">&quot;table table-striped table-bordered table-hover table-condensed&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                     <span class="tag">&lt;<span class="name">th</span>&gt;</span>User<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                     <span class="tag">&lt;<span class="name">th</span>&gt;</span>$&#123;title&#125;<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">c:forEach</span> <span class="attr">items</span>=<span class="string">&quot;$&#123;userSum&#125;&quot;</span> <span class="attr">var</span>=<span class="string">&quot;item&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">th</span>&gt;</span>$&#123;item.user &#125;<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;item.sum &#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">c:forEach</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;modal-footer&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn&quot;</span> <span class="attr">data-dismiss</span>=<span class="string">&quot;modal&quot;</span> <span class="attr">aria-hidden</span>=<span class="string">&quot;true&quot;</span>&gt;</span>Close<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Javascript-Code"><a href="#Javascript-Code" class="headerlink" title="Javascript Code"></a>Javascript Code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> chart;</span><br><span class="line">Highcharts.visualize = <span class="function"><span class="keyword">function</span>(<span class="params">table, options</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// the data series</span></span><br><span class="line">    options.series = [];</span><br><span class="line">    <span class="keyword">var</span> l= options.series.length; </span><br><span class="line">    options.series[l] = &#123;</span><br><span class="line">      name: <span class="string">&#x27;$&#123;title&#125;&#x27;</span>,</span><br><span class="line">      data: []</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    $(<span class="string">&#x27;tbody tr&#x27;</span>, table).each( <span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">var</span> tr = <span class="built_in">this</span>;</span><br><span class="line">          <span class="keyword">var</span> th = $(<span class="string">&#x27;th&#x27;</span>, tr).text();</span><br><span class="line">          <span class="keyword">var</span> td =<span class="built_in">parseFloat</span>($(<span class="string">&#x27;td&#x27;</span>, tr).text());</span><br><span class="line">          options.series[<span class="number">0</span>].data.push(&#123;<span class="attr">name</span>:th,<span class="attr">y</span>:td&#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">    chart = <span class="keyword">new</span> Highcharts.Chart(options);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// On document ready, call visualize on the datatable.</span></span><br><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;         </span><br><span class="line">   <span class="keyword">var</span> table = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;datatable&#x27;</span>),</span><br><span class="line">   options = &#123;</span><br><span class="line">         chart: &#123;</span><br><span class="line">            renderTo: <span class="string">&#x27;container2&#x27;</span>,</span><br><span class="line">            defaultSeriesType: <span class="string">&#x27;pie&#x27;</span></span><br><span class="line">         &#125;,</span><br><span class="line">         title: &#123;</span><br><span class="line">            text: <span class="string">&#x27;$&#123;title&#125;&#x27;</span></span><br><span class="line">         &#125;,</span><br><span class="line">         tooltip: &#123;</span><br><span class="line">            formatter: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">               <span class="keyword">return</span> <span class="string">&#x27;&lt;b&gt;&#x27;</span>+ <span class="built_in">this</span>.series.name +<span class="string">&#x27;&lt;/b&gt;&lt;br/&gt;&#x27;</span>+</span><br><span class="line">               <span class="built_in">this</span>.point.name +<span class="string">&#x27; &#x27;</span>+ <span class="built_in">this</span>.y;</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;,</span><br><span class="line">         plotOptions: &#123;</span><br><span class="line">             pie: &#123;</span><br><span class="line">                 allowPointSelect: <span class="literal">true</span>,</span><br><span class="line">                 cursor: <span class="string">&#x27;pointer&#x27;</span></span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   Highcharts.visualize(table, options);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这种做法在 Coding 时会更简洁，但在实际运行时效率不高，因为 Pie Chart 需要等待页面上的数据都生成时才能呈现，所以总是给用户一种迟滞感，所以个人感觉还是通过 JSon 的方式生成图表更好（更快）。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6/" rel="tag"><i class="fa fa-tag"></i> 开源框架</a>
+              <a href="/tags/web/" rel="tag"><i class="fa fa-tag"></i> web</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2013/03/28/HighCharts%E7%AC%94%E8%AE%B0%E4%B9%8B-Bar-Chart/" rel="prev" title="HighCharts笔记之: Bar Chart">
+                  <i class="fa fa-chevron-left"></i> HighCharts笔记之: Bar Chart
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2013/05/08/Sublime-Text-2%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%8F%8A%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6/" rel="next" title="Sublime Text 2快捷键及常用插件">
+                  Sublime Text 2快捷键及常用插件 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zJun</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

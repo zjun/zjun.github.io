@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;zjun.gitee.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Mist&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;Searching...&quot;,&quot;empty&quot;:&quot;We didn&#39;t find any results for the search: ${query}&quot;,&quot;hits_time&quot;:&quot;${hits} results found in ${time} ms&quot;,&quot;hits&quot;:&quot;${hits} results found&quot;}}</script>
+<meta name="description" content="Sublime Text 2 是一个可定制程度相当高的轻量级编辑器,具有丰富的第三方插件，关键是可以无限期的免费使用。下面就介绍通过安装几种插件，将Sublime Text 2定制成为一款相当好用的Golang IDE。 下载 下载Sublime Text 2 安装  安装Package Control 按Ctrl + &#96; 打开console  粘贴下列代码到console并回车 import u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Sublime Text2中开发Golang">
+<meta property="og:url" content="http://zjun.gitee.io/2014/01/16/%E5%9C%A8Sublime-Text2%E4%B8%AD%E5%BC%80%E5%8F%91Golang/index.html">
+<meta property="og:site_name" content="zJun&#39;s Blog">
+<meta property="og:description" content="Sublime Text 2 是一个可定制程度相当高的轻量级编辑器,具有丰富的第三方插件，关键是可以无限期的免费使用。下面就介绍通过安装几种插件，将Sublime Text 2定制成为一款相当好用的Golang IDE。 下载 下载Sublime Text 2 安装  安装Package Control 按Ctrl + &#96; 打开console  粘贴下列代码到console并回车 import u">
+<meta property="og:locale">
+<meta property="article:published_time" content="2014-01-16T13:58:39.000Z">
+<meta property="article:modified_time" content="2021-04-27T14:00:06.079Z">
+<meta property="article:author" content="zJun">
+<meta property="article:tag" content="Tool">
+<meta property="article:tag" content="Golang">
+<meta property="article:tag" content="IDE">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://zjun.gitee.io/2014/01/16/%E5%9C%A8Sublime-Text2%E4%B8%AD%E5%BC%80%E5%8F%91Golang/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;cn&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;zjun.gitee.io&#x2F;2014&#x2F;01&#x2F;16&#x2F;%E5%9C%A8Sublime-Text2%E4%B8%AD%E5%BC%80%E5%8F%91Golang&#x2F;&quot;,&quot;path&quot;:&quot;2014&#x2F;01&#x2F;16&#x2F;在Sublime-Text2中开发Golang&#x2F;&quot;,&quot;title&quot;:&quot;在Sublime Text2中开发Golang&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>在Sublime Text2中开发Golang | zJun's Blog</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">zJun's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-时间线"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间线</a></li>
+        <li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Package-Control"><span class="nav-number">2.</span> <span class="nav-text">安装Package Control</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-gocode"><span class="nav-number">3.</span> <span class="nav-text">安装 gocode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Gosublime-%E6%8F%92%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">安装 Gosublime 插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-SidebarEnhancements-%E6%8F%92%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">安装 SidebarEnhancements 插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Go-Build-%E6%8F%92%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">安装 Go Build 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">6.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">6.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Git-Gutter-%E6%8F%92%E4%BB%B6"><span class="nav-number">7.</span> <span class="nav-text">安装 Git Gutter 插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-SideBarGit-%E6%8F%92%E4%BB%B6"><span class="nav-number">8.</span> <span class="nav-text">安装 SideBarGit 插件</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zJun"
+      src="/images/me.jpeg">
+  <p class="site-author-name" itemprop="name">zJun</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zjun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zjun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zjun101@qq.com" title="E-Mail → mailto:zjun101@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/zjun101" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;zjun101" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="cn">
+    <link itemprop="mainEntityOfPage" href="http://zjun.gitee.io/2014/01/16/%E5%9C%A8Sublime-Text2%E4%B8%AD%E5%BC%80%E5%8F%91Golang/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpeg">
+      <meta itemprop="name" content="zJun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zJun's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在Sublime Text2中开发Golang
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2014-01-16 21:58:39" itemprop="dateCreated datePublished" datetime="2014-01-16T21:58:39+08:00">2014-01-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Sublime Text 2 是一个可定制程度相当高的轻量级编辑器,具有丰富的第三方插件，关键是可以无限期的免费使用。下面就介绍通过安装几种插件，将Sublime Text 2定制成为一款相当好用的Golang IDE。</p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><ol>
+<li>下载<a target="_blank" rel="noopener" href="http://www.sublimetext.com/">Sublime Text 2</a></li>
+<li>安装</li>
+</ol>
+<h2 id="安装Package-Control"><a href="#安装Package-Control" class="headerlink" title="安装Package Control"></a>安装Package Control</h2><ol>
+<li><p>按Ctrl + ` 打开console</p>
+</li>
+<li><p>粘贴下列代码到console并回车</p>
+<p>import urllib2,os;pf=’Package Control.sublime-package’;ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),’wb’).write(urllib2.urlopen(‘<a target="_blank" rel="noopener" href="http://sublime.wbond.net/&#39;+pf.replace">http://sublime.wbond.net/&#39;+pf.replace</a>(‘ ‘,’%20’)).read())</p>
+</li>
+</ol>
+<p>重启Sublime Text 2, 重启后，如果在 Preferences菜单下，多出一个菜单项 Package Control，说明安装成功。</p>
+<h2 id="安装-gocode"><a href="#安装-gocode" class="headerlink" title="安装 gocode"></a>安装 <a target="_blank" rel="noopener" href="https://github.com/nsf/gocode">gocode</a></h2><p>打开终端，输入以下内容（需要安装git工具):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go get github.com&#x2F;nsf&#x2F;gocode  </span><br><span class="line">go install github.com&#x2F;nsf&#x2F;gocode  </span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，我们可以在 go/bin 目录下，发现多出了个 gocode 文件。</p>
+<h2 id="安装-Gosublime-插件"><a href="#安装-Gosublime-插件" class="headerlink" title="安装 Gosublime 插件"></a>安装 Gosublime 插件</h2><ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip（即“Package Control: Install Package”的缩写）</li>
+<li>输入GoSublime，回车开始安装</li>
+</ol>
+<h2 id="安装-SidebarEnhancements-插件"><a href="#安装-SidebarEnhancements-插件" class="headerlink" title="安装 SidebarEnhancements 插件"></a>安装 SidebarEnhancements 插件</h2><ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入SidebarEnhancements，回车开始安装</li>
+</ol>
+<h2 id="安装-Go-Build-插件"><a href="#安装-Go-Build-插件" class="headerlink" title="安装 Go Build 插件"></a>安装 Go Build 插件</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入 <a target="_blank" rel="noopener" href="https://github.com/cthackers/SublimeGoBuild">Go Build</a>，回车开始安装</li>
+</ol>
+<p>如果通过Package Controll 不能安装 Go Build, 那么可以通过git手动安装：</p>
+<ul>
+<li><p>For Windows:<br>Open a cmd, go to <code>%APPDATA%\Sublime Text 2\Packages</code> and type…</p>
+</li>
+<li><p>For Linux:<br>Open a shell, go to <code>~/.config/Sublime Text 2/Packages</code> and type…</p>
+<p><code>git clone git://github.com/cthackers/SublimeGoBuild.git</code></p>
+</li>
+</ul>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul>
+<li><code>F5</code> to run your project</li>
+<li><code>F7</code> to build</li>
+<li><code>CTRL + F5</code> to run tests</li>
+</ul>
+<h2 id="安装-Git-Gutter-插件"><a href="#安装-Git-Gutter-插件" class="headerlink" title="安装 Git Gutter 插件"></a>安装 Git Gutter 插件</h2><p><a target="_blank" rel="noopener" href="https://github.com/jisaacks/GitGutter">Git Gutter</a> is a sublime text 2/3 plugin to show an icon in the gutter area indicating whether a line has been inserted, modified or deleted.</p>
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入 Git Gutter，回车开始安装</li>
+</ol>
+<h2 id="安装-SideBarGit-插件"><a href="#安装-SideBarGit-插件" class="headerlink" title="安装 SideBarGit 插件"></a>安装 SideBarGit 插件</h2><p><a target="_blank" rel="noopener" href="https://github.com/SublimeText/SideBarGit">SideBarGit</a> provides git commands on Side Bar of Files and Folders for Sublime Text 2.</p>
+<ol>
+<li>Ctrl+Shift+p 打开Package Controll 输入pcip</li>
+<li>输入 SideBarGit，回车开始安装</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Tool/" rel="tag"><i class="fa fa-tag"></i> Tool</a>
+              <a href="/tags/Golang/" rel="tag"><i class="fa fa-tag"></i> Golang</a>
+              <a href="/tags/IDE/" rel="tag"><i class="fa fa-tag"></i> IDE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2014/01/03/Go%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%AE%BF%E9%97%AEMySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="prev" title="Go笔记：访问MySQL数据库">
+                  <i class="fa fa-chevron-left"></i> Go笔记：访问MySQL数据库
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2014/01/22/Go%E7%AC%94%E8%AE%B0%EF%BC%9AGo%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="next" title="Go笔记：Go数据结构">
+                  Go笔记：Go数据结构 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zJun</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
