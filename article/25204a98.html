@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"zjun.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="https://zjun.github.io/about/index.html">
+  <meta name="description" content="DisplayTag一直以来为人们所诟病的缺点就是它的装载数据的方式: 一次性把所有数据读取到内存中，然后再分页显示。这样做的后果就是在处理大批量数据时力不从心,可用性急剧下降,并且在翻页显示的仅仅是内存中的数据而不是实时数据.因此人们往往只是在实现小型项目的小数量表格分页显示时才想到DisplayTag，并且因为考虑到项目的扩展往往最终弃用DiaplayTag.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DisplayTag 1.1 Released, 可分页读取数据！！！">
+<meta property="og:url" content="https://zjun.github.io/article/25204a98.html">
 <meta property="og:site_name" content="莫名.堂">
-<meta property="og:description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
+<meta property="og:description" content="DisplayTag一直以来为人们所诟病的缺点就是它的装载数据的方式: 一次性把所有数据读取到内存中，然后再分页显示。这样做的后果就是在处理大批量数据时力不从心,可用性急剧下降,并且在翻页显示的仅仅是内存中的数据而不是实时数据.因此人们往往只是在实现小型项目的小数量表格分页显示时才想到DisplayTag，并且因为考虑到项目的扩展往往最终弃用DiaplayTag.">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-11-07T08:23:16.000Z">
-<meta property="article:modified_time" content="2023-11-07T08:23:16.282Z">
+<meta property="article:published_time" content="2006-02-27T12:21:00.000Z">
+<meta property="article:modified_time" content="2023-11-09T13:27:54.428Z">
 <meta property="article:author" content="zJun">
 <meta property="article:tag" content="Java, DDD, 微服务">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://zjun.github.io/about/">
+<link rel="canonical" href="https://zjun.github.io/article/25204a98.html">
 
 
 <script id="page-configurations">
@@ -41,13 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>about | 莫名.堂
-</title>
+  <title>DisplayTag 1.1 Released, 可分页读取数据！！！ | 莫名.堂</title>
   
 
 
@@ -189,43 +188,142 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content post posts-expand">
             
 
     
-    
-    
-    <div class="post-block" lang="zh-CN">
-      <header class="post-header">
-
-<h1 class="post-title" itemprop="name headline">about
-</h1>
-
-<div class="post-meta">
   
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zjun.github.io/article/25204a98.html">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpeg">
+      <meta itemprop="name" content="zJun">
+      <meta itemprop="description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="莫名.堂">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DisplayTag 1.1 Released, 可分页读取数据！！！
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2006-02-27 20:21:00" itemprop="dateCreated datePublished" datetime="2006-02-27T20:21:00+08:00">2006-02-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                  <time title="修改时间：2023-11-09 21:27:54" itemprop="dateModified" datetime="2023-11-09T21:27:54+08:00">2023-11-09</time>
+                </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>991</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>DisplayTag一直以来为人们所诟病的缺点就是它的装载数据的方式: <strong>一次性把所有数据读取到内存中，然后再分页显示</strong>。这样做的后果就是在处理大批量数据时力不从心,可用性急剧下降,并且在翻页显示的仅仅是内存中的数据而不是实时数据.因此人们往往只是在实现小型项目的小数量表格分页显示时才想到DisplayTag，并且因为考虑到项目的扩展往往最终弃用DiaplayTag.</p>
+<span id="more"></span>
+
+<p>但是<strong>发布于本月12日的1.1版本彻底解决了这个问题</strong>，新版的DisplayTag提供了两种方式实现部分装入数据:</p>
+<p><strong>(1)实现接口</strong> <code>org.displaytag.pagination.PaginatedList</code>,用户可以实现这个接口用来代替以前传入DisplayTag的list对象,DisplayTag将认为分页和排序的动作已经由外部动作执行了,而不会使用 原来的分页方式(即全部读入内存).但是这样用户需要自己编写分页和排序代码;</p>
+<p><strong>(2)设置相应参数</strong>,告诉DisplayTag传入的数据集由外部分页和排序,而不使用默认的方式.比如:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">display:table</span> <span class="attr">name</span>=<span class="string">&quot;testList&quot;</span> <span class="attr">sort</span>=<span class="string">&quot;external&quot;</span> <span class="attr">defaultsort</span>=<span class="string">&quot;1&quot;</span> <span class="attr">pagesize</span>=<span class="string">&quot;20&quot;</span> <span class="attr">id</span>=<span class="string">&quot;element&quot;</span> <span class="attr">partialList</span>=<span class="string">&quot;true&quot;</span> <span class="attr">size</span>=<span class="string">&quot;resultSize&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中：<br><strong>sort&#x3D;”external”</strong> 告诉DisplayTag传入的数据集已经由外部程序排好序了..<br><strong>defaultsort&#x3D;”1”</strong> 说明默认是升序(Descending is 2, Ascending is 1);<br><strong>partialList&#x3D;”true”</strong> 说明部分装入数据;<br><strong>pagesize&#x3D;”20”</strong> 每页显示记录数;<br><strong>size&#x3D;”resultSize”</strong> 显示记录的总条数(此参数结合PageSize，使得表格在只拿到某一页的完整数据的同时，可以知道会有多少页，并将其他的页数也列举出来，当用户实际翻页时才去获取当页数据);</p>
+<p>关于以上翻页范例的详细内容可以查看发布包文档中的<a target="_blank" rel="noopener" href="http://displaytag.sourceforge.net/11/tut_externalSortAndPage.html">External paging&#x2F;sorting</a> 一节。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>zJun
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://zjun.github.io/article/25204a98.html" title="DisplayTag 1.1 Released, 可分页读取数据！！！">https://zjun.github.io/article/25204a98.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
 </div>
 
-</header>
 
-      
-      
-      
-      <div class="post-body">
-          
-      </div>
-      
-      
-      
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/article/d531bfa2.html" rel="next" title="将Java应用注册为后台服务">
+      将Java应用注册为后台服务 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
+      </footer>
     
+  </article>
+  
+  
+  
 
-    
-    
-    
 
 
           </div>
