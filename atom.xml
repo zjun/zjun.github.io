@@ -38,7 +38,7 @@
     <link href="https://zjun.github.io/article/ddf385ff.html"/>
     <id>https://zjun.github.io/article/ddf385ff.html</id>
     <published>2013-09-17T13:06:19.000Z</published>
-    <updated>2023-11-09T13:01:06.730Z</updated>
+    <updated>2023-11-09T12:59:09.135Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;Setup-Raspberry-Pi&quot;&gt;&lt;a href=&quot;#Setup-Raspberry-Pi&quot; class=&quot;headerlink&quot; title=&quot;Setup Raspberry Pi&quot;&gt;&lt;/a&gt;Setup Raspberry Pi&lt;/h2&gt;&lt;h3 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h3&gt;&lt;p&gt;理论上 OS 可以是任何支持 ARM v6 的 Linux 发行版，推荐使用官方的 wheezy 系统，因为这是针对树莓派定制并优化了的 Debian。&lt;br&gt;下载地址：&lt;a href=&quot;http://www.raspberrypi.org/downloads&quot; title=&quot;http://www.raspberrypi.org/downloads&quot;&gt;http://www.raspberrypi.org/downloads&lt;/a&gt;&lt;br&gt;解压之后得到一个 .img 的镜像文件，比如 2013-07-26-wheezy-raspbian.img.  &lt;/p&gt;
@@ -57,7 +57,7 @@
     <link href="https://zjun.github.io/article/ddf385ff.html"/>
     <id>https://zjun.github.io/article/ddf385ff.html</id>
     <published>2013-09-17T13:06:19.000Z</published>
-    <updated>2023-11-09T12:59:09.135Z</updated>
+    <updated>2023-11-09T13:01:06.730Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;Setup-Raspberry-Pi&quot;&gt;&lt;a href=&quot;#Setup-Raspberry-Pi&quot; class=&quot;headerlink&quot; title=&quot;Setup Raspberry Pi&quot;&gt;&lt;/a&gt;Setup Raspberry Pi&lt;/h2&gt;&lt;h3 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h3&gt;&lt;p&gt;理论上 OS 可以是任何支持 ARM v6 的 Linux 发行版，推荐使用官方的 wheezy 系统，因为这是针对树莓派定制并优化了的 Debian。&lt;br&gt;下载地址：&lt;a href=&quot;http://www.raspberrypi.org/downloads&quot; title=&quot;http://www.raspberrypi.org/downloads&quot;&gt;http://www.raspberrypi.org/downloads&lt;/a&gt;&lt;br&gt;解压之后得到一个 .img 的镜像文件，比如 2013-07-26-wheezy-raspbian.img.  &lt;/p&gt;
@@ -183,11 +183,11 @@
   </entry>
   
   <entry>
-    <title>[GoF]java中的观察者模式(Observer)</title>
+    <title>java中的观察者模式(Observer)</title>
     <link href="https://zjun.github.io/article/368d2438.html"/>
     <id>https://zjun.github.io/article/368d2438.html</id>
     <published>2006-05-18T02:54:00.000Z</published>
-    <updated>2023-11-09T13:17:17.968Z</updated>
+    <updated>2023-11-09T14:12:17.791Z</updated>
     
     
     <summary type="html">&lt;p&gt;Java作为一种面向对象的开发语言，对实现设计模式提供了良好的支持，并且提供了许多默认的实现，比如：通过Java中的&lt;strong&gt;Observable类&lt;/strong&gt;和&lt;strong&gt;Observer接口&lt;/strong&gt;可以方便的实现观察者模式。&lt;/p&gt;
@@ -205,10 +205,10 @@
     <link href="https://zjun.github.io/article/df437fb5.html"/>
     <id>https://zjun.github.io/article/df437fb5.html</id>
     <published>2006-04-12T03:06:00.000Z</published>
-    <updated>2023-11-09T11:13:00.635Z</updated>
+    <updated>2023-11-09T14:13:33.082Z</updated>
     
     
-    <summary type="html">&lt;p&gt;在 &lt;a href=&quot;http://zjun.github.io/2006/03/21/proxy-pattern-in-java/&quot;&gt;上一篇随笔&lt;/a&gt; 中,由于时间和篇幅的关系只是简单介绍了Proxy模式的概念,并没有写到Java中对Proxy模式特有的支持,所以严格说起来是有点”名不符实”,现在就接着介绍JDK中Proxy模式的实现:&lt;br&gt;Java API中提供了对Proxy模式的支持,主要是通过反射(Reflect)包中的&lt;strong&gt;Proxy&lt;/strong&gt;类和&lt;strong&gt;InvocationHandler&lt;/strong&gt;接口实现,具体过程如下:  &lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;在 &lt;a href=&quot;https://zjun.github.io/article/46390b53.html&quot;&gt;上一篇随笔&lt;/a&gt; 中,由于时间和篇幅的关系只是简单介绍了Proxy模式的概念,并没有写到Java中对Proxy模式特有的支持,所以严格说起来是有点”名不符实”,现在就接着介绍JDK中Proxy模式的实现:&lt;br&gt;Java API中提供了对Proxy模式的支持,主要是通过反射(Reflect)包中的&lt;strong&gt;Proxy&lt;/strong&gt;类和&lt;strong&gt;InvocationHandler&lt;/strong&gt;接口实现,具体过程如下:  &lt;/p&gt;</summary>
     
     
     
