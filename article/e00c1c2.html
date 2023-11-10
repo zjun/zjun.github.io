@@ -16,24 +16,25 @@
   <meta name="author" content="zJun">
   <meta name="keywords" content="Java, DDD, 微服务">
   
-    <meta name="description" content="创建线程两种方法：    通过直接继承thread类，然后覆盖run()方法; 构建一个实现Runnable接口的类, 然后创建一个thread类对象并传递Runnable对象作为构造参数;  启动线程：只有调用start()方法才能启动一个新的执行线程。">
+    <meta name="description" content="什么是AOPAOP （Aspect Orient Programming）,直译过来就是 面向切面编程，是对面向对象编程的一种补充。AOP通过动态代理的方式，为系统提供某种通用的功能。 AOP的应用场景典型的AOP使用场景有：  日志记录  事务管理  权限验证  性能检测   AOP的基本概念核心概念 Joinpoint(连接点): 被拦截的点，在Spring中可以被动态代理拦截的目标类方法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java并发编程笔记：线程管理">
-<meta property="og:url" content="https://zjun.github.io/article/2cf8f79a.html">
+<meta property="og:title" content="Spring中AOP的简单使用">
+<meta property="og:url" content="https://zjun.github.io/article/e00c1c2.html">
 <meta property="og:site_name" content="莫名.堂">
-<meta property="og:description" content="创建线程两种方法：    通过直接继承thread类，然后覆盖run()方法; 构建一个实现Runnable接口的类, 然后创建一个thread类对象并传递Runnable对象作为构造参数;  启动线程：只有调用start()方法才能启动一个新的执行线程。">
+<meta property="og:description" content="什么是AOPAOP （Aspect Orient Programming）,直译过来就是 面向切面编程，是对面向对象编程的一种补充。AOP通过动态代理的方式，为系统提供某种通用的功能。 AOP的应用场景典型的AOP使用场景有：  日志记录  事务管理  权限验证  性能检测   AOP的基本概念核心概念 Joinpoint(连接点): 被拦截的点，在Spring中可以被动态代理拦截的目标类方法">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2012-05-02T08:52:00.000Z">
-<meta property="article:modified_time" content="2023-11-10T09:36:01.607Z">
+<meta property="article:published_time" content="2019-05-20T08:40:52.000Z">
+<meta property="article:modified_time" content="2023-11-10T09:43:51.754Z">
 <meta property="article:author" content="zJun">
-<meta property="article:tag" content="并发编程">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="AOP">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Java并发编程笔记：线程管理 - 莫名.堂</title>
+  <title>Spring中AOP的简单使用 - 莫名.堂</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -212,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Java并发编程笔记：线程管理"></span>
+            <span id="subtitle" data-typed-text="Spring中AOP的简单使用"></span>
           
         </div>
 
@@ -228,8 +229,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2012-05-02 16:52" pubdate>
-          2012年5月2日, 4:52 下午
+        <time datetime="2019-05-20 16:40" pubdate>
+          2019年5月20日, 4:40 下午
         </time>
       </span>
     
@@ -241,7 +242,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          2.9k 字
+          1.9k 字
         
       </span>
     
@@ -253,7 +254,7 @@
         
         
           <!-- compatible with older versions-->
-          25 分钟
+          17 分钟
         
       </span>
     
@@ -298,101 +299,67 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Java并发编程笔记：线程管理</h1>
+            <h1 id="seo-header">Spring中AOP的简单使用</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="创建线程"><a href="#创建线程" class="headerlink" title="创建线程"></a>创建线程</h2><p>两种方法：  </p>
-<ol>
-<li>通过直接继承thread类，然后覆盖run()方法;</li>
-<li>构建一个实现Runnable接口的类, 然后创建一个thread类对象并传递Runnable对象作为构造参数;</li>
-</ol>
-<p><strong>启动线程：</strong><br>只有调用start()方法才能启动一个新的执行线程。  </p>
-<span id="more"></span>
-<h2 id="线程的属性"><a href="#线程的属性" class="headerlink" title="线程的属性"></a>线程的属性</h2><p>通过以下方法访问线程属性：  </p>
-<ol>
-<li>id: 			<code>thread.getId()</code>  </li>
-<li>name: 		<code>thread.getName()</code>  </li>
-<li>Priority: 	<code>thread.getPriority()</code>  </li>
-<li>State: 		<code>thread.getState()</code></li>
-</ol>
-<h2 id="中断线程"><a href="#中断线程" class="headerlink" title="中断线程"></a>中断线程</h2><ol>
-<li>在线程外调用线程的 <code>interrupt()</code> 方法；  </li>
-<li>在线程内判断 <code>isInterrupted()</code>，如果为true 则退出线程； </li>
-<li>可以在线程内判断 <code>isInterrupted()</code>， 如果为true 则抛出 <code> InterruptedException</code> 异常来进行中断处理；</li>
-</ol>
-<p><strong>说明</strong>： Thread 类有一个boolean类型的属性来表明线程是否被中断。当你调用线程的 <code>interrupt()</code> 方法，就代表你把这个属性设置为 true。 而 <code>isInterrupted()</code> 方法仅返回属性值。   </p>
-<h2 id="线程的睡眠和恢复"><a href="#线程的睡眠和恢复" class="headerlink" title="线程的睡眠和恢复"></a>线程的睡眠和恢复</h2><ol>
-<li>可以使用 <code>Thread.sleep()</code> 方法休眠线程，此方法接收一个整数作为参数，表示线程暂停运行的毫秒数；</li>
-<li>也可以使用一个有TimeUnit列举元素的sleep() 方法，使用线程类的 sleep() 方法让当前线程睡眠，它接收的参数单位是表示并转换成毫秒的: <code>TimeUnit.SECONDS.sleep(1);</code>  ；  </li>
-<li>可以通过 <code>thread.interrupt();</code> 中断休眠，唤醒线程；</li>
-</ol>
-<p><strong>说明</strong>：当调用sleep()方法， Thread 离开CPU并在一段时间内停止运行。在这段时间内，它是不消耗CPU时间的，使用可以执行其他任务。</p>
-<h2 id="等待线程终结"><a href="#等待线程终结" class="headerlink" title="等待线程终结"></a>等待线程终结</h2><p>当前线程调用其他线程的 join() 后， 会暂停当前线程，直到被调用线程执行完成。  </p>
-<p>Java 提供2种形式的 join() 方法:  </p>
-<ol>
-<li><code>join (long milliseconds)</code>  </li>
-<li><code>join (long milliseconds, long nanos)</code></li>
-</ol>
-<p>第一种 join() 方法, 这方法让调用线程等待特定的毫秒数。例如，如果thread1对象使用代码 thread2.join(1000), 那么线程 thread1暂停运行，直到以下其中一个条件发生：</p>
-<ol>
-<li>thread2 结束运行  </li>
-<li>1000 毫秒过去了</li>
-</ol>
-<p>当其中一个条件为真时，join() 方法返回。</p>
-<p>第二个版本的 join() 方法和第一个很像，只不过它接收一个毫秒数和一个纳秒数作为参数。  </p>
-<h2 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h2><p><strong>守护线程</strong>: 这种线程的优先级非常低，通常在程序里没有其他线程运行时才会执行它。当守护线程是程序里唯一在运行的线程时，JVM会结束守护线程并终止程序。  </p>
-<ol>
-<li><code>setDaemon(true);</code> 设置守护线程  </li>
-<li>只能在 <code>start()</code> 方法之前可以调用 <code>setDaemon()</code> 方法。一旦线程运行了，就不能修改守护状态  </li>
-<li>可以使用 <code>isDaemon()</code> 方法来检查线程是否是守护线程（方法返回 true) 或者是使用者线程 (方法返回 false)</li>
-</ol>
-<h2 id="处理线程中的-Unchecked-exceptions"><a href="#处理线程中的-Unchecked-exceptions" class="headerlink" title="处理线程中的 Unchecked exceptions"></a>处理线程中的 Unchecked exceptions</h2><p>Java里有2种异常:</p>
+                <h1 id="什么是AOP"><a href="#什么是AOP" class="headerlink" title="什么是AOP"></a>什么是AOP</h1><p>AOP （<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Aspect&spm=1001.2101.3001.7020">Aspect</a> Orient Programming）,直译过来就是 <strong>面向切面编程</strong>，是对<strong>面向对象编程</strong>的一种补充。AOP通过动态代理的方式，为系统提供某种通用的功能。</p>
+<h1 id="AOP的应用场景"><a href="#AOP的应用场景" class="headerlink" title="AOP的应用场景"></a>AOP的应用场景</h1><p>典型的AOP使用场景有：</p>
 <ul>
-<li><p>检查异常（<strong>Checked exceptions</strong>）: 这些异常必须强制捕获它们或在一个方法里的throws子句中。 例如， <code>IOException</code> 或者<code>ClassNotFoundException</code></p>
+<li><p>日志记录</p>
 </li>
-<li><p>未检查异常（<strong>Unchecked exceptions</strong>）: 这些异常不用强制捕获它们。例如:<code>NumberFormatException</code></p>
+<li><p>事务管理</p>
+</li>
+<li><p>权限验证</p>
+</li>
+<li><p>性能检测</p>
 </li>
 </ul>
-<ol>
-<li>thread.run() 方法不接受 throws 子句。当一个非检查异常被抛出，默认的行为是在控制台写下stack trace并退出程序。</li>
-<li>实现 UncaughtExceptionHandler 接口并实现 uncaughtException() 方法;</li>
-<li>thread.setUncaughtExceptionHandler(new ExceptionHandler());</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ExceptionHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">UncaughtExceptionHandler</span>&#123;  <br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">uncaughtException</span><span class="hljs-params">(Thread t, Throwable e)</span>&#123;  <br>		System.out.printf(<span class="hljs-string">&quot;An exception has been captured\n&quot;</span>);  <br>		System.out.printf(<span class="hljs-string">&quot;Thread: %s\n&quot;</span>,t.getId());  <br>		System.out.printf(<span class="hljs-string">&quot;Exception: %s: %s\n&quot;</span>,e.getClass().getName(),e.getMessage());  <br>		System.out.printf(<span class="hljs-string">&quot;Stack Trace: \n&quot;</span>);  <br>		e.printStackTrace(System.out); System.out.printf(<span class="hljs-string">&quot;Thread status: %s\n&quot;</span>,t.getState());  <br>	&#125;<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Thread thread=<span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(task);  <br>thread.setUncaughtExceptionHandler(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ExceptionHandler</span>());  <br>thread.start();  <br></code></pre></td></tr></table></figure>
-
-<h2 id="本地线程变量"><a href="#本地线程变量" class="headerlink" title="本地线程变量"></a>本地线程变量</h2><ol>
-<li>本地线程变量 ThreadLocal;  </li>
-<li>本地线程变量为每个使用这些变量的线程储存属性值;  </li>
-<li>使用 get() 方法读取值和使用 set() 方法改变值;  </li>
-<li>如果第一次访问本地线程变量的值，没有值给当前的线程对象，那么本地线程变量会调用 initialValue() 方法来设置值给线程并返回初始值;  </li>
-<li>本地线程类还提供 remove() 方法，删除存储在线程本地变量里的值;</li>
-</ol>
-<h2 id="线程组"><a href="#线程组" class="headerlink" title="线程组"></a>线程组</h2><ol>
-<li>创建线程组： ThreadGroup threadGroup &#x3D; new ThreadGroup(“Searcher”);  </li>
-<li>加入线程组： Thread thread&#x3D;new Thread(threadGroup, runnable );  </li>
-<li>threadGroup.list() 得到关于 ThreadGroup ob对象信息；</li>
-<li>activeCount() 方法获取线程个数；  </li>
-<li>enumerate() 方法获取与ThreadGroup对象关联的线程的列表；<br>threadGroup.enumerate(Thread[]);  </li>
-<li>interrupt() 方法中断组里的其他线程： threadGroup.interrupt();</li>
-</ol>
-<h2 id="处理线程组中的-Unchecked-exceptions"><a href="#处理线程组中的-Unchecked-exceptions" class="headerlink" title="处理线程组中的 Unchecked exceptions"></a>处理线程组中的 Unchecked exceptions</h2><ol>
-<li>override ThreadGroup 的 uncaughtException() 方法；  </li>
-<li>当一个非捕捉异常在线程内抛出，JVM会为这个异常寻找3种可能handlers：  <ol>
-<li>找这个未捕捉的线程对象的异常handle;  </li>
-<li>在线程对象的ThreadGroup里寻找非捕捉异常的handler;  </li>
-<li>寻找默认非捕捉异常handle;</li>
-</ol>
+<h1 id="AOP的基本概念"><a href="#AOP的基本概念" class="headerlink" title="AOP的基本概念"></a>AOP的基本概念</h1><h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><ul>
+<li><p><strong>Joinpoint(连接点)</strong>: 被拦截的点，在Spring中可以被动态代理拦截的目标类方法</p>
 </li>
-</ol>
-<p>如果没有 handlers存在, 那么 JVM会把异常的 stack trace 写入控制台并结束任务。  </p>
-<h2 id="线程工厂"><a href="#线程工厂" class="headerlink" title="线程工厂"></a>线程工厂</h2><ol>
-<li>ThreadFactory 接口;  </li>
-<li>实现接口方法: newThread(), 接收 Runnable 对象作为参数并返回一个 Thread 对象;</li>
-</ol>
+<li><p><strong>Pointcut(切入点)</strong>: 指要对那些 Joinpoint 进行拦截，即被拦截的连接点</p>
+</li>
+<li><p><strong>Advice(通知)</strong>: 指拦截到 Joinpoint 之后要做的事情，即对切入点增强的内容</p>
+</li>
+<li><p><strong>Target(目标)</strong>: 指代理的目标对象</p>
+</li>
+<li><p><strong>Weaving(植入)</strong>: 指把增强代码应用到目标上，生成代理对象的过程</p>
+</li>
+<li><p><strong>Proxy(代理)</strong>: 指生成的代理对象</p>
+</li>
+<li><p><strong>Aspect(切面)</strong>: 切入点和通知的结合</p>
+</li>
+</ul>
+<h2 id="AOP-通知分类"><a href="#AOP-通知分类" class="headerlink" title="AOP 通知分类"></a>AOP 通知分类</h2><ul>
+<li><p><strong>before(前置通知)</strong>: 通知方法在目标方法调用之前执行</p>
+</li>
+<li><p><strong>after(后置通知)</strong>: 通知方法在目标方法返回或异常后执行</p>
+</li>
+<li><p><strong>after-returning(返回后通知)</strong>: 通知方法在目标方法返回后执行</p>
+</li>
+<li><p><strong>after-throwing(抛出异常通知)</strong>: 通知方法在目标方法抛出异常后执行</p>
+</li>
+<li><p><strong>around(环绕通知)</strong>: 通知方法会将目标方法封装起来</p>
+</li>
+</ul>
+<h1 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h1><p>下面用一个简单的例子通过AOP来实现方法级的日志记录</p>
+<h2 id="定义注解"><a href="#定义注解" class="headerlink" title="定义注解"></a>定义注解</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 一个方法级别的<span class="hljs-doctag">@log</span>注解</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Target(ElementType.METHOD)</span><br><span class="hljs-meta">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> Log &#123;<br>    String <span class="hljs-title function_">operation</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> <span class="hljs-string">&quot;&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="定义切面"><a href="#定义切面" class="headerlink" title="定义切面"></a>定义切面</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Aspect</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LogAsPect</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 定义切入点: 表示匹配带有自定义注解的方法</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Pointcut(&quot;@annotation(com.zjun.aoplog.Log)&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">operationLog</span><span class="hljs-params">()</span> &#123;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 在切入点的前后执行增强方法</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Around(&quot;pointcut()&quot;)</span><br>    <span class="hljs-keyword">public</span> Object <span class="hljs-title function_">around</span><span class="hljs-params">(ProceedingJoinPoint point)</span> &#123;<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span><span class="hljs-literal">null</span>;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">beginTime</span> <span class="hljs-operator">=</span> System.currentTimeMillis();<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            log.info(<span class="hljs-string">&quot;在目标方法之前执行！&quot;</span>);<br>            result = point.proceed();<br>            <span class="hljs-type">long</span> <span class="hljs-variable">endTime</span> <span class="hljs-operator">=</span> System.currentTimeMillis();<br>            log.info(<span class="hljs-string">&quot;目标方法执行时间：&#123;&#125;&quot;</span>,endTime-beginTime);        <br>        &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;<br>            <span class="hljs-comment">// TODO Auto-generated catch block</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>关于<code>AOP</code>的几个重要注解：</p>
+<ul>
+<li><code>@Aspect</code>:这个注解表示将当前类视为一个切面类</li>
+<li><code>@Component</code>：表示将当前类交由<code>Spring</code>管理。</li>
+<li><code>@Pointcut</code>:切点表达式,定义我们的匹配规则，上边我们使用<code>@Pointcut(&quot;@annotation(com.zjun.aoplog.Log)&quot;)</code>表示匹配带有我们自定义注解的方法。</li>
+<li><code>@Around</code>:环绕通知，可以在目标方法执行前后执行一些操作，以及目标方法抛出异常时执行的操作。</li>
+</ul>
+<h2 id="在Controller中使用切面"><a href="#在Controller中使用切面" class="headerlink" title="在Controller中使用切面"></a>在Controller中使用切面</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HomeController</span> &#123;<br><br>    <span class="hljs-meta">@RequestMapping(&quot;/aop&quot;)</span><br>    <span class="hljs-meta">@ResponseBody</span><br>    <span class="hljs-meta">@Log(&quot;测试aoplog&quot;)</span><br>    <span class="hljs-keyword">public</span> Object <span class="hljs-title function_">aop</span><span class="hljs-params">(String name, String nick)</span> &#123;<br>        Map&lt;String, Object&gt; map =<span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        log.info(<span class="hljs-string">&quot;目标方法执行了！&quot;</span>);<br>        map.put(<span class="hljs-string">&quot;res&quot;</span>, <span class="hljs-string">&quot;ok&quot;</span>);<br>        <span class="hljs-keyword">return</span> map;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>执行结果：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">在目标方法之前执行！<br>目标方法执行了！<br>目标方法执行时间：6<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -426,7 +393,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="print-no-link">#并发编程</a>
+        <a href="/tags/Spring/" class="print-no-link">#Spring</a>
+      
+        <a href="/tags/AOP/" class="print-no-link">#AOP</a>
       
     </div>
   
@@ -438,8 +407,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Java并发编程笔记：线程管理</div>
-      <div>https://zjun.github.io/article/2cf8f79a.html</div>
+      <div>Spring中AOP的简单使用</div>
+      <div>https://zjun.github.io/article/e00c1c2.html</div>
     </div>
     <div class="license-meta">
       
@@ -451,7 +420,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2012年5月2日</div>
+          <div>2019年5月20日</div>
         </div>
       
       
@@ -483,9 +452,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/article/ae982c1d.html" title="关于 Java String 内存管理的几个有趣的例子">
+                      <a href="/article/4f203cd3.html" title="Spring 全局异常处理">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">关于 Java String 内存管理的几个有趣的例子</span>
+                        <span class="hidden-mobile">Spring 全局异常处理</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -493,8 +462,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/article/2f7dbe20.html" title="Find duplicate records in text file">
-                        <span class="hidden-mobile">Find duplicate records in text file</span>
+                      <a href="/article/29fea7b8.html" title="使用Spring Data JPA 简化持久层的开发">
+                        <span class="hidden-mobile">使用Spring Data JPA 简化持久层的开发</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

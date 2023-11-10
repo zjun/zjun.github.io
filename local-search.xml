@@ -29,6 +29,33 @@
   
   
   <entry>
+    <title>Spring中AOP的简单使用</title>
+    <link href="/article/e00c1c2.html"/>
+    <url>/article/e00c1c2.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="什么是AOP"><a href="#什么是AOP" class="headerlink" title="什么是AOP"></a>什么是AOP</h1><p>AOP （<a href="https://so.csdn.net/so/search?q=Aspect&spm=1001.2101.3001.7020">Aspect</a> Orient Programming）,直译过来就是 <strong>面向切面编程</strong>，是对<strong>面向对象编程</strong>的一种补充。AOP通过动态代理的方式，为系统提供某种通用的功能。</p><h1 id="AOP的应用场景"><a href="#AOP的应用场景" class="headerlink" title="AOP的应用场景"></a>AOP的应用场景</h1><p>典型的AOP使用场景有：</p><ul><li><p>日志记录</p></li><li><p>事务管理</p></li><li><p>权限验证</p></li><li><p>性能检测</p></li></ul><h1 id="AOP的基本概念"><a href="#AOP的基本概念" class="headerlink" title="AOP的基本概念"></a>AOP的基本概念</h1><h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><ul><li><p><strong>Joinpoint(连接点)</strong>: 被拦截的点，在Spring中可以被动态代理拦截的目标类方法</p></li><li><p><strong>Pointcut(切入点)</strong>: 指要对那些 Joinpoint 进行拦截，即被拦截的连接点</p></li><li><p><strong>Advice(通知)</strong>: 指拦截到 Joinpoint 之后要做的事情，即对切入点增强的内容</p></li><li><p><strong>Target(目标)</strong>: 指代理的目标对象</p></li><li><p><strong>Weaving(植入)</strong>: 指把增强代码应用到目标上，生成代理对象的过程</p></li><li><p><strong>Proxy(代理)</strong>: 指生成的代理对象</p></li><li><p><strong>Aspect(切面)</strong>: 切入点和通知的结合</p></li></ul><h2 id="AOP-通知分类"><a href="#AOP-通知分类" class="headerlink" title="AOP 通知分类"></a>AOP 通知分类</h2><ul><li><p><strong>before(前置通知)</strong>: 通知方法在目标方法调用之前执行</p></li><li><p><strong>after(后置通知)</strong>: 通知方法在目标方法返回或异常后执行</p></li><li><p><strong>after-returning(返回后通知)</strong>: 通知方法在目标方法返回后执行</p></li><li><p><strong>after-throwing(抛出异常通知)</strong>: 通知方法在目标方法抛出异常后执行</p></li><li><p><strong>around(环绕通知)</strong>: 通知方法会将目标方法封装起来</p></li></ul><h1 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h1><p>下面用一个简单的例子通过AOP来实现方法级的日志记录</p><h2 id="定义注解"><a href="#定义注解" class="headerlink" title="定义注解"></a>定义注解</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 一个方法级别的<span class="hljs-doctag">@log</span>注解</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Target(ElementType.METHOD)</span><br><span class="hljs-meta">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> Log &#123;<br>    String <span class="hljs-title function_">operation</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> <span class="hljs-string">&quot;&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="定义切面"><a href="#定义切面" class="headerlink" title="定义切面"></a>定义切面</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Aspect</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LogAsPect</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 定义切入点: 表示匹配带有自定义注解的方法</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Pointcut(&quot;@annotation(com.zjun.aoplog.Log)&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">operationLog</span><span class="hljs-params">()</span> &#123;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 在切入点的前后执行增强方法</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Around(&quot;pointcut()&quot;)</span><br>    <span class="hljs-keyword">public</span> Object <span class="hljs-title function_">around</span><span class="hljs-params">(ProceedingJoinPoint point)</span> &#123;<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span><span class="hljs-literal">null</span>;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">beginTime</span> <span class="hljs-operator">=</span> System.currentTimeMillis();<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            log.info(<span class="hljs-string">&quot;在目标方法之前执行！&quot;</span>);<br>            result = point.proceed();<br>            <span class="hljs-type">long</span> <span class="hljs-variable">endTime</span> <span class="hljs-operator">=</span> System.currentTimeMillis();<br>            log.info(<span class="hljs-string">&quot;目标方法执行时间：&#123;&#125;&quot;</span>,endTime-beginTime);        <br>        &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;<br>            <span class="hljs-comment">// TODO Auto-generated catch block</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>关于<code>AOP</code>的几个重要注解：</p><ul><li><code>@Aspect</code>:这个注解表示将当前类视为一个切面类</li><li><code>@Component</code>：表示将当前类交由<code>Spring</code>管理。</li><li><code>@Pointcut</code>:切点表达式,定义我们的匹配规则，上边我们使用<code>@Pointcut(&quot;@annotation(com.zjun.aoplog.Log)&quot;)</code>表示匹配带有我们自定义注解的方法。</li><li><code>@Around</code>:环绕通知，可以在目标方法执行前后执行一些操作，以及目标方法抛出异常时执行的操作。</li></ul><h2 id="在Controller中使用切面"><a href="#在Controller中使用切面" class="headerlink" title="在Controller中使用切面"></a>在Controller中使用切面</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HomeController</span> &#123;<br><br>    <span class="hljs-meta">@RequestMapping(&quot;/aop&quot;)</span><br>    <span class="hljs-meta">@ResponseBody</span><br>    <span class="hljs-meta">@Log(&quot;测试aoplog&quot;)</span><br>    <span class="hljs-keyword">public</span> Object <span class="hljs-title function_">aop</span><span class="hljs-params">(String name, String nick)</span> &#123;<br>        Map&lt;String, Object&gt; map =<span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        log.info(<span class="hljs-string">&quot;目标方法执行了！&quot;</span>);<br>        map.put(<span class="hljs-string">&quot;res&quot;</span>, <span class="hljs-string">&quot;ok&quot;</span>);<br>        <span class="hljs-keyword">return</span> map;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p><strong>执行结果：</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">在目标方法之前执行！<br>目标方法执行了！<br>目标方法执行时间：6<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>后端开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Spring</tag>
+      
+      <tag>AOP</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>使用Spring Data JPA 简化持久层的开发</title>
     <link href="/article/29fea7b8.html"/>
     <url>/article/29fea7b8.html</url>
@@ -38,10 +65,16 @@
     
     <categories>
       
-      <category>Java</category>
+      <category>后端开发</category>
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>Spring</tag>
+      
+    </tags>
     
   </entry>
   
@@ -76,10 +109,16 @@
     
     <categories>
       
-      <category>Java</category>
+      <category>后端开发</category>
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+    </tags>
     
   </entry>
   
@@ -95,10 +134,16 @@
     
     <categories>
       
-      <category>Java</category>
+      <category>后端开发</category>
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>并发编程</tag>
+      
+    </tags>
     
   </entry>
   
@@ -133,10 +178,16 @@
     
     <categories>
       
-      <category>Java</category>
+      <category>后端开发</category>
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+    </tags>
     
   </entry>
   
@@ -152,10 +203,16 @@
     
     <categories>
       
-      <category>Java</category>
+      <category>后端开发</category>
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>hibernate</tag>
+      
+    </tags>
     
   </entry>
   
@@ -209,10 +266,16 @@
     
     <categories>
       
-      <category>Java</category>
+      <category>架构设计</category>
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
     
   </entry>
   
@@ -253,10 +316,16 @@
     
     <categories>
       
-      <category>Java</category>
+      <category>后端开发</category>
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+    </tags>
     
   </entry>
   
@@ -269,6 +338,12 @@
     
     <content type="html"><![CDATA[<p>意译自KevLinDev上一篇文章，才疏学浅，望指正，英文原文可到<a href="http://www.kevlindev.com/tutorials/javascript/inheritance/">这里</a>查看。</p><p>javascript脚本语言是支持面向对象编程(<strong>O</strong>bject <strong>O</strong>riented <strong>P</strong>rogramming )的,只是javascript实现的方式比较特别，与C++和java中的实现方式不同。在javascript中我们需要借助<strong>prototype</strong>对象来访问父类的方法，下面将讨论在javascript中实现OOP中最基本的特征关系 — <strong>继承</strong>。</p><span id="more"></span><h2 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h2><p>我们从最基本的开始：<strong>在javascript中创建对象</strong>。创建一个对象包括2步：</p><ol><li>创建一个和你想要创建的对象同名的函数(这里可以把这个函数理解为java中的构造函数)；  </li><li>通过调用 <strong>new 上面创建的函数名</strong> 的方式创建一个对象实例；</li></ol><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 创建同名函数   </span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Person</span>(<span class="hljs-params">first, last</span>) &#123;  <br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">first</span> = first;  <br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">last</span>  = last;  <br>&#125;  <br><span class="hljs-comment">// 创建实例  </span><br><span class="hljs-keyword">var</span> person = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>(<span class="hljs-string">&quot;John&quot;</span>, <span class="hljs-string">&quot;Dough&quot;</span>);  <br></code></pre></td></tr></table></figure><p>注意：构造函数中的<strong>this</strong>指针指向当前的创建的对象，这与java中的表示是一致的。通过this指针我们可以操作对象的属性。</p><h2 id="然后"><a href="#然后" class="headerlink" title="然后"></a>然后</h2><p>设置对象的方法：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title class_">Person</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-title function_">toString</span>(<span class="hljs-params"></span>) &#123;  <br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">first</span> + <span class="hljs-string">&quot; &quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">last</span>;  <br>&#125;  <br><br><span class="hljs-title function_">alert</span>( person.<span class="hljs-title function_">toString</span>() ); <span class="hljs-comment">// displays &quot;John Dough&quot;  </span><br><span class="hljs-title function_">alert</span>( person ); <span class="hljs-comment">// alert函数将默认调用toString()函数  </span><br></code></pre></td></tr></table></figure><p>在这里我们用到了javascript中的<strong>prototype</strong>属性。所有的javascript对象都拥有一个prototype属性，javascript就是通过这个属性来实现继承关系的。具体的实现机制是这样的：</p><ol><li><strong>当你访问一个对象的属性时，编译器将先查找对象的属性看有没有匹配的。</strong>  </li><li><strong>如果没有找到，将继续查找这个对象的prototype属性所指的对象，看是否存在匹配的属性。</strong>  </li><li><strong>如果还是没有找到，编译器将检查当前对象的prototype是否拥有prototype属性，如果有将继续查找下去。</strong>  </li><li><strong>以此类推，直到查找完所有的prototype属性。</strong></li></ol><p>从这个过程不难看出，存在着一个类似于继承的访问链，可以把prototype对象指向我们要继承的父类，以此来访问父类的方法。</p><h2 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h2><p>我们新建一个类Employee来继承上面的Person类，并且新增一个属性id,在Employee的构造函数中只是初始化属性id，而父类中的属性将由Person的构造函数类设置：  </p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Person</span>(<span class="hljs-params">first, last</span>) &#123;  <br><span class="hljs-keyword">if</span> ( <span class="hljs-variable language_">arguments</span>.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span> )  <br>    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">init</span>(first, last);  <br>&#125;  <br>  <br><span class="hljs-title class_">Person</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">init</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">first, last</span>) &#123;  <br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">first</span> = first;  <br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">last</span>  = last;  <br>&#125;  <br>  <br><span class="hljs-title class_">Employee</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>();  <br><span class="hljs-title class_">Employee</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">constructor</span> = <span class="hljs-title class_">Employee</span>;  <br><span class="hljs-title class_">Employee</span>.<span class="hljs-property">superclass</span> = <span class="hljs-title class_">Person</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>;  <br>  <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Employee</span>(<span class="hljs-params">first, last, id</span>) &#123;  <br>    <span class="hljs-keyword">if</span> ( <span class="hljs-variable language_">arguments</span>.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span> )  <br>        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">init</span>(first, last, id);  <br>&#125;  <br>  <br><span class="hljs-title class_">Employee</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">init</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">first, last, id</span>) &#123;      <br>    <span class="hljs-comment">// Call superclass method  </span><br>    <span class="hljs-title class_">Employee</span>.<span class="hljs-property">superclass</span>.<span class="hljs-property">init</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>, first, last);  <br>  <br>    <span class="hljs-comment">// init properties  </span><br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">id</span> = id;  <br>&#125;  <br><span class="hljs-string">``</span><span class="hljs-string">`  </span><br><span class="hljs-string"></span><br><span class="hljs-string">可以看到，我们把初始化属性的操作提取出来放到了一个init函数中，这样做是为了方便在子类中调用。注意其中的&quot;**Employee.superclass = Person.prototype;**&quot;，这里是一个技巧，方便下面在子类中调用父类的方法。</span><br><span class="hljs-string">另一个需要注意的地方是&quot;**Employee.superclass.init.call(this, first, last);**&quot;:对于所有对象中的方法来说，都可以通过两个方法来调用－－&quot;**call**&quot; 和 &quot;**apply**&quot;.  </span><br><span class="hljs-string">这里使用了**call**方法，其中第一个参数是将在调用的方法中访问的对象，后面的参数与调用方法的参数一致。</span><br><span class="hljs-string"> **apply**方法的使用与call大致一致，不同在于除了第一个参数外，后面是一个参数数组。  </span><br><span class="hljs-string"></span><br><span class="hljs-string">下面附上完整的例子和类图：</span><br><span class="hljs-string"></span><br><span class="hljs-string">继承关系图如下：  </span><br><span class="hljs-string"></span><br><span class="hljs-string">![](http://www.blogjava.net/images/blogjava_net/zjun/8140/o_javascriptOOP.gif)</span><br><span class="hljs-string"></span><br><span class="hljs-string">代码：</span><br><span class="hljs-string">`</span><span class="hljs-string">``</span>javascript<br><span class="hljs-comment">/*****  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*    Person constructor  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*****/</span>   <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Person</span>(<span class="hljs-params">first, last</span>) &#123;  <br>    <span class="hljs-keyword">if</span> ( <span class="hljs-variable language_">arguments</span>.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span> )  <br>        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">init</span>(first, last);  <br>&#125;  <br>  <br><span class="hljs-comment">/*****  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*    Person init  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*****/</span>  <br><span class="hljs-title class_">Person</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">init</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">first, last</span>) &#123;  <br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">first</span> = first;  <br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">last</span>  = last;  <br>&#125;;  <br>  <br><span class="hljs-comment">/*****  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*    Person toString  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*****/</span>  <br><span class="hljs-title class_">Person</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;  <br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">first</span> + <span class="hljs-string">&quot;,&quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">last</span>;  <br>&#125;;  <br>  <br>  <br><span class="hljs-comment">/*****  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*    Setup Employee inheritance  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*****/</span>  <br><span class="hljs-title class_">Employee</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>();  <br><span class="hljs-title class_">Employee</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">constructor</span> = <span class="hljs-title class_">Employee</span>;  <br><span class="hljs-title class_">Employee</span>.<span class="hljs-property">superclass</span> = <span class="hljs-title class_">Person</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>;  <br>  <br><span class="hljs-comment">/*****  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*    Employee constructor  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*****/</span>  <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Employee</span>(<span class="hljs-params">first, last, id</span>) &#123;  <br>    <span class="hljs-keyword">if</span> ( <span class="hljs-variable language_">arguments</span>.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span> )  <br>        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">init</span>(first, last, id);  <br>&#125;  <br>  <br><span class="hljs-comment">/*****  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*    Employee init  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*****/</span>  <br><span class="hljs-title class_">Employee</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">init</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">first, last, id</span>) &#123;      <br>    <span class="hljs-comment">// Call superclass method  </span><br>    <span class="hljs-title class_">Employee</span>.<span class="hljs-property">superclass</span>.<span class="hljs-property">init</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>, first, last);  <br>  <br>    <span class="hljs-comment">// init properties  </span><br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">id</span> = id;  <br>&#125;  <br>  <br><span class="hljs-comment">/*****  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*    Employee toString  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*****/</span>  <br><span class="hljs-title class_">Employee</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;  <br>    <span class="hljs-keyword">var</span> name = <span class="hljs-title class_">Employee</span>.<span class="hljs-property">superclass</span>.<span class="hljs-property">toString</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>);  <br>  <br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">id</span> + <span class="hljs-string">&quot;:&quot;</span> + name;  <br>&#125;;  <br>  <br>  <br><span class="hljs-comment">/*****  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*    Setup Manager inheritance  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*****/</span>  <br><span class="hljs-title class_">Manager</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Employee</span>;  <br><span class="hljs-title class_">Manager</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">constructor</span> = <span class="hljs-title class_">Manager</span>;  <br><span class="hljs-title class_">Manager</span>.<span class="hljs-property">superclass</span> = <span class="hljs-title class_">Employee</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>;  <br>  <br><span class="hljs-comment">/*****  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*    Manager constructor  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*****/</span>  <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Manager</span>(<span class="hljs-params">first, last, id, department</span>) &#123;  <br>    <span class="hljs-keyword">if</span> ( <span class="hljs-variable language_">arguments</span>.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span> )  <br>        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">init</span>(first, last, id, department);  <br>&#125;  <br>  <br><span class="hljs-comment">/*****  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*    Manager init  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*****/</span>  <br><span class="hljs-title class_">Manager</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">init</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">first, last, id, department</span>)&#123;  <br>    <span class="hljs-comment">// Call superclass method  </span><br>    <span class="hljs-title class_">Manager</span>.<span class="hljs-property">superclass</span>.<span class="hljs-property">init</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>, first, last, id);  <br>  <br>    <span class="hljs-comment">// init properties  </span><br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">department</span> = department;  <br>&#125;  <br>  <br><span class="hljs-comment">/*****  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*    Manager toString  </span><br><span class="hljs-comment">*  </span><br><span class="hljs-comment">*****/</span>  <br><span class="hljs-title class_">Manager</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;  <br>    <span class="hljs-keyword">var</span> employee = <span class="hljs-title class_">Manager</span>.<span class="hljs-property">superclass</span>.<span class="hljs-property">toString</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>);  <br>  <br>    <span class="hljs-keyword">return</span> employee + <span class="hljs-string">&quot; manages &quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">department</span>;  <br>&#125;  <br></code></pre></td></tr></table></figure>]]></content>
     
+    
+    <categories>
+      
+      <category>前端开发</category>
+      
+    </categories>
     
     
     <tags>
@@ -291,10 +366,16 @@
     
     <categories>
       
-      <category>Java</category>
+      <category>后端开发</category>
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+    </tags>
     
   </entry>
   
@@ -310,7 +391,7 @@
     
     <categories>
       
-      <category>Web</category>
+      <category>前端开发</category>
       
     </categories>
     

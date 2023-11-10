@@ -39,19 +39,45 @@
   </entry>
   
   <entry>
+    <title>Spring中AOP的简单使用</title>
+    <link href="https://zjun.github.io/article/e00c1c2.html"/>
+    <id>https://zjun.github.io/article/e00c1c2.html</id>
+    <published>2019-05-20T08:40:52.000Z</published>
+    <updated>2023-11-10T09:43:51.754Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;什么是AOP&quot;&gt;&lt;a href=&quot;#什么是AOP&quot; class=&quot;headerlink&quot; title=&quot;什么是AOP&quot;&gt;&lt;/a&gt;什么是AOP&lt;/h1&gt;&lt;p&gt;AOP （&lt;a href=&quot;https://so.csdn.net/so/search?q=Aspect&amp;s</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="Spring" scheme="https://zjun.github.io/tags/Spring/"/>
+    
+    <category term="AOP" scheme="https://zjun.github.io/tags/AOP/"/>
+    
+  </entry>
+  
+  <entry>
     <title>使用Spring Data JPA 简化持久层的开发</title>
     <link href="https://zjun.github.io/article/29fea7b8.html"/>
     <id>https://zjun.github.io/article/29fea7b8.html</id>
     <published>2013-12-03T13:06:19.000Z</published>
-    <updated>2023-11-09T12:47:30.758Z</updated>
+    <updated>2023-11-10T09:42:46.021Z</updated>
     
     
     <summary type="html">&lt;p&gt;最近看到&lt;a href=&quot;http://www.springside.org.cn/&quot;&gt;SpringSide&lt;/a&gt;最新版的&lt;a href=&quot;https://github.com/springside/springside4/wiki/Design&quot;&gt;技术选型&lt;/a&gt;中提到了&lt;a href=&quot;http://www.springsource.org/spring-data/jpa&quot;&gt;Spring Data JPA&lt;/a&gt;,号称只需要实现接口就可以实现大部分操作。真有怎么神奇？于是Google一番，果然好使，在这里记录一下：&lt;/p&gt;</summary>
     
     
     
-    <category term="Java" scheme="https://zjun.github.io/categories/Java/"/>
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
+    
+    <category term="Spring" scheme="https://zjun.github.io/tags/Spring/"/>
     
   </entry>
   
@@ -79,15 +105,17 @@
     <link href="https://zjun.github.io/article/ae982c1d.html"/>
     <id>https://zjun.github.io/article/ae982c1d.html</id>
     <published>2013-05-30T13:06:19.000Z</published>
-    <updated>2023-11-09T13:05:35.456Z</updated>
+    <updated>2023-11-10T09:42:20.381Z</updated>
     
     
     <summary type="html">&lt;p&gt;今天在 &lt;a href=&quot;http://www.oschina.net/&quot;&gt;OSChina&lt;/a&gt; 上看到一篇有趣的文章：&lt;a href=&quot;http://my.oschina.net/u/551903/blog/134000&quot;&gt;关于String内存分配的深入探讨&lt;/a&gt;,文章通过几个简单的例子，把Java中String的内存管理的方式解释的很清楚，涨了不少姿势，现根据自己的理解做些笔记在这里：&lt;/p&gt;</summary>
     
     
     
-    <category term="Java" scheme="https://zjun.github.io/categories/Java/"/>
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
+    
+    <category term="Java" scheme="https://zjun.github.io/tags/Java/"/>
     
   </entry>
   
@@ -96,7 +124,7 @@
     <link href="https://zjun.github.io/article/2cf8f79a.html"/>
     <id>https://zjun.github.io/article/2cf8f79a.html</id>
     <published>2012-05-02T08:52:00.000Z</published>
-    <updated>2023-11-09T07:38:49.469Z</updated>
+    <updated>2023-11-10T09:36:01.607Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;创建线程&quot;&gt;&lt;a href=&quot;#创建线程&quot; class=&quot;headerlink&quot; title=&quot;创建线程&quot;&gt;&lt;/a&gt;创建线程&lt;/h2&gt;&lt;p&gt;两种方法：  &lt;/p&gt;
@@ -108,8 +136,10 @@
     
     
     
-    <category term="Java" scheme="https://zjun.github.io/categories/Java/"/>
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
+    
+    <category term="并发编程" scheme="https://zjun.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
@@ -135,15 +165,17 @@
     <link href="https://zjun.github.io/article/59d39a85.html"/>
     <id>https://zjun.github.io/article/59d39a85.html</id>
     <published>2007-01-18T05:48:00.000Z</published>
-    <updated>2023-11-09T13:07:46.073Z</updated>
+    <updated>2023-11-10T09:42:00.358Z</updated>
     
     
     <summary type="html">&lt;h3 id=&quot;方法一：循环元素删除&quot;&gt;&lt;a href=&quot;#方法一：循环元素删除&quot; class=&quot;headerlink&quot; title=&quot;方法一：循环元素删除&quot;&gt;&lt;/a&gt;方法一：循环元素删除&lt;/h3&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;code class=&quot;hljs java&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;//  删除ArrayList中重复元素&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt;   &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt;   &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;  &lt;span class=&quot;hljs-title function_&quot;&gt;removeDuplicate&lt;/span&gt;&lt;span class=&quot;hljs-params&quot;&gt;(List list)&lt;/span&gt;  &amp;#123;&lt;br&gt;   &lt;span class=&quot;hljs-keyword&quot;&gt;for&lt;/span&gt;  ( &lt;span class=&quot;hljs-type&quot;&gt;int&lt;/span&gt;  &lt;span class=&quot;hljs-variable&quot;&gt;i&lt;/span&gt;  &lt;span class=&quot;hljs-operator&quot;&gt;=&lt;/span&gt;   &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt; ; i  &amp;lt;  list.size()  -   &lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt; ; i ++ )  &amp;#123;&lt;br&gt;    &lt;span class=&quot;hljs-keyword&quot;&gt;for&lt;/span&gt;  ( &lt;span class=&quot;hljs-type&quot;&gt;int&lt;/span&gt;  &lt;span class=&quot;hljs-variable&quot;&gt;j&lt;/span&gt;  &lt;span class=&quot;hljs-operator&quot;&gt;=&lt;/span&gt;  list.size()  -   &lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt; ; j  &amp;gt;  i; j -- )  &amp;#123;&lt;br&gt;      &lt;span class=&quot;hljs-keyword&quot;&gt;if&lt;/span&gt;  (list.get(j).equals(list.get(i)))  &amp;#123;&lt;br&gt;        list.remove(j);&lt;br&gt;      &amp;#125;&lt;br&gt;    &amp;#125;&lt;br&gt;  &amp;#125;&lt;br&gt;  System.out.println(list);&lt;br&gt;&amp;#125;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
     
     
     
-    <category term="Java" scheme="https://zjun.github.io/categories/Java/"/>
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
+    
+    <category term="Java" scheme="https://zjun.github.io/tags/Java/"/>
     
   </entry>
   
@@ -152,7 +184,7 @@
     <link href="https://zjun.github.io/article/10d51e8f.html"/>
     <id>https://zjun.github.io/article/10d51e8f.html</id>
     <published>2006-08-16T07:15:00.000Z</published>
-    <updated>2023-11-09T13:10:06.880Z</updated>
+    <updated>2023-11-10T09:40:35.152Z</updated>
     
     
     <summary type="html">&lt;p&gt;Hibernate中支持3种形式实现继承关系：  &lt;/p&gt;
@@ -163,8 +195,10 @@
     
     
     
-    <category term="Java" scheme="https://zjun.github.io/categories/Java/"/>
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
+    
+    <category term="hibernate" scheme="https://zjun.github.io/tags/hibernate/"/>
     
   </entry>
   
@@ -208,15 +242,17 @@
     <link href="https://zjun.github.io/article/df437fb5.html"/>
     <id>https://zjun.github.io/article/df437fb5.html</id>
     <published>2006-04-12T03:06:00.000Z</published>
-    <updated>2023-11-10T08:03:50.465Z</updated>
+    <updated>2023-11-10T09:41:09.366Z</updated>
     
     
     <summary type="html">&lt;p&gt;在 &lt;a href=&quot;https://zjun.github.io/article/46390b53.html&quot;&gt;上一篇随笔&lt;/a&gt; 中,由于时间和篇幅的关系只是简单介绍了Proxy模式的概念,并没有写到Java中对Proxy模式特有的支持,所以严格说起来是有点”名不符实”,现在就接着介绍JDK中Proxy模式的实现:&lt;br&gt;Java API中提供了对Proxy模式的支持,主要是通过反射(Reflect)包中的&lt;strong&gt;Proxy&lt;/strong&gt;类和&lt;strong&gt;InvocationHandler&lt;/strong&gt;接口实现,具体过程如下:  &lt;/p&gt;</summary>
     
     
     
-    <category term="Java" scheme="https://zjun.github.io/categories/Java/"/>
+    <category term="架构设计" scheme="https://zjun.github.io/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/"/>
     
+    
+    <category term="设计模式" scheme="https://zjun.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -245,7 +281,7 @@
     <link href="https://zjun.github.io/article/31eff00a.html"/>
     <id>https://zjun.github.io/article/31eff00a.html</id>
     <published>2006-03-12T15:38:00.000Z</published>
-    <updated>2023-11-09T13:20:43.284Z</updated>
+    <updated>2023-11-10T09:42:12.760Z</updated>
     
     
     <summary type="html">&lt;p&gt;“&lt;strong&gt;关闭钩子&lt;/strong&gt;”（ShutdownHook）是这样一个概念：向虚拟机注册一个线程，当程序退出(Ctrl+C)时虚拟机会启动这个线程,我们可以在这个线程的run()中做一些清除的工作,如:&lt;strong&gt;释放数据库连接,关闭文件&lt;/strong&gt;等.  &lt;/p&gt;
@@ -253,8 +289,10 @@
     
     
     
-    <category term="Java" scheme="https://zjun.github.io/categories/Java/"/>
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
+    
+    <category term="Java" scheme="https://zjun.github.io/tags/Java/"/>
     
   </entry>
   
@@ -263,13 +301,15 @@
     <link href="https://zjun.github.io/article/5d2ba95e.html"/>
     <id>https://zjun.github.io/article/5d2ba95e.html</id>
     <published>2006-03-06T13:06:32.000Z</published>
-    <updated>2023-11-07T13:13:47.437Z</updated>
+    <updated>2023-11-10T09:44:28.383Z</updated>
     
     
     <summary type="html">&lt;p&gt;意译自KevLinDev上一篇文章，才疏学浅，望指正，英文原文可到&lt;a href=&quot;http://www.kevlindev.com/tutorials/javascript/inheritance/&quot;&gt;这里&lt;/a&gt;查看。&lt;/p&gt;
 &lt;p&gt;javascript脚本语言是支持面向对象编程(&lt;strong&gt;O&lt;/strong&gt;bject &lt;strong&gt;O&lt;/strong&gt;riented &lt;strong&gt;P&lt;/strong&gt;rogramming )的,只是javascript实现的方式比较特别，与C++和java中的实现方式不同。在javascript中我们需要借助&lt;strong&gt;prototype&lt;/strong&gt;对象来访问父类的方法，下面将讨论在javascript中实现OOP中最基本的特征关系 — &lt;strong&gt;继承&lt;/strong&gt;。&lt;/p&gt;</summary>
     
     
+    
+    <category term="前端开发" scheme="https://zjun.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
     
     <category term="javascript" scheme="https://zjun.github.io/tags/javascript/"/>
@@ -281,15 +321,17 @@
     <link href="https://zjun.github.io/article/d531bfa2.html"/>
     <id>https://zjun.github.io/article/d531bfa2.html</id>
     <published>2006-02-28T14:57:00.000Z</published>
-    <updated>2023-11-09T13:25:15.804Z</updated>
+    <updated>2023-11-10T09:45:12.890Z</updated>
     
     
     <summary type="html">&lt;p&gt;项目中有一个java应用程序，交付后用户要求要把这个程序做成后台服务程序，即：系统启动后该程序可以自动启动，并且在前台不要出现运行窗口，维护人员只要在“服务管理”(Windows)中选择启动或停止即可.&lt;br&gt;解决办法如下：&lt;/p&gt;</summary>
     
     
     
-    <category term="Java" scheme="https://zjun.github.io/categories/Java/"/>
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
+    
+    <category term="Java" scheme="https://zjun.github.io/tags/Java/"/>
     
   </entry>
   
@@ -298,14 +340,14 @@
     <link href="https://zjun.github.io/article/25204a98.html"/>
     <id>https://zjun.github.io/article/25204a98.html</id>
     <published>2006-02-27T12:21:00.000Z</published>
-    <updated>2023-11-09T13:27:54.428Z</updated>
+    <updated>2023-11-10T09:36:19.930Z</updated>
     
     
     <summary type="html">&lt;p&gt;DisplayTag一直以来为人们所诟病的缺点就是它的装载数据的方式: &lt;strong&gt;一次性把所有数据读取到内存中，然后再分页显示&lt;/strong&gt;。这样做的后果就是在处理大批量数据时力不从心,可用性急剧下降,并且在翻页显示的仅仅是内存中的数据而不是实时数据.因此人们往往只是在实现小型项目的小数量表格分页显示时才想到DisplayTag，并且因为考虑到项目的扩展往往最终弃用DiaplayTag.&lt;/p&gt;</summary>
     
     
     
-    <category term="Web" scheme="https://zjun.github.io/categories/Web/"/>
+    <category term="前端开发" scheme="https://zjun.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
     
   </entry>
