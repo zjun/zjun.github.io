@@ -6,7 +6,7 @@
   <link href="https://zjun.github.io/atom.xml" rel="self"/>
   
   <link href="https://zjun.github.io/"/>
-  <updated>2023-11-09T12:47:30.758Z</updated>
+  <updated>2023-11-10T07:48:02.628Z</updated>
   <id>https://zjun.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring 全局异常处理</title>
+    <link href="https://zjun.github.io/article/4f203cd3.html"/>
+    <id>https://zjun.github.io/article/4f203cd3.html</id>
+    <published>2019-08-10T14:50:51.000Z</published>
+    <updated>2023-11-10T07:48:02.628Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;SpringBoot中有一个&lt;code&gt;ControllerAdvice&lt;/code&gt;的注解，使用该注解表示开启了全局异常的捕获，我们只需在自定义一个方法使用&lt;code&gt;ExceptionHandler&lt;/code&gt;注解然后定义捕获异常的类型即可对这些捕获的异常进行统一的处</summary>
+      
+    
+    
+    
+    <category term="后端" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    
+    <category term="Spring" scheme="https://zjun.github.io/tags/Spring/"/>
+    
+  </entry>
   
   <entry>
     <title>使用Spring Data JPA 简化持久层的开发</title>
