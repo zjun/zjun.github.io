@@ -6,7 +6,7 @@
   <link href="https://zjun.github.io/atom.xml" rel="self"/>
   
   <link href="https://zjun.github.io/"/>
-  <updated>2023-11-10T07:48:41.984Z</updated>
+  <updated>2023-11-10T09:46:39.137Z</updated>
   <id>https://zjun.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://zjun.github.io/article/4f203cd3.html"/>
     <id>https://zjun.github.io/article/4f203cd3.html</id>
     <published>2019-08-10T14:50:51.000Z</published>
-    <updated>2023-11-10T07:48:41.984Z</updated>
+    <updated>2023-11-10T09:46:39.137Z</updated>
     
     
       
@@ -31,7 +31,7 @@
     
     
     
-    <category term="后端" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
     
     <category term="Spring" scheme="https://zjun.github.io/tags/Spring/"/>
@@ -157,6 +157,28 @@
     
     <category term="Others" scheme="https://zjun.github.io/categories/Others/"/>
     
+    
+  </entry>
+  
+  <entry>
+    <title>Hibernate中的关系映射</title>
+    <link href="https://zjun.github.io/article/9d09cd01.html"/>
+    <id>https://zjun.github.io/article/9d09cd01.html</id>
+    <published>2007-03-11T13:03:41.000Z</published>
+    <updated>2023-11-11T13:13:34.083Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;多对多&quot;&gt;&lt;a href=&quot;#多对多&quot; class=&quot;headerlink&quot; title=&quot;多对多&quot;&gt;&lt;/a&gt;多对多&lt;/h1&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;sp</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="hibernate" scheme="https://zjun.github.io/tags/hibernate/"/>
     
   </entry>
   

@@ -13,7 +13,7 @@
     
     <categories>
       
-      <category>后端</category>
+      <category>后端开发</category>
       
     </categories>
     
@@ -163,6 +163,31 @@
       
     </categories>
     
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hibernate中的关系映射</title>
+    <link href="/article/9d09cd01.html"/>
+    <url>/article/9d09cd01.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@ManyToMany()</span><br><span class="hljs-meta">@JoinTable(name=&quot;t_role_rights&quot;,joinColumns=&#123; @JoinColumn(name=&quot;right_id&quot;)&#125;,</span><br><span class="hljs-meta">             inverseJoinColumns=&#123; @JoinColumn(name= &quot;role_id&quot;) &#125;)</span><br><span class="hljs-keyword">public</span> Set&lt;Role&gt; <span class="hljs-title function_">getRoles</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">return</span> roles;<br>&#125;<br></code></pre></td></tr></table></figure><p>因为多对多之间会通过一张中间表来维护两表直接的关系，所以通过 <code>JoinTable</code>这个注解来声明，<code>name</code>就是指定了中间表的名字，<code>JoinColumns</code>是一个<code>@JoinColumn</code>类型的数组，表示的是我这方在对方中的外键名称，我方是<strong>Right</strong>，所以在对方外键的名称就是 <strong>right_id</strong>，<code>inverseJoinColumns</code>也是一个<code>@JoinColumn</code>类型的数组，表示的是对方在我这放中的外键名称，对方是<strong>Role</strong>，所以在我方外键的名称就是 <strong>role_id</strong></p><h1 id="一对多-和-多对一"><a href="#一对多-和-多对一" class="headerlink" title="一对多 和 多对一"></a>一对多 和 多对一</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//配置客户和联系人之间的关系（一对多关系）</span><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 使用注解的形式配置多表关系</span><br><span class="hljs-comment"> *      1.声明关系</span><br><span class="hljs-comment"> *          <span class="hljs-doctag">@OneToMany</span> : 配置一对多关系</span><br><span class="hljs-comment"> *              targetEntity ：对方对象的字节码对象</span><br><span class="hljs-comment"> *      2.配置外键（中间表）</span><br><span class="hljs-comment"> *              <span class="hljs-doctag">@JoinColumn</span> : 配置外键</span><br><span class="hljs-comment"> *                  name：外键字段名称</span><br><span class="hljs-comment"> *                  referencedColumnName：参照的主表的主键字段名称</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> *  * 在客户实体类上（一的一方）添加了外键了配置，所以对于客户而言，也具备了维护外键的作用</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-comment">//    @OneToMany(targetEntity = LinkMan.class)</span><br><span class="hljs-comment">//    @JoinColumn(name = &quot;lkm_cust_id&quot;,referencedColumnName = &quot;cust_id&quot;)</span><br><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 放弃外键维护权</span><br><span class="hljs-comment"> *      mappedBy：对方配置关系的属性名称\</span><br><span class="hljs-comment"> * cascade : 配置级联（可以配置到设置多表的映射关系的注解上）</span><br><span class="hljs-comment"> *      CascadeType.all         : 所有</span><br><span class="hljs-comment"> *                  MERGE       ：更新</span><br><span class="hljs-comment"> *                  PERSIST     ：保存</span><br><span class="hljs-comment"> *                  REMOVE      ：删除</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * fetch : 配置关联对象的加载方式</span><br><span class="hljs-comment"> *          EAGER   ：立即加载</span><br><span class="hljs-comment"> *          LAZY    ：延迟加载</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@OneToMany(mappedBy = &quot;customer&quot;,cascade = CascadeType.ALL)</span><br><span class="hljs-keyword">private</span> Set&lt;LinkMan&gt; linkMans = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();<br></code></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 配置联系人到客户的多对一关系</span><br><span class="hljs-comment"> *     使用注解的形式配置多对一关系</span><br><span class="hljs-comment"> *      1.配置表关系</span><br><span class="hljs-comment"> *          <span class="hljs-doctag">@ManyToOne</span> : 配置多对一关系</span><br><span class="hljs-comment"> *              targetEntity：对方的实体类字节码</span><br><span class="hljs-comment"> *      2.配置外键（中间表）</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * 配置外键的过程，配置到了多的一方，就会在多的一方维护外键</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@ManyToOne(targetEntity = Customer.class,fetch = FetchType.LAZY)</span><br><span class="hljs-meta">@JoinColumn(name = &quot;lkm_cust_id&quot;,referencedColumnName = &quot;cust_id&quot;)</span><br><span class="hljs-keyword">private</span> Customer customer;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>后端开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>hibernate</tag>
+      
+    </tags>
     
   </entry>
   

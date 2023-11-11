@@ -16,24 +16,24 @@
   <meta name="author" content="zJun">
   <meta name="keywords" content="Java, DDD, 微服务">
   
-    <meta name="description" content="Example12345abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452  aer 1000 3452 2463 2343">
+    <meta name="description" content="多对多123456@ManyToMany()@JoinTable(name&#x3D;&quot;t_role_rights&quot;,joinColumns&#x3D;&amp;#123; @JoinColumn(name&#x3D;&quot;right_id&quot;)&amp;#125;,             inverseJoinColumns&#x3D;&amp;#123; @JoinColumn(name&#x3D; &quot;role_id&amp;q">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Find duplicate records in text file">
-<meta property="og:url" content="https://zjun.github.io/article/2f7dbe20.html">
+<meta property="og:title" content="Hibernate中的关系映射">
+<meta property="og:url" content="https://zjun.github.io/article/9d09cd01.html">
 <meta property="og:site_name" content="莫名.堂">
-<meta property="og:description" content="Example12345abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452  aer 1000 3452 2463 2343">
+<meta property="og:description" content="多对多123456@ManyToMany()@JoinTable(name&#x3D;&quot;t_role_rights&quot;,joinColumns&#x3D;&amp;#123; @JoinColumn(name&#x3D;&quot;right_id&quot;)&amp;#125;,             inverseJoinColumns&#x3D;&amp;#123; @JoinColumn(name&#x3D; &quot;role_id&amp;q">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2012-04-11T08:52:00.000Z">
-<meta property="article:modified_time" content="2023-11-09T07:24:09.314Z">
+<meta property="article:published_time" content="2007-03-11T13:03:41.000Z">
+<meta property="article:modified_time" content="2023-11-11T13:13:34.083Z">
 <meta property="article:author" content="zJun">
-<meta property="article:tag" content="Java, DDD, 微服务">
+<meta property="article:tag" content="hibernate">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Find duplicate records in text file - 莫名.堂</title>
+  <title>Hibernate中的关系映射 - 莫名.堂</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -212,7 +212,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Find duplicate records in text file"></span>
+            <span id="subtitle" data-typed-text="Hibernate中的关系映射"></span>
           
         </div>
 
@@ -228,8 +228,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2012-04-11 16:52" pubdate>
-          2012年4月11日, 4:52 下午
+        <time datetime="2007-03-11 21:03" pubdate>
+          2007年3月11日, 9:03 晚上
         </time>
       </span>
     
@@ -241,7 +241,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.1k 字
+          1.5k 字
         
       </span>
     
@@ -253,7 +253,7 @@
         
         
           <!-- compatible with older versions-->
-          10 分钟
+          13 分钟
         
       </span>
     
@@ -298,40 +298,17 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Find duplicate records in text file</h1>
+            <h1 id="seo-header">Hibernate中的关系映射</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs txt">abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  <br>abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  <br>tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452  <br>aer 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  <br>tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452  <br></code></pre></td></tr></table></figure>
-<span id="more"></span>
+                <h1 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@ManyToMany()</span><br><span class="hljs-meta">@JoinTable(name=&quot;t_role_rights&quot;,joinColumns=&#123; @JoinColumn(name=&quot;right_id&quot;)&#125;,</span><br><span class="hljs-meta">             inverseJoinColumns=&#123; @JoinColumn(name= &quot;role_id&quot;) &#125;)</span><br><span class="hljs-keyword">public</span> Set&lt;Role&gt; <span class="hljs-title function_">getRoles</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">return</span> roles;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="UNIX"><a href="#UNIX" class="headerlink" title="UNIX"></a>UNIX</h2><p>display the no of occurance and the record</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sort</span> f1.txt|<span class="hljs-built_in">uniq</span> -c<br><br>2 abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  <br>1 aer 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  <br>2 tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452  <br></code></pre></td></tr></table></figure>
+<p>因为多对多之间会通过一张中间表来维护两表直接的关系，所以通过 <code>JoinTable</code>这个注解来声明，<code>name</code>就是指定了中间表的名字，<code>JoinColumns</code>是一个<code>@JoinColumn</code>类型的数组，表示的是我这方在对方中的外键名称，我方是<strong>Right</strong>，所以在对方外键的名称就是 <strong>right_id</strong>，<code>inverseJoinColumns</code>也是一个<code>@JoinColumn</code>类型的数组，表示的是对方在我这放中的外键名称，对方是<strong>Role</strong>，所以在我方外键的名称就是 <strong>role_id</strong></p>
+<h1 id="一对多-和-多对一"><a href="#一对多-和-多对一" class="headerlink" title="一对多 和 多对一"></a>一对多 和 多对一</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//配置客户和联系人之间的关系（一对多关系）</span><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 使用注解的形式配置多表关系</span><br><span class="hljs-comment"> *      1.声明关系</span><br><span class="hljs-comment"> *          <span class="hljs-doctag">@OneToMany</span> : 配置一对多关系</span><br><span class="hljs-comment"> *              targetEntity ：对方对象的字节码对象</span><br><span class="hljs-comment"> *      2.配置外键（中间表）</span><br><span class="hljs-comment"> *              <span class="hljs-doctag">@JoinColumn</span> : 配置外键</span><br><span class="hljs-comment"> *                  name：外键字段名称</span><br><span class="hljs-comment"> *                  referencedColumnName：参照的主表的主键字段名称</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> *  * 在客户实体类上（一的一方）添加了外键了配置，所以对于客户而言，也具备了维护外键的作用</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-comment">//    @OneToMany(targetEntity = LinkMan.class)</span><br><span class="hljs-comment">//    @JoinColumn(name = &quot;lkm_cust_id&quot;,referencedColumnName = &quot;cust_id&quot;)</span><br><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 放弃外键维护权</span><br><span class="hljs-comment"> *      mappedBy：对方配置关系的属性名称\</span><br><span class="hljs-comment"> * cascade : 配置级联（可以配置到设置多表的映射关系的注解上）</span><br><span class="hljs-comment"> *      CascadeType.all         : 所有</span><br><span class="hljs-comment"> *                  MERGE       ：更新</span><br><span class="hljs-comment"> *                  PERSIST     ：保存</span><br><span class="hljs-comment"> *                  REMOVE      ：删除</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * fetch : 配置关联对象的加载方式</span><br><span class="hljs-comment"> *          EAGER   ：立即加载</span><br><span class="hljs-comment"> *          LAZY    ：延迟加载</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@OneToMany(mappedBy = &quot;customer&quot;,cascade = CascadeType.ALL)</span><br><span class="hljs-keyword">private</span> Set&lt;LinkMan&gt; linkMans = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();<br></code></pre></td></tr></table></figure>
 
-<p>display only the duplicate records  </p>
-<pre><code class="bash">sort f1.txt|uniq -d
-
-abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  
-tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452  
-</code></pre>
-<p>display distinct records</p>
-<pre><code class="bash">sort f1.txt|uniq
-
-abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  
-aer 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  
-tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452  
-</code></pre>
-<h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><p>Notepad++ can sort by line, and remove the duplicate lines at the same time.</p>
-<blockquote>
-<ol>
-<li>Open the menu under: <strong>TextFX–&gt;TextFX</strong> Tools  </li>
-<li>Make sure “<strong>sort outputs only unique…</strong>“ is checked  </li>
-<li>select a block of text (ctrl-a to select the entire document).  </li>
-<li>click “<strong>sort lines case sensitive</strong>“ or “<strong>sort lines case insensitive</strong>“</li>
-</ol>
-</blockquote>
-<h2 id="参考阅读"><a href="#参考阅读" class="headerlink" title="参考阅读"></a>参考阅读</h2><p><a target="_blank" rel="noopener" href="http://www.unix.com/shell-programming-scripting/85711-how-find-duplicate-records-text-file.html">How to find Duplicate Records in a text file</a><br><a target="_blank" rel="noopener" href="http://www.cyberciti.biz/faq/unix-linux-shell-removing-duplicate-lines/">Shell: How To Remove Duplicate Text Lines</a><br><a target="_blank" rel="noopener" href="http://www.ehow.com/how_5084389_remove-duplicate-lines-unix.html">How to Remove Duplicate Lines in Unix</a><br><a target="_blank" rel="noopener" href="http://answers.yahoo.com/question/index?qid=20080522091139AAoVO8m">remove duplicates from a text file in free editor</a>  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 配置联系人到客户的多对一关系</span><br><span class="hljs-comment"> *     使用注解的形式配置多对一关系</span><br><span class="hljs-comment"> *      1.配置表关系</span><br><span class="hljs-comment"> *          <span class="hljs-doctag">@ManyToOne</span> : 配置多对一关系</span><br><span class="hljs-comment"> *              targetEntity：对方的实体类字节码</span><br><span class="hljs-comment"> *      2.配置外键（中间表）</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * 配置外键的过程，配置到了多的一方，就会在多的一方维护外键</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@ManyToOne(targetEntity = Customer.class,fetch = FetchType.LAZY)</span><br><span class="hljs-meta">@JoinColumn(name = &quot;lkm_cust_id&quot;,referencedColumnName = &quot;cust_id&quot;)</span><br><span class="hljs-keyword">private</span> Customer customer;<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -350,7 +327,7 @@ tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452
     
       <span class="category-chain">
         
-  <a href="/categories/Others/" class="category-chain-item">Others</a>
+  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">后端开发</a>
   
   
 
@@ -362,6 +339,13 @@ tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452
     </div>
   
   
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/hibernate/" class="print-no-link">#hibernate</a>
+      
+    </div>
+  
 </div>
 
 
@@ -370,8 +354,8 @@ tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Find duplicate records in text file</div>
-      <div>https://zjun.github.io/article/2f7dbe20.html</div>
+      <div>Hibernate中的关系映射</div>
+      <div>https://zjun.github.io/article/9d09cd01.html</div>
     </div>
     <div class="license-meta">
       
@@ -383,7 +367,7 @@ tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2012年4月11日</div>
+          <div>2007年3月11日</div>
         </div>
       
       
@@ -415,9 +399,9 @@ tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/article/2cf8f79a.html" title="Java并发编程笔记：线程管理">
+                      <a href="/article/2f7dbe20.html" title="Find duplicate records in text file">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Java并发编程笔记：线程管理</span>
+                        <span class="hidden-mobile">Find duplicate records in text file</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -425,8 +409,8 @@ tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452
                   <article class="post-next col-6">
                     
                     
-                      <a href="/article/9d09cd01.html" title="Hibernate中的关系映射">
-                        <span class="hidden-mobile">Hibernate中的关系映射</span>
+                      <a href="/article/59d39a85.html" title="剔除List中的重复值">
+                        <span class="hidden-mobile">剔除List中的重复值</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
