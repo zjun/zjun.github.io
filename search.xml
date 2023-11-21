@@ -203,7 +203,7 @@ tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452
 <p>下面我们就用一个实际的例子来说明：日常生活中说起观察者，最常见的例子可能就是天气预报，在这里我们的观察对象是地球，而我们是通过发射气象卫星这个观察者来检测地球气象变化的。</p>
 <span id="more"></span>
 
-<p>所以这个例子中涉及三个对象：  </p>
+<p>所以这个例子中涉及三个对象： </p>
 <ul>
 <li><strong>地球 (Earth)：</strong>            被观察对象  </li>
 <li><strong>气象卫星(Satellite)：</strong>    观察者</li>
@@ -222,8 +222,11 @@ tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452
 <p><strong>[运行结果]</strong>  </p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">天气预报：  <br>------------   <br>近期天气变化：台风‘珍珠’逼近  <br>近期天气变化：大到暴雨  <br>近期天气变化：天气炎热  <br></code></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>Java</category>
+        <category>架构设计</category>
       </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
   </entry>
   <entry>
     <title>DisplayTag 1.1 Released, 可分页读取数据！！！</title>
