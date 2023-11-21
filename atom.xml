@@ -63,6 +63,29 @@
   </entry>
   
   <entry>
+    <title>创建单例模式的几种方式</title>
+    <link href="https://zjun.github.io/article/6492d903.html"/>
+    <id>https://zjun.github.io/article/6492d903.html</id>
+    <published>2015-11-20T13:11:51.000Z</published>
+    <updated>2023-11-21T09:17:40.591Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;单例模式可能是最常用到的设计模式了，但是想要正确的使用单例模式却并不简单。&lt;br&gt;我们先从最简单最常用的方式开始：&lt;/p&gt;
+&lt;h1 id=&quot;懒汉式&quot;&gt;&lt;a href=&quot;#懒汉式&quot; class=&quot;headerlink&quot; title=&quot;懒汉式&quot;&gt;&lt;/a&gt;懒汉式&lt;/h1&gt;&lt;fig</summary>
+      
+    
+    
+    
+    <category term="架构设计" scheme="https://zjun.github.io/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/"/>
+    
+    
+    <category term="设计模式" scheme="https://zjun.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>使用Spring Data JPA 简化持久层的开发</title>
     <link href="https://zjun.github.io/article/29fea7b8.html"/>
     <id>https://zjun.github.io/article/29fea7b8.html</id>
@@ -246,7 +269,7 @@
     <link href="https://zjun.github.io/article/368d2438.html"/>
     <id>https://zjun.github.io/article/368d2438.html</id>
     <published>2006-05-18T02:54:00.000Z</published>
-    <updated>2023-11-10T08:03:37.050Z</updated>
+    <updated>2023-11-21T09:19:47.461Z</updated>
     
     
     <summary type="html">&lt;p&gt;Java作为一种面向对象的开发语言，对实现设计模式提供了良好的支持，并且提供了许多默认的实现，比如：通过Java中的&lt;strong&gt;Observable类&lt;/strong&gt;和&lt;strong&gt;Observer接口&lt;/strong&gt;可以方便的实现观察者模式。&lt;/p&gt;
