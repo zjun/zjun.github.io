@@ -48,7 +48,7 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;什么是AOP&quot;&gt;&lt;a href=&quot;#什么是AOP&quot; class=&quot;headerlink&quot; title=&quot;什么是AOP&quot;&gt;&lt;/a&gt;什么是AOP&lt;/h1&gt;&lt;p&gt;AOP （&lt;a href=&quot;https://so.csdn.net/so/search?q=Aspect&amp;s</summary>
+    <summary type="html">&lt;h1 id=&quot;什么是AOP&quot;&gt;&lt;a href=&quot;#什么是AOP&quot; class=&quot;headerlink&quot; title=&quot;什么是AOP&quot;&gt;&lt;/a&gt;什么是AOP&lt;/h1&gt;&lt;p&gt;AOP （&lt;a class=&quot;link&quot;   href=&quot;https://so.csdn.net/so/se</summary>
       
     
     
@@ -73,7 +73,7 @@
       
       
     <summary type="html">&lt;p&gt;单例模式可能是最常用到的设计模式了，但是想要正确的使用单例模式却并不简单。&lt;br&gt;我们先从最简单最常用的方式开始：&lt;/p&gt;
-&lt;h1 id=&quot;懒汉式&quot;&gt;&lt;a href=&quot;#懒汉式&quot; class=&quot;headerlink&quot; title=&quot;懒汉式&quot;&gt;&lt;/a&gt;懒汉式&lt;/h1&gt;&lt;fig</summary>
+&lt;h1 id=&quot;懒汉式&quot;&gt;&lt;a href=&quot;#懒汉式&quot; class=&quot;headerlink&quot; title=&quot;懒汉式&quot;&gt;&lt;/a&gt;懒汉式&lt;/h1&gt;&lt;div</summary>
       
     
     
@@ -93,7 +93,7 @@
     <updated>2023-11-10T09:42:46.021Z</updated>
     
     
-    <summary type="html">&lt;p&gt;最近看到&lt;a href=&quot;http://www.springside.org.cn/&quot;&gt;SpringSide&lt;/a&gt;最新版的&lt;a href=&quot;https://github.com/springside/springside4/wiki/Design&quot;&gt;技术选型&lt;/a&gt;中提到了&lt;a href=&quot;http://www.springsource.org/spring-data/jpa&quot;&gt;Spring Data JPA&lt;/a&gt;,号称只需要实现接口就可以实现大部分操作。真有怎么神奇？于是Google一番，果然好使，在这里记录一下：&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;最近看到&lt;a class=&quot;link&quot;   href=&quot;http://www.springside.org.cn/&quot; &gt;SpringSide &lt;i class=&quot;fa-regular fa-arrow-up-right-from-square fa-sm&quot;&gt;&lt;/i&gt;&lt;/a&gt;最新版的&lt;a class=&quot;link&quot;   href=&quot;https://github.com/springside/springside4/wiki/Design&quot; &gt;技术选型 &lt;i class=&quot;fa-regular fa-arrow-up-right-from-square fa-sm&quot;&gt;&lt;/i&gt;&lt;/a&gt;中提到了&lt;a class=&quot;link&quot;   href=&quot;http://www.springsource.org/spring-data/jpa&quot; &gt;Spring Data JPA &lt;i class=&quot;fa-regular fa-arrow-up-right-from-square fa-sm&quot;&gt;&lt;/i&gt;&lt;/a&gt;,号称只需要实现接口就可以实现大部分操作。真有怎么神奇？于是Google一番，果然好使，在这里记录一下：&lt;/p&gt;</summary>
     
     
     
@@ -109,12 +109,13 @@
     <link href="https://zjun.github.io/article/ddf385ff.html"/>
     <id>https://zjun.github.io/article/ddf385ff.html</id>
     <published>2013-09-17T13:06:19.000Z</published>
-    <updated>2023-11-09T12:59:09.135Z</updated>
+    <updated>2023-11-24T16:19:53.892Z</updated>
     
     
-    <summary type="html">&lt;h2 id=&quot;Setup-Raspberry-Pi&quot;&gt;&lt;a href=&quot;#Setup-Raspberry-Pi&quot; class=&quot;headerlink&quot; title=&quot;Setup Raspberry Pi&quot;&gt;&lt;/a&gt;Setup Raspberry Pi&lt;/h2&gt;&lt;h3 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h3&gt;&lt;p&gt;理论上 OS 可以是任何支持 ARM v6 的 Linux 发行版，推荐使用官方的 wheezy 系统，因为这是针对树莓派定制并优化了的 Debian。&lt;br&gt;下载地址：&lt;a href=&quot;http://www.raspberrypi.org/downloads&quot; title=&quot;http://www.raspberrypi.org/downloads&quot;&gt;http://www.raspberrypi.org/downloads&lt;/a&gt;&lt;br&gt;解压之后得到一个 .img 的镜像文件，比如 2013-07-26-wheezy-raspbian.img.  &lt;/p&gt;
-&lt;p&gt;在Windows下使用工具：&lt;a href=&quot;http://sourceforge.net/projects/win32diskimager/&quot;&gt;win32diskimager&lt;/a&gt; 把镜像文件写入 SD 卡。  &lt;/p&gt;
-&lt;p&gt;将刻好的 SD 卡插入树莓派的 SD 卡插槽，接上键盘和显示器。然后开机，也就是插上电源，树莓派没有电源开关，插电即开机。拔出电源就是关机，不过最安全的方式是使用 &lt;code&gt;sudo shutdown -h now&lt;/code&gt; 或 &lt;code&gt;sudo halt&lt;/code&gt; 命令正确地关闭系统，然后再拔电源。 重启使用 &lt;code&gt;sudo reboot&lt;/code&gt; 命令。&lt;/p&gt;</summary>
+      
+      
+    <summary type="html">&lt;h2 id=&quot;Setup-Raspberry-Pi&quot;&gt;&lt;a href=&quot;#Setup-Raspberry-Pi&quot; class=&quot;headerlink&quot; title=&quot;Setup Raspberry Pi&quot;&gt;&lt;/a&gt;Setup Raspberry Pi&lt;/h2&gt;&lt;h3 id=&quot;安</summary>
+      
     
     
     
@@ -131,7 +132,7 @@
     <updated>2023-11-10T09:42:20.381Z</updated>
     
     
-    <summary type="html">&lt;p&gt;今天在 &lt;a href=&quot;http://www.oschina.net/&quot;&gt;OSChina&lt;/a&gt; 上看到一篇有趣的文章：&lt;a href=&quot;http://my.oschina.net/u/551903/blog/134000&quot;&gt;关于String内存分配的深入探讨&lt;/a&gt;,文章通过几个简单的例子，把Java中String的内存管理的方式解释的很清楚，涨了不少姿势，现根据自己的理解做些笔记在这里：&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;今天在 &lt;a class=&quot;link&quot;   href=&quot;http://www.oschina.net/&quot; &gt;OSChina &lt;i class=&quot;fa-regular fa-arrow-up-right-from-square fa-sm&quot;&gt;&lt;/i&gt;&lt;/a&gt; 上看到一篇有趣的文章：&lt;a class=&quot;link&quot;   href=&quot;http://my.oschina.net/u/551903/blog/134000&quot; &gt;关于String内存分配的深入探讨 &lt;i class=&quot;fa-regular fa-arrow-up-right-from-square fa-sm&quot;&gt;&lt;/i&gt;&lt;/a&gt;,文章通过几个简单的例子，把Java中String的内存管理的方式解释的很清楚，涨了不少姿势，现根据自己的理解做些笔记在这里：&lt;/p&gt;</summary>
     
     
     
@@ -147,15 +148,16 @@
     <link href="https://zjun.github.io/article/2cf8f79a.html"/>
     <id>https://zjun.github.io/article/2cf8f79a.html</id>
     <published>2012-05-02T08:52:00.000Z</published>
-    <updated>2023-11-10T09:36:01.607Z</updated>
+    <updated>2023-11-24T16:20:30.584Z</updated>
     
     
+      
+      
     <summary type="html">&lt;h2 id=&quot;创建线程&quot;&gt;&lt;a href=&quot;#创建线程&quot; class=&quot;headerlink&quot; title=&quot;创建线程&quot;&gt;&lt;/a&gt;创建线程&lt;/h2&gt;&lt;p&gt;两种方法：  &lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;通过直接继承thread类，然后覆盖run()方法;&lt;/li&gt;
-&lt;li&gt;构建一个实现Runnable接口的类, 然后创建一个thread类对象并传递Runnable对象作为构造参数;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;strong&gt;启动线程：&lt;/strong&gt;&lt;br&gt;只有调用start()方法才能启动一个新的执行线程。  &lt;/p&gt;</summary>
+&lt;li&gt;构建一个实</summary>
+      
     
     
     
@@ -171,10 +173,13 @@
     <link href="https://zjun.github.io/article/2f7dbe20.html"/>
     <id>https://zjun.github.io/article/2f7dbe20.html</id>
     <published>2012-04-11T08:52:00.000Z</published>
-    <updated>2023-11-09T07:24:09.314Z</updated>
+    <updated>2023-11-24T16:21:26.666Z</updated>
     
     
-    <summary type="html">&lt;h2 id=&quot;Example&quot;&gt;&lt;a href=&quot;#Example&quot; class=&quot;headerlink&quot; title=&quot;Example&quot;&gt;&lt;/a&gt;Example&lt;/h2&gt;&lt;figure class=&quot;highlight txt&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;code class=&quot;hljs txt&quot;&gt;abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  &lt;br&gt;abc 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  &lt;br&gt;tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452  &lt;br&gt;aer 1000 3452 2463 2343 2176 7654 3452 8765 5643 3452  &lt;br&gt;tas 3420 3562 2123 1343 2176 7654 3252 8765 5643 3452  &lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+      
+      
+    <summary type="html">&lt;h2 id=&quot;Example&quot;&gt;&lt;a href=&quot;#Example&quot; class=&quot;headerlink&quot; title=&quot;Example&quot;&gt;&lt;/a&gt;Example&lt;/h2&gt;&lt;div class=&quot;highlight-container&quot; data-rel=&quot;Txt&quot;&gt;&lt;figu</summary>
+      
     
     
     
@@ -193,7 +198,7 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;多对多&quot;&gt;&lt;a href=&quot;#多对多&quot; class=&quot;headerlink&quot; title=&quot;多对多&quot;&gt;&lt;/a&gt;多对多&lt;/h1&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;sp</summary>
+    <summary type="html">&lt;h1 id=&quot;多对多&quot;&gt;&lt;a href=&quot;#多对多&quot; class=&quot;headerlink&quot; title=&quot;多对多&quot;&gt;&lt;/a&gt;多对多&lt;/h1&gt;&lt;div class=&quot;highlight-container&quot; data-rel=&quot;Java&quot;&gt;&lt;figure class=&quot;iseeu</summary>
       
     
     
@@ -210,10 +215,13 @@
     <link href="https://zjun.github.io/article/59d39a85.html"/>
     <id>https://zjun.github.io/article/59d39a85.html</id>
     <published>2007-01-18T05:48:00.000Z</published>
-    <updated>2023-11-10T09:42:00.358Z</updated>
+    <updated>2023-11-24T16:22:08.610Z</updated>
     
     
-    <summary type="html">&lt;h3 id=&quot;方法一：循环元素删除&quot;&gt;&lt;a href=&quot;#方法一：循环元素删除&quot; class=&quot;headerlink&quot; title=&quot;方法一：循环元素删除&quot;&gt;&lt;/a&gt;方法一：循环元素删除&lt;/h3&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;code class=&quot;hljs java&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;//  删除ArrayList中重复元素&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;public&lt;/span&gt;   &lt;span class=&quot;hljs-keyword&quot;&gt;static&lt;/span&gt;   &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;  &lt;span class=&quot;hljs-title function_&quot;&gt;removeDuplicate&lt;/span&gt;&lt;span class=&quot;hljs-params&quot;&gt;(List list)&lt;/span&gt;  &amp;#123;&lt;br&gt;   &lt;span class=&quot;hljs-keyword&quot;&gt;for&lt;/span&gt;  ( &lt;span class=&quot;hljs-type&quot;&gt;int&lt;/span&gt;  &lt;span class=&quot;hljs-variable&quot;&gt;i&lt;/span&gt;  &lt;span class=&quot;hljs-operator&quot;&gt;=&lt;/span&gt;   &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt; ; i  &amp;lt;  list.size()  -   &lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt; ; i ++ )  &amp;#123;&lt;br&gt;    &lt;span class=&quot;hljs-keyword&quot;&gt;for&lt;/span&gt;  ( &lt;span class=&quot;hljs-type&quot;&gt;int&lt;/span&gt;  &lt;span class=&quot;hljs-variable&quot;&gt;j&lt;/span&gt;  &lt;span class=&quot;hljs-operator&quot;&gt;=&lt;/span&gt;  list.size()  -   &lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt; ; j  &amp;gt;  i; j -- )  &amp;#123;&lt;br&gt;      &lt;span class=&quot;hljs-keyword&quot;&gt;if&lt;/span&gt;  (list.get(j).equals(list.get(i)))  &amp;#123;&lt;br&gt;        list.remove(j);&lt;br&gt;      &amp;#125;&lt;br&gt;    &amp;#125;&lt;br&gt;  &amp;#125;&lt;br&gt;  System.out.println(list);&lt;br&gt;&amp;#125;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+      
+      
+    <summary type="html">&lt;h3 id=&quot;方法一：循环元素删除&quot;&gt;&lt;a href=&quot;#方法一：循环元素删除&quot; class=&quot;headerlink&quot; title=&quot;方法一：循环元素删除&quot;&gt;&lt;/a&gt;方法一：循环元素删除&lt;/h3&gt;&lt;div class=&quot;highlight-container&quot; data-rel</summary>
+      
     
     
     
@@ -229,14 +237,16 @@
     <link href="https://zjun.github.io/article/10d51e8f.html"/>
     <id>https://zjun.github.io/article/10d51e8f.html</id>
     <published>2006-08-16T07:15:00.000Z</published>
-    <updated>2023-11-10T09:40:35.152Z</updated>
+    <updated>2023-11-24T16:22:39.674Z</updated>
     
     
+      
+      
     <summary type="html">&lt;p&gt;Hibernate中支持3种形式实现继承关系：  &lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;Table per concrete class&lt;/strong&gt; 表与子类之间独立一对一关系  &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Table per subclass&lt;/strong&gt; 每个子类对应一张子表，并与主类共享主表  &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Table per class hierarchy&lt;/strong&gt; 表与类一对多关系</summary>
+&lt;li&gt;&lt;strong&gt;Table per subclass&lt;/str</summary>
+      
     
     
     
@@ -269,11 +279,14 @@
     <link href="https://zjun.github.io/article/368d2438.html"/>
     <id>https://zjun.github.io/article/368d2438.html</id>
     <published>2006-05-18T02:54:00.000Z</published>
-    <updated>2023-11-21T09:21:38.157Z</updated>
+    <updated>2023-11-24T16:23:02.878Z</updated>
     
     
+      
+      
     <summary type="html">&lt;p&gt;Java作为一种面向对象的开发语言，对实现设计模式提供了良好的支持，并且提供了许多默认的实现，比如：通过Java中的&lt;strong&gt;Observable类&lt;/strong&gt;和&lt;strong&gt;Observer接口&lt;/strong&gt;可以方便的实现观察者模式。&lt;/p&gt;
-&lt;p&gt;下面我们就用一个实际的例子来说明：日常生活中说起观察者，最常见的例子可能就是天气预报，在这里我们的观察对象是地球，而我们是通过发射气象卫星这个观察者来检测地球气象变化的。&lt;/p&gt;</summary>
+&lt;p&gt;下面</summary>
+      
     
     
     
@@ -289,10 +302,13 @@
     <link href="https://zjun.github.io/article/df437fb5.html"/>
     <id>https://zjun.github.io/article/df437fb5.html</id>
     <published>2006-04-12T03:06:00.000Z</published>
-    <updated>2023-11-10T09:41:09.366Z</updated>
+    <updated>2023-11-24T16:23:19.395Z</updated>
     
     
-    <summary type="html">&lt;p&gt;在 &lt;a href=&quot;https://zjun.github.io/article/46390b53.html&quot;&gt;上一篇随笔&lt;/a&gt; 中,由于时间和篇幅的关系只是简单介绍了Proxy模式的概念,并没有写到Java中对Proxy模式特有的支持,所以严格说起来是有点”名不符实”,现在就接着介绍JDK中Proxy模式的实现:&lt;br&gt;Java API中提供了对Proxy模式的支持,主要是通过反射(Reflect)包中的&lt;strong&gt;Proxy&lt;/strong&gt;类和&lt;strong&gt;InvocationHandler&lt;/strong&gt;接口实现,具体过程如下:  &lt;/p&gt;</summary>
+      
+      
+    <summary type="html">&lt;p&gt;在 &lt;a href=&quot;https://zjun.github.io/article/46390b53.html&quot;&gt;上一篇随笔&lt;/a&gt; 中,由于时间和篇幅的关系只是简单介绍了Proxy模式的概念,并没有写到Java中对Proxy模式特有的支持,所以严格说起来是有点”名不符实”</summary>
+      
     
     
     
@@ -308,11 +324,13 @@
     <link href="https://zjun.github.io/article/46390b53.html"/>
     <id>https://zjun.github.io/article/46390b53.html</id>
     <published>2006-03-21T15:34:00.000Z</published>
-    <updated>2023-11-10T08:03:02.519Z</updated>
+    <updated>2023-11-24T16:23:35.995Z</updated>
     
     
-    <summary type="html">&lt;h1 id=&quot;什么是代理模式&quot;&gt;&lt;a href=&quot;#什么是代理模式&quot; class=&quot;headerlink&quot; title=&quot;什么是代理模式&quot;&gt;&lt;/a&gt;什么是代理模式&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;代理（Proxy）模式&lt;/strong&gt;，顾名思义就是对象之间不直接发生联系，而是通过中间的代理人进行沟通。这种关系在现在的娱乐圈中普遍存在：明星通常都有经纪人来代理自己的演出事宜，而不是直接去联系演出商。下面就通过这个实际中的例子来说明代理模式。  &lt;/p&gt;
-&lt;h1 id=&quot;类图&quot;&gt;&lt;a href=&quot;#类图&quot; class=&quot;headerlink&quot; title=&quot;类图&quot;&gt;&lt;/a&gt;类图&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2023/11/09/zcCK32vuB89GDSi.jpg&quot; alt=&quot;关系类图&quot;&gt;&lt;/p&gt;</summary>
+      
+      
+    <summary type="html">&lt;h1 id=&quot;什么是代理模式&quot;&gt;&lt;a href=&quot;#什么是代理模式&quot; class=&quot;headerlink&quot; title=&quot;什么是代理模式&quot;&gt;&lt;/a&gt;什么是代理模式&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;代理（Proxy）模式&lt;/strong&gt;，顾名思义就是对象之间不直接发生联系，而是通</summary>
+      
     
     
     
@@ -328,11 +346,13 @@
     <link href="https://zjun.github.io/article/31eff00a.html"/>
     <id>https://zjun.github.io/article/31eff00a.html</id>
     <published>2006-03-12T15:38:00.000Z</published>
-    <updated>2023-11-10T09:42:12.760Z</updated>
+    <updated>2023-11-24T16:23:59.740Z</updated>
     
     
-    <summary type="html">&lt;p&gt;“&lt;strong&gt;关闭钩子&lt;/strong&gt;”（ShutdownHook）是这样一个概念：向虚拟机注册一个线程，当程序退出(Ctrl+C)时虚拟机会启动这个线程,我们可以在这个线程的run()中做一些清除的工作,如:&lt;strong&gt;释放数据库连接,关闭文件&lt;/strong&gt;等.  &lt;/p&gt;
-&lt;h2 id=&quot;说明&quot;&gt;&lt;a href=&quot;#说明&quot; class=&quot;headerlink&quot; title=&quot;说明&quot;&gt;&lt;/a&gt;说明&lt;/h2&gt;&lt;p&gt;shutdownhook通常用来在Ctrl+C退出时触发清理工作(多是在后台服务中，这种服务通常是24*7运行的，正常情况下是不退出的)，如果能够在程序中显式地确定退出的时机，那么最好是直接在退出前做清理，不用搞得这么复杂。&lt;/p&gt;</summary>
+      
+      
+    <summary type="html">&lt;p&gt;“&lt;strong&gt;关闭钩子&lt;/strong&gt;”（ShutdownHook）是这样一个概念：向虚拟机注册一个线程，当程序退出(Ctrl+C)时虚拟机会启动这个线程,我们可以在这个线程的run()中做一些清除的工作,如:&lt;strong&gt;释放数据库连接,关闭文件&lt;/strong&gt;</summary>
+      
     
     
     
@@ -348,11 +368,13 @@
     <link href="https://zjun.github.io/article/5d2ba95e.html"/>
     <id>https://zjun.github.io/article/5d2ba95e.html</id>
     <published>2006-03-06T13:06:32.000Z</published>
-    <updated>2023-11-10T09:44:28.383Z</updated>
+    <updated>2023-11-24T16:24:26.844Z</updated>
     
     
-    <summary type="html">&lt;p&gt;意译自KevLinDev上一篇文章，才疏学浅，望指正，英文原文可到&lt;a href=&quot;http://www.kevlindev.com/tutorials/javascript/inheritance/&quot;&gt;这里&lt;/a&gt;查看。&lt;/p&gt;
-&lt;p&gt;javascript脚本语言是支持面向对象编程(&lt;strong&gt;O&lt;/strong&gt;bject &lt;strong&gt;O&lt;/strong&gt;riented &lt;strong&gt;P&lt;/strong&gt;rogramming )的,只是javascript实现的方式比较特别，与C++和java中的实现方式不同。在javascript中我们需要借助&lt;strong&gt;prototype&lt;/strong&gt;对象来访问父类的方法，下面将讨论在javascript中实现OOP中最基本的特征关系 — &lt;strong&gt;继承&lt;/strong&gt;。&lt;/p&gt;</summary>
+      
+      
+    <summary type="html">&lt;p&gt;意译自KevLinDev上一篇文章，才疏学浅，望指正，英文原文可到&lt;a class=&quot;link&quot;   href=&quot;http://www.kevlindev.com/tutorials/javascript/inheritance/&quot; &gt;这里 &lt;i class=&quot;fa-reg</summary>
+      
     
     
     
@@ -368,10 +390,14 @@
     <link href="https://zjun.github.io/article/d531bfa2.html"/>
     <id>https://zjun.github.io/article/d531bfa2.html</id>
     <published>2006-02-28T14:57:00.000Z</published>
-    <updated>2023-11-10T09:45:12.890Z</updated>
+    <updated>2023-11-24T16:24:51.026Z</updated>
     
     
-    <summary type="html">&lt;p&gt;项目中有一个java应用程序，交付后用户要求要把这个程序做成后台服务程序，即：系统启动后该程序可以自动启动，并且在前台不要出现运行窗口，维护人员只要在“服务管理”(Windows)中选择启动或停止即可.&lt;br&gt;解决办法如下：&lt;/p&gt;</summary>
+      
+      
+    <summary type="html">&lt;p&gt;项目中有一个java应用程序，交付后用户要求要把这个程序做成后台服务程序，即：系统启动后该程序可以自动启动，并且在前台不要出现运行窗口，维护人员只要在“服务管理”(Windows)中选择启动或停止即可.&lt;br&gt;解决办法如下：&lt;/p&gt;
+&lt;h2 id=&quot;Linux&quot;&gt;&lt;a hr</summary>
+      
     
     
     
@@ -387,10 +413,13 @@
     <link href="https://zjun.github.io/article/25204a98.html"/>
     <id>https://zjun.github.io/article/25204a98.html</id>
     <published>2006-02-27T12:21:00.000Z</published>
-    <updated>2023-11-10T09:36:19.930Z</updated>
+    <updated>2023-11-24T16:25:07.666Z</updated>
     
     
-    <summary type="html">&lt;p&gt;DisplayTag一直以来为人们所诟病的缺点就是它的装载数据的方式: &lt;strong&gt;一次性把所有数据读取到内存中，然后再分页显示&lt;/strong&gt;。这样做的后果就是在处理大批量数据时力不从心,可用性急剧下降,并且在翻页显示的仅仅是内存中的数据而不是实时数据.因此人们往往只是在实现小型项目的小数量表格分页显示时才想到DisplayTag，并且因为考虑到项目的扩展往往最终弃用DiaplayTag.&lt;/p&gt;</summary>
+      
+      
+    <summary type="html">&lt;p&gt;DisplayTag一直以来为人们所诟病的缺点就是它的装载数据的方式: &lt;strong&gt;一次性把所有数据读取到内存中，然后再分页显示&lt;/strong&gt;。这样做的后果就是在处理大批量数据时力不从心,可用性急剧下降,并且在翻页显示的仅仅是内存中的数据而不是实时数据.因此人们往往</summary>
+      
     
     
     
