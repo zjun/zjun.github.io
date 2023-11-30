@@ -18,23 +18,24 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="结构与指针定义一个叫Point的简单的结构类型，意味着内存里是两个相邻的int。   1234567891011121314type Point struct &amp;#123; X , Y int &amp;#125;   &#96;&#96;&#96;   ![](http:&#x2F;&#x2F;research.swtch.com&#x2F;godata1a.png)Point&amp;#123; 10, 20 &amp;#125;表示一个被初始化的Point对象。  &amp;">
+        <meta name="description" content="结构与指针定义一个叫Point的简单的结构类型，意味着内存里是两个相邻的int。   1type Point struct &amp;#123; X , Y int &amp;#125;      Point{ 10, 20 }表示一个被初始化的Point对象。&amp;Point{ 10, 20 }则表示一个指向被初始化的Point对象的指针。前者在内存中有两个数据块，而后者则存放着一个指向两个数据块的指针。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go笔记6：Go数据结构">
 <meta property="og:url" content="https://zjun.github.io/2014/01/27185f4f024e.html">
 <meta property="og:site_name" content="莫名.堂">
-<meta property="og:description" content="结构与指针定义一个叫Point的简单的结构类型，意味着内存里是两个相邻的int。   1234567891011121314type Point struct &amp;#123; X , Y int &amp;#125;   &#96;&#96;&#96;   ![](http:&#x2F;&#x2F;research.swtch.com&#x2F;godata1a.png)Point&amp;#123; 10, 20 &amp;#125;表示一个被初始化的Point对象。  &amp;">
+<meta property="og:description" content="结构与指针定义一个叫Point的简单的结构类型，意味着内存里是两个相邻的int。   1type Point struct &amp;#123; X , Y int &amp;#125;      Point{ 10, 20 }表示一个被初始化的Point对象。&amp;Point{ 10, 20 }则表示一个指向被初始化的Point对象的指针。前者在内存中有两个数据块，而后者则存放着一个指向两个数据块的指针。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://research.swtch.com/godata1a.png">
 <meta property="og:image" content="http://research.swtch.com/godata1b.png">
 <meta property="og:image" content="http://research.swtch.com/godata2.png">
 <meta property="og:image" content="http://research.swtch.com/godata3.png">
 <meta property="og:image" content="http://research.swtch.com/godata4.png">
 <meta property="article:published_time" content="2014-01-22T13:06:19.000Z">
-<meta property="article:modified_time" content="2023-11-30T07:30:53.360Z">
+<meta property="article:modified_time" content="2023-11-30T07:35:56.483Z">
 <meta property="article:author" content="zJun">
 <meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://research.swtch.com/godata1b.png">
+<meta name="twitter:image" content="http://research.swtch.com/godata1a.png">
     
     
     <!--- Icon Part-->
@@ -384,8 +385,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-11-30 15:30:53</span>
-            <span class="mobile">2023-11-30 15:30:53</span>
+            <span class="desktop">2023-11-30 15:35:56</span>
+            <span class="mobile">2023-11-30 15:35:56</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -423,7 +424,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>828 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>818 字</span>
         </span>
     
     
@@ -448,7 +449,17 @@
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
             <h2 id="结构与指针"><a href="#结构与指针" class="headerlink" title="结构与指针"></a>结构与指针</h2><p>定义一个叫Point的简单的结构类型，意味着内存里是两个相邻的int。  </p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Point <span class="keyword">struct</span> &#123; X , Y <span class="type">int</span> &#125;   </span><br><span class="line"><span class="string">``</span><span class="string">`   </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">![](http://research.swtch.com/godata1a.png)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Point&#123; 10, 20 &#125;表示一个被初始化的Point对象。  </span></span><br><span class="line"><span class="string">&amp;Point&#123; 10, 20 &#125;则表示一个指向被初始化的Point对象的指针。  </span></span><br><span class="line"><span class="string">前者在内存中有两个数据块，而后者则存放着一个指向两个数据块的指针。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">结构中的字段被依次地排列在内存里面。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span> <span class="keyword">go</span></span><br><span class="line"><span class="keyword">type</span> Rect1 <span class="keyword">struct</span> &#123; Min, Max Point &#125;</span><br><span class="line"><span class="keyword">type</span> Rect2 <span class="keyword">struct</span> &#123; Min, Max *Point &#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Point <span class="keyword">struct</span> &#123; X , Y <span class="type">int</span> &#125;   </span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://research.swtch.com/godata1a.png"
+                     
+                ></p>
+<p>Point{ 10, 20 }表示一个被初始化的Point对象。<br>&amp;Point{ 10, 20 }则表示一个指向被初始化的Point对象的指针。<br>前者在内存中有两个数据块，而后者则存放着一个指向两个数据块的指针。</p>
+<p>结构中的字段被依次地排列在内存里面。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Rect1 <span class="keyword">struct</span> &#123; Min, Max Point &#125;</span><br><span class="line"><span class="keyword">type</span> Rect2 <span class="keyword">struct</span> &#123; Min, Max *Point &#125;</span><br></pre></td></tr></table></figure></div>
 
 <p><img  
                      lazyload
@@ -472,36 +483,13 @@
                      
                 ><br>切片是对数组中一段数据的引用。在内存中它有三段数据组成：一个指向数据头的指针、切片的长度、切片的容量。长度是索引操作的上界，如：x[i] ,容量是切片操作的上界，如：x[i:j]</p>
 <p>关于切片的长度(len)和容量(cap),可以通过 <code>len()</code>和<code>cap()</code>函数得到：  </p>
-<pre><code class="go">arry := [5]int&#123;1, 2, 3, 4, 5&#125;  
-fmt.Println(arry)      // [1 2 3 4 5]  
-fmt.Println(len(arry)) // 5  
-fmt.Println(cap(arry)) // 5  
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">arry := [<span class="number">5</span>]<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;  </span><br><span class="line">fmt.Println(arry)      <span class="comment">// [1 2 3 4 5]  </span></span><br><span class="line">fmt.Println(<span class="built_in">len</span>(arry)) <span class="comment">// 5  </span></span><br><span class="line">fmt.Println(<span class="built_in">cap</span>(arry)) <span class="comment">// 5  </span></span><br><span class="line"></span><br><span class="line">slce := arry[<span class="number">1</span>:<span class="number">2</span>]        </span><br><span class="line">fmt.Println(slce)       <span class="comment">// [2]  </span></span><br><span class="line">fmt.Println(<span class="built_in">len</span>(slce))  <span class="comment">// 1  </span></span><br><span class="line">fmt.Println(<span class="built_in">cap</span>(slce))  <span class="comment">// 4  </span></span><br><span class="line"></span><br><span class="line">slce = arry[<span class="number">1</span>:<span class="number">3</span>]              </span><br><span class="line">fmt.Println(slce)       <span class="comment">// [2 3]  </span></span><br><span class="line">fmt.Println(<span class="built_in">len</span>(slce))  <span class="comment">// 2  </span></span><br><span class="line">fmt.Println(<span class="built_in">cap</span>(slce))  <span class="comment">// 4  </span></span><br><span class="line"></span><br><span class="line">slce = arry[<span class="number">1</span>:<span class="number">4</span>]        </span><br><span class="line">fmt.Println(slce)       <span class="comment">// [2 3 4]  </span></span><br><span class="line">fmt.Println(<span class="built_in">len</span>(slce))  <span class="comment">// 3  </span></span><br><span class="line">fmt.Println(<span class="built_in">cap</span>(slce))  <span class="comment">// 4  </span></span><br><span class="line"></span><br><span class="line">slce = arry[<span class="number">1</span>:<span class="number">5</span>]</span><br><span class="line">fmt.Println(slce)       <span class="comment">// [2 3 4 5]  </span></span><br><span class="line">fmt.Println(<span class="built_in">len</span>(slce))  <span class="comment">// 4  </span></span><br><span class="line">fmt.Println(<span class="built_in">cap</span>(slce))  <span class="comment">// 4  </span></span><br></pre></td></tr></table></figure></div>
 
-slce := arry[1:2]        
-fmt.Println(slce)       // [2]  
-fmt.Println(len(slce))  // 1  
-fmt.Println(cap(slce))  // 4  
-
-slce = arry[1:3]              
-fmt.Println(slce)       // [2 3]  
-fmt.Println(len(slce))  // 2  
-fmt.Println(cap(slce))  // 4  
-
-slce = arry[1:4]        
-fmt.Println(slce)       // [2 3 4]  
-fmt.Println(len(slce))  // 3  
-fmt.Println(cap(slce))  // 4  
-
-slce = arry[1:5]
-fmt.Println(slce)       // [2 3 4 5]  
-fmt.Println(len(slce))  // 4  
-fmt.Println(cap(slce))  // 4  
-</code></pre>
 <p>从上面的例子可以看出，slice的 len 表示切片中实际存在item的的个数，cap 表示分配的内存空间的大小。__如果是通过对已有数组切片生成的slice ,默认分配的内存空间 cap 是从切片的起始位置到原有数组的结尾__。比如上面的例子： <code>slce := arry[1:2]</code>的 cap() 就是 4。</p>
 <h2 id="new和make"><a href="#new和make" class="headerlink" title="new和make"></a>new和make</h2><p>Go有两种创建数据结构的方法：new和make。<br>它们的区别于:  </p>
 <ul>
-<li>new(T)返回一个*T类型，一个可以被隐性反向引用的指针（如图中的黑色指针）   </li>
-<li>make(T,args)返回一个原始的T，它并不是一个指针。T中常有写隐性的指针（如图中的灰色指针）</li>
+<li><code>new(T)</code>返回一个*T类型，一个可以被隐性反向引用的指针（如图中的黑色指针）   </li>
+<li><code>make(T,args)</code>返回一个原始的T，它并不是一个指针。T中常有写隐性的指针（如图中的灰色指针）</li>
 </ul>
 <p>__new返回一个指向初始化为全0值的指针，而make返回一个复杂的结构__。  </p>
 <p><img  
@@ -510,7 +498,15 @@ fmt.Println(cap(slce))  // 4
                      data-src="http://research.swtch.com/godata4.png"
                      
                 ></p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a class="link"   target="_blank" rel="noopener" href="http://research.swtch.com/godata" >Go Data Structures <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   target="_blank" rel="noopener" href="http://www.oschina.net/question/1441707_141799" >【原创翻译】深度剖析Go数据结构 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   target="_blank" rel="noopener" href="http://golang.org/doc/effective_go.html#slices" >Effective Go: slices <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   target="_blank" rel="noopener" href="http://www.zingscript.com/category/snack" >慎用GO中的SLICE——关于SLICE的隐含陷阱 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   target="_blank" rel="noopener" href="http://blog.golang.org/slices" >The Go Blog: Arrays, slices (and strings): The mechanics of ‘append’ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   target="_blank" rel="noopener" href="http://www.golang-book.com/6" >Arrays, Slices and Maps <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   target="_blank" rel="noopener" href="http://blog.golang.org/go-slices-usage-and-internals" >The Go Blog: Go Slices: usage and internals <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  </p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="http://research.swtch.com/godata" >Go Data Structures <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  </li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://www.oschina.net/question/1441707_141799" >【原创翻译】深度剖析Go数据结构 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  </li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://golang.org/doc/effective_go.html#slices" >Effective Go: slices <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  </li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://www.zingscript.com/category/snack" >慎用GO中的SLICE——关于SLICE的隐含陷阱 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  </li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://blog.golang.org/slices" >The Go Blog: Arrays, slices (and strings): The mechanics of ‘append’ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  </li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://www.golang-book.com/6" >Arrays, Slices and Maps <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  </li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://blog.golang.org/go-slices-usage-and-internals" >The Go Blog: Go Slices: usage and internals <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
 
         </div>
 
@@ -525,7 +521,7 @@ fmt.Println(cap(slce))  // 4
         <!--
             <li>
                 <strong>更新于
-                    :</strong> 2023-11-30 15:30:53
+                    :</strong> 2023-11-30 15:35:56
             </li>
         -->
         <li>

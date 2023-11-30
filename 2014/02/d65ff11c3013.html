@@ -26,7 +26,7 @@
 <meta property="og:description" content="Golang 给人印象最深刻的一个特性就是：从语言层面支持并行，而且实现起来相当简单。 goroutinegoroutine是Go并行设计的核心。goroutine其实就是协程，它比线程更小，十几个goroutine可能体现在底层就是五六个线程，Go语言内部实现了这些goroutine之间的内存共享。oroutine比thread更易用、更高效、更轻便。 goroutine通过go关键字实现： 1">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2014-02-08T13:06:19.000Z">
-<meta property="article:modified_time" content="2023-11-30T07:30:53.360Z">
+<meta property="article:modified_time" content="2023-11-30T07:33:37.979Z">
 <meta property="article:author" content="zJun">
 <meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary">
@@ -379,8 +379,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-11-30 15:30:53</span>
-            <span class="mobile">2023-11-30 15:30:53</span>
+            <span class="desktop">2023-11-30 15:33:37</span>
+            <span class="mobile">2023-11-30 15:33:37</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -445,7 +445,11 @@
             <p>Golang 给人印象最深刻的一个特性就是：从语言层面支持并行，而且实现起来相当简单。</p>
 <h2 id="goroutine"><a href="#goroutine" class="headerlink" title="goroutine"></a>goroutine</h2><p>goroutine是Go并行设计的核心。goroutine其实就是协程，它比线程更小，十几个goroutine可能体现在底层就是五六个线程，Go语言内部实现了这些goroutine之间的内存共享。oroutine比thread更易用、更高效、更轻便。</p>
 <p>goroutine通过<code>go</code>关键字实现：</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> hello(a, b, c)  </span><br><span class="line"><span class="string">``</span><span class="string">`  </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">## channels</span></span><br><span class="line"><span class="string">说到并发，不得不说一下多线程之间的通讯（数据共享），说到这不由的会想起Java中的线程间通讯：通过同步和加锁在线程间传递数据，synchronized, locker, wait, notifyAll...光是想起来都让人头疼。但是Golang中，线程间的通讯实现来就要简单和直观的多，因为它提供了一个很好的通信机制channel。channel与Unix shell 中的双向管道很相似：可以通过它发送或者接收值。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">使用make 创建channel(定义一个channel时，也需要定义发送到channel的值的类型)：</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span><span class="keyword">go</span></span><br><span class="line">ci := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>)  </span><br><span class="line">cs := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">string</span>)  </span><br><span class="line">cf := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">interface</span>&#123;&#125;)  </span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> hello(a, b, c)  </span><br></pre></td></tr></table></figure></div>
+
+<h2 id="channels"><a href="#channels" class="headerlink" title="channels"></a>channels</h2><p>说到并发，不得不说一下多线程之间的通讯（数据共享），说到这不由的会想起Java中的线程间通讯：通过同步和加锁在线程间传递数据，synchronized, locker, wait, notifyAll…光是想起来都让人头疼。但是Golang中，线程间的通讯实现来就要简单和直观的多，因为它提供了一个很好的通信机制channel。channel与Unix shell 中的双向管道很相似：可以通过它发送或者接收值。</p>
+<p>使用make 创建channel(定义一个channel时，也需要定义发送到channel的值的类型)：</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ci := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>)  </span><br><span class="line">cs := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">string</span>)  </span><br><span class="line">cf := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">interface</span>&#123;&#125;)  </span><br></pre></td></tr></table></figure></div>
 
 <p>channel通过操作符&lt;-来接收和发送数据:</p>
 <div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ch &lt;- v    <span class="comment">// 发送v到channel ch.  </span></span><br><span class="line">v := &lt;-ch  <span class="comment">// 从ch中接收数据，并赋值给v  </span></span><br></pre></td></tr></table></figure></div>
@@ -483,7 +487,7 @@
         <!--
             <li>
                 <strong>更新于
-                    :</strong> 2023-11-30 15:30:53
+                    :</strong> 2023-11-30 15:33:37
             </li>
         -->
         <li>
@@ -603,7 +607,7 @@
     <div class="post-toc">
         <div class="toc-title">此页目录</div>
         <div class="page-title">Go笔记7:并发</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#goroutine"><span class="nav-text">goroutine</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Buffered-Channels"><span class="nav-text">Buffered Channels</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Range%E5%92%8CClose"><span class="nav-text">Range和Close</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Select"><span class="nav-text">Select</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B6%85%E6%97%B6"><span class="nav-text">超时</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">参考资料</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#goroutine"><span class="nav-text">goroutine</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#channels"><span class="nav-text">channels</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Buffered-Channels"><span class="nav-text">Buffered Channels</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Range%E5%92%8CClose"><span class="nav-text">Range和Close</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Select"><span class="nav-text">Select</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B6%85%E6%97%B6"><span class="nav-text">超时</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">参考资料</span></a></li></ol>
 
     </div>
 </div>
