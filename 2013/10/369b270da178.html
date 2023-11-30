@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Java, DDD, 微服务">
+    
+    <meta name="author" content="zjun">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://zjun.github.io/2013/10/369b270da178.html"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="变量说明：    使用var关键字是Go最基本的定义变量方式，Go把变量类型放在变量名后面；    _（下划线）是个特殊的变量名，任何赋予它的值都会被丢弃；   1_, b :&#x3D; 34, 35 &#x2F;&#x2F;将值35赋予b，并同时丢弃34    Go对于已声明但未使用的变量会在编译阶段报错；   123456var variableName type &#x2F;&#x2F;定义一个名称为“variableName”，类型为&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go笔记2：基础语法">
+<meta property="og:url" content="https://zjun.github.io/2013/10/369b270da178.html">
+<meta property="og:site_name" content="莫名.堂">
+<meta property="og:description" content="变量说明：    使用var关键字是Go最基本的定义变量方式，Go把变量类型放在变量名后面；    _（下划线）是个特殊的变量名，任何赋予它的值都会被丢弃；   1_, b :&#x3D; 34, 35 &#x2F;&#x2F;将值35赋予b，并同时丢弃34    Go对于已声明但未使用的变量会在编译阶段报错；   123456var variableName type &#x2F;&#x2F;定义一个名称为“variableName”，类型为&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-10-27T13:06:19.000Z">
+<meta property="article:modified_time" content="2023-11-30T07:31:59.409Z">
+<meta property="article:author" content="zJun">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            分类: 后端开发 -
+        
+        莫名.堂
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+        <link href="" rel="stylesheet">
+    
+    
+    
+        <link href="" rel="stylesheet">
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    window.config = {"hostname":"zjun.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left"},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"莫名.堂","subtitle":{"text":["道阻且长，行则将至；行而不辍，未来可期"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"Noto Sans SC","url":null},"social_links":{"enable":true,"links":{"github":"https://github.com/zjun","instagram":null,"zhihu":null,"twitter":null,"email":"zjun101@qq.com","fa-brands fa-weibo":"https://weibo.com/zjun101"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.5.6","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"About":{"path":"/about","icon":"fa-regular fa-user"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":false,"position":"left","first_item":"menu","announcement":null,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/fontawesome/duotone.min.css">
+
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="莫名.堂" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="swup-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                莫名.堂
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        首页
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        归档
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/categories"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-folder"></i>
+                                        
+                                        分类
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/tags"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-tags"></i>
+                                        
+                                        标签
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/about"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        关于
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer w-full absolute top-0 left-0 bg-background-color">
+        <ul class="drawer-navbar-list flex flex-col justify-start items-center">
+            
+                
+                    <li class="drawer-navbar-item text-base my-1.5 flex justify-center items-center">
+                        <a class="rounded-3xl py-1.5 px-5 hover:border hover:!text-primary active:!text-primary group " 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                首页
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item text-base my-1.5 flex justify-center items-center">
+                        <a class="rounded-3xl py-1.5 px-5 hover:border hover:!text-primary active:!text-primary group " 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                归档
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item text-base my-1.5 flex justify-center items-center">
+                        <a class="rounded-3xl py-1.5 px-5 hover:border hover:!text-primary active:!text-primary group " 
+                        href="/categories"  >
+                             
+                                
+                                    <i class="fa-regular fa-folder"></i>
+                                
+                                分类
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item text-base my-1.5 flex justify-center items-center">
+                        <a class="rounded-3xl py-1.5 px-5 hover:border hover:!text-primary active:!text-primary group " 
+                        href="/tags"  >
+                             
+                                
+                                    <i class="fa-regular fa-tags"></i>
+                                
+                                标签
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item text-base my-1.5 flex justify-center items-center">
+                        <a class="rounded-3xl py-1.5 px-5 hover:border hover:!text-primary active:!text-primary group " 
+                        href="/about"  >
+                             
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                关于
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">Go笔记2：基础语法</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/me.jpeg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">zjun</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2013-10-27 21:06:19</span>
+        <span class="mobile">2013-10-27 21:06:19</span>
+        <span class="hover-info">创建</span>
+    </span>
+    <!--
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-11-30 15:31:59</span>
+            <span class="mobile">2023-11-30 15:31:59</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+    -->
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/">后端开发</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/go/">go</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.7k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>6 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p><strong>说明：</strong>  </p>
+<ol>
+<li><p>使用var关键字是Go最基本的定义变量方式，Go把变量类型放在变量名后面；  </p>
+</li>
+<li><p>_（下划线）是个特殊的变量名，任何赋予它的值都会被丢弃；  </p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_, b := <span class="number">34</span>, <span class="number">35</span> <span class="comment">//将值35赋予b，并同时丢弃34  </span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>Go对于已声明但未使用的变量会在编译阶段报错； </p>
+</li>
+<li><div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> variableName <span class="keyword">type</span> <span class="comment">//定义一个名称为“variableName”，类型为&quot;type&quot;的变量  </span></span><br><span class="line"><span class="keyword">var</span> vname1, vname2, vname3 <span class="keyword">type</span> <span class="comment">//定义三个类型都是“type”的三个变量  </span></span><br><span class="line"><span class="keyword">var</span> variableName <span class="keyword">type</span> = value <span class="comment">//初始化“variableName”的变量为“value”值，类型是“type”  </span></span><br><span class="line"><span class="keyword">var</span> vname1, vname2, vname3 <span class="keyword">type</span>= v1, v2, v3 <span class="comment">//定义三个类型都是&quot;type&quot;的三个变量,并且它们分别初始化相应的值   </span></span><br><span class="line"><span class="keyword">var</span> vname1, vname2, vname3 = v1, v2, v3 <span class="comment">// 定义三个变量，它们分别初始化相应的值,Go会根据其相应值的类型来初始化它们  </span></span><br><span class="line">vname1, vname2, vname3 := v1, v2, v3 <span class="comment">//**:=**这个符号直接取代了var和type,这种形式叫做简短声明,只能用在函数内部；在函数外部使用var方式来定义全局变量  </span></span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><p><strong>说明：</strong>  </p>
+<ol>
+<li>在Go程序中，常量可定义为<strong>数值</strong>、<strong>布尔值</strong>或<strong>字符串</strong>等类型；</li>
+</ol>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> constantName = value  </span><br><span class="line"><span class="keyword">const</span> Pi <span class="type">float32</span> = <span class="number">3.1415926</span>  <span class="comment">//如果需要，也可以明确指定常量的类型</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="基础类型"><a href="#基础类型" class="headerlink" title="基础类型"></a>基础类型</h2><ul>
+<li>布尔型：类型为bool，值是true或false，默认为false;</li>
+<li>数值类型: <ol>
+<li>整数类型: 有无符号和带符号两种 - int和uint，这两种类型的长度相同;</li>
+<li>浮点类型: 有float32和float64两种（没有float类型），默认是float64;</li>
+<li>复数: 它的默认类型是complex128（64位实数+64位虚数）,也有complex64(32位实数+32位虚数) ;</li>
+</ol>
+</li>
+<li>字符串: 类型是string, 是用一对双引号（””）或反引号（<code> </code>）括起来定义;<ol>
+<li>Go中字符串是不可变的;</li>
+<li>可以将字符串转换为 []byte 类型数组，修改后在转换回 []string 数组，例如下面的例子：</li>
+</ol>
+</li>
+</ul>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s := <span class="string">&quot;hello&quot;</span>  </span><br><span class="line">c := []<span class="type">byte</span>(s)  <span class="comment">// 将字符串 s 转换为 []byte 类型  </span></span><br><span class="line">c[<span class="number">0</span>] = <span class="string">&#x27;c&#x27;</span>  </span><br><span class="line">s2 := <span class="type">string</span>(c)  <span class="comment">// 再转换回 string 类型  </span></span><br><span class="line">fmt.Printf(<span class="string">&quot;%s\n&quot;</span>, s2)  </span><br></pre></td></tr></table></figure></div>
+
+<ol>
+<li>Go中使用+操作符来连接两个字符串；  </li>
+<li>使用反引号（<code> </code>）来申明多行字符串：**&#96; 括起的字符串为Raw字符串，即字符串在代码中的形式就是打印时的形式，它没有字符转义，换行也将原样输出**；</li>
+</ol>
+<ul>
+<li>错误类型：内置有一个error类型，专门用来处理错误信息，Go的package里面还专门有一个包errors来处理错误：<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">err := errors.New(<span class="string">&quot;emit macho dwarf: elf header corrupted&quot;</span>)  </span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;  </span><br><span class="line">    fmt.Print(err)  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h2 id="分组声明"><a href="#分组声明" class="headerlink" title="分组声明"></a>分组声明</h2><p>同时声明多个常量、变量，或者导入多个包时，可采用分组的方式进行声明：</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>(  </span><br><span class="line">    <span class="string">&quot;fmt&quot;</span>  </span><br><span class="line">    <span class="string">&quot;os&quot;</span>  </span><br><span class="line">)  </span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span>(  </span><br><span class="line">    i = <span class="number">100</span>  </span><br><span class="line">    pi = <span class="number">3.1415</span>  </span><br><span class="line">    prefix = <span class="string">&quot;Go_&quot;</span>  </span><br><span class="line">)  </span><br><span class="line"> </span><br><span class="line"><span class="keyword">var</span>(  </span><br><span class="line">    i <span class="type">int</span>  </span><br><span class="line">    pi <span class="type">float32</span>  </span><br><span class="line">    prefix <span class="type">string</span>  </span><br><span class="line">)  </span><br></pre></td></tr></table></figure></div>
+
+<h2 id="iota枚举"><a href="#iota枚举" class="headerlink" title="iota枚举"></a>iota枚举</h2><p>关键字<strong>iota</strong>用来声明enum的时候采用，它默认开始值是0，每调用一次加1：  </p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>(  </span><br><span class="line">    x = <span class="literal">iota</span>  <span class="comment">// x == 0  </span></span><br><span class="line">    y = <span class="literal">iota</span>  <span class="comment">// y == 1  </span></span><br><span class="line">    z = <span class="literal">iota</span>  <span class="comment">// z == 2  </span></span><br><span class="line">    w  <span class="comment">// 常量声明省略值时，默认和之前一个值的字面相同。这里隐式地说w = iota，因此w == 3。其实上面y和z可同样不用&quot;= iota&quot;  </span></span><br><span class="line">)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span> v = <span class="literal">iota</span> <span class="comment">// 每遇到一个const关键字，iota就会重置，此时v == 0  </span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span> (  </span><br><span class="line">  e, f, g = <span class="literal">iota</span>, <span class="literal">iota</span>, <span class="literal">iota</span> <span class="comment">//e=0,f=0,g=0 iota在同一行值相同  </span></span><br><span class="line">)  </span><br><span class="line"><span class="string">``</span><span class="string">`    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">## 默认规则 ##</span></span><br><span class="line"><span class="string">- **大写字母开头的变量**是可导出的，也就是其它包可以读取的，是**公用变量**；</span></span><br><span class="line"><span class="string">- **小写字母开头的变量**就是不可导出的，是**私有变量**。</span></span><br><span class="line"><span class="string">- **大写字母开头的函数**也是一样，相当于class中的带**public关键词的公有函数**；</span></span><br><span class="line"><span class="string">- **小写字母开头的函数**就是有**private关键词的私有函数**。  </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">## array、slice、map ##</span></span><br><span class="line"><span class="string">### array ###</span></span><br><span class="line"><span class="string">array就是数组，定义方式如下：  </span></span><br><span class="line"><span class="string">`</span><span class="string">``</span><span class="keyword">go</span> </span><br><span class="line"><span class="keyword">var</span> arr [n]<span class="keyword">type</span>  <span class="comment">//n表示数组的长度，type表示存储元素的类型  </span></span><br><span class="line">a := [<span class="number">3</span>]<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125; <span class="comment">// 声明了一个长度为3的int数组</span></span><br><span class="line"> </span><br><span class="line">b := [<span class="number">10</span>]<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125; <span class="comment">// 声明了一个长度为10的int数组，其中前三个元素初始化为1、2、3，其它默认为0</span></span><br><span class="line"> </span><br><span class="line">c := [...]<span class="type">int</span>&#123;<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125; <span class="comment">// 可以省略长度而采用`...`的方式，Go会自动根据元素个数来计算长度  </span></span><br><span class="line"></span><br><span class="line">doubleArray := [<span class="number">2</span>][<span class="number">4</span>]<span class="type">int</span>&#123;[<span class="number">4</span>]<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;, [<span class="number">4</span>]<span class="type">int</span>&#123;<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>&#125;&#125; <span class="comment">//声明了一个二维数组  </span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p><strong>说明：</strong>  </p>
+<ol>
+<li>数组不能改变长度；</li>
+<li>数组之间的赋值是值的赋值，即当把一个数组作为参数传入函数的时候，传入的其实是该数组的副本，而不是它的指针;</li>
+</ol>
+<h3 id="slice"><a href="#slice" class="headerlink" title="slice"></a>slice</h3><p>slice是一个引用类型, slice总是指向一个底层array，slice的声明也可以像array一样，只是不需要长度:</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fslice []<span class="type">int</span> <span class="comment">//和声明array一样，只是少了长度  </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明一个含有10个元素元素类型为byte的数组</span></span><br><span class="line"><span class="keyword">var</span> ar = [<span class="number">10</span>]<span class="type">byte</span> &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;f&#x27;</span>, <span class="string">&#x27;g&#x27;</span>, <span class="string">&#x27;h&#x27;</span>, <span class="string">&#x27;i&#x27;</span>, <span class="string">&#x27;j&#x27;</span>&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 声明两个含有byte的slice</span></span><br><span class="line"><span class="keyword">var</span> a, b []<span class="type">byte</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// a指向数组的第3个元素开始，并到第五个元素结束，</span></span><br><span class="line">a = ar[<span class="number">2</span>:<span class="number">5</span>]</span><br><span class="line"><span class="comment">//现在a含有的元素: ar[2]、ar[3]和ar[4]</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// b是数组ar的另一个slice</span></span><br><span class="line">b = ar[<span class="number">3</span>:<span class="number">5</span>]</span><br><span class="line"><span class="comment">// b的元素是：ar[3]和ar[4]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p><strong>说明：声明数组时，方括号内写明了数组的长度或使用…自动计算长度，而声明slice时，方括号内没有任何字符。</strong></p>
+<h3 id="map"><a href="#map" class="headerlink" title="map"></a>map</h3><p>map的格式为<br>    <code>map[keyType]valueType</code>  </p>
+<p><strong>说明：</strong>  </p>
+<ul>
+<li>map是无序的，每次打印出来的map都会不一样，它不能通过index获取，而必须通过key获取  </li>
+<li>map的长度是不固定的，也就是和slice一样，也是一种引用类型  </li>
+<li>内置的len函数同样适用于map，返回map拥有的key的数量  </li>
+<li>map的值可以很方便的修改，通过numbers[“one”]&#x3D;11可以很容易的把key为one的字典值改为11  </li>
+<li>map和其他基本型别不同，它不是thread-safe，在多个go-routine存取时，必须使用mutex lock机制  </li>
+<li>map的初始化可以通过<strong>key:val</strong>的方式初始化值</li>
+<li>map有两个返回值，第二个返回值，如果不存在key，那么ok为false，如果存在ok为true</li>
+<li>通过函数**delete(array,key)**删除map的元素</li>
+</ul>
+<h2 id="make-和-new操作"><a href="#make-和-new操作" class="headerlink" title="make 和 new操作"></a>make 和 new操作</h2><h3 id="new"><a href="#new" class="headerlink" title="new"></a>new</h3><p>new(T)分配了零值填充的T类型的内存空间，并且返回其地址：  </p>
+<blockquote>
+<p><strong>new返回指针</strong></p>
+</blockquote>
+<h3 id="make"><a href="#make" class="headerlink" title="make"></a>make</h3><p>make(T, args)只能创建slice、map和channel，并且返回一个有初始值(非零)的T类型，而不是*T:  </p>
+<blockquote>
+<p><strong>make返回初始化后的（非零）值</strong></p>
+</blockquote>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/astaxie/build-web-application-with-golang/blob/master/ebook/02.2.md" >Go Web 编程 ：Go　基础 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> Go笔记2：基础语法</li>
+        <li><strong>作者:</strong> zjun</li>
+        <li><strong>创建于
+                :</strong> 2013-10-27 21:06:19</li>
+        <!--
+            <li>
+                <strong>更新于
+                    :</strong> 2023-11-30 15:31:59
+            </li>
+        -->
+        <li>
+            <strong>链接:</strong> https://zjun.site/2013/10/369b270da178.html
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/go/">#go</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2013/12/593d9ddfa858.html"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">使用Spring Data JPA 简化持久层的开发</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2013/10/274edbd85c00.html"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Go笔记1：环境配置</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container pjax">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;评论
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://blog-comments-rg38i9urm-zjuns-projects.vercel.app',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          requiredMeta: ['nick', 'mail']
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">Go笔记2：基础语法</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-text">变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F"><span class="nav-text">常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B"><span class="nav-text">基础类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E5%A3%B0%E6%98%8E"><span class="nav-text">分组声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iota%E6%9E%9A%E4%B8%BE"><span class="nav-text">iota枚举</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#slice"><span class="nav-text">slice</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map"><span class="nav-text">map</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#make-%E5%92%8C-new%E6%93%8D%E4%BD%9C"><span class="nav-text">make 和 new操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#new"><span class="nav-text">new</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#make"><span class="nav-text">make</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">参考资料</span></a></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">zjun</a>
+        </div>
+        
+            <script data-swup-reload-script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.5.6</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/libs/anime.min.js"></script>
+
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+</body>
+</html>

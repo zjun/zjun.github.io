@@ -18,8 +18,8 @@
   
   <entry>
     <title>Spring 全局异常处理</title>
-    <link href="https://zjun.github.io/article/4f203cd3.html"/>
-    <id>https://zjun.github.io/article/4f203cd3.html</id>
+    <link href="https://zjun.github.io/2019/08/b3d504d77f20.html"/>
+    <id>https://zjun.github.io/2019/08/b3d504d77f20.html</id>
     <published>2019-08-10T14:50:51.000Z</published>
     <updated>2023-11-10T09:46:39.137Z</updated>
     
@@ -40,8 +40,8 @@
   
   <entry>
     <title>Spring中AOP的简单使用</title>
-    <link href="https://zjun.github.io/article/e00c1c2.html"/>
-    <id>https://zjun.github.io/article/e00c1c2.html</id>
+    <link href="https://zjun.github.io/2019/05/9e8623f096b1.html"/>
+    <id>https://zjun.github.io/2019/05/9e8623f096b1.html</id>
     <published>2019-05-20T08:40:52.000Z</published>
     <updated>2023-11-10T09:43:51.754Z</updated>
     
@@ -64,8 +64,8 @@
   
   <entry>
     <title>创建单例模式的几种方式</title>
-    <link href="https://zjun.github.io/article/6492d903.html"/>
-    <id>https://zjun.github.io/article/6492d903.html</id>
+    <link href="https://zjun.github.io/2015/11/ab4e9650eab3.html"/>
+    <id>https://zjun.github.io/2015/11/ab4e9650eab3.html</id>
     <published>2015-11-20T13:11:51.000Z</published>
     <updated>2023-11-21T09:17:40.591Z</updated>
     
@@ -86,9 +86,166 @@
   </entry>
   
   <entry>
+    <title>Go笔记7:并发</title>
+    <link href="https://zjun.github.io/2014/02/d65ff11c3013.html"/>
+    <id>https://zjun.github.io/2014/02/d65ff11c3013.html</id>
+    <published>2014-02-08T13:06:19.000Z</published>
+    <updated>2023-11-30T07:30:53.360Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Golang 给人印象最深刻的一个特性就是：从语言层面支持并行，而且实现起来相当简单。&lt;/p&gt;
+&lt;h2 id=&quot;goroutine&quot;&gt;&lt;a href=&quot;#goroutine&quot; class=&quot;headerlink&quot; title=&quot;goroutine&quot;&gt;&lt;/a&gt;goroutin</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="go" scheme="https://zjun.github.io/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Go笔记6：Go数据结构</title>
+    <link href="https://zjun.github.io/2014/01/27185f4f024e.html"/>
+    <id>https://zjun.github.io/2014/01/27185f4f024e.html</id>
+    <published>2014-01-22T13:06:19.000Z</published>
+    <updated>2023-11-30T07:30:53.360Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;结构与指针&quot;&gt;&lt;a href=&quot;#结构与指针&quot; class=&quot;headerlink&quot; title=&quot;结构与指针&quot;&gt;&lt;/a&gt;结构与指针&lt;/h2&gt;&lt;p&gt;定义一个叫Point的简单的结构类型，意味着内存里是两个相邻的int。  &lt;/p&gt;
+&lt;div class=&quot;high</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="go" scheme="https://zjun.github.io/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在Sublime Text2中开发Golang</title>
+    <link href="https://zjun.github.io/2014/01/759bcd250fb1.html"/>
+    <id>https://zjun.github.io/2014/01/759bcd250fb1.html</id>
+    <published>2014-01-16T13:06:19.000Z</published>
+    <updated>2023-11-30T07:29:33.060Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Sublime Text 2 是一个可定制程度相当高的轻量级编辑器,具有丰富的第三方插件，关键是可以无限期的免费使用。下面就介绍通过安装几种插件，将Sublime Text 2定制成为一款相当好用的Golang IDE。  &lt;/p&gt;
+&lt;h2 id=&quot;下载&quot;&gt;&lt;a href=</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="go" scheme="https://zjun.github.io/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Go笔记5：访问MySQL数据库</title>
+    <link href="https://zjun.github.io/2014/01/f9928eb01a4c.html"/>
+    <id>https://zjun.github.io/2014/01/f9928eb01a4c.html</id>
+    <published>2014-01-03T13:06:19.000Z</published>
+    <updated>2023-11-30T07:28:20.931Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;安装驱动&quot;&gt;&lt;a href=&quot;#安装驱动&quot; class=&quot;headerlink&quot; title=&quot;安装驱动&quot;&gt;&lt;/a&gt;安装驱动&lt;/h2&gt;&lt;p&gt;MySQL驱动： &lt;a class=&quot;link&quot;   href=&quot;https://github.com/go-sql-dri</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="go" scheme="https://zjun.github.io/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Go笔记4：接口</title>
+    <link href="https://zjun.github.io/2013/12/745ed4880698.html"/>
+    <id>https://zjun.github.io/2013/12/745ed4880698.html</id>
+    <published>2013-12-30T13:06:19.000Z</published>
+    <updated>2023-11-30T07:27:36.458Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;什么是接口-interface&quot;&gt;&lt;a href=&quot;#什么是接口-interface&quot; class=&quot;headerlink&quot; title=&quot;什么是接口(interface)&quot;&gt;&lt;/a&gt;什么是接口(interface)&lt;/h2&gt;&lt;p&gt;Golang中的interfac</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="go" scheme="https://zjun.github.io/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Go笔记3：面向对象</title>
+    <link href="https://zjun.github.io/2013/12/5c556b8a284e.html"/>
+    <id>https://zjun.github.io/2013/12/5c556b8a284e.html</id>
+    <published>2013-12-19T13:06:19.000Z</published>
+    <updated>2023-11-30T07:26:05.611Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Go是一个面向对象的语言，但是不同于Java，C++中略显复杂的面向对象思想，Golang 则将 OOP 思想做了极大的简化，只留下了最核心的特征：你可以给任何类型（包括内置类型）“增加”新方法。而在实现某个接口时，&lt;strong&gt;只需要实现该接口要求的所有方法即可&lt;/st</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="go" scheme="https://zjun.github.io/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring MVC 实现 REST service</title>
+    <link href="https://zjun.github.io/2013/12/8f7583c33c2f.html"/>
+    <id>https://zjun.github.io/2013/12/8f7583c33c2f.html</id>
+    <published>2013-12-04T13:06:19.000Z</published>
+    <updated>2023-11-30T07:21:59.022Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;web-xml&quot;&gt;&lt;a href=&quot;#web-xml&quot; class=&quot;headerlink&quot; title=&quot;web.xml&quot;&gt;&lt;/a&gt;web.xml&lt;/h2&gt;&lt;div class=&quot;highlight-container&quot; data-rel=&quot;Xml&quot;&gt;&lt;figu</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="Spring" scheme="https://zjun.github.io/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
     <title>使用Spring Data JPA 简化持久层的开发</title>
-    <link href="https://zjun.github.io/article/29fea7b8.html"/>
-    <id>https://zjun.github.io/article/29fea7b8.html</id>
+    <link href="https://zjun.github.io/2013/12/593d9ddfa858.html"/>
+    <id>https://zjun.github.io/2013/12/593d9ddfa858.html</id>
     <published>2013-12-03T13:06:19.000Z</published>
     <updated>2023-11-10T09:42:46.021Z</updated>
     
@@ -105,11 +262,59 @@
   </entry>
   
   <entry>
+    <title>Go笔记2：基础语法</title>
+    <link href="https://zjun.github.io/2013/10/369b270da178.html"/>
+    <id>https://zjun.github.io/2013/10/369b270da178.html</id>
+    <published>2013-10-27T13:06:19.000Z</published>
+    <updated>2023-11-30T07:31:59.409Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;变量&quot;&gt;&lt;a href=&quot;#变量&quot; class=&quot;headerlink&quot; title=&quot;变量&quot;&gt;&lt;/a&gt;变量&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;说明：&lt;/strong&gt;  &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;使用var关键字是Go最基本的定义变量方式，Go把变量类型放在</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="go" scheme="https://zjun.github.io/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Go笔记1：环境配置</title>
+    <link href="https://zjun.github.io/2013/10/274edbd85c00.html"/>
+    <id>https://zjun.github.io/2013/10/274edbd85c00.html</id>
+    <published>2013-10-24T13:06:19.000Z</published>
+    <updated>2023-11-30T07:16:36.083Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;Go-安装&quot;&gt;&lt;a href=&quot;#Go-安装&quot; class=&quot;headerlink&quot; title=&quot;Go 安装&quot;&gt;&lt;/a&gt;Go 安装&lt;/h2&gt;&lt;p&gt;我的环境是Win7，所以这里主要记录在Win7下安装Go的过程：  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;首先到&lt;a clas</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="go" scheme="https://zjun.github.io/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
     <title>把Raspberry Pi打造成 Web Server</title>
-    <link href="https://zjun.github.io/article/ddf385ff.html"/>
-    <id>https://zjun.github.io/article/ddf385ff.html</id>
+    <link href="https://zjun.github.io/2013/09/59563494bac6.html"/>
+    <id>https://zjun.github.io/2013/09/59563494bac6.html</id>
     <published>2013-09-17T13:06:19.000Z</published>
-    <updated>2023-11-24T16:19:53.892Z</updated>
+    <updated>2023-11-30T06:22:22.231Z</updated>
     
     
       
@@ -119,15 +324,15 @@
     
     
     
-    <category term="Others" scheme="https://zjun.github.io/categories/Others/"/>
+    <category term="其它" scheme="https://zjun.github.io/categories/%E5%85%B6%E5%AE%83/"/>
     
     
   </entry>
   
   <entry>
     <title>关于 Java String 内存管理的几个有趣的例子</title>
-    <link href="https://zjun.github.io/article/ae982c1d.html"/>
-    <id>https://zjun.github.io/article/ae982c1d.html</id>
+    <link href="https://zjun.github.io/2013/05/40c1459588ae.html"/>
+    <id>https://zjun.github.io/2013/05/40c1459588ae.html</id>
     <published>2013-05-30T13:06:19.000Z</published>
     <updated>2023-11-10T09:42:20.381Z</updated>
     
@@ -144,11 +349,76 @@
   </entry>
   
   <entry>
+    <title>Dojo在IE中的那些坑</title>
+    <link href="https://zjun.github.io/2013/05/53164b018ef1.html"/>
+    <id>https://zjun.github.io/2013/05/53164b018ef1.html</id>
+    <published>2013-05-14T09:37:00.000Z</published>
+    <updated>2023-11-30T07:14:41.169Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;最近的一个小项目中使用的&lt;a class=&quot;link&quot;   href=&quot;http://dojotoolkit.org/&quot; &gt;dojo &lt;i class=&quot;fa-regular fa-arrow-up-right-from-square fa-sm&quot;&gt;&lt;/i&gt;&lt;/a&gt;作为前台</summary>
+      
+    
+    
+    
+    <category term="前端开发" scheme="https://zjun.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="dojo" scheme="https://zjun.github.io/tags/dojo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HighCharts 笔记2：通过表格生成Pie Chart</title>
+    <link href="https://zjun.github.io/2013/04/ef1007595811.html"/>
+    <id>https://zjun.github.io/2013/04/ef1007595811.html</id>
+    <published>2013-04-01T07:49:00.000Z</published>
+    <updated>2023-11-30T07:10:51.599Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;接上一篇 &lt;a class=&quot;link&quot;   href=&quot;http://zjun.github.com/2013/03/28/highcharts-json-dataformat/&quot; &gt;HighCharts笔记之: Bar Chart &lt;i class=&quot;fa-regular fa-arrow-up-right-from-square fa-sm&quot;&gt;&lt;/i&gt;&lt;/a&gt;，这一篇继续记录在项目中使用 Pie Chart 的情况,只是自己的一点总结和记录，以备日后翻阅。这一次是通过页面上的表格(Table)数据，生成对应的饼图（Pie Chart），具体实现如下：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Highcharts&lt;/strong&gt; 是一个用纯JavaScript编写的一个图表库, 能够很简单便捷的在web网站或是web应用程序添加有交互性的图表，并且免费提供给个人学习、个人网站和非商业用途使用。目前HighCharts支持的图表类型有曲线图、区域图、柱状图、饼状图、散状点图和综合图表。&lt;br&gt;HighCharts界面美观，由于使用JavaScript编写，所以不需要像Flash和Java那样需要插件才可以运行，而且运行速度快。另外HighCharts还有很好的兼容性，能够完美支持当前大多数浏览器。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="前端开发" scheme="https://zjun.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>HighCharts笔记之: Bar Chart</title>
+    <link href="https://zjun.github.io/2013/03/af0dd2fed41a.html"/>
+    <id>https://zjun.github.io/2013/03/af0dd2fed41a.html</id>
+    <published>2013-03-28T08:52:00.000Z</published>
+    <updated>2023-11-30T07:12:53.683Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;最近需要做一些Web图标，研究了几个开源的第三方工具后，最后决定使用&lt;strong&gt;HighCharts&lt;/strong&gt;开发：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Highcharts&lt;/strong&gt; 是一个用纯JavaScript编写的一个图表库, 能够很简单便捷的在web</summary>
+      
+    
+    
+    
+    <category term="前端开发" scheme="https://zjun.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="HighCharts" scheme="https://zjun.github.io/tags/HighCharts/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java并发编程笔记：线程管理</title>
-    <link href="https://zjun.github.io/article/2cf8f79a.html"/>
-    <id>https://zjun.github.io/article/2cf8f79a.html</id>
+    <link href="https://zjun.github.io/2012/05/db86057c545d.html"/>
+    <id>https://zjun.github.io/2012/05/db86057c545d.html</id>
     <published>2012-05-02T08:52:00.000Z</published>
-    <updated>2023-11-24T16:20:30.584Z</updated>
+    <updated>2023-11-30T06:22:22.231Z</updated>
     
     
       
@@ -170,10 +440,10 @@
   
   <entry>
     <title>Find duplicate records in text file</title>
-    <link href="https://zjun.github.io/article/2f7dbe20.html"/>
-    <id>https://zjun.github.io/article/2f7dbe20.html</id>
+    <link href="https://zjun.github.io/2012/04/d175cbab2927.html"/>
+    <id>https://zjun.github.io/2012/04/d175cbab2927.html</id>
     <published>2012-04-11T08:52:00.000Z</published>
-    <updated>2023-11-24T16:21:26.666Z</updated>
+    <updated>2023-11-30T06:22:22.231Z</updated>
     
     
       
@@ -183,247 +453,7 @@
     
     
     
-    <category term="Others" scheme="https://zjun.github.io/categories/Others/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Hibernate中的关系映射</title>
-    <link href="https://zjun.github.io/article/9d09cd01.html"/>
-    <id>https://zjun.github.io/article/9d09cd01.html</id>
-    <published>2007-03-11T13:03:41.000Z</published>
-    <updated>2023-11-11T13:13:34.083Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;多对多&quot;&gt;&lt;a href=&quot;#多对多&quot; class=&quot;headerlink&quot; title=&quot;多对多&quot;&gt;&lt;/a&gt;多对多&lt;/h1&gt;&lt;div class=&quot;highlight-container&quot; data-rel=&quot;Java&quot;&gt;&lt;figure class=&quot;iseeu</summary>
-      
-    
-    
-    
-    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="hibernate" scheme="https://zjun.github.io/tags/hibernate/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剔除List中的重复值</title>
-    <link href="https://zjun.github.io/article/59d39a85.html"/>
-    <id>https://zjun.github.io/article/59d39a85.html</id>
-    <published>2007-01-18T05:48:00.000Z</published>
-    <updated>2023-11-24T16:22:08.610Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h3 id=&quot;方法一：循环元素删除&quot;&gt;&lt;a href=&quot;#方法一：循环元素删除&quot; class=&quot;headerlink&quot; title=&quot;方法一：循环元素删除&quot;&gt;&lt;/a&gt;方法一：循环元素删除&lt;/h3&gt;&lt;div class=&quot;highlight-container&quot; data-rel</summary>
-      
-    
-    
-    
-    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="Java" scheme="https://zjun.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hibernate中的继承关系</title>
-    <link href="https://zjun.github.io/article/10d51e8f.html"/>
-    <id>https://zjun.github.io/article/10d51e8f.html</id>
-    <published>2006-08-16T07:15:00.000Z</published>
-    <updated>2023-11-24T16:22:39.674Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;Hibernate中支持3种形式实现继承关系：  &lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Table per concrete class&lt;/strong&gt; 表与子类之间独立一对一关系  &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Table per subclass&lt;/str</summary>
-      
-    
-    
-    
-    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="hibernate" scheme="https://zjun.github.io/tags/hibernate/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>配置Log4j</title>
-    <link href="https://zjun.github.io/article/eefb8f1c.html"/>
-    <id>https://zjun.github.io/article/eefb8f1c.html</id>
-    <published>2006-06-28T08:42:00.000Z</published>
-    <updated>2023-11-09T13:13:30.525Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;Log4J的配置文件(Configuration File)就是用来设置记录器的级别、存放器和布局的，它可接key&amp;#x3D;value格式的设置或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Others" scheme="https://zjun.github.io/categories/Others/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>java中的观察者模式(Observer)</title>
-    <link href="https://zjun.github.io/article/368d2438.html"/>
-    <id>https://zjun.github.io/article/368d2438.html</id>
-    <published>2006-05-18T02:54:00.000Z</published>
-    <updated>2023-11-24T16:23:02.878Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;Java作为一种面向对象的开发语言，对实现设计模式提供了良好的支持，并且提供了许多默认的实现，比如：通过Java中的&lt;strong&gt;Observable类&lt;/strong&gt;和&lt;strong&gt;Observer接口&lt;/strong&gt;可以方便的实现观察者模式。&lt;/p&gt;
-&lt;p&gt;下面</summary>
-      
-    
-    
-    
-    <category term="架构设计" scheme="https://zjun.github.io/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/"/>
-    
-    
-    <category term="设计模式" scheme="https://zjun.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java中的Proxy模式(续)</title>
-    <link href="https://zjun.github.io/article/df437fb5.html"/>
-    <id>https://zjun.github.io/article/df437fb5.html</id>
-    <published>2006-04-12T03:06:00.000Z</published>
-    <updated>2023-11-24T16:23:19.395Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;在 &lt;a href=&quot;https://zjun.github.io/article/46390b53.html&quot;&gt;上一篇随笔&lt;/a&gt; 中,由于时间和篇幅的关系只是简单介绍了Proxy模式的概念,并没有写到Java中对Proxy模式特有的支持,所以严格说起来是有点”名不符实”</summary>
-      
-    
-    
-    
-    <category term="架构设计" scheme="https://zjun.github.io/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/"/>
-    
-    
-    <category term="设计模式" scheme="https://zjun.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java中的Proxy模式</title>
-    <link href="https://zjun.github.io/article/46390b53.html"/>
-    <id>https://zjun.github.io/article/46390b53.html</id>
-    <published>2006-03-21T15:34:00.000Z</published>
-    <updated>2023-11-24T16:23:35.995Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;什么是代理模式&quot;&gt;&lt;a href=&quot;#什么是代理模式&quot; class=&quot;headerlink&quot; title=&quot;什么是代理模式&quot;&gt;&lt;/a&gt;什么是代理模式&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;代理（Proxy）模式&lt;/strong&gt;，顾名思义就是对象之间不直接发生联系，而是通</summary>
-      
-    
-    
-    
-    <category term="架构设计" scheme="https://zjun.github.io/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/"/>
-    
-    
-    <category term="设计模式" scheme="https://zjun.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>为程序加上关闭钩子(ShutdownHook)</title>
-    <link href="https://zjun.github.io/article/31eff00a.html"/>
-    <id>https://zjun.github.io/article/31eff00a.html</id>
-    <published>2006-03-12T15:38:00.000Z</published>
-    <updated>2023-11-24T16:23:59.740Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;“&lt;strong&gt;关闭钩子&lt;/strong&gt;”（ShutdownHook）是这样一个概念：向虚拟机注册一个线程，当程序退出(Ctrl+C)时虚拟机会启动这个线程,我们可以在这个线程的run()中做一些清除的工作,如:&lt;strong&gt;释放数据库连接,关闭文件&lt;/strong&gt;</summary>
-      
-    
-    
-    
-    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="Java" scheme="https://zjun.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Javascript中的继承关系</title>
-    <link href="https://zjun.github.io/article/5d2ba95e.html"/>
-    <id>https://zjun.github.io/article/5d2ba95e.html</id>
-    <published>2006-03-06T13:06:32.000Z</published>
-    <updated>2023-11-24T16:24:26.844Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;意译自KevLinDev上一篇文章，才疏学浅，望指正，英文原文可到&lt;a class=&quot;link&quot;   href=&quot;http://www.kevlindev.com/tutorials/javascript/inheritance/&quot; &gt;这里 &lt;i class=&quot;fa-reg</summary>
-      
-    
-    
-    
-    <category term="前端开发" scheme="https://zjun.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="javascript" scheme="https://zjun.github.io/tags/javascript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>将Java应用注册为后台服务</title>
-    <link href="https://zjun.github.io/article/d531bfa2.html"/>
-    <id>https://zjun.github.io/article/d531bfa2.html</id>
-    <published>2006-02-28T14:57:00.000Z</published>
-    <updated>2023-11-24T16:24:51.026Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;项目中有一个java应用程序，交付后用户要求要把这个程序做成后台服务程序，即：系统启动后该程序可以自动启动，并且在前台不要出现运行窗口，维护人员只要在“服务管理”(Windows)中选择启动或停止即可.&lt;br&gt;解决办法如下：&lt;/p&gt;
-&lt;h2 id=&quot;Linux&quot;&gt;&lt;a hr</summary>
-      
-    
-    
-    
-    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="Java" scheme="https://zjun.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DisplayTag 1.1 Released, 可分页读取数据！！！</title>
-    <link href="https://zjun.github.io/article/25204a98.html"/>
-    <id>https://zjun.github.io/article/25204a98.html</id>
-    <published>2006-02-27T12:21:00.000Z</published>
-    <updated>2023-11-24T16:25:07.666Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;DisplayTag一直以来为人们所诟病的缺点就是它的装载数据的方式: &lt;strong&gt;一次性把所有数据读取到内存中，然后再分页显示&lt;/strong&gt;。这样做的后果就是在处理大批量数据时力不从心,可用性急剧下降,并且在翻页显示的仅仅是内存中的数据而不是实时数据.因此人们往往</summary>
-      
-    
-    
-    
-    <category term="前端开发" scheme="https://zjun.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="其它" scheme="https://zjun.github.io/categories/%E5%85%B6%E5%AE%83/"/>
     
     
   </entry>
