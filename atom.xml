@@ -63,6 +63,28 @@
   </entry>
   
   <entry>
+    <title>使用Optional处理null</title>
+    <link href="https://zjun.github.io/2018/08/d239c27ca7d9.html"/>
+    <id>https://zjun.github.io/2018/08/d239c27ca7d9.html</id>
+    <published>2018-08-03T15:01:12.000Z</published>
+    <updated>2023-12-01T07:35:02.360Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Java 8引入了一个Optional类，用来解决空指针异常(NullPointerException)。刚开始使用的时候看到&lt;code&gt;ifPresent()&lt;/code&gt;,&lt;code&gt;isPresent()&lt;/code&gt;和&lt;code&gt;get()&lt;/code&gt;这些函数，感</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="Java" scheme="https://zjun.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>创建单例模式的几种方式</title>
     <link href="https://zjun.github.io/2015/11/ab4e9650eab3.html"/>
     <id>https://zjun.github.io/2015/11/ab4e9650eab3.html</id>
@@ -435,26 +457,6 @@
     
     
     <category term="并发编程" scheme="https://zjun.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Find duplicate records in text file</title>
-    <link href="https://zjun.github.io/2012/04/d175cbab2927.html"/>
-    <id>https://zjun.github.io/2012/04/d175cbab2927.html</id>
-    <published>2012-04-11T08:52:00.000Z</published>
-    <updated>2023-11-30T06:22:22.231Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;Example&quot;&gt;&lt;a href=&quot;#Example&quot; class=&quot;headerlink&quot; title=&quot;Example&quot;&gt;&lt;/a&gt;Example&lt;/h2&gt;&lt;div class=&quot;highlight-container&quot; data-rel=&quot;Txt&quot;&gt;&lt;figu</summary>
-      
-    
-    
-    
-    <category term="其它" scheme="https://zjun.github.io/categories/%E5%85%B6%E5%AE%83/"/>
-    
     
   </entry>
   
