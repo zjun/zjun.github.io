@@ -63,6 +63,28 @@
   </entry>
   
   <entry>
+    <title>Java中的不变对象</title>
+    <link href="https://zjun.github.io/2018/08/998e535db3d2.html"/>
+    <id>https://zjun.github.io/2018/08/998e535db3d2.html</id>
+    <published>2018-08-08T13:56:22.000Z</published>
+    <updated>2023-12-04T15:48:05.051Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;不变对象&quot;&gt;&lt;a href=&quot;#不变对象&quot; class=&quot;headerlink&quot; title=&quot;不变对象&quot;&gt;&lt;/a&gt;不变对象&lt;/h1&gt;&lt;p&gt;在开发过程中，我们经常会遇到“不可变对象”的需求，所谓不可变对象(Immutable Object)，顾名思义就是：对象一旦</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="Java" scheme="https://zjun.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>使用Optional处理null</title>
     <link href="https://zjun.github.io/2018/08/d239c27ca7d9.html"/>
     <id>https://zjun.github.io/2018/08/d239c27ca7d9.html</id>
@@ -432,31 +454,6 @@
     
     
     <category term="HighCharts" scheme="https://zjun.github.io/tags/HighCharts/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程笔记：线程管理</title>
-    <link href="https://zjun.github.io/2012/05/db86057c545d.html"/>
-    <id>https://zjun.github.io/2012/05/db86057c545d.html</id>
-    <published>2012-05-02T08:52:00.000Z</published>
-    <updated>2023-11-30T06:22:22.231Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;创建线程&quot;&gt;&lt;a href=&quot;#创建线程&quot; class=&quot;headerlink&quot; title=&quot;创建线程&quot;&gt;&lt;/a&gt;创建线程&lt;/h2&gt;&lt;p&gt;两种方法：  &lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;通过直接继承thread类，然后覆盖run()方法;&lt;/li&gt;
-&lt;li&gt;构建一个实</summary>
-      
-    
-    
-    
-    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="并发编程" scheme="https://zjun.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
