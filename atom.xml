@@ -63,16 +63,39 @@
   </entry>
   
   <entry>
+    <title>Java的对象克隆</title>
+    <link href="https://zjun.github.io/2018/08/c4e4e37b1de9.html"/>
+    <id>https://zjun.github.io/2018/08/c4e4e37b1de9.html</id>
+    <published>2018-08-15T12:37:27.000Z</published>
+    <updated>2023-12-05T13:58:12.058Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;在&lt;a class=&quot;link&quot;   href=&quot;http://zjun.site/2018/08/998e535db3d2.html&quot; &gt;Java中的不变对象 &lt;i class=&quot;fa-regular fa-arrow-up-right-from-square fa-sm</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="Java" scheme="https://zjun.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java中的不变对象</title>
     <link href="https://zjun.github.io/2018/08/998e535db3d2.html"/>
     <id>https://zjun.github.io/2018/08/998e535db3d2.html</id>
     <published>2018-08-08T13:56:22.000Z</published>
-    <updated>2023-12-04T15:48:05.051Z</updated>
+    <updated>2023-12-05T13:29:01.747Z</updated>
     
     
       
       
-    <summary type="html">&lt;h1 id=&quot;不变对象&quot;&gt;&lt;a href=&quot;#不变对象&quot; class=&quot;headerlink&quot; title=&quot;不变对象&quot;&gt;&lt;/a&gt;不变对象&lt;/h1&gt;&lt;p&gt;在开发过程中，我们经常会遇到“不可变对象”的需求，所谓不可变对象(Immutable Object)，顾名思义就是：对象一旦</summary>
+    <summary type="html">&lt;p&gt;在开发过程中，我们经常会遇到“不可变对象”的需求，所谓不可变对象(Immutable Object)，顾名思义就是：对象一旦被创建后，对象所有的状态及属性在其生命周期内不会发生任何变化。&lt;br&gt;比如业务中有一个关于员工的定义：&lt;/p&gt;
+&lt;div class=&quot;highlig</summary>
       
     
     
@@ -358,7 +381,7 @@
     <link href="https://zjun.github.io/2013/09/59563494bac6.html"/>
     <id>https://zjun.github.io/2013/09/59563494bac6.html</id>
     <published>2013-09-17T13:06:19.000Z</published>
-    <updated>2023-11-30T06:22:22.231Z</updated>
+    <updated>2023-12-04T15:48:57.694Z</updated>
     
     
       
@@ -368,7 +391,7 @@
     
     
     
-    <category term="其它" scheme="https://zjun.github.io/categories/%E5%85%B6%E5%AE%83/"/>
+    <category term="undefined" scheme="https://zjun.github.io/categories/undefined/"/>
     
     
   </entry>
@@ -431,29 +454,6 @@
     
     <category term="前端开发" scheme="https://zjun.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>HighCharts笔记之: Bar Chart</title>
-    <link href="https://zjun.github.io/2013/03/af0dd2fed41a.html"/>
-    <id>https://zjun.github.io/2013/03/af0dd2fed41a.html</id>
-    <published>2013-03-28T08:52:00.000Z</published>
-    <updated>2023-11-30T07:12:53.683Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;最近需要做一些Web图标，研究了几个开源的第三方工具后，最后决定使用&lt;strong&gt;HighCharts&lt;/strong&gt;开发：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Highcharts&lt;/strong&gt; 是一个用纯JavaScript编写的一个图表库, 能够很简单便捷的在web</summary>
-      
-    
-    
-    
-    <category term="前端开发" scheme="https://zjun.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="HighCharts" scheme="https://zjun.github.io/tags/HighCharts/"/>
     
   </entry>
   
