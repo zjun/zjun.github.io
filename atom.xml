@@ -39,6 +39,29 @@
   </entry>
   
   <entry>
+    <title>Spring的三级循环及循环依赖</title>
+    <link href="https://zjun.github.io/2019/08/4c2d0cec00e5.html"/>
+    <id>https://zjun.github.io/2019/08/4c2d0cec00e5.html</id>
+    <published>2019-08-02T14:31:22.000Z</published>
+    <updated>2023-12-06T03:48:16.878Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;循环依赖&quot;&gt;&lt;a href=&quot;#循环依赖&quot; class=&quot;headerlink&quot; title=&quot;循环依赖&quot;&gt;&lt;/a&gt;循环依赖&lt;/h1&gt;&lt;p&gt;循环依赖是指两个对象相互依赖，形成了一个环形的调用链路。比如下面的例子：&lt;/p&gt;
+&lt;div class=&quot;highlight</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="Spring" scheme="https://zjun.github.io/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Spring中AOP的简单使用</title>
     <link href="https://zjun.github.io/2019/05/9e8623f096b1.html"/>
     <id>https://zjun.github.io/2019/05/9e8623f096b1.html</id>
@@ -67,7 +90,7 @@
     <link href="https://zjun.github.io/2018/08/c4e4e37b1de9.html"/>
     <id>https://zjun.github.io/2018/08/c4e4e37b1de9.html</id>
     <published>2018-08-15T12:37:27.000Z</published>
-    <updated>2023-12-05T13:58:12.058Z</updated>
+    <updated>2023-12-05T13:59:21.247Z</updated>
     
     
       
@@ -434,26 +457,6 @@
     
     
     <category term="dojo" scheme="https://zjun.github.io/tags/dojo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HighCharts 笔记2：通过表格生成Pie Chart</title>
-    <link href="https://zjun.github.io/2013/04/ef1007595811.html"/>
-    <id>https://zjun.github.io/2013/04/ef1007595811.html</id>
-    <published>2013-04-01T07:49:00.000Z</published>
-    <updated>2023-11-30T07:43:08.415Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;接上一篇 &lt;a class=&quot;link&quot;   href=&quot;http://zjun.github.com/2013/03/28/highcharts-json-dataformat/&quot; &gt;HighCharts笔记之: Bar Chart &lt;i class=&quot;fa-regular fa-arrow-up-right-from-square fa-sm&quot;&gt;&lt;/i&gt;&lt;/a&gt;，这一篇继续记录在项目中使用 Pie Chart 的情况,只是自己的一点总结和记录，以备日后翻阅。这一次是通过页面上的表格(Table)数据，生成对应的饼图（Pie Chart），具体实现如下：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Highcharts&lt;/strong&gt; 是一个用纯JavaScript编写的一个图表库, 能够很简单便捷的在web网站或是web应用程序添加有交互性的图表，并且免费提供给个人学习、个人网站和非商业用途使用。目前HighCharts支持的图表类型有曲线图、区域图、柱状图、饼状图、散状点图和综合图表。&lt;br&gt;HighCharts界面美观，由于使用JavaScript编写，所以不需要像Flash和Java那样需要插件才可以运行，而且运行速度快。另外HighCharts还有很好的兼容性，能够完美支持当前大多数浏览器。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="前端开发" scheme="https://zjun.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
-    
     
   </entry>
   

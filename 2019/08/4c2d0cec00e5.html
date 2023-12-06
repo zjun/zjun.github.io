@@ -13,20 +13,22 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://zjun.github.io/archives/2019/08/"/>
+    <link rel="canonical" href="https://zjun.github.io/2019/08/4c2d0cec00e5.html"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="莫名.堂">
-<meta property="og:url" content="https://zjun.github.io/archives/2019/08/index.html">
+        <meta name="description" content="循环依赖循环依赖是指两个对象相互依赖，形成了一个环形的调用链路。比如下面的例子： 123456@Component public class A &amp;#123; 	@Autowired B b; &amp;#125; @Component public class B &amp;#123; 	@Autowired A a; &amp;#125; 上面的例子中，当创建A对象时，发现依赖B，转而去创建B对象，但在创建B对象时又">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring的三级循环及循环依赖">
+<meta property="og:url" content="https://zjun.github.io/2019/08/4c2d0cec00e5.html">
 <meta property="og:site_name" content="莫名.堂">
-<meta property="og:description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
+<meta property="og:description" content="循环依赖循环依赖是指两个对象相互依赖，形成了一个环形的调用链路。比如下面的例子： 123456@Component public class A &amp;#123; 	@Autowired B b; &amp;#125; @Component public class B &amp;#123; 	@Autowired A a; &amp;#125; 上面的例子中，当创建A对象时，发现依赖B，转而去创建B对象，但在创建B对象时又">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-08-02T14:31:22.000Z">
+<meta property="article:modified_time" content="2023-12-06T03:48:16.878Z">
 <meta property="article:author" content="zJun">
-<meta property="article:tag" content="Java, DDD, 微服务">
+<meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
     
     
@@ -39,7 +41,7 @@
     
     <title>
         
-            归档: 2019/8 -
+            Spring的三级循环及循环依赖 -
         
         莫名.堂
     </title>
@@ -165,7 +167,7 @@
                         
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="active" 
+                                <a class="" 
                                     href="/archives"  >
                                     
                                         
@@ -266,7 +268,7 @@
             
                 
                     <li class="drawer-navbar-item text-base my-1.5 flex justify-center items-center">
-                        <a class="rounded-3xl py-1.5 px-5 hover:border hover:!text-primary active:!text-primary group active" 
+                        <a class="rounded-3xl py-1.5 px-5 hover:border hover:!text-primary active:!text-primary group " 
                         href="/archives"  >
                              
                                 
@@ -342,444 +344,314 @@
             <div class="main-content">
 
                 
-                    <div class="archive-container ">
+                    <div class="post-page-container">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">Spring的三级循环及循环依赖</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/me.jpeg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">zjun</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2019-08-02 22:31:22</span>
+        <span class="mobile">2019-08-02 22:31:22</span>
+        <span class="hover-info">创建</span>
+    </span>
+    <!--
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-12-06 11:48:16</span>
+            <span class="mobile">2023-12-06 11:48:16</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+    -->
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/">后端开发</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Spring/">Spring</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
-<div class="archive-list-container">
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2019</span>
-                <span class="archive-year-post-count">[3]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='08-10'>
-                
-                
-                    <a href="/2019/08/b3d504d77f20.html">
-                        <span class="article-title">Spring 全局异常处理</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='08-02'>
-                
-                
-                    <a href="/2019/08/4c2d0cec00e5.html">
-                        <span class="article-title">Spring的三级循环及循环依赖</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='05-20'>
-                
-                
-                    <a href="/2019/05/9e8623f096b1.html">
-                        <span class="article-title">Spring中AOP的简单使用</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2018</span>
-                <span class="archive-year-post-count">[3]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='08-15'>
-                
-                
-                    <a href="/2018/08/c4e4e37b1de9.html">
-                        <span class="article-title">Java的对象克隆</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='08-08'>
-                
-                
-                    <a href="/2018/08/998e535db3d2.html">
-                        <span class="article-title">Java中的不变对象</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='08-03'>
-                
-                
-                    <a href="/2018/08/d239c27ca7d9.html">
-                        <span class="article-title">使用Optional处理null</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.2k 字</span>
+        </span>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2015</span>
-                <span class="archive-year-post-count">[1]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='11-20'>
-                
-                
-                    <a href="/2015/11/ab4e9650eab3.html">
-                        <span class="article-title">创建单例模式的几种方式</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2014</span>
-                <span class="archive-year-post-count">[4]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='02-08'>
-                
-                
-                    <a href="/2014/02/d65ff11c3013.html">
-                        <span class="article-title">Go笔记7:并发</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='01-22'>
-                
-                
-                    <a href="/2014/01/27185f4f024e.html">
-                        <span class="article-title">Go笔记6：Go数据结构</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='01-16'>
-                
-                
-                    <a href="/2014/01/759bcd250fb1.html">
-                        <span class="article-title">在Sublime Text2中开发Golang</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='01-03'>
-                
-                
-                    <a href="/2014/01/f9928eb01a4c.html">
-                        <span class="article-title">Go笔记5：访问MySQL数据库</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>4 分钟</span>
+        </span>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2013</span>
-                <span class="archive-year-post-count">[11]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='12-30'>
-                
-                
-                    <a href="/2013/12/745ed4880698.html">
-                        <span class="article-title">Go笔记4：接口</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='12-19'>
-                
-                
-                    <a href="/2013/12/5c556b8a284e.html">
-                        <span class="article-title">Go笔记3：面向对象</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='12-04'>
-                
-                
-                    <a href="/2013/12/8f7583c33c2f.html">
-                        <span class="article-title">Spring MVC 实现 REST service</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='12-03'>
-                
-                
-                    <a href="/2013/12/593d9ddfa858.html">
-                        <span class="article-title">使用Spring Data JPA 简化持久层的开发</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='10-27'>
-                
-                
-                    <a href="/2013/10/369b270da178.html">
-                        <span class="article-title">Go笔记2：基础语法</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='10-24'>
-                
-                
-                    <a href="/2013/10/274edbd85c00.html">
-                        <span class="article-title">Go笔记1：环境配置</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='09-17'>
-                
-                
-                    <a href="/2013/09/59563494bac6.html">
-                        <span class="article-title">把Raspberry Pi打造成 Web Server</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='05-30'>
-                
-                
-                    <a href="/2013/05/40c1459588ae.html">
-                        <span class="article-title">关于 Java String 内存管理的几个有趣的例子</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='05-14'>
-                
-                
-                    <a href="/2013/05/53164b018ef1.html">
-                        <span class="article-title">Dojo在IE中的那些坑</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='04-01'>
-                
-                
-                    <a href="/2013/04/ef1007595811.html">
-                        <span class="article-title">HighCharts 笔记2：通过表格生成Pie Chart</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='03-28'>
-                
-                
-                    <a href="/2013/03/af0dd2fed41a.html">
-                        <span class="article-title">HighCharts笔记之: Bar Chart</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2012</span>
-                <span class="archive-year-post-count">[2]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='05-02'>
-                
-                
-                    <a href="/2012/05/db86057c545d.html">
-                        <span class="article-title">Java并发编程笔记：线程管理</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='04-11'>
-                
-                
-                    <a href="/2012/04/d175cbab2927.html">
-                        <span class="article-title">Find duplicate records in text file</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2007</span>
-                <span class="archive-year-post-count">[2]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='03-11'>
-                
-                
-                    <a href="/2007/03/8ab61ae12607.html">
-                        <span class="article-title">Hibernate中的关系映射</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='01-18'>
-                
-                
-                    <a href="/2007/01/6eee36bed6f2.html">
-                        <span class="article-title">剔除List中的重复值</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2006</span>
-                <span class="archive-year-post-count">[9]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='08-16'>
-                
-                
-                    <a href="/2006/08/3e65720e5ef3.html">
-                        <span class="article-title">Hibernate中的继承关系</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='06-28'>
-                
-                
-                    <a href="/2006/06/30f3cbc52082.html">
-                        <span class="article-title">配置Log4j</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='05-18'>
-                
-                
-                    <a href="/2006/05/fd665649b35c.html">
-                        <span class="article-title">java中的观察者模式(Observer)</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='04-12'>
-                
-                
-                    <a href="/2006/04/3249d2971202.html">
-                        <span class="article-title">java中的Proxy模式(续)</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='03-21'>
-                
-                
-                    <a href="/2006/03/48e6ba8e175d.html">
-                        <span class="article-title">java中的Proxy模式</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='03-12'>
-                
-                
-                    <a href="/2006/03/5cc83b7cc575.html">
-                        <span class="article-title">为程序加上关闭钩子(ShutdownHook)</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='03-06'>
-                
-                
-                    <a href="/2006/03/f893cfaf5b14.html">
-                        <span class="article-title">Javascript中的继承关系</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='02-28'>
-                
-                
-                    <a href="/2006/02/639a82530b73.html">
-                        <span class="article-title">将Java应用注册为后台服务</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='02-27'>
-                
-                
-                    <a href="/2006/02/f30ddfb4b7ed.html">
-                        <span class="article-title">DisplayTag 1.1 Released, 可分页读取数据！！！</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
     
 </div>
 
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="循环依赖"><a href="#循环依赖" class="headerlink" title="循环依赖"></a>循环依赖</h1><p>循环依赖是指两个对象相互依赖，形成了一个环形的调用链路。比如下面的例子：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span> <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">A</span> &#123; </span><br><span class="line">	<span class="meta">@Autowired</span> B b; </span><br><span class="line">&#125; </span><br><span class="line"><span class="meta">@Component</span> <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">B</span> &#123; </span><br><span class="line">	<span class="meta">@Autowired</span> A a; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>上面的例子中，当创建A对象时，发现依赖B，转而去创建B对象，但在创建B对象时又发现依赖A，从而周而复始，形成了一个循环依赖。<br>像这样的例子在实际的开发过程中是很难避免甚至是常见的，但我们在使用Spring的过程中却并不会遇到循环依赖的问题，这是为什么呢？答案就是Spring中通过使用三级缓存来避免了出现循环依赖的问题。</p>
+<h1 id="Spring中Bean的生命周期"><a href="#Spring中Bean的生命周期" class="headerlink" title="Spring中Bean的生命周期"></a>Spring中Bean的生命周期</h1><p>在开始讲解Spring如何通过三级缓存来避免循环依赖之前，我们先来了解一下Spring中的Bean的生命周期。<br>Spring在初始化Bean时，BeanFactory会根据BeanDefinition创建Bean对象，创建的过程如下：</p>
+<ul>
+<li><strong>实例化</strong>：实例化该Bean对象</li>
+<li><strong>填充属性</strong>：给该Bean赋值</li>
+<li><strong>初始化</strong>：<ul>
+<li>如果实现了Aware接口，会通过其接口获取容器资源</li>
+<li>如果实现了BeanPostProcessor接口，则会回调该接口的前置和后置处理增强</li>
+<li>如果配置了 init-method 方法，会执行该方法</li>
+</ul>
+</li>
+<li><strong>销毁</strong>：<ul>
+<li>如果实现了 DisposableBean 接口，则会回调该接口的 destroy 方法</li>
+<li>如果配置了 destroy-method 方法，则会执行 destroy-method 配置的方法</li>
+</ul>
+</li>
+</ul>
+<h1 id="Spring使用三级缓存解决循环依赖"><a href="#Spring使用三级缓存解决循环依赖" class="headerlink" title="Spring使用三级缓存解决循环依赖"></a>Spring使用三级缓存解决循环依赖</h1><p>Spring的三级缓存分别是：</p>
+<ul>
+<li><strong>第一级缓存</strong>：用来保存实例化，初始化都完成的对象</li>
+<li><strong>第二级缓存</strong>：用来保存实例化完成，但是未初始化完成的对象</li>
+<li><strong>第三级缓存</strong>：用来保存一个对象工厂，提供一个匿名内部类，用于创建二级缓存中的对象<br>三级缓存的核心逻辑就是：<strong>把实例化和初始化的步骤分开，然后放入缓存中</strong>，供另一个对象调用。<br>Spring解决循环依赖有两个前提条件：</li>
+<li><strong>不全是构造器方式</strong>的循环依赖(否则无法分离初始化和实例化的操作)</li>
+<li><strong>必需是单例</strong>(否则无法保证是同一对象)</li>
+</ul>
+<h2 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h2><p>我们以上面提到的例子来看一下三级缓存是怎么解决循环依赖的：但A，B两个类发生循环引用时。</p>
+<ul>
+<li>A完成实例化后，去<strong>创建一个工厂对象，并放入三级缓存</strong>当中<ul>
+<li>如果A被AOP代理，那么通过这个工厂获取到的就是A代理后的对象</li>
+<li>如果A没有被AOP代理，那么这个工厂获取到的就是A实例化的对象</li>
+</ul>
+</li>
+<li>A进行属性注入时，去<strong>创建B</strong></li>
+<li>B进行属性注入时，需要A，则<strong>从三级缓存中去取A工厂代理获取A的早期对象</strong>，并将这个早期对象注入二级缓存，然后删除三级缓存中的A工厂，将尚未创建完毕的A的引用赋值给B</li>
+<li>B完成后续属性注入，直到初始化结束，将B放入一级缓存</li>
+<li><strong>A从一级缓存中取到B并且注入B</strong>，直到完成后续操作，将A从二级缓存删除，并放入一级缓存，循环依赖结束</li>
+</ul>
+<h2 id="为什么要使用三级缓存"><a href="#为什么要使用三级缓存" class="headerlink" title="为什么要使用三级缓存"></a>为什么要使用三级缓存</h2><p>从解决循环依赖的核心逻辑：<strong>把实例化和初始化的步骤分开，然后放入缓存中</strong>来看，其实只使用二级缓存就可以解决了(一级缓存存放实例化和初始化完成的实例，二级缓存存放实例化完成但尚未初始化完成的对象)，那么为什么还需要引入一个三级缓存呢？<br>这是因为Spring中还有另外一个问题需要解决，就是初始化过程中的AOP实现，Spring中的AOP有两种实现方式：一种是JDK自带基于接口的动态Proxy技术，另一种是CGlib基于字节码动态生成的Proxy技术。Spring中AOP的实现是通过后置处理器 <code>BeanPostProcessor</code> 来实现的，而后置处理器是在填充属性结束后才执行的。</p>
+<ul>
+<li>实例化对象</li>
+<li>对象填充属性</li>
+<li>BeanPostProcessor doBefore</li>
+<li>init-method</li>
+<li>BeanPostProcessor doAfter – AOP在这个阶段实现</li>
+</ul>
+<p>所以如果循环依赖的对象中有AOP代理的对象的话，通过二级缓存就不容易解决循环依赖的问题。如果只使用二级缓存解决循环依赖，那么意味着所有的 Bean 在实例化后就要完成AOP代理。</p>
+<p>三级缓存只会创建一个工厂对象并将其放入三级缓存中，也就是说只有在真正方式循环依赖时才会去生成代理对象。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> Spring的三级循环及循环依赖</li>
+        <li><strong>作者:</strong> zjun</li>
+        <li><strong>创建于
+                :</strong> 2019-08-02 22:31:22</li>
+        <!--
+            <li>
+                <strong>更新于
+                    :</strong> 2023-12-06 11:48:16
+            </li>
+        -->
+        <li>
+            <strong>链接:</strong> https://zjun.site/2019/08/4c2d0cec00e5.html
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
 </div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Spring/">#Spring</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2019/08/b3d504d77f20.html"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Spring 全局异常处理</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2019/05/9e8623f096b1.html"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Spring中AOP的简单使用</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container pjax">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;评论
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '8eef267e3ae37946b836',
+                    clientSecret: 'c293edd86bc66ed0cc21e01f00b76e479ddbdff8',
+                    repo: 'gitalk-comments',
+                    owner: 'zjun',
+                    admin: ['zjun'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">Spring的三级循环及循环依赖</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96"><span class="nav-text">循环依赖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E4%B8%ADBean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-text">Spring中Bean的生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E4%BD%BF%E7%94%A8%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98%E8%A7%A3%E5%86%B3%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96"><span class="nav-text">Spring使用三级缓存解决循环依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="nav-text">一个例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98"><span class="nav-text">为什么要使用三级缓存</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
 
                 
 
@@ -852,6 +724,27 @@
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-side-tools-container">
