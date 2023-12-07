@@ -13,21 +13,26 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://zjun.github.io/archives/2015/11/"/>
+    <link rel="canonical" href="https://zjun.github.io/2016/01/d2a9c047d26f.html"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="莫名.堂">
-<meta property="og:url" content="https://zjun.github.io/archives/2015/11/index.html">
+        <meta name="description" content="运行时数据区 程序计数器程序计数器，可以看做是当前线程执行代码的行号指示器，字节码解释器通过改变程序计数器的值来选择下一条执行的语句。分支，循环，跳转，异常处理，线程恢复都是通过这个计数器来完成的。在多线程中，每个线程都有自己的计数器，这个区域是线程私有的。当执行Native方法时，这个计数器值为空。这个区域是唯一没有OutOfMemeryException的内存区域。 虚拟机栈虚拟机栈也是线程私">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java内存区域及管理">
+<meta property="og:url" content="https://zjun.github.io/2016/01/d2a9c047d26f.html">
 <meta property="og:site_name" content="莫名.堂">
-<meta property="og:description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
+<meta property="og:description" content="运行时数据区 程序计数器程序计数器，可以看做是当前线程执行代码的行号指示器，字节码解释器通过改变程序计数器的值来选择下一条执行的语句。分支，循环，跳转，异常处理，线程恢复都是通过这个计数器来完成的。在多线程中，每个线程都有自己的计数器，这个区域是线程私有的。当执行Native方法时，这个计数器值为空。这个区域是唯一没有OutOfMemeryException的内存区域。 虚拟机栈虚拟机栈也是线程私">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/03/10/U9LxpVFNdhlDAKg.png">
+<meta property="og:image" content="https://s2.loli.net/2023/03/10/szpQLPxFEqgCZlJ.jpg">
+<meta property="article:published_time" content="2016-01-08T13:28:55.000Z">
+<meta property="article:modified_time" content="2023-12-07T09:09:58.557Z">
 <meta property="article:author" content="zJun">
-<meta property="article:tag" content="Java, DDD, 微服务">
+<meta property="article:tag" content="JVM">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/03/10/U9LxpVFNdhlDAKg.png">
     
     
     <!--- Icon Part-->
@@ -39,7 +44,7 @@
     
     <title>
         
-            归档: 2015/11 -
+            分类: 后端开发 -
         
         莫名.堂
     </title>
@@ -165,7 +170,7 @@
                         
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="active" 
+                                <a class="" 
                                     href="/archives"  >
                                     
                                         
@@ -266,7 +271,7 @@
             
                 
                     <li class="drawer-navbar-item text-base my-1.5 flex justify-center items-center">
-                        <a class="rounded-3xl py-1.5 px-5 hover:border hover:!text-primary active:!text-primary group active" 
+                        <a class="rounded-3xl py-1.5 px-5 hover:border hover:!text-primary active:!text-primary group " 
                         href="/archives"  >
                              
                                 
@@ -342,464 +347,325 @@
             <div class="main-content">
 
                 
-                    <div class="archive-container ">
+                    <div class="post-page-container">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">Java内存区域及管理</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/me.jpeg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">zjun</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2016-01-08 21:28:55</span>
+        <span class="mobile">2016-01-08 21:28:55</span>
+        <span class="hover-info">创建</span>
+    </span>
+    <!--
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-12-07 17:09:58</span>
+            <span class="mobile">2023-12-07 17:09:58</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+    -->
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/">后端开发</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/JVM/">JVM</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
-<div class="archive-list-container">
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2019</span>
-                <span class="archive-year-post-count">[3]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='08-10'>
-                
-                
-                    <a href="/2019/08/b3d504d77f20.html">
-                        <span class="article-title">Spring 全局异常处理</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='08-02'>
-                
-                
-                    <a href="/2019/08/4c2d0cec00e5.html">
-                        <span class="article-title">Spring的三级循环及循环依赖</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='05-20'>
-                
-                
-                    <a href="/2019/05/9e8623f096b1.html">
-                        <span class="article-title">Spring中AOP的简单使用</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2018</span>
-                <span class="archive-year-post-count">[3]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='08-15'>
-                
-                
-                    <a href="/2018/08/c4e4e37b1de9.html">
-                        <span class="article-title">Java的对象克隆</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='08-08'>
-                
-                
-                    <a href="/2018/08/998e535db3d2.html">
-                        <span class="article-title">Java中的不变对象</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='08-03'>
-                
-                
-                    <a href="/2018/08/d239c27ca7d9.html">
-                        <span class="article-title">使用Optional处理null</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.5k 字</span>
+        </span>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2016</span>
-                <span class="archive-year-post-count">[1]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='01-08'>
-                
-                
-                    <a href="/2016/01/d2a9c047d26f.html">
-                        <span class="article-title">Java内存区域及管理</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2015</span>
-                <span class="archive-year-post-count">[1]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='11-20'>
-                
-                
-                    <a href="/2015/11/ab4e9650eab3.html">
-                        <span class="article-title">创建单例模式的几种方式</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>5 分钟</span>
+        </span>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2014</span>
-                <span class="archive-year-post-count">[4]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='02-08'>
-                
-                
-                    <a href="/2014/02/d65ff11c3013.html">
-                        <span class="article-title">Go笔记7:并发</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='01-22'>
-                
-                
-                    <a href="/2014/01/27185f4f024e.html">
-                        <span class="article-title">Go笔记6：Go数据结构</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='01-16'>
-                
-                
-                    <a href="/2014/01/759bcd250fb1.html">
-                        <span class="article-title">在Sublime Text2中开发Golang</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='01-03'>
-                
-                
-                    <a href="/2014/01/f9928eb01a4c.html">
-                        <span class="article-title">Go笔记5：访问MySQL数据库</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2013</span>
-                <span class="archive-year-post-count">[11]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='12-30'>
-                
-                
-                    <a href="/2013/12/745ed4880698.html">
-                        <span class="article-title">Go笔记4：接口</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='12-19'>
-                
-                
-                    <a href="/2013/12/5c556b8a284e.html">
-                        <span class="article-title">Go笔记3：面向对象</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='12-04'>
-                
-                
-                    <a href="/2013/12/8f7583c33c2f.html">
-                        <span class="article-title">Spring MVC 实现 REST service</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='12-03'>
-                
-                
-                    <a href="/2013/12/593d9ddfa858.html">
-                        <span class="article-title">使用Spring Data JPA 简化持久层的开发</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='10-27'>
-                
-                
-                    <a href="/2013/10/369b270da178.html">
-                        <span class="article-title">Go笔记2：基础语法</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='10-24'>
-                
-                
-                    <a href="/2013/10/274edbd85c00.html">
-                        <span class="article-title">Go笔记1：环境配置</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='09-17'>
-                
-                
-                    <a href="/2013/09/59563494bac6.html">
-                        <span class="article-title">把Raspberry Pi打造成 Web Server</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='05-30'>
-                
-                
-                    <a href="/2013/05/40c1459588ae.html">
-                        <span class="article-title">关于 Java String 内存管理的几个有趣的例子</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='05-14'>
-                
-                
-                    <a href="/2013/05/53164b018ef1.html">
-                        <span class="article-title">Dojo在IE中的那些坑</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='04-01'>
-                
-                
-                    <a href="/2013/04/ef1007595811.html">
-                        <span class="article-title">HighCharts 笔记2：通过表格生成Pie Chart</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='03-28'>
-                
-                
-                    <a href="/2013/03/af0dd2fed41a.html">
-                        <span class="article-title">HighCharts笔记之: Bar Chart</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2012</span>
-                <span class="archive-year-post-count">[2]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='05-02'>
-                
-                
-                    <a href="/2012/05/db86057c545d.html">
-                        <span class="article-title">Java并发编程笔记：线程管理</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='04-11'>
-                
-                
-                    <a href="/2012/04/d175cbab2927.html">
-                        <span class="article-title">Find duplicate records in text file</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2007</span>
-                <span class="archive-year-post-count">[2]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='03-11'>
-                
-                
-                    <a href="/2007/03/8ab61ae12607.html">
-                        <span class="article-title">Hibernate中的关系映射</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='01-18'>
-                
-                
-                    <a href="/2007/01/6eee36bed6f2.html">
-                        <span class="article-title">剔除List中的重复值</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2006</span>
-                <span class="archive-year-post-count">[9]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='08-16'>
-                
-                
-                    <a href="/2006/08/3e65720e5ef3.html">
-                        <span class="article-title">Hibernate中的继承关系</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='06-28'>
-                
-                
-                    <a href="/2006/06/30f3cbc52082.html">
-                        <span class="article-title">配置Log4j</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='05-18'>
-                
-                
-                    <a href="/2006/05/fd665649b35c.html">
-                        <span class="article-title">java中的观察者模式(Observer)</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='04-12'>
-                
-                
-                    <a href="/2006/04/3249d2971202.html">
-                        <span class="article-title">java中的Proxy模式(续)</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='03-21'>
-                
-                
-                    <a href="/2006/03/48e6ba8e175d.html">
-                        <span class="article-title">java中的Proxy模式</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='03-12'>
-                
-                
-                    <a href="/2006/03/5cc83b7cc575.html">
-                        <span class="article-title">为程序加上关闭钩子(ShutdownHook)</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='03-06'>
-                
-                
-                    <a href="/2006/03/f893cfaf5b14.html">
-                        <span class="article-title">Javascript中的继承关系</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='02-28'>
-                
-                
-                    <a href="/2006/02/639a82530b73.html">
-                        <span class="article-title">将Java应用注册为后台服务</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='02-27'>
-                
-                
-                    <a href="/2006/02/f30ddfb4b7ed.html">
-                        <span class="article-title">DisplayTag 1.1 Released, 可分页读取数据！！！</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
     
 </div>
 
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="运行时数据区"><a href="#运行时数据区" class="headerlink" title="运行时数据区"></a>运行时数据区</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/03/10/U9LxpVFNdhlDAKg.png"
+                     
+                ></p>
+<h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><p>程序计数器，可以看做是当前线程执行代码的行号指示器，字节码解释器通过改变程序计数器的值来选择下一条执行的语句。<strong>分支，循环，跳转，异常处理，线程恢复</strong>都是通过这个计数器来完成的。<br>在多线程中，每个线程都有自己的计数器，这个区域是<strong>线程私有</strong>的。<br>当执行Native方法时，这个计数器值为空。<br><strong>这个区域是唯一没有OutOfMemeryException的内存区域。</strong></p>
+<h2 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h2><p>虚拟机栈也是<strong>线程私有</strong>的，生命周期和线程相同。<br>虚拟机栈主要用来描述方法执行的内存模型：<strong>每个方法执行时都会在在虚拟机栈中创建一个栈帧</strong>，在这个栈帧中<strong>存储方法中的局部变量，操作数栈，动态链表，方法出口信息</strong>等<br>方法从调用到执行完成的过程就对应着一个栈帧入栈道出栈的过程。<br>如果无法在虚拟机栈申请到足够的内存空间，可能会抛出栈深度异常（StackOverflowError）或内存溢出异常(OutOfMemoryError)。</p>
+<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>本地方法栈与虚拟机的作用相似，不同之处在于虚拟机栈为虚拟机执行的Java方法服务，而本地方法栈则为虚拟机使用到的Native方法服务。有的虚拟机直接把本地方法栈和虚拟机栈合二为一。<br>会抛出stackOverflowError和OutOfMemoryError异常。</p>
+<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>方法区是各个<strong>线程共享的内存区域</strong>，它用于存储已被虚拟机加载的<strong>类信息、常量、静态变量、即时编译器编译后的代码</strong>等数据。<br>这个区域的内存回收目标主要是针对<strong>常量池的回收和对类型的卸载</strong>。<br>当方法区无法满足内存分配需要时，将抛出OutOfMemoryError异常。</p>
+<h3 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h3><p>是方法区的一部分，它用于存放编译期生成的各种字面量和符号引用。比较常见的是<strong>字符串常量池</strong></p>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>堆是所有<strong>线程共享</strong>的一块内存区域，在虚拟机启动时创建，所有的对象实例都存放在此内存区域。<br>堆是<strong>垃圾收集器管理的主要区域</strong>。由于现在收集器基本采用分代回收算法，所以Java堆还可细分为：<strong>新生代和老年代</strong>。从内存分配的角度来看，线程共享的Java堆中可能划分出多个线程私有的分配缓冲区(TLAB )。<br><strong>TLAB： Thread Local Allocation Buffer</strong> 的简写，基于 CAS 的独享线程（Mutator Threads）可以优先将对象分配在 Eden 中的一块内存，因为是 Java 线程独享的内存区没有锁竞争，所以分配速度更快，每个 TLAB 都是一个线程独享的。</p>
+<p>Java堆可以处于物理上不连续的内存空间，只要逻辑上连续的即可。<br>如果堆中没有内存完成实例分配，并且堆也无法完成扩展时，将会抛出OutOfMemoryError异常。</p>
+<h3 id="堆内存的空间分配"><a href="#堆内存的空间分配" class="headerlink" title="堆内存的空间分配"></a>堆内存的空间分配</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/03/10/szpQLPxFEqgCZlJ.jpg"
+                     
+                ><br>Java的堆内存通常可以分为新生代和老年代(1:2)，新生代占三分之一的堆空间，老年代占三分之二的堆空间。</p>
+<ul>
+<li><strong>老年代</strong>：2&#x2F;3的堆空间</li>
+<li><strong>年轻代</strong>：1&#x2F;3的堆空间<br>其中的新生代又分为：eden区，survivor 0和survivor 1区，各个区域的占比为:8:1:1。</li>
+<li><strong>eden区</strong>：8&#x2F;10的年轻代空间</li>
+<li><strong>survivor 0</strong>: 1&#x2F;10的年轻代空间</li>
+<li><strong>survivor 1</strong>: 1&#x2F;10的年轻代空间</li>
+</ul>
+<h3 id="堆内存中的垃圾回收"><a href="#堆内存中的垃圾回收" class="headerlink" title="堆内存中的垃圾回收"></a>堆内存中的垃圾回收</h3><p>当新建一个对象时，默认新对象是存放在<strong>eden</strong>区(如果新对象非常大，eden存不下的话，也有可能直接存放在老年区)，在eden区中的大部分对象通常不需要长久存活，当eden的空间不足时，就会触发一次<strong>Minor GC</strong>：垃圾回收器会把<strong>eden</strong>和<strong>Survivor</strong>中依然“存活”的对象复制到另一个Survivor中，并将这些存活的对象<strong>年龄+1</strong>，然后把eden和Survivor清空。</p>
+<p>以后每经历过一次Minor GC，就将“存活”的对象年龄+1，直到对象的年龄达到某个值时(<strong>默认是 15 岁</strong>，可以通过参数 <code>-XX:MaxTenuringThreshold</code> 来设定)，会将这些对象移到老年代中。当老年代中空间不足时，就会触发一次 <strong>Full GC</strong>。</p>
+<p>Full GC 在老年代中发生，只有经过多次 Minor GC 后存活下来的对象依然比较多时才会发生，所以Full GC没有Minor GC这么频繁，但Full GC会比 Minor GC耗费更长的时间。一个优化的思路就是尽量通过 Minor GC回收掉大多数对象，而减少 Full GC发生的频率。</p>
+<h3 id="堆内存相关的JVM参数"><a href="#堆内存相关的JVM参数" class="headerlink" title="堆内存相关的JVM参数"></a>堆内存相关的JVM参数</h3><table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>-Xms</strong></td>
+<td>初始堆大小。如：-Xms256m</td>
+</tr>
+<tr>
+<td><strong>-Xmx</strong></td>
+<td>最大堆大小。如：-Xmx512m</td>
+</tr>
+<tr>
+<td><strong>-Xmn</strong></td>
+<td>新生代大小。通常为 Xmx 的 1&#x2F;3 或 1&#x2F;4。新生代 &#x3D; Eden + 2 个 Survivor 空间。实际可用空间为 &#x3D; Eden + 1 个 Survivor，即 90%</td>
+</tr>
+<tr>
+<td><strong>-Xss</strong></td>
+<td>JDK1.5+ 每个线程堆栈大小为 1M，一般来说如果栈不是很深的话， 1M 是绝对够用了的。</td>
+</tr>
+<tr>
+<td><strong>-XX:NewRatio</strong></td>
+<td>新生代与老年代的比例，如 –XX:NewRatio&#x3D;2，则新生代占整个堆空间的1&#x2F;3，老年代占2&#x2F;3</td>
+</tr>
+<tr>
+<td><strong>-XX:SurvivorRatio</strong></td>
+<td>新生代中 Eden 与 Survivor 的比值。默认值为 8。即 Eden 占新生代空间的 8&#x2F;10，另外两个 Survivor 各占 1&#x2F;10</td>
+</tr>
+<tr>
+<td><strong>-XX:PermSize</strong></td>
+<td>永久代(方法区)的初始大小</td>
+</tr>
+<tr>
+<td><strong>-XX:MaxPermSize</strong></td>
+<td>永久代(方法区)的最大值</td>
+</tr>
+<tr>
+<td><strong>-XX:+PrintGCDetails</strong></td>
+<td>打印 GC 信息</td>
+</tr>
+<tr>
+<td><strong>-XX:+HeapDumpOnOutOfMemoryError</strong></td>
+<td>让虚拟机在发生内存溢出时 Dump 出当前的内存堆转储快照，以便分析用</td>
+</tr>
+</tbody></table>
+<hr>
+
+        </div>
+
+        
+            <div class="post-copyright-info my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> Java内存区域及管理</li>
+        <li><strong>作者:</strong> zjun</li>
+        <li><strong>创建于
+                :</strong> 2016-01-08 21:28:55</li>
+        <!--
+            <li>
+                <strong>更新于
+                    :</strong> 2023-12-07 17:09:58
+            </li>
+        -->
+        <li>
+            <strong>链接:</strong> https://zjun.site/2016/01/d2a9c047d26f.html
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
 </div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/JVM/">#JVM</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2018/08/d239c27ca7d9.html"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">使用Optional处理null</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2015/11/ab4e9650eab3.html"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">创建单例模式的几种方式</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container pjax">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;评论
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://comments.zjun.site',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          requiredMeta: ['nick', 'mail']
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">Java内存区域及管理</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA"><span class="nav-text">运行时数据区</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-text">程序计数器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88"><span class="nav-text">虚拟机栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88"><span class="nav-text">本地方法栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA"><span class="nav-text">方法区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="nav-text">运行时常量池</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86"><span class="nav-text">堆</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E5%86%85%E5%AD%98%E7%9A%84%E7%A9%BA%E9%97%B4%E5%88%86%E9%85%8D"><span class="nav-text">堆内存的空间分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-text">堆内存中的垃圾回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E5%86%85%E5%AD%98%E7%9B%B8%E5%85%B3%E7%9A%84JVM%E5%8F%82%E6%95%B0"><span class="nav-text">堆内存相关的JVM参数</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
 
                 
 
@@ -872,6 +738,27 @@
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-side-tools-container">

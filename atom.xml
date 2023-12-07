@@ -43,7 +43,7 @@
     <link href="https://zjun.github.io/2019/08/4c2d0cec00e5.html"/>
     <id>https://zjun.github.io/2019/08/4c2d0cec00e5.html</id>
     <published>2019-08-02T14:31:22.000Z</published>
-    <updated>2023-12-06T03:48:16.878Z</updated>
+    <updated>2023-12-06T03:48:55.375Z</updated>
     
     
       
@@ -149,6 +149,30 @@
     
     
     <category term="Java" scheme="https://zjun.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java内存区域及管理</title>
+    <link href="https://zjun.github.io/2016/01/d2a9c047d26f.html"/>
+    <id>https://zjun.github.io/2016/01/d2a9c047d26f.html</id>
+    <published>2016-01-08T13:28:55.000Z</published>
+    <updated>2023-12-07T09:09:58.557Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;运行时数据区&quot;&gt;&lt;a href=&quot;#运行时数据区&quot; class=&quot;headerlink&quot; title=&quot;运行时数据区&quot;&gt;&lt;/a&gt;运行时数据区&lt;/h1&gt;&lt;p&gt;&lt;img  
+                     lazyload
+                 </summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="JVM" scheme="https://zjun.github.io/tags/JVM/"/>
     
   </entry>
   
@@ -435,28 +459,6 @@
     
     
     <category term="Java" scheme="https://zjun.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Dojo在IE中的那些坑</title>
-    <link href="https://zjun.github.io/2013/05/53164b018ef1.html"/>
-    <id>https://zjun.github.io/2013/05/53164b018ef1.html</id>
-    <published>2013-05-14T09:37:00.000Z</published>
-    <updated>2023-11-30T07:14:41.169Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;最近的一个小项目中使用的&lt;a class=&quot;link&quot;   href=&quot;http://dojotoolkit.org/&quot; &gt;dojo &lt;i class=&quot;fa-regular fa-arrow-up-right-from-square fa-sm&quot;&gt;&lt;/i&gt;&lt;/a&gt;作为前台</summary>
-      
-    
-    
-    
-    <category term="前端开发" scheme="https://zjun.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="dojo" scheme="https://zjun.github.io/tags/dojo/"/>
     
   </entry>
   
