@@ -153,6 +153,28 @@
   </entry>
   
   <entry>
+    <title>Java中Synchronized及wait,notifyAll的使用</title>
+    <link href="https://zjun.github.io/2016/09/3ae01f568dd3.html"/>
+    <id>https://zjun.github.io/2016/09/3ae01f568dd3.html</id>
+    <published>2016-09-08T13:16:12.000Z</published>
+    <updated>2023-12-08T11:29:06.983Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Java中通过关键字&lt;code&gt;synchronized&lt;/code&gt;来对对象加锁，同时配合&lt;code&gt;wait()&lt;/code&gt;,&lt;code&gt;notify()&lt;/code&gt;,&lt;code&gt;notifyAll()&lt;/code&gt; 来进行线程间的同步。但是在实际使用时，容易混淆&lt;</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="并发编程" scheme="https://zjun.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java内存区域及管理</title>
     <link href="https://zjun.github.io/2016/01/d2a9c047d26f.html"/>
     <id>https://zjun.github.io/2016/01/d2a9c047d26f.html</id>
@@ -440,25 +462,6 @@
     
     <category term="undefined" scheme="https://zjun.github.io/categories/undefined/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>关于 Java String 内存管理的几个有趣的例子</title>
-    <link href="https://zjun.github.io/2013/05/40c1459588ae.html"/>
-    <id>https://zjun.github.io/2013/05/40c1459588ae.html</id>
-    <published>2013-05-30T13:06:19.000Z</published>
-    <updated>2023-11-10T09:42:20.381Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;今天在 &lt;a class=&quot;link&quot;   href=&quot;http://www.oschina.net/&quot; &gt;OSChina &lt;i class=&quot;fa-regular fa-arrow-up-right-from-square fa-sm&quot;&gt;&lt;/i&gt;&lt;/a&gt; 上看到一篇有趣的文章：&lt;a class=&quot;link&quot;   href=&quot;http://my.oschina.net/u/551903/blog/134000&quot; &gt;关于String内存分配的深入探讨 &lt;i class=&quot;fa-regular fa-arrow-up-right-from-square fa-sm&quot;&gt;&lt;/i&gt;&lt;/a&gt;,文章通过几个简单的例子，把Java中String的内存管理的方式解释的很清楚，涨了不少姿势，现根据自己的理解做些笔记在这里：&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="Java" scheme="https://zjun.github.io/tags/Java/"/>
     
   </entry>
   
