@@ -153,16 +153,16 @@
   </entry>
   
   <entry>
-    <title>Java中Synchronized及wait,notifyAll的使用</title>
-    <link href="https://zjun.github.io/2016/09/3ae01f568dd3.html"/>
-    <id>https://zjun.github.io/2016/09/3ae01f568dd3.html</id>
+    <title>synchronized 实现等待-通知机制</title>
+    <link href="https://zjun.github.io/2016/09/46566b8b6e0d.html"/>
+    <id>https://zjun.github.io/2016/09/46566b8b6e0d.html</id>
     <published>2016-09-08T13:16:12.000Z</published>
-    <updated>2023-12-08T11:29:06.983Z</updated>
+    <updated>2023-12-11T14:03:13.467Z</updated>
     
     
       
       
-    <summary type="html">&lt;p&gt;Java中通过关键字&lt;code&gt;synchronized&lt;/code&gt;来对对象加锁，同时配合&lt;code&gt;wait()&lt;/code&gt;,&lt;code&gt;notify()&lt;/code&gt;,&lt;code&gt;notifyAll()&lt;/code&gt; 来进行线程间的同步。但是在实际使用时，容易混淆&lt;</summary>
+    <summary type="html">&lt;p&gt;Java中通过关键字&lt;code&gt;synchronized&lt;/code&gt;来对对象加锁，同时配合&lt;code&gt;wait()&lt;/code&gt;,&lt;code&gt;notify()&lt;/code&gt;,&lt;code&gt;notifyAll()&lt;/code&gt; 来实现等待-通知机制。但是在实际使用时，容易混淆</summary>
       
     
     
@@ -171,6 +171,28 @@
     
     
     <category term="并发编程" scheme="https://zjun.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java 类加载过程</title>
+    <link href="https://zjun.github.io/2016/02/bffb0bede084.html"/>
+    <id>https://zjun.github.io/2016/02/bffb0bede084.html</id>
+    <published>2016-02-11T14:05:34.000Z</published>
+    <updated>2023-12-11T14:14:35.934Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;类加载过程描述&quot;&gt;&lt;a href=&quot;#类加载过程描述&quot; class=&quot;headerlink&quot; title=&quot;类加载过程描述&quot;&gt;&lt;/a&gt;类加载过程描述&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;JVM 类加载过程分为&lt;/strong&gt;，&lt;code&gt;加载&lt;/code&gt;、&lt;code</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://zjun.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="JVM" scheme="https://zjun.github.io/tags/JVM/"/>
     
   </entry>
   
@@ -442,26 +464,6 @@
     
     
     <category term="go" scheme="https://zjun.github.io/tags/go/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>把Raspberry Pi打造成 Web Server</title>
-    <link href="https://zjun.github.io/2013/09/59563494bac6.html"/>
-    <id>https://zjun.github.io/2013/09/59563494bac6.html</id>
-    <published>2013-09-17T13:06:19.000Z</published>
-    <updated>2023-12-04T15:48:57.694Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;Setup-Raspberry-Pi&quot;&gt;&lt;a href=&quot;#Setup-Raspberry-Pi&quot; class=&quot;headerlink&quot; title=&quot;Setup Raspberry Pi&quot;&gt;&lt;/a&gt;Setup Raspberry Pi&lt;/h2&gt;&lt;h3 id=&quot;安</summary>
-      
-    
-    
-    
-    <category term="undefined" scheme="https://zjun.github.io/categories/undefined/"/>
-    
     
   </entry>
   

@@ -13,20 +13,22 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://zjun.github.io/archives/2007/03/"/>
+    <link rel="canonical" href="https://zjun.github.io/2016/02/bffb0bede084.html"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="莫名.堂">
-<meta property="og:url" content="https://zjun.github.io/archives/2007/03/index.html">
+        <meta name="description" content="类加载过程描述JVM 类加载过程分为，加载、链接、初始化、使用和卸载这五个阶段，在链接中又包括：验证、准备、解析。  加载：Java将字节码数据从不同的数据源读取到JVM中，并映射为JVM认可的数据结构（Class对象），这里的数据源可能是各种各样的形态，如jar文件、class文件，甚至是网络数据源等；如果输入数据不是ClassFile的结构，则会抛出ClassFormatError。加载阶段是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 类加载过程">
+<meta property="og:url" content="https://zjun.github.io/2016/02/bffb0bede084.html">
 <meta property="og:site_name" content="莫名.堂">
-<meta property="og:description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
+<meta property="og:description" content="类加载过程描述JVM 类加载过程分为，加载、链接、初始化、使用和卸载这五个阶段，在链接中又包括：验证、准备、解析。  加载：Java将字节码数据从不同的数据源读取到JVM中，并映射为JVM认可的数据结构（Class对象），这里的数据源可能是各种各样的形态，如jar文件、class文件，甚至是网络数据源等；如果输入数据不是ClassFile的结构，则会抛出ClassFormatError。加载阶段是">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-02-11T14:05:34.000Z">
+<meta property="article:modified_time" content="2023-12-11T14:14:35.934Z">
 <meta property="article:author" content="zJun">
-<meta property="article:tag" content="Java, DDD, 微服务">
+<meta property="article:tag" content="JVM">
 <meta name="twitter:card" content="summary">
     
     
@@ -39,7 +41,7 @@
     
     <title>
         
-            归档: 2007/3 -
+            Java 类加载过程 -
         
         莫名.堂
     </title>
@@ -165,7 +167,7 @@
                         
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="active" 
+                                <a class="" 
                                     href="/archives"  >
                                     
                                         
@@ -266,7 +268,7 @@
             
                 
                     <li class="drawer-navbar-item text-base my-1.5 flex justify-center items-center">
-                        <a class="rounded-3xl py-1.5 px-5 hover:border hover:!text-primary active:!text-primary group active" 
+                        <a class="rounded-3xl py-1.5 px-5 hover:border hover:!text-primary active:!text-primary group " 
                         href="/archives"  >
                              
                                 
@@ -342,484 +344,287 @@
             <div class="main-content">
 
                 
-                    <div class="archive-container ">
+                    <div class="post-page-container">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">Java 类加载过程</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/me.jpeg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">zjun</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2016-02-11 22:05:34</span>
+        <span class="mobile">2016-02-11 22:05:34</span>
+        <span class="hover-info">创建</span>
+    </span>
+    <!--
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-12-11 22:14:35</span>
+            <span class="mobile">2023-12-11 22:14:35</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+    -->
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/">后端开发</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/JVM/">JVM</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
-<div class="archive-list-container">
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2019</span>
-                <span class="archive-year-post-count">[3]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='08-10'>
-                
-                
-                    <a href="/2019/08/b3d504d77f20.html">
-                        <span class="article-title">Spring 全局异常处理</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='08-02'>
-                
-                
-                    <a href="/2019/08/4c2d0cec00e5.html">
-                        <span class="article-title">Spring的三级循环及循环依赖</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='05-20'>
-                
-                
-                    <a href="/2019/05/9e8623f096b1.html">
-                        <span class="article-title">Spring中AOP的简单使用</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2018</span>
-                <span class="archive-year-post-count">[3]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='08-15'>
-                
-                
-                    <a href="/2018/08/c4e4e37b1de9.html">
-                        <span class="article-title">Java的对象克隆</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='08-08'>
-                
-                
-                    <a href="/2018/08/998e535db3d2.html">
-                        <span class="article-title">Java中的不变对象</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='08-03'>
-                
-                
-                    <a href="/2018/08/d239c27ca7d9.html">
-                        <span class="article-title">使用Optional处理null</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.8k 字</span>
+        </span>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2016</span>
-                <span class="archive-year-post-count">[3]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='09-08'>
-                
-                
-                    <a href="/2016/09/46566b8b6e0d.html">
-                        <span class="article-title">synchronized 实现等待-通知机制</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='02-11'>
-                
-                
-                    <a href="/2016/02/bffb0bede084.html">
-                        <span class="article-title">Java 类加载过程</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='01-08'>
-                
-                
-                    <a href="/2016/01/d2a9c047d26f.html">
-                        <span class="article-title">Java内存区域及管理</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2015</span>
-                <span class="archive-year-post-count">[1]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='11-20'>
-                
-                
-                    <a href="/2015/11/ab4e9650eab3.html">
-                        <span class="article-title">创建单例模式的几种方式</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>6 分钟</span>
+        </span>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2014</span>
-                <span class="archive-year-post-count">[4]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='02-08'>
-                
-                
-                    <a href="/2014/02/d65ff11c3013.html">
-                        <span class="article-title">Go笔记7:并发</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='01-22'>
-                
-                
-                    <a href="/2014/01/27185f4f024e.html">
-                        <span class="article-title">Go笔记6：Go数据结构</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='01-16'>
-                
-                
-                    <a href="/2014/01/759bcd250fb1.html">
-                        <span class="article-title">在Sublime Text2中开发Golang</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='01-03'>
-                
-                
-                    <a href="/2014/01/f9928eb01a4c.html">
-                        <span class="article-title">Go笔记5：访问MySQL数据库</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2013</span>
-                <span class="archive-year-post-count">[11]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='12-30'>
-                
-                
-                    <a href="/2013/12/745ed4880698.html">
-                        <span class="article-title">Go笔记4：接口</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='12-19'>
-                
-                
-                    <a href="/2013/12/5c556b8a284e.html">
-                        <span class="article-title">Go笔记3：面向对象</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='12-04'>
-                
-                
-                    <a href="/2013/12/8f7583c33c2f.html">
-                        <span class="article-title">Spring MVC 实现 REST service</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='12-03'>
-                
-                
-                    <a href="/2013/12/593d9ddfa858.html">
-                        <span class="article-title">使用Spring Data JPA 简化持久层的开发</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='10-27'>
-                
-                
-                    <a href="/2013/10/369b270da178.html">
-                        <span class="article-title">Go笔记2：基础语法</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='10-24'>
-                
-                
-                    <a href="/2013/10/274edbd85c00.html">
-                        <span class="article-title">Go笔记1：环境配置</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='09-17'>
-                
-                
-                    <a href="/2013/09/59563494bac6.html">
-                        <span class="article-title">把Raspberry Pi打造成 Web Server</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='05-30'>
-                
-                
-                    <a href="/2013/05/40c1459588ae.html">
-                        <span class="article-title">关于 Java String 内存管理的几个有趣的例子</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='05-14'>
-                
-                
-                    <a href="/2013/05/53164b018ef1.html">
-                        <span class="article-title">Dojo在IE中的那些坑</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='04-01'>
-                
-                
-                    <a href="/2013/04/ef1007595811.html">
-                        <span class="article-title">HighCharts 笔记2：通过表格生成Pie Chart</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='03-28'>
-                
-                
-                    <a href="/2013/03/af0dd2fed41a.html">
-                        <span class="article-title">HighCharts笔记之: Bar Chart</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2012</span>
-                <span class="archive-year-post-count">[2]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='05-02'>
-                
-                
-                    <a href="/2012/05/db86057c545d.html">
-                        <span class="article-title">Java并发编程笔记：线程管理</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='04-11'>
-                
-                
-                    <a href="/2012/04/d175cbab2927.html">
-                        <span class="article-title">Find duplicate records in text file</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2007</span>
-                <span class="archive-year-post-count">[2]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='03-11'>
-                
-                
-                    <a href="/2007/03/8ab61ae12607.html">
-                        <span class="article-title">Hibernate中的关系映射</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='01-18'>
-                
-                
-                    <a href="/2007/01/6eee36bed6f2.html">
-                        <span class="article-title">剔除List中的重复值</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2006</span>
-                <span class="archive-year-post-count">[9]</span>
-            </div>
-            <ul class="article-list">
-              
-                
-                    
-                    <li class="article-item" date-is='08-16'>
-                
-                
-                    <a href="/2006/08/3e65720e5ef3.html">
-                        <span class="article-title">Hibernate中的继承关系</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='06-28'>
-                
-                
-                    <a href="/2006/06/30f3cbc52082.html">
-                        <span class="article-title">配置Log4j</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='05-18'>
-                
-                
-                    <a href="/2006/05/fd665649b35c.html">
-                        <span class="article-title">java中的观察者模式(Observer)</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='04-12'>
-                
-                
-                    <a href="/2006/04/3249d2971202.html">
-                        <span class="article-title">java中的Proxy模式(续)</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='03-21'>
-                
-                
-                    <a href="/2006/03/48e6ba8e175d.html">
-                        <span class="article-title">java中的Proxy模式</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='03-12'>
-                
-                
-                    <a href="/2006/03/5cc83b7cc575.html">
-                        <span class="article-title">为程序加上关闭钩子(ShutdownHook)</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='03-06'>
-                
-                
-                    <a href="/2006/03/f893cfaf5b14.html">
-                        <span class="article-title">Javascript中的继承关系</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='02-28'>
-                
-                
-                    <a href="/2006/02/639a82530b73.html">
-                        <span class="article-title">将Java应用注册为后台服务</span>
-                    </a>
-                
-              
-                
-                    
-                    <li class="article-item" date-is='02-27'>
-                
-                
-                    <a href="/2006/02/f30ddfb4b7ed.html">
-                        <span class="article-title">DisplayTag 1.1 Released, 可分页读取数据！！！</span>
-                    </a>
-                
-              
-            </ul>
-        </section>
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
     
 </div>
 
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="类加载过程描述"><a href="#类加载过程描述" class="headerlink" title="类加载过程描述"></a>类加载过程描述</h1><p><strong>JVM 类加载过程分为</strong>，<code>加载</code>、<code>链接</code>、<code>初始化</code>、<code>使用</code>和<code>卸载</code>这五个阶段，在链接中又包括：<code>验证</code>、<code>准备</code>、<code>解析</code>。</p>
+<ul>
+<li><strong>加载</strong>：Java将字节码数据从不同的数据源读取到JVM中，并映射为JVM认可的数据结构（Class对象），这里的数据源可能是各种各样的形态，如jar文件、class文件，甚至是网络数据源等；如果输入数据不是ClassFile的结构，则会抛出ClassFormatError。加载阶段是用户参与的阶段，我们可以<strong>自定义类加载器</strong>，去实现自己的类加载过程。</li>
+<li><strong>链接</strong>：这是核心的步骤，简单说是把原始的类定义信息平滑地转化入JVM运行的过程中。这里可进一步细分为三个步骤<ul>
+<li><strong>验证</strong>，这是虚拟机安全的重要保障，JVM 需要核验字节信息是符合 Java 虚拟机规范的(例<strong>魔数 0xCAFEBABE</strong>，以及版本号等)，否则就被认为是 VerifyError，这样就防止了恶意信息或者不合规的信息危害 JVM 的运行，验证阶段有可能触发更多 class 的加载。确保被加载类的正确性，验证字节流是否符合 class 文件规范。</li>
+<li><strong>准备</strong>，创建类或接口中的静态变量，并初始化静态变量的初始值。但这里的“初始化”和下面的显式初始化阶段是有区别的，<strong>侧重点在于分配所需要的内存空间，不会去执行更进一步的JVM指令</strong>。</li>
+<li><strong>解析</strong>，在这一步会将常量池中的符号引用（symbolic reference）替换为直接引用。</li>
+</ul>
+</li>
+<li><strong>初始化</strong>：这一步真正去执行类初始化的代码逻辑，包括静态字段赋值的动作，以及执行类定义中的静态初始化块内的逻辑，编译器在编译阶段就会把这部分逻辑整理好，父类型的初始化逻辑优先于当前类型的逻辑。</li>
+<li><strong>使用</strong>：程序代码执行使用阶段。</li>
+<li><strong>卸载</strong>：程序代码退出、异常、结束等。</li>
+</ul>
+<h1 id="双亲委派模型"><a href="#双亲委派模型" class="headerlink" title="双亲委派模型"></a>双亲委派模型</h1><h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><h3 id="启动类加载器（Bootstrap-Class-Loader）"><a href="#启动类加载器（Bootstrap-Class-Loader）" class="headerlink" title="启动类加载器（Bootstrap Class-Loader）"></a>启动类加载器（Bootstrap Class-Loader）</h3><p>是由 C++ 实现的，它是用来加载 <code>&lt;JAVA_HOME&gt;\jre\lib\rt.jar</code> 和 <code>resources.jar</code> 等 jar 包的。<br><strong>注意</strong>：启动类加载器（Bootstrap ClassLoader）是由 C++ 实现的，而这个 C++ 实现的类加载器在 Java 中是没有与之对应的类的</p>
+<h3 id="扩展类加载器（Extension-or-Ext-Class-Loader）"><a href="#扩展类加载器（Extension-or-Ext-Class-Loader）" class="headerlink" title="扩展类加载器（Extension or Ext Class-Loader）"></a>扩展类加载器（Extension or Ext Class-Loader）</h3><p>扩展类加载器是用来加载 <code>&lt;JAVA_HOME&gt;\jre\lib\ext</code> 目录下 jar 包的，这就是所谓的 extension 机制。该目录也可以通过设置 “java.ext.dirs”来覆盖。<br><code>java -Djava.ext.dirs=your_ext_dir HelloWorld</code></p>
+<h3 id="应用类加载器（Application-or-App-Class-Loader）"><a href="#应用类加载器（Application-or-App-Class-Loader）" class="headerlink" title="应用类加载器（Application or App Class-Loader）"></a>应用类加载器（Application or App Class-Loader）</h3><p>应用程序类加载器是用来加载 <code>classpath</code> 也就是用户的所有类的</p>
+<h2 id="双亲委派过程"><a href="#双亲委派过程" class="headerlink" title="双亲委派过程"></a>双亲委派过程</h2><p>双亲委派模型的执行流程：</p>
+<ol>
+<li>当加载一个类时，会先从应用程序类加载器的缓存里查找相应的类，如果能找到就返回对象，如果找不到就执行下面流程；</li>
+<li>在扩展加载器缓存中查找相应的类，如果能找到就返回对象，如果找不到就继续下面流程；</li>
+<li>在启动类加载器中查询相应的类，如果找到就返回对象，如果找不到就继续下面流程；</li>
+<li>在扩展加载器中查找并加载类，如果能找到就返回对象，并将对象加入到缓存中，如果找不到就继续下面流程；</li>
+<li>在应用程序类加载器中查找并加载类，如果能找到就返回对象，并将对象加入到缓存中，如果找不到就返回 ClassNotFound 异常。<br><strong>注意</strong>：一般“双亲”指的是“父亲”和“母亲”，而在<strong>这里“双亲”指的是类加载类先向上找，再向下找的流程就叫做双亲委派模型</strong>。</li>
+</ol>
+<h2 id="双亲委派加载方向"><a href="#双亲委派加载方向" class="headerlink" title="双亲委派加载方向"></a>双亲委派加载方向</h2><p><strong>类加载器在加载类时，只能向上递归委托其双亲进行类加载，而不可能从双亲再反向委派当前类加载器来进行类加载。</strong></p>
+<p>比如：有两个类 <code>TestA.class</code> 和 <code>A.class</code>, 其中 <code>TestA.class</code> 依赖 <code>A.class</code> ，如果把 <code>TestA.class</code> 放到扩展类加载器的加载路径中 <code>$JAVA\_HOME/jre/lib/ext</code>, 而把 <code>A.class</code> 放在当前目录。当我们运行程序: <code>java TestMain</code> 会抛出 <code>NoClassFoundError: A</code> 的错误。</p>
+<p>原因就是上述说的委派加载具有方向性导致的：</p>
+<ol>
+<li>运行 java 命令执行 TestMain 程序时，系统类加载器准备加载 TestMain，根据双亲委派机制，先委派给其双亲进行加载，最后，双亲扩展类加载器在其加载路径中的 TestMain. Jar 中找到了 TestMain. Class，完成了 TestMain 的加载。</li>
+<li>TestMain 中依赖了 A，此时，会根据加载了 TestMain 的类加载器：扩展类加载器去加载 A，加载方式根据委托机制递归委托给双亲加载，扩展类加载器的双亲为启动类加载器，在启动类加载器的加载路径中不存在 A，加载失败，此时由扩展类加载器在自己的加载路径中加载 A，也因为加载路径中没有A.class 存在，A.class 存在于系统类加载器的加载路径中，但是扩展类加载器不会再返回去委托系统类加载器进行加载，所以直接抛出加载失败异常，出现了上述的错误。</li>
+</ol>
+<h2 id="双亲委派的优缺点"><a href="#双亲委派的优缺点" class="headerlink" title="双亲委派的优缺点"></a>双亲委派的优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><h4 id="1-安全"><a href="#1-安全" class="headerlink" title="1. 安全"></a>1. 安全</h4><p>使用双亲委派模型时，用户就不能伪造一些不安全的系统类了，比如 jre 里面已经提供了 String 类在启动类加载时加载，那么用户自定义再自定义一个不安全的 String 类时，按照双亲委派模型就不会再加载用户定义的那个不安全的 String 类了，这样就可以避免非安全问题的发生了。</p>
+<h4 id="2-避免重复加载"><a href="#2-避免重复加载" class="headerlink" title="2. 避免重复加载"></a>2. 避免重复加载</h4><p>当一个类被加载之后，因为使用的双亲委派模型，这样不会出现多个类加载器都将同一个类重复加载的情况了。</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><h4 id="加载-SPI-实现类"><a href="#加载-SPI-实现类" class="headerlink" title="加载 SPI 实现类"></a>加载 SPI 实现类</h4><p>比如 JNDI（Java Naming and Directory Interface，Java 命名与目录接口）服务，它的代码由启动类加载器去加载(在 JDK 1.3 时放进 rt.jar)，但 JNDI 的目的就是对资源进行集中管理和查找，它需要调用独立厂商实现部部署在应用程序的 classpath 下的 JNDI 接口提供者（SPI, Service Provider Interface）的代码，但启动类加载器不可能“认识”这些代码，这就双亲委派模型的问题，</p>
+<p>JDBC 也是同样的问题。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>双亲委派模型是和 Java 中多个类加载器（启动类加载器、扩展加载器、应用程序类加载器）的运行规则</li>
+<li>通过这个（双亲委派模型）规则可以避免类的非安全问题和类被重复加载的问题。</li>
+<li>但它也遇到了一些问题，比如 JNDI 和 JDBC 不能通过这个规则进行加载，它需要通过打破双亲委派的模型的方式来加载。</li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> Java 类加载过程</li>
+        <li><strong>作者:</strong> zjun</li>
+        <li><strong>创建于
+                :</strong> 2016-02-11 22:05:34</li>
+        <!--
+            <li>
+                <strong>更新于
+                    :</strong> 2023-12-11 22:14:35
+            </li>
+        -->
+        <li>
+            <strong>链接:</strong> https://zjun.site/2016/02/bffb0bede084.html
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
 </div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/JVM/">#JVM</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2016/09/46566b8b6e0d.html"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">synchronized 实现等待-通知机制</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2016/01/d2a9c047d26f.html"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Java内存区域及管理</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container pjax">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;评论
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://comments.zjun.site',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          requiredMeta: ['nick', 'mail']
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">Java 类加载过程</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E6%8F%8F%E8%BF%B0"><span class="nav-text">类加载过程描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B"><span class="nav-text">双亲委派模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="nav-text">类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%EF%BC%88Bootstrap-Class-Loader%EF%BC%89"><span class="nav-text">启动类加载器（Bootstrap Class-Loader）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%EF%BC%88Extension-or-Ext-Class-Loader%EF%BC%89"><span class="nav-text">扩展类加载器（Extension or Ext Class-Loader）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%EF%BC%88Application-or-App-Class-Loader%EF%BC%89"><span class="nav-text">应用类加载器（Application or App Class-Loader）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E8%BF%87%E7%A8%8B"><span class="nav-text">双亲委派过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E5%8A%A0%E8%BD%BD%E6%96%B9%E5%90%91"><span class="nav-text">双亲委派加载方向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-text">双亲委派的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-text">缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
 
                 
 
@@ -892,6 +697,27 @@
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-side-tools-container">
